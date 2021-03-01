@@ -28,7 +28,7 @@ const useValues = () => {
     console.log(bao)
     if (bao) {
       const wethPriceFun = getWethPrice(bao).then((response) => {
-        setWethPrices(1)
+        setWethPrices(new BigNumber(1))
 
         const baoPriceFun = getBaoPrice(bao).then((response) => {
           setBaoPrices(response)
