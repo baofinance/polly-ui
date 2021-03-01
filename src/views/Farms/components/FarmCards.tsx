@@ -46,7 +46,7 @@ const FarmCards: React.FC = () => {
 	const BAO_BER_BLOCK = new BigNumber(256000)
 
 	const pools: {[key: string]: FarmWithStakedValue[]} = {
-		[PoolType.UNI]: [],
+		[PoolType.BAOSWAP]: [],
 		[PoolType.SUSHI]: [],
 		[PoolType.ARCHIVED]: []
 	};
@@ -56,7 +56,7 @@ const FarmCards: React.FC = () => {
 			const farmWithStakedValue = {
 				...farm,
 				...stakedValue[i],
-				poolType: farm.poolType || PoolType.UNI,
+				poolType: farm.poolType || PoolType.BAOSWAP,
 				apy: stakedValue[i]
 					? baoPrice
 							.times(BAO_BER_BLOCK)
@@ -73,15 +73,15 @@ const FarmCards: React.FC = () => {
 	return (
 		<Tabs>
 			<TabList>
-				<Tab>Uni Pools</Tab>
+				<Tab>Baoswap Pools</Tab>
 				<Tab>Sushi Pools</Tab>
 				<Tab>Archived Pools</Tab>
 			</TabList>
 
 			<TabPanel>
 				<StyledCards>
-					{pools[PoolType.UNI].length ? (
-						pools[PoolType.UNI].map((farm, i) => (
+					{pools[PoolType.BAOSWAP].length ? (
+						pools[PoolType.BAOSWAP].map((farm, i) => (
 							<React.Fragment key={i}>
 								<FarmCard farm={farm} />
 								{((i + 1) % (cardsPerRow) !== 0) && <StyledSpacer />}
