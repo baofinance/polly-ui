@@ -2,7 +2,7 @@ import { Contract } from 'web3-eth-contract'
 
 export enum PoolType {
   SUSHI = 'sushi',
-  UNI = 'uni',
+  BAOSWAP = 'baoswap',
   ARCHIVED = 'archived'
 }
 
