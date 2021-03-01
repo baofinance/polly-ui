@@ -1,0 +1,6 @@
+export const bao = '0x23Db89ba5e2e4aB1C9b412F03114bB5e26B43178'
+export const baov2 = '0x23Db89ba5e2e4aB1C9b412F03114bB5e26B43178'
+export const baoAddress = '0x23Db89ba5e2e4aB1C9b412F03114bB5e26B43178'
+export const masterChefAddress = '0xF9418c8f2DC02305df5036d9De3E4146BF1aBc46'
+export const wethPriceAddress = '0xa767f745331D267c7751297D982b050c93985627'
+export const baoPriceAddress = '0x1D8953421FACeCece4f28f538484b40C03c8665d'
