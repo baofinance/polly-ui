@@ -435,7 +435,7 @@ export const supportedPools = [
 			'https://app.uniswap.org/#/swap?outputCurrency=0xe95a203b1a91a908f9b9ce46459d101078c2c3cb',
 	},
 	{
-		pid: 18,
+		pid: 19,
 		lpAddresses: {
 			100: '0xa498fFe098f4dc9a52FAB6fBdd5c624Ca237F39c',
 		},
