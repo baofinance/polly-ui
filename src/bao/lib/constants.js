@@ -437,7 +437,7 @@ export const supportedPools = [
 	{
 		pid: 18,
 		lpAddresses: {
-			100: '0x8c36F7CA02D50bF8E705F582328b873Acbe9438D',
+			100: '0xa498fFe098f4dc9a52FAB6fBdd5c624Ca237F39c',
 		},
 		tokenAddresses: {
 			100: '0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252',
@@ -450,9 +450,9 @@ export const supportedPools = [
 		refUrl: 'https://www.binance.com/en/register?ref=NFBFR4AC',
 	},
 	{
-		pid: 19,
+		pid: 104,
 		lpAddresses: {
-			100: '0xa498fFe098f4dc9a52FAB6fBdd5c624Ca237F39c',
+			100: '0x7143aB1782bD66d966CAC3dba902Bde4c1Bfe31B',
 		},
 		tokenAddresses: {
 			100: '0x4ECaBa5870353805a9F068101A40E0f32ed605C6',
