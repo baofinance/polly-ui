@@ -165,8 +165,7 @@ export const supportedPools = [
 		symbol: 'BAO-xDAI BAOLP',
 		tokenSymbol: 'BAO',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 1,
@@ -181,8 +180,7 @@ export const supportedPools = [
 		symbol: 'BAO-wETH BAOLP',
 		tokenSymbol: 'BAO',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 2,
@@ -198,8 +196,7 @@ export const supportedPools = [
 		tokenSymbol: 'BAO',
 		poolType: 'sushi',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 3,
@@ -214,8 +211,7 @@ export const supportedPools = [
 		symbol: 'BAO-BAO.cx BaoLP',
 		tokenSymbol: 'BAO.cx',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 4,
@@ -231,8 +227,7 @@ export const supportedPools = [
 		tokenSymbol: 'BAO',
 		poolType: 'sushi',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 5,
@@ -248,8 +243,7 @@ export const supportedPools = [
 		tokenSymbol: 'BAO',
 		poolType: 'sushi',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 6,
@@ -265,8 +259,7 @@ export const supportedPools = [
 		tokenSymbol: 'BAO',
 		poolType: 'sushi',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 7,
@@ -282,8 +275,7 @@ export const supportedPools = [
 		tokenSymbol: 'BAO',
 		poolType: 'sushi',
 		icon: '/bao.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 8,
@@ -299,8 +291,7 @@ export const supportedPools = [
 		tokenSymbol: 'sushi',
 		poolType: 'sushi',
 		icon: '/simplysushi.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 9,
@@ -316,8 +307,7 @@ export const supportedPools = [
 		tokenSymbol: 'sushi',
 		poolType: 'sushi',
 		icon: '/simplysushi.png',
-		refUrl:
-			'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
 		pid: 10,
@@ -332,8 +322,7 @@ export const supportedPools = [
 		symbol: 'GRT-xDAI BAOLP',
 		tokenSymbol: 'GRT',
 		icon: '/gummy-bear.png',
-		refUrl:
-			'https://ftx.com/trade/GRT/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/GRT/USD#a=getbao',
 	},
 	{
 		pid: 11,
@@ -348,8 +337,7 @@ export const supportedPools = [
 		symbol: 'GRT-wBTC BAOLP',
 		tokenSymbol: 'GRT',
 		icon: '/gummy-bear.png',
-		refUrl:
-			'https://ftx.com/trade/GRT/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/GRT/USD#a=getbao',
 	},
 	{
 		pid: 12,
@@ -380,8 +368,7 @@ export const supportedPools = [
 		symbol: '1INCH-xDAI BAOLP',
 		tokenSymbol: '1inch',
 		icon: '/moon-cakers.png',
-		refUrl:
-			'https://ftx.com/trade/1INCH/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/1INCH/USD#a=getbao',
 	},
 	{
 		pid: 14,
@@ -460,8 +447,7 @@ export const supportedPools = [
 		symbol: 'wBTC-xDAI BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/wrap.png',
-		refUrl:
-			'https://www.binance.com/en/register?ref=NFBFR4AC',
+		refUrl: 'https://www.binance.com/en/register?ref=NFBFR4AC',
 	},
 	{
 		pid: 19,
@@ -476,8 +462,7 @@ export const supportedPools = [
 		symbol: 'USDT-xDAI BAOLP',
 		tokenSymbol: 'USDT',
 		icon: '/chocolate.png',
-		refUrl:
-			'https://ftx.com/trade/USDT/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/USDT/USD#a=getbao',
 	},
 	{
 		pid: 20,
@@ -492,8 +477,7 @@ export const supportedPools = [
 		symbol: 'LINK-xDAI BAOLP',
 		tokenSymbol: 'LINK',
 		icon: '/sandwhich.png',
-		refUrl:
-			'https://ftx.com/trade/LINK/USD#a=getbao',
+		refUrl: 'https://ftx.com/trade/LINK/USD#a=getbao',
 	},
 	{
 		pid: 21,
@@ -508,8 +492,7 @@ export const supportedPools = [
 		symbol: 'USDC-xDAI BAOLP',
 		tokenSymbol: 'USDC',
 		icon: '/cereals.png',
-		refUrl:
-			'https://www.binance.com/en/register?ref=NFBFR4AC',
+		refUrl: 'https://www.binance.com/en/register?ref=NFBFR4AC',
 	},
 	{
 		pid: 22,
@@ -524,8 +507,7 @@ export const supportedPools = [
 		symbol: 'OKB-xDAI BAOLP',
 		tokenSymbol: 'OKB',
 		icon: '/okra.png',
-		refUrl:
-			'https://ftx.com/trade/OKB/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/OKB/USD#a=createtrade',
 	},
 	{
 		pid: 23,
@@ -540,8 +522,7 @@ export const supportedPools = [
 		symbol: 'HT-xDAI BAOLP',
 		tokenSymbol: 'HT',
 		icon: '/shrimp.png',
-		refUrl:
-			'https://www.huobi.com/en-us/topic/invited/?invite_code=pfr33',
+		refUrl: 'https://www.huobi.com/en-us/topic/invited/?invite_code=pfr33',
 	},
 	{
 		pid: 24,
@@ -556,8 +537,7 @@ export const supportedPools = [
 		symbol: 'AAVE-xDAI BAOLP',
 		tokenSymbol: 'AAVE',
 		icon: '/appetizer.png',
-		refUrl:
-			'https://app.aave.com/?referral=108',
+		refUrl: 'https://app.aave.com/?referral=108',
 	},
 	{
 		pid: 25,
@@ -572,8 +552,7 @@ export const supportedPools = [
 		symbol: 'CEL-xDAI BAOLP',
 		tokenSymbol: 'CEL',
 		icon: '/apple-jam.png',
-		refUrl:
-			'https://www.hoozh.com/friends/26368269?localeLang=en&',
+		refUrl: 'https://www.hoozh.com/friends/26368269?localeLang=en&',
 	},
 	{
 		pid: 26,
@@ -588,8 +567,7 @@ export const supportedPools = [
 		symbol: 'SNX-xDAI BAOLP',
 		tokenSymbol: 'SNX',
 		icon: '/snack.png',
-		refUrl:
-			'https://ftx.com/trade/UNI/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/UNI/USD#a=createtrade',
 	},
 	{
 		pid: 27,
@@ -604,8 +582,7 @@ export const supportedPools = [
 		symbol: 'CRV-xDAI BAOLP',
 		tokenSymbol: 'CRV',
 		icon: '/custard.png',
-		refUrl:
-			'https://www.okex.com/join/3/1914410',
+		refUrl: 'https://www.okex.com/join/3/1914410',
 	},
 	{
 		pid: 28,
@@ -620,8 +597,7 @@ export const supportedPools = [
 		symbol: 'COMP-xDAI BAOLP',
 		tokenSymbol: 'COMP',
 		icon: '/congee.png',
-		refUrl:
-			'https://ftx.com/trade/COMP-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/COMP-PERP#a=createtrade',
 	},
 	{
 		pid: 29,
@@ -636,8 +612,7 @@ export const supportedPools = [
 		symbol: 'MKR-xDAI BAOLP',
 		tokenSymbol: 'MKR',
 		icon: '/moon-cake.png',
-		refUrl:
-			'https://ftx.com/trade/MKR-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/MKR-PERP#a=createtrade',
 	},
 	{
 		pid: 30,
@@ -652,8 +627,7 @@ export const supportedPools = [
 		symbol: 'FTT-xDAI BAOLP',
 		tokenSymbol: 'FTT',
 		icon: '/tofu.png',
-		refUrl:
-			'https://ftx.com/trade/FTT/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/FTT/USD#a=createtrade',
 	},
 	{
 		pid: 31,
@@ -668,8 +642,7 @@ export const supportedPools = [
 		symbol: 'RENBTC-xDAI BAOLP',
 		tokenSymbol: 'RENBTC',
 		icon: '/soup.png',
-		refUrl:
-			'https://virgox.com/login/register?code=gxkb7dva',
+		refUrl: 'https://virgox.com/login/register?code=gxkb7dva',
 	},
 	{
 		pid: 32,
@@ -684,8 +657,7 @@ export const supportedPools = [
 		symbol: 'BAT-xDAI BAOLP',
 		tokenSymbol: 'BAT',
 		icon: '/beef.png',
-		refUrl:
-			'https://www.decoin.io/?ref=56336',
+		refUrl: 'https://www.decoin.io/?ref=56336',
 	},
 	{
 		pid: 33,
@@ -700,8 +672,7 @@ export const supportedPools = [
 		symbol: 'TUSD-xDAI BAOLP',
 		tokenSymbol: 'TUSD',
 		icon: '/baoiled-egg.png',
-		refUrl:
-			'https://www.digifinex.com/en-ww/from/v7D3UM?channelCode=ljaUPp',
+		refUrl: 'https://www.digifinex.com/en-ww/from/v7D3UM?channelCode=ljaUPp',
 	},
 	{
 		pid: 34,
@@ -716,8 +687,7 @@ export const supportedPools = [
 		symbol: 'HUSD-xDAI BAOLP',
 		tokenSymbol: 'HUSD',
 		icon: '/chinese-food.png',
-		refUrl:
-			'https://www.huobi.com/en-us/topic/invited/?invite_code=pfr33',
+		refUrl: 'https://www.huobi.com/en-us/topic/invited/?invite_code=pfr33',
 	},
 	{
 		pid: 35,
@@ -732,8 +702,7 @@ export const supportedPools = [
 		symbol: 'ZRX-xDAI BAOLP',
 		tokenSymbol: 'ZRX',
 		icon: '/meat.png',
-		refUrl:
-			'https://nominex.io/?r=33642',
+		refUrl: 'https://nominex.io/?r=33642',
 	},
 	{
 		pid: 36,
@@ -748,8 +717,7 @@ export const supportedPools = [
 		symbol: 'OCEAN-xDAI BAOLP',
 		tokenSymbol: 'OCEAN',
 		icon: '/orange-chicken.png',
-		refUrl:
-			'https://www.kucoin.com/ucenter/signup?rcode=Ptuf31',
+		refUrl: 'https://www.kucoin.com/ucenter/signup?rcode=Ptuf31',
 	},
 	{
 		pid: 37,
@@ -764,8 +732,7 @@ export const supportedPools = [
 		symbol: 'KNC-xDAI BAOLP',
 		tokenSymbol: 'KNC',
 		icon: '/kung-pao-chicken.png',
-		refUrl:
-			'https://ftx.com/trade/KNC-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/KNC-PERP#a=createtrade',
 	},
 	{
 		pid: 38,
@@ -780,8 +747,7 @@ export const supportedPools = [
 		symbol: 'RSR-xDAI BAOLP',
 		tokenSymbol: 'RSR',
 		icon: '/stew.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 39,
@@ -796,8 +762,7 @@ export const supportedPools = [
 		symbol: 'ENJ-xDAI BAOLP',
 		tokenSymbol: 'ENJ',
 		icon: '/egg.png',
-		refUrl:
-			'https://crypto.com/exch/93x4g2q4zk',
+		refUrl: 'https://crypto.com/exch/93x4g2q4zk',
 	},
 	{
 		pid: 40,
@@ -812,8 +777,7 @@ export const supportedPools = [
 		symbol: 'NMR-xDAI BAOLP',
 		tokenSymbol: 'NMR',
 		icon: '/meatballs.png',
-		refUrl:
-			'https://www.digifinex.com/en-ww/from/?channelCode=ljaUPp',
+		refUrl: 'https://www.digifinex.com/en-ww/from/?channelCode=ljaUPp',
 	},
 	{
 		pid: 41,
@@ -828,8 +792,7 @@ export const supportedPools = [
 		symbol: 'BAL-xDAI BAOLP',
 		tokenSymbol: 'BAL',
 		icon: '/bento.png',
-		refUrl:
-			'https://ftx.com/trade/BAL-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/BAL-PERP#a=createtrade',
 	},
 	{
 		pid: 42,
@@ -844,8 +807,7 @@ export const supportedPools = [
 		symbol: 'MANA-xDAI BAOLP',
 		tokenSymbol: 'MANA',
 		icon: '/miantiao.png',
-		refUrl:
-			'https://virgox.com/login/register?code=gxkb7dva',
+		refUrl: 'https://virgox.com/login/register?code=gxkb7dva',
 	},
 	{
 		pid: 43,
@@ -860,8 +822,7 @@ export const supportedPools = [
 		symbol: 'MATIC-xDAI BAOLP',
 		tokenSymbol: 'MATIC',
 		icon: '/fish.png',
-		refUrl:
-			'https://ftx.com/trade/MATIC-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/MATIC-PERP#a=createtrade',
 	},
 	{
 		pid: 44,
@@ -876,8 +837,7 @@ export const supportedPools = [
 		symbol: 'SXP-xDAI BAOLP',
 		tokenSymbol: 'SXP',
 		icon: '/hotsour.png',
-		refUrl:
-			'https://ftx.com/trade/SXP-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/SXP-PERP#a=createtrade',
 	},
 	{
 		pid: 45,
@@ -892,8 +852,7 @@ export const supportedPools = [
 		symbol: 'HEGIC-xDAI BAOLP',
 		tokenSymbol: 'HEGIC',
 		icon: '/dumpling.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 46,
@@ -908,8 +867,7 @@ export const supportedPools = [
 		symbol: 'HBTC-xDAI BAOLP',
 		tokenSymbol: 'HBTC',
 		icon: '/egg-rolls.png',
-		refUrl:
-			'https://www.huobi.com/en-us/topic/invited/?invite_code=pfr33',
+		refUrl: 'https://www.huobi.com/en-us/topic/invited/?invite_code=pfr33',
 	},
 	{
 		pid: 47,
@@ -924,8 +882,7 @@ export const supportedPools = [
 		symbol: 'MPH-xDAI BAOLP',
 		tokenSymbol: 'MPH',
 		icon: '/chili.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 48,
@@ -940,8 +897,7 @@ export const supportedPools = [
 		symbol: 'sUSD-xDAI BAOLP',
 		tokenSymbol: 'sUSD',
 		icon: '/sticky-rice.png',
-		refUrl:
-			'https://virgox.com/login/register?code=gxkb7dva',
+		refUrl: 'https://virgox.com/login/register?code=gxkb7dva',
 	},
 	{
 		pid: 49,
@@ -956,8 +912,7 @@ export const supportedPools = [
 		symbol: 'MATH-xDAI BAOLP',
 		tokenSymbol: 'MATH',
 		icon: '/mapo-tofu.png',
-		refUrl:
-			'https://ftx.com/trade/MATH/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/MATH/USD#a=createtrade',
 	},
 	{
 		pid: 50,
@@ -972,8 +927,7 @@ export const supportedPools = [
 		symbol: 'SRM-xDAI BAOLP',
 		tokenSymbol: 'SRM',
 		icon: '/spring-rolls.png',
-		refUrl:
-			'https://ftx.com/trade/SRM/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/SRM/USD#a=createtrade',
 	},
 	{
 		pid: 51,
@@ -1004,8 +958,7 @@ export const supportedPools = [
 		symbol: 'BNT-xDAI BAOLP',
 		tokenSymbol: 'BNT',
 		icon: '/soy-sauce.png',
-		refUrl:
-			'https://ftx.com/trade/BNT/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/BNT/USD#a=createtrade',
 	},
 	{
 		pid: 53,
@@ -1020,8 +973,7 @@ export const supportedPools = [
 		symbol: 'UBT-xDAI BAOLP',
 		tokenSymbol: 'UBT',
 		icon: '/dried-fruit.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 54,
@@ -1036,8 +988,7 @@ export const supportedPools = [
 		symbol: 'mUSD-xDAI BAOLP',
 		tokenSymbol: 'mUSD',
 		icon: '/meatball.png',
-		refUrl:
-			'https://virgox.com/login/register?code=gxkb7dva',
+		refUrl: 'https://virgox.com/login/register?code=gxkb7dva',
 	},
 	{
 		pid: 55,
@@ -1052,8 +1003,7 @@ export const supportedPools = [
 		symbol: 'EURS-xDAI BAOLP',
 		tokenSymbol: 'EURS',
 		icon: '/eclair.png',
-		refUrl:
-			'https://virgox.com/login/register?code=gxkb7dva',
+		refUrl: 'https://virgox.com/login/register?code=gxkb7dva',
 	},
 	{
 		pid: 57,
@@ -1069,8 +1019,7 @@ export const supportedPools = [
 		tokenSymbol: 'STAKE',
 		poolType: 'sushi',
 		icon: '/soy.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 58,
@@ -1086,8 +1035,7 @@ export const supportedPools = [
 		tokenSymbol: 'BZRX',
 		poolType: 'sushi',
 		icon: '/ham.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 59,
@@ -1102,8 +1050,7 @@ export const supportedPools = [
 		symbol: 'MLN-xDAI BAOLP',
 		tokenSymbol: 'MLN',
 		icon: '/marmalade.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 60,
@@ -1118,8 +1065,7 @@ export const supportedPools = [
 		symbol: 'DPI-xDAI BAOLP',
 		tokenSymbol: 'DPI',
 		icon: '/tempura.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 61,
@@ -1150,8 +1096,7 @@ export const supportedPools = [
 		symbol: 'KP3R-xDAI BAOLP',
 		tokenSymbol: 'KP3R',
 		icon: '/kebab.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 63,
@@ -1166,8 +1111,7 @@ export const supportedPools = [
 		symbol: 'AKRO-xDAI BAOLP',
 		tokenSymbol: 'AKRO',
 		icon: '/cookie.png',
-		refUrl:
-			'https://ftx.com/trade/AKRO/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/AKRO/USD#a=createtrade',
 	},
 	{
 		pid: 64,
@@ -1182,8 +1126,7 @@ export const supportedPools = [
 		symbol: 'MTA-xDAI BAOLP',
 		tokenSymbol: 'MTA',
 		icon: '/mantou.png',
-		refUrl:
-			'https://ftx.com/trade/MTA-PERP#a=createtrade',
+		refUrl: 'https://ftx.com/trade/MTA-PERP#a=createtrade',
 	},
 	{
 		pid: 65,
@@ -1198,8 +1141,7 @@ export const supportedPools = [
 		symbol: 'TKN-xDAI BAOLP',
 		tokenSymbol: 'TKN',
 		icon: '/matcha-tea.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 66,
@@ -1214,8 +1156,7 @@ export const supportedPools = [
 		symbol: 'AUDIO-xDAI BAOLP',
 		tokenSymbol: 'AUDIO',
 		icon: '/spices.png',
-		refUrl:
-			'https://ftx.com/trade/AUDIO/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/AUDIO/USD#a=createtrade',
 	},
 	{
 		pid: 67,
@@ -1230,8 +1171,7 @@ export const supportedPools = [
 		symbol: 'Lien-xDAI BAOLP',
 		tokenSymbol: 'Lien',
 		icon: '/wonton-noodles.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 68,
@@ -1246,8 +1186,7 @@ export const supportedPools = [
 		symbol: 'JRT-xDAI BAOLP',
 		tokenSymbol: 'JRT',
 		icon: '/chicken-dish.png',
-		refUrl:
-			'https://bitmax.io/register?inviteCode=MCTXZDRU',
+		refUrl: 'https://bitmax.io/register?inviteCode=MCTXZDRU',
 	},
 	{
 		pid: 69,
@@ -1262,8 +1201,7 @@ export const supportedPools = [
 		symbol: 'BOND-xDAI BAOLP',
 		tokenSymbol: 'BOND',
 		icon: '/shaved-ice.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 70,
@@ -1278,8 +1216,7 @@ export const supportedPools = [
 		symbol: 'INDEX-xDAI BAOLP',
 		tokenSymbol: 'INDEX',
 		icon: '/bubble-tea.png',
-		refUrl:
-			'https://bilaxy.com/user/register?intro=1428882',
+		refUrl: 'https://bilaxy.com/user/register?intro=1428882',
 	},
 	{
 		pid: 71,
@@ -1294,8 +1231,7 @@ export const supportedPools = [
 		symbol: 'DOUGH-xDAI BAOLP',
 		tokenSymbol: 'DOUGH',
 		icon: '/dough.png',
-		refUrl:
-			'https://www.hotbit.io/register?ref=669143',
+		refUrl: 'https://www.hotbit.io/register?ref=669143',
 	},
 	{
 		pid: 72,
@@ -1310,8 +1246,7 @@ export const supportedPools = [
 		symbol: 'ROOK-xDAI BAOLP',
 		tokenSymbol: 'ROOK',
 		icon: '/roll-fish.png',
-		refUrl:
-			'https://www.hotbit.io/register?ref=669143',
+		refUrl: 'https://www.hotbit.io/register?ref=669143',
 	},
 	{
 		pid: 73,
@@ -1374,8 +1309,7 @@ export const supportedPools = [
 		symbol: 'GNO-xDAI BAOLP',
 		tokenSymbol: 'GNO',
 		icon: '/kungpao.png',
-		refUrl:
-			'https://www.hoozh.com/friends/26368269?localeLang=en&',
+		refUrl: 'https://www.hoozh.com/friends/26368269?localeLang=en&',
 	},
 	{
 		pid: 77,
@@ -1406,8 +1340,7 @@ export const supportedPools = [
 		symbol: 'REN-xDAI BAOLP',
 		tokenSymbol: 'REN',
 		icon: '/roastchicken.png',
-		refUrl:
-			'https://www.digifinex.com/en-ww/from/?channelCode=ljaUPp',
+		refUrl: 'https://www.digifinex.com/en-ww/from/?channelCode=ljaUPp',
 	},
 	{
 		pid: 80,
@@ -1438,8 +1371,7 @@ export const supportedPools = [
 		symbol: 'PERP-xDAI BAOLP',
 		tokenSymbol: 'PERP',
 		icon: '/pizza.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 82,
@@ -1454,8 +1386,7 @@ export const supportedPools = [
 		symbol: 'API3-xDAI BAOLP',
 		tokenSymbol: 'API3',
 		icon: '/toaster.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 83,
@@ -1470,8 +1401,7 @@ export const supportedPools = [
 		symbol: 'FRONT-xDAI BAOLP',
 		tokenSymbol: 'FRONT',
 		icon: '/frog-prince.png',
-		refUrl:
-			'https://ftx.com/trade/FRONT/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/FRONT/USD#a=createtrade',
 	},
 	{
 		pid: 84,
@@ -1486,8 +1416,7 @@ export const supportedPools = [
 		symbol: 'FRONT-xDAI BAOLP',
 		tokenSymbol: 'FRONT',
 		icon: '/frog-prince.png',
-		refUrl:
-			'https://ftx.com/trade/FRONT/USD#a=createtrade',
+		refUrl: 'https://ftx.com/trade/FRONT/USD#a=createtrade',
 	},
 	{
 		pid: 85,
@@ -1502,8 +1431,7 @@ export const supportedPools = [
 		symbol: 'DUCK-xDAI BAOLP',
 		tokenSymbol: 'DUCK',
 		icon: '/roastchicken.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 86,
@@ -1550,8 +1478,7 @@ export const supportedPools = [
 		symbol: 'MASK-xDAI BAOLP',
 		tokenSymbol: 'MASK',
 		icon: '/simplysushi.png',
-		refUrl:
-			'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
+		refUrl: 'https://www.mxc.ai/auth/signup?inviteCode=13z4G',
 	},
 	{
 		pid: 89,
@@ -1566,8 +1493,7 @@ export const supportedPools = [
 		symbol: 'wBTC-tBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/bao.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 90,
@@ -1582,8 +1508,7 @@ export const supportedPools = [
 		symbol: 'Sushi-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/simplysushi.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 91,
@@ -1598,8 +1523,7 @@ export const supportedPools = [
 		symbol: 'YFI-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/churros.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 92,
@@ -1614,8 +1538,7 @@ export const supportedPools = [
 		symbol: 'UNI-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/unagi.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 93,
@@ -1630,8 +1553,7 @@ export const supportedPools = [
 		symbol: 'BAL-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/bento.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 94,
@@ -1646,8 +1568,7 @@ export const supportedPools = [
 		symbol: 'LINK-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/sandwhich.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 95,
@@ -1662,8 +1583,7 @@ export const supportedPools = [
 		symbol: 'FTT-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/tofu.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 96,
@@ -1678,8 +1598,7 @@ export const supportedPools = [
 		symbol: 'AAVE-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/cocktail.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 97,
@@ -1694,8 +1613,7 @@ export const supportedPools = [
 		symbol: 'SNX-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/snack.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 98,
@@ -1710,8 +1628,7 @@ export const supportedPools = [
 		symbol: 'DPI-wBTC BAOLP',
 		tokenSymbol: 'wBTC',
 		icon: '/tempura.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 99,
@@ -1726,8 +1643,7 @@ export const supportedPools = [
 		symbol: 'HNY-xDAI BAOLP',
 		tokenSymbol: 'HNY',
 		icon: '/nectar.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 100,
@@ -1742,8 +1658,7 @@ export const supportedPools = [
 		symbol: 'HNY-BAO BAOLP',
 		tokenSymbol: 'HNY',
 		icon: '/nectar.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 	{
 		pid: 101,
@@ -1758,7 +1673,6 @@ export const supportedPools = [
 		symbol: 'AGVE-BAO BAOLP',
 		tokenSymbol: 'AGVE',
 		icon: '/nectar.png',
-		refUrl:
-			'#',
+		refUrl: '#',
 	},
 ]
