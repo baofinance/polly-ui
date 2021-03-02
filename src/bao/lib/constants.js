@@ -201,7 +201,7 @@ export const supportedPools = [
 	{
 		pid: 3,
 		lpAddresses: {
-			100: '0xDD91e48Ec9CDD55412581E94222e9dEbAa8E2b83',
+			100: '0x42d69d4b7fC4506504dc4aaA224565B6618e5722',
 		},
 		tokenAddresses: {
 			100: '0x82dFe19164729949fD66Da1a37BC70dD6c4746ce',
