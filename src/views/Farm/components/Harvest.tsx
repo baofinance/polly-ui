@@ -45,12 +45,12 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
 							<img src={baoIcon} height={50} />
 						</CardIcon>
 						<Value value={getBalanceNumber(earnings)} />
-						<Label text="BAO Earned" />
+						<Label text="BAOcx Earned" />
 					</StyledCardHeader>
 					<Spacer />
 					<StyledCardHeader>
 						<Value value={getBalanceNumber(locks)} />
-						<Label text="Locked Bao" />
+						<Label text="Lockedcx Bao" />
 						<Spacer />
 					</StyledCardHeader>
 					<Label text={userInfo} />
