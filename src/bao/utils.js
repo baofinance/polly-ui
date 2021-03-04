@@ -209,7 +209,7 @@ export const getWethPrice = async (bao) => {
 }
 
 export const getBaoPrice = async (bao) => {
-	const addr = '0x1D8953421FACeCece4f28f538484b40C03c8665d'
+	const addr = '0xdcf3aC78f37098222C53C79974faaC5ce1aaF707'
 	const amount = await bao.contracts.baoPrice.methods
 		.consult(addr.toString(), 1)
 		.call()
