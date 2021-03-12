@@ -1616,7 +1616,7 @@ export const supportedPools = [
 		refUrl: '#',
 	},
 	{
-		pid: 107,
+		pid: 106,
 		lpAddresses: {
 			100: '0x88B781026565214894aC74F11d4B246AA334143E',
 		},
