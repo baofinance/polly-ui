@@ -50,7 +50,7 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
 					<Spacer />
 					<StyledCardHeader>
 						<Value value={getBalanceNumber(locks)} />
-						<Label text="Lockedcx Bao" />
+						<Label text="Locked BAOcx" />
 						<Spacer />
 					</StyledCardHeader>
 					<Label text={userInfo} />
