@@ -279,6 +279,22 @@ export const supportedPools = [
 		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
 	},
 	{
+		pid: 107,
+		lpAddresses: {
+			100: '0xf2F9Ff5Cb8E2B21117715B2E3B5C6285349da498',
+		},
+		tokenAddresses: {
+			100: '0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE',
+		},
+		tokenDecimals: 18,
+		name: 'Sushi Eth',
+		symbol: 'SUSH-ETH SUSHILP',
+		tokenSymbol: 'SUSHI',
+		poolType: 'sushi',
+		icon: '/unagi.png',
+		refUrl: 'https://ftx.com/trade/SUSHI/USD#a=createtrade',
+	},
+	{
 		pid: 8,
 		lpAddresses: {
 			100: '0x1987399C0C023869ea00a51750667721BA009be6',
@@ -822,7 +838,7 @@ export const supportedPools = [
 		name: 'Mana Miantiao',
 		symbol: 'MANA-xDAI BAOLP',
 		tokenSymbol: 'MANA',
-		icon: '/miantiao.png',
+		icon: '/noodles.png',
 		refUrl: 'https://virgox.com/login/register?code=gxkb7dva',
 	},
 	{
@@ -834,7 +850,7 @@ export const supportedPools = [
 			100: '0x7122d7661c4564b7C6Cd4878B06766489a6028A2',
 		},
 		tokenDecimals: 18,
-		name: 'Matic Mandarin Fsh',
+		name: 'Matic Mandarin Fish',
 		symbol: 'MATIC-xDAI BAOLP',
 		tokenSymbol: 'MATIC',
 		icon: '/fish.png',
