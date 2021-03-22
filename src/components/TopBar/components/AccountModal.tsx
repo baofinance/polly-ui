@@ -14,6 +14,7 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
+import baoIcon from '../../../assets/img/bao.png'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()
@@ -35,19 +36,19 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 				<div style={{ display: 'flex' }}>
 					<StyledBalanceWrapper>
 						<CardIcon>
-							<span>🥟</span>
+							<span><img src={baoIcon} height={50} /></span>
 						</CardIcon>
 						<StyledBalance>
 							<Value value={getBalanceNumber(baoBalance)} />
-							<Label text="BAO Balance" />
+							<Label text="BAOcx Balance" />
 						</StyledBalance>
 					</StyledBalanceWrapper>
 				</div>
 
 				<Spacer />
 				<Button
-					href={`https://etherscan.io/address/${account}`}
-					text="View on Etherscan"
+					href={`https://blockscout.com/xdai/mainnet/address/${account}`}
+					text="View on Blockscout"
 					variant="secondary"
 				/>
 				<Spacer />
