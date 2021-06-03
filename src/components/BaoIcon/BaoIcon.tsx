@@ -16,7 +16,7 @@ const BaoIcon: React.FC<BaoIconProps> = ({ size = 36, v1, v2, v3 }) => (
 			filter: v1 ? 'saturate(0.5)' : undefined,
 		}}
 	>
-		<img src={baoBanner} width={50} height={50} />
+		<img src={baoBanner} width={50} height={50} alt="" />
 	</span>
 )
 

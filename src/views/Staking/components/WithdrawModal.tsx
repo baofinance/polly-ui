@@ -3,22 +3,21 @@ import React, { useCallback, useMemo, useState } from 'react'
 import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
-import ModalContent from '../../../components/ModalContent'
 import ModalTitle from '../../../components/ModalTitle'
 import TokenInput from '../../../components/TokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
-interface DepositModalProps extends ModalProps {
+interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
 	tokenName?: string
 }
 
-const DepositModal: React.FC<DepositModalProps> = ({
-	max,
+const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onConfirm,
 	onDismiss,
-	tokenName = '',
+	max,
+	tokenName = 'tBAO',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -40,11 +39,11 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
 	return (
 		<Modal>
-			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
+			<ModalTitle text={`Withdraw ${tokenName}`} />
 			<TokenInput
-				value={val}
 				onSelectMax={handleSelectMax}
 				onChange={handleChange}
+				value={val}
 				max={fullBalance}
 				symbol={tokenName}
 			/>
@@ -61,13 +60,8 @@ const DepositModal: React.FC<DepositModalProps> = ({
 					}}
 				/>
 			</ModalActions>
-			<ModalContent>
-				{
-					"Remember a 0.75% fee will be added to the treasury when depositing but you'll earn the APY to offset it."
-				}
-			</ModalContent>
 		</Modal>
 	)
 }
 
-export default DepositModal
+export default WithdrawModal

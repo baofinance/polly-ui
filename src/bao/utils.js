@@ -29,6 +29,7 @@ export const getBaoPriceAddress = (bao) => {
 export const getBaoAddress = (bao) => {
 	return bao && bao.baoAddress
 }
+
 export const getWethContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.weth
 }
@@ -44,8 +45,13 @@ export const getBaoPriceContract = (bao) => {
 export const getMasterChefContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.masterChef
 }
+
 export const getBaoContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.bao
+}
+
+export const gettBaoStakingContract = (bao) => {
+	return bao && bao.contracts && bao.contracts.tBaoStaking
 }
 
 export const getFarms = (bao) => {
@@ -115,19 +121,14 @@ export const getTotalLPWethValue = async (
 	console.log(lpContract.address, 'lp')
 	console.log(tokenContract.address, 'token')
 	console.log(pid, 'pid')
-	const [
-		tokenAmountWholeLP,
-		balance,
-		totalSupply,
-		lpContractWeth,
-		poolWeight,
-	] = await Promise.all([
-		tokenContract.methods.balanceOf(lpContract.options.address).call(),
-		lpContract.methods.balanceOf(masterChefContract.options.address).call(),
-		lpContract.methods.totalSupply().call(),
-		wethContract.methods.balanceOf(lpContract.options.address).call(),
-		getPoolWeight(masterChefContract, pid),
-	])
+	const [tokenAmountWholeLP, balance, totalSupply, lpContractWeth, poolWeight] =
+		await Promise.all([
+			tokenContract.methods.balanceOf(lpContract.options.address).call(),
+			lpContract.methods.balanceOf(masterChefContract.options.address).call(),
+			lpContract.methods.totalSupply().call(),
+			wethContract.methods.balanceOf(lpContract.options.address).call(),
+			getPoolWeight(masterChefContract, pid),
+		])
 
 	// Return p1 * w1 * 2
 	const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
@@ -220,6 +221,12 @@ export const getBaoSupply = async (bao) => {
 	return new BigNumber(await bao.contracts.bao.methods.totalSupply().call())
 }
 
+export const gettBaoSupply = async (bao) => {
+	return new BigNumber(
+		await bao.contracts.tBaoStaking.methods.totalSupply().call(),
+	)
+}
+
 export const getReferrals = async (masterChefContract, account) => {
 	return await masterChefContract.methods.getGlobalRefAmount(account).call()
 }
@@ -248,4 +255,24 @@ export const redeem = async (masterChefContract, account) => {
 	} else {
 		alert('pool not active')
 	}
+}
+
+export const enter = async (contract, amount, account) => {
+	return contract?.methods
+		.enter(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+}
+
+export const leave = async (contract, amount, account) => {
+	return contract.methods
+		.leave(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
 }

@@ -36,7 +36,9 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 				<div style={{ display: 'flex' }}>
 					<StyledBalanceWrapper>
 						<CardIcon>
-							<span><img src={baoIcon} height={50} /></span>
+							<span>
+								<img src={baoIcon} height={50} />
+							</span>
 						</CardIcon>
 						<StyledBalance>
 							<Value value={getBalanceNumber(baoBalance)} />

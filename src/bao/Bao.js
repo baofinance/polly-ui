@@ -37,6 +37,7 @@ export class Bao {
 		}
 		this.contracts = new Contracts(realProvider, networkId, this.web3, options)
 		this.baoAddress = contractAddresses.bao[100]
+		this.tbaoAddress = contractAddresses.tbao[100]
 		this.masterChefAddress = contractAddresses.masterChef[100]
 		this.wethAddress = contractAddresses.weth[100]
 		this.wethPriceAddress = contractAddresses.wethPrice[100]

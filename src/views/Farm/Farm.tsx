@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
+import { getMasterChefContract } from '../../bao/utils'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
+import { PoolType } from '../../contexts/Farms/types'
+import useBao from '../../hooks/useBao'
 import useFarm from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
-import useBao from '../../hooks/useBao'
-import { getMasterChefContract } from '../../bao/utils'
 import { getContract } from '../../utils/erc20'
 import Harvest from './components/Harvest'
-import {PoolType} from '../../contexts/Farms/types';
 import Stake from './components/Stake'
 
 const Farm: React.FC = () => {
@@ -25,7 +25,7 @@ const Farm: React.FC = () => {
 		name,
 		icon,
 		refUrl,
-		poolType
+		poolType,
 	} = useFarm(farmId) || {
 		pid: 0,
 		lpToken: '',

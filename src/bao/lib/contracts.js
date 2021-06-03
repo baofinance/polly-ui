@@ -14,6 +14,8 @@ import ERC20Abi from './abi/erc20.json'
 import WETHAbi from './abi/weth.json'
 import UniOracleABI from './abi/unioracle.json'
 import ChainOracle from './abi/chainoracle.json'
+import tBaoAbi from './abi/tbao.json'
+import TeaMakerAbi from './abi/teamaker.json'
 
 export class Contracts {
 	constructor(provider, networkId, web3, options) {
@@ -26,6 +28,7 @@ export class Contracts {
 		this.defaultGasPrice = options.defaultGasPrice
 
 		this.bao = new this.web3.eth.Contract(BaoAbi)
+		this.tBaoStaking = new this.web3.eth.Contract(tBaoAbi)
 		this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
 		this.weth = new this.web3.eth.Contract(WETHAbi)
 		this.wethPrice = new this.web3.eth.Contract(ChainOracle)
@@ -57,6 +60,7 @@ export class Contracts {
 		}
 
 		setProvider(this.bao, contractAddresses.bao[networkId])
+		setProvider(this.tBaoStaking, contractAddresses.tbao[networkId])
 		setProvider(this.masterChef, contractAddresses.masterChef[networkId])
 		setProvider(this.weth, contractAddresses.weth[networkId])
 		setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
@@ -78,12 +82,8 @@ export class Contracts {
 	}
 
 	async callContractFunction(method, options) {
-		const {
-			confirmations,
-			confirmationType,
-			autoGasMultiplier,
-			...txOptions
-		} = options
+		const { confirmations, confirmationType, autoGasMultiplier, ...txOptions } =
+			options
 
 		if (!this.blockGasLimit) {
 			await this.setGasLimit()

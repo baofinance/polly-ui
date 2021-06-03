@@ -7,20 +7,20 @@ import ERC20ABI from '../constants/abi/ERC20.json'
 export const getContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (ERC20ABI.abi as unknown) as AbiItem,
+    ERC20ABI.abi as unknown as AbiItem,
     address,
   )
   return contract
 }
 
 export const getAllowance = async (
-  lpContract: Contract,
-  masterChefContract: Contract,
-  account: string,
+  contract: Contract,
+  owner: string,
+  spender: string,
 ): Promise<string> => {
   try {
-    const allowance: string = await lpContract.methods
-      .allowance(account, masterChefContract.options.address)
+    const allowance: string = await contract.methods
+      .allowance(owner, spender)
       .call()
     return allowance
   } catch (e) {

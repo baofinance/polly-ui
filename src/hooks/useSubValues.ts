@@ -1,18 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
-import { provider } from 'web3-core'
-
 import { BigNumber } from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-
-import {
-  getWethPrice,
-  getBaoPrice,
-  getWethPriceContract,
-  getBaoPriceContract,
-} from '../bao/utils'
-import useLockedEarnings from './useLockedEarnings'
+import { getBaoPrice, getWethPrice } from '../bao/utils'
 import useBao from './useBao'
-import useBlock from './useBlock'
+import useLockedEarnings from './useLockedEarnings'
 
 const useSubValues = () => {
   const { account }: { account: string } = useWallet()
@@ -31,9 +22,7 @@ const useSubValues = () => {
 
         const baoPriceFun = getBaoPrice(bao).then((response) => {
           setBaoPrices(response)
-          const currentRate = wethPrices
-            .dividedBy(1)
-            .dividedBy(baoPrices)
+          const currentRate = wethPrices.dividedBy(1).dividedBy(baoPrices)
           const userValue = currentRate.multipliedBy(
             locks.dividedBy(1000000000000000000),
           )

@@ -10,7 +10,7 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 	const titletext = title.toString()
-	if (titletext.toString() == 'BaoChef is Ready') {
+	if (titletext.toString() === 'BaoChef is Ready') {
 		return (
 			<Container size="sm">
 				<StyledPageHeader>
@@ -22,12 +22,12 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 				</StyledPageHeader>
 			</Container>
 		)
-	} else if (titletext.toString() == 'Select Your Fav Dim Sum Entrees!') {
+	} else if (titletext.toString() === 'Select Your Fav Dim Sum Entrees!') {
 		return (
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} height="125" />
+						<img src={icon} height="125" alt="" />
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -47,7 +47,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} height="125" />
+						<img src={icon} height="125" alt="" />
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>

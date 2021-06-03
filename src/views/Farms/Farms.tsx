@@ -1,18 +1,13 @@
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
-
 import baoBanner from '../../assets/img/bao-banner.png'
-
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import WalletProviderModal from '../../components/WalletProviderModal'
-
 import useModal from '../../hooks/useModal'
-
 import Farm from '../Farm'
-
 import FarmCards from './components/FarmCards'
 
 const Farms: React.FC = () => {
