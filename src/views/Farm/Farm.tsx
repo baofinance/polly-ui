@@ -12,6 +12,7 @@ import useFarm from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
 import { getContract } from '../../utils/erc20'
 import Harvest from './components/Harvest'
+import { PoolType } from '../../contexts/Farms/types'
 import Stake from './components/Stake'
 
 const Farm: React.FC = () => {
