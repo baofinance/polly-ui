@@ -1,6 +1,6 @@
 ![GitHub Super-Linter](https://github.com/baofinance/ui/workflows/Lint%20Code%20Base/badge.svg)
 
-# BAO XDAI UI
+# Matic Franchise UI
 This is the [farms.baoswap.xyz](https://farms.baoswap.xyz) UI project.
 
 ## Contributing
