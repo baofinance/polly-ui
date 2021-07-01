@@ -40,6 +40,9 @@ export const addressMap = {
 }
 
 export const contractAddresses = {
+	bao: {
+		137: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a', //set to sushi for now
+	},
 	masterChef: {
 		137: '0x80C7DD17B01855a6D2347444a0FCC36136a314de', //sushi masterchef address, change
 	},

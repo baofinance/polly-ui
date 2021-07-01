@@ -12,8 +12,7 @@ import useModal from './hooks/useModal'
 import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
-import Staking from './views/Staking'
-import Indexes from './views/Indexes'
+import Indexes from './views/Nests'
 
 const url = new URL(window.location.toString())
 if (url.searchParams.has('ref')) {

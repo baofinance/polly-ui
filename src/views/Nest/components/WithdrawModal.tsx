@@ -4,6 +4,7 @@ import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
 import ModalTitle from '../../../components/ModalTitle'
+import ModalContent from '../../../components/ModalContent'
 import TokenInput from '../../../components/TokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
@@ -17,7 +18,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onConfirm,
 	onDismiss,
 	max,
-	tokenName = 'tBAO',
+	tokenName = '',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -60,6 +61,11 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 					}}
 				/>
 			</ModalActions>
+			<ModalContent>
+				{
+					'Remember the longer you stay in a pool the lower your fee. Read the docs for details, but most users will want to stay in a pool 5 days or longer.'
+				}
+			</ModalContent>
 		</Modal>
 	)
 }

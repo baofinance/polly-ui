@@ -1,38 +1,33 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Contract } from 'web3-eth-contract'
-import tbao from '../../../assets/img/tbao-icon.svg'
+import baoIcon from '../../../assets/img/bao.png'
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
+import Spacer from '../../../components/Spacer'
 import Value from '../../../components/Value'
-import useLeave from '../../../hooks/useLeave'
-import useModal from '../../../hooks/useModal'
-import useTokenBalance from '../../../hooks/useTokenBalance'
+import useBao from '../../../hooks/useBao'
+import useEarnings from '../../../hooks/useEarnings'
+import useLockedEarnings from '../../../hooks/useLockedEarnings'
+import useReward from '../../../hooks/useReward'
+import useSubValues from '../../../hooks/useSubValues'
+import useValues from '../../../hooks/useValues'
 import { getBalanceNumber } from '../../../utils/formatBalance'
-import WithdrawModal from './WithdrawModal'
 
 interface HarvestProps {
-	lpContract: Contract
+	pid: number
 }
 
-const UnstaketBao: React.FC<HarvestProps> = ({ lpContract }) => {
-	const tBaoBalance = useTokenBalance(lpContract.options.address)
+const Harvest: React.FC<HarvestProps> = ({ pid }) => {
+	const earnings = useEarnings(pid)
+	const locks = useLockedEarnings()
 	const [pendingTx, setPendingTx] = useState(false)
-
-	const { onLeave } = useLeave()
-
-	const tokenName = 'tBAO'
-
-	const [onPresentLeave] = useModal(
-		<WithdrawModal
-			max={tBaoBalance}
-			onConfirm={onLeave}
-			tokenName={tokenName}
-		/>,
-	)
+	const { onReward } = useReward(pid)
+	const bao = useBao()
+	const userInfo = useValues()
+	const userSubInfo = useSubValues()
 
 	return (
 		<Card>
@@ -40,18 +35,27 @@ const UnstaketBao: React.FC<HarvestProps> = ({ lpContract }) => {
 				<StyledCardContentInner>
 					<StyledCardHeader>
 						<CardIcon>
-							<img src={tbao} alt="" height="50" />
+							<img src={baoIcon} height={50} alt="" />
 						</CardIcon>
-						<Value value={getBalanceNumber(tBaoBalance)} />
-						<Label text="tBAO Available" />
+						<Value value={getBalanceNumber(earnings)} />
+						<Label text="BAOcx Earned" />
 					</StyledCardHeader>
+					<Spacer />
+					<StyledCardHeader>
+						<Value value={getBalanceNumber(locks)} />
+						<Label text="Locked BAOcx" />
+						<Spacer />
+					</StyledCardHeader>
+					<Label text={userInfo} />
+					<Spacer />
+					<Label text={userSubInfo} />
 					<StyledCardActions>
 						<Button
-							disabled={!tBaoBalance.toNumber() || pendingTx}
-							text={pendingTx ? 'Converting to BAOcx' : 'Convert to BAOcx'}
+							disabled={!earnings.toNumber() || pendingTx}
+							text={pendingTx ? 'Collecting BAO' : 'Harvest'}
 							onClick={async () => {
 								setPendingTx(true)
-								await onPresentLeave()
+								await onReward()
 								setPendingTx(false)
 							}}
 						/>
@@ -87,4 +91,4 @@ const StyledCardContentInner = styled.div`
 	justify-content: space-between;
 `
 
-export default UnstaketBao
+export default Harvest
