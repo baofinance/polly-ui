@@ -31,8 +31,6 @@ export class Contracts {
 		this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
 		//this.indexes = new this.web3.eth.Contract(IndexesAbi)
 		this.weth = new this.web3.eth.Contract(WETHAbi)
-		this.wethPrice = new this.web3.eth.Contract(ChainOracle)
-		this.baoPrice = new this.web3.eth.Contract(UniOracleABI)
 
 		this.pools = supportedPools.map((pool) =>
 			Object.assign(pool, {
@@ -63,8 +61,6 @@ export class Contracts {
 		setProvider(this.masterChef, contractAddresses.masterChef[networkId])
 		//setProvider(this.indexes, contractAddresses.indexes[networkId])
 		setProvider(this.weth, contractAddresses.weth[networkId])
-		setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
-		setProvider(this.baoPrice, contractAddresses.baoPrice[networkId])
 
 		this.pools.forEach(
 			({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
@@ -78,8 +74,6 @@ export class Contracts {
 		this.bao.options.from = account
 		this.masterChef.options.from = account
 		//this.indexes.options.from = account
-		this.wethPrice.options.from = account
-		this.baoPrice.options.from = account
 	}
 
 	async callContractFunction(method, options) {

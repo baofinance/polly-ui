@@ -39,8 +39,6 @@ export class Bao {
 		this.baoAddress = contractAddresses.bao[137]
 		this.masterChefAddress = contractAddresses.masterChef[137]
 		this.wethAddress = contractAddresses.weth[137]
-		this.wethPriceAddress = contractAddresses.wethPrice[137]
-		this.baoPriceAddress = contractAddresses.baoPrice[137]
 		console.log(`network Id: ${networkId}`, contractAddresses)
 	}
 

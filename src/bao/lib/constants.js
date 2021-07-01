@@ -49,12 +49,6 @@ export const contractAddresses = {
 	weth: {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 	},
-	wethPrice: {
-		137: '0xc9ECF45956f576681bDc01F79602A79bC2667B0c',
-	},
-	pollyPrice: {
-		137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19', //set to test index, change to test token when applicable
-	},
 	recipe: {
 		137: '0x2e055084295177D60B65F33416e872dd7aB34d5c',
 	}
