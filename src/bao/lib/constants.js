@@ -23,34 +23,34 @@ export const INTEGERS = {
 }
 
 export const addressMap = {
-	uniswapFactory: '0x45DE240fbE2077dd3e711299538A09854FAE9c9b',
-	uniswapFactoryV2: '0x45DE240fbE2077dd3e711299538A09854FAE9c9b',
-	WETH: '0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1',
-	SUSHI: '0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE',
-	GRT: '0xFAdc59D012Ba3c110B08A15B7755A5cb7Cbe77D7',
-	wBTC: '0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252',
-	USDT: '0x4ECaBa5870353805a9F068101A40E0f32ed605C6',
-	LINK: '0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2',
-	USDC: '0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83',
-	AAVE: '0xDF613aF6B44a31299E48131e9347F034347E2F00',
-	SNX: '0x3A00E08544d589E19a8e7D97D0294331341cdBF6',
-	CRV: '0x712b3d230F3C1c19db860d80619288b1F0BDd0Bd',
-	MATIC: '0x7122d7661c4564b7C6Cd4878B06766489a6028A2',
-	// TESTINDEX: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19', Test index consisting of amDAI & WMATIC
+	uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
+	uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
+	WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+	SUSHI: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+	GRT: '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
+	wBTC: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
+	USDT: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
+	LINK: '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
+	USDC: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+	AAVE: '0xd6df932a45c0f255f85145f286ea0b292b21c90b',
+	SNX: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
+	CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
+	MATIC: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+	TESTINDEX: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19', //Test index consisting of amDAI & WMATIC
 }
 
 export const contractAddresses = {
 	masterChef: {
-		100: '0xf712a82DD8e2Ac923299193e9d6dAEda2d5a32fd',
+		137: '0x80C7DD17B01855a6D2347444a0FCC36136a314de', //sushi masterchef address, change
 	},
 	weth: {
-		100: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d',
+		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 	},
 	wethPrice: {
-		100: '0xa767f745331D267c7751297D982b050c93985627',
+		137: '0xc9ECF45956f576681bDc01F79602A79bC2667B0c',
 	},
-	baoPrice: {
-		100: '0xdcf3aC78f37098222C53C79974faaC5ce1aaF707',
+	pollyPrice: {
+		137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19', //set to test index, change to test token when applicable
 	},
 	recipe: {
 		137: '0x2e055084295177D60B65F33416e872dd7aB34d5c',
@@ -58,7 +58,7 @@ export const contractAddresses = {
 }
 //
 /*
-BAO Address on mainnet for reference
+Address on mainnet for reference
 ==========================================
 0  USDT 0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852
 1  USDC 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc
@@ -79,16 +79,16 @@ export const supportedPools = [
 	{
 		pid: 0,
 		lpAddresses: {
-			100: '0x82820a99c431d0Bb7cA775Fa7247d1AC481f2E56',
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		},
 		tokenAddresses: {
-			100: '0x82dFe19164729949fD66Da1a37BC70dD6c4746ce',
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		},
 		tokenDecimals: 18,
-		name: 'BAO PARTY',
-		symbol: 'BAO-xDAI BAOLP',
-		tokenSymbol: 'BAO',
+		name: 'TEST INDEX FARM',
+		symbol: 'TESTERTOKEN',
+		tokenSymbol: 'TST',
 		icon: '/bao.png',
-		refUrl: 'https://ftx.com/trade/BAO/USD#a=getbao',
+		refUrl: '',
 	},
 ]

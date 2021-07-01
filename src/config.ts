@@ -1,3 +1,3 @@
 export default {
-  chainId: 100,
+  chainId: 137,
 }

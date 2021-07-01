@@ -13,6 +13,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Staking from './views/Staking'
+import Indexes from './views/Indexes'
 
 const url = new URL(window.location.toString())
 if (url.searchParams.has('ref')) {
@@ -45,8 +46,8 @@ const App: React.FC = () => {
 					<Route path="/farms">
 						<Farms />
 					</Route>
-					<Route path="/staking">
-						<Staking />
+					<Route path="/indexes">
+						<Indexes />
 					</Route>
 				</Switch>
 			</Router>
@@ -58,9 +59,9 @@ const Providers: React.FC = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<UseWalletProvider
-				chainId={100}
+				chainId={137}
 				connectors={{
-					walletconnect: { rpcUrl: 'https://rpc.xdaichain.com/' },
+					walletconnect: { rpcUrl: 'https://rpc-mainnet.maticvigil.com/' },
 				}}
 			>
 				<BaoProvider>
