@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import baoLogo from '../../assets/img/bao-logo.png'
+import baoLogo from '../../assets/img/polly.png'
 
 const Logo: React.FC = () => {
 	return (
 		<StyledLogo to="/">
 			<img src={baoLogo} height="32" style={{ marginTop: -4 }} />
 			<StyledText>
-				Bao.Finance <MasterChefText>BaoChef</MasterChefText>
+				Bao.Finance <MasterChefText>PollyChef</MasterChefText>
 			</StyledText>
 		</StyledLogo>
 	)

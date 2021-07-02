@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import baoBanner from '../../assets/img/bao-banner.png'
+import pollyBanner from '../../assets/img/polly.png'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
@@ -23,22 +23,10 @@ const Farms: React.FC = () => {
 					<>
 						<Route exact path={path}>
 							<PageHeader
-								icon={baoBanner}
+								icon={pollyBanner}
 								subtitle="Earn BAO tokens by staking Sushi and Baoswap V2 LP Tokens. And soon generate synthetic assets!"
 								title="Select Your Fav Dim Sum Entrees!"
 							/>
-							<StyledInfo>
-								❗️<b>Important</b>: Bao.cx distribution has hit its soft cap of
-								1T. Minting of new Bao.cx has ended, meaning farming rewards are
-								no longer accumulating. We are currently evaluating all
-								options. Please visit the Bao Finance{' '}
-								<a href="https://gov.bao.finance/">forums</a>,{' '}
-								<a href="https://snapshot.page/#/baovotes.eth">Snapshot </a>
-								or our <a href="https://discord.gg/BW3P62vJXT">Discord</a> for
-								more information.
-								<br />
-							</StyledInfo>
-							<Spacer size="md" />
 							<FarmCards />
 						</Route>
 						<Route path={`${path}/:farmId`}>

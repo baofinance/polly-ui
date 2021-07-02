@@ -12,6 +12,8 @@ interface ButtonProps {
 	text?: string
 	to?: string
 	variant?: 'default' | 'secondary' | 'tertiary'
+	inline?: boolean
+	width?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +25,8 @@ const Button: React.FC<ButtonProps> = ({
 	text,
 	to,
 	variant,
+	inline,
+	width,
 }) => {
 	const { color, spacing } = useContext(ThemeContext)
 
@@ -87,6 +91,8 @@ const Button: React.FC<ButtonProps> = ({
 			onClick={onClick}
 			padding={buttonPadding}
 			size={buttonSize}
+			inline={inline}
+			width={width}
 		>
 			{children}
 			{ButtonChild}
@@ -101,6 +107,8 @@ interface StyledButtonProps {
 	fontSize: number
 	padding: number
 	size: number
+	inline: boolean
+	width: string
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -111,7 +119,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 	box-shadow: ${(props) => props.boxShadow};
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}55`)};
 	cursor: pointer;
-	display: flex;
+	display: ${(props) => props.inline ? 'inline-block' : 'flex'};
 	font-size: ${(props) => props.fontSize}px;
 	font-weight: 700;
 	height: ${(props) => props.size}px;
@@ -120,7 +128,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 	padding-left: ${(props) => props.padding}px;
 	padding-right: ${(props) => props.padding}px;
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
-	width: 100%;
+	width: ${(props) => props.width ? props.width : '100%'};
 	&:hover {
 		background-color: ${(props) => props.theme.color.grey[100]};
 	}

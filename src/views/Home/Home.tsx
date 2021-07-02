@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import baoBanner from '../../assets/img/bao-banner.png'
+import pollyBanner from '../../assets/img/polly.png'
 import Button from '../../components/Button'
 import Container from '../../components/Container'
 import Page from '../../components/Page'
@@ -12,28 +12,17 @@ const Home: React.FC = () => {
 	return (
 		<Page>
 			<PageHeader
-				icon={baoBanner}
-				title="BaoChef(cx) is Ready"
+				icon={pollyBanner}
+				title="PollyChef is Ready"
 				subtitle="Stake Sushiswap and Baoswap LP tokens to earn BAO!"
 			/>
-			<StyledInfo>
-				❗️<b>Important</b>: Bao.cx distribution has hit its soft cap of 1T.
-				Minting of new Bao.cx has ended, meaning farming rewards are no longer
-				accumulating. We are currently evaluating all options. Please visit the
-				Bao Finance <a href="https://gov.bao.finance/">forums</a>,{' '}
-				<a href="https://snapshot.page/#/baovotes.eth">Snapshot </a>
-				or our <a href="https://discord.gg/BW3P62vJXT">Discord</a> for more
-				information.
-				<br />
-			</StyledInfo>
-			<Spacer size="md" />
 			<StyledInfo>
 				Be sure to read <a href="https://docs.bao.finance">docs.bao.finance</a>{' '}
 				before using the pools so you are familiar with protocol risks and fees!
 			</StyledInfo>
 			<Spacer size="md" />
 			<StyledInfo>
-				Please note this is the xDAI version of Bao. For the mainnet visit{' '}
+				Please note this is the MATIC version of Bao, Polly. For mainnet, visit{' '}
 				<a href="https://bao.finance">bao.finance</a>{' '}
 			</StyledInfo>
 			<Spacer size="md" />
