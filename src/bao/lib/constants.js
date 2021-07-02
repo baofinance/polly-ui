@@ -89,3 +89,27 @@ export const supportedPools = [
 		refUrl: '',
 	},
 ]
+
+export const supportedNests = [
+	{
+		nid: 0,
+		nestAddress: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
+		},
+		symbol: 'TEST',
+		isExperipie: true,
+		name: 'Test Nest',
+		description: 'Polly Test Nest consisting of amDAI & wMATIC',
+		useMintOverBuy: true,
+		useRecipe: true,
+		swapEnabled: true,
+		swapFees: '0.2',
+		streamingFees: '1%',
+		coingeckoId: 'metaverse-nft-index',
+		composition: [
+			{symbol: 'cmDAI', coingeckoId: 'aave-dai', address: '0x27f8d03b3a2196956ed754badc28d73be8830a6e', coingecokImageId: ''},
+			{symbol: 'wMATIC', coingeckoId: 'matic', address: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', coingecokImageId: ''},
+		],
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
+	},
+]
