@@ -12,7 +12,7 @@ import useModal from './hooks/useModal'
 import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
-import Nests from './views/Nests'
+import Indexes from './views/Nests'
 
 const url = new URL(window.location.toString())
 if (url.searchParams.has('ref')) {
@@ -42,11 +42,8 @@ const App: React.FC = () => {
 					<Route path="/" exact>
 						<Home />
 					</Route>
-					<Route path="/nests">
-						<Nests />
-					</Route>
-					<Route path="/farms">
-						<Farms />
+					<Route path="/indexes">
+						<Indexes />
 					</Route>
 				</Switch>
 			</Router>
