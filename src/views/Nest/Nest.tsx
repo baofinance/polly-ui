@@ -8,7 +8,7 @@ import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 import { PoolType } from '../../contexts/Farms/types'
 import useBao from '../../hooks/useBao'
-import useNest from '../../hooks/useNest'
+import useFarm from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
 import { getContract } from '../../utils/erc20'
 import Harvest from './components/Harvest'
@@ -18,15 +18,22 @@ import PriceChartArea from './components/PriceChartsArea'
 import poolsConfig from './helpers/Pools.json';
 
 const Nest: React.FC = () => {
-	const { nestId }: any = useParams()
+	const { farmId }: any = useParams()
 	const {
-		nid,
-		nestAddress,
-		coingeckoId,
+		pid,
+		lpToken,
+		lpTokenAddress,
+		tokenAddress,
+		earnToken,
 		name,
-	} = useNest(nestId) || {
+		icon,
+		refUrl,
+		poolType,
+	} = useFarm(farmId) || {
 		pid: 0,
-		nestAddress: '',
+		lpToken: '',
+		lpTokenAddress: '',
+		tokenAddress: '',
 		earnToken: '',
 		name: '',
 		icon: '',
@@ -62,7 +69,7 @@ const Nest: React.FC = () => {
 				subtitle={`Deposit ${lpTokenName}  Tokens and earn BAO`}
 				title={name}
 			/>
-			<PriceChartArea coingeckoId={poolsConfig.coingeckoId}/>
+			<PriceChartArea coingeckoId={poolsConfig..coingeckoId}/>
 			<StyledFarm>
 				<StyledCardsWrapper>
 					<StyledCardWrapper>
