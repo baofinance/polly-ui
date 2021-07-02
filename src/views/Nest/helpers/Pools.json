@@ -1,0 +1,26 @@
+{
+    "available": [
+      "0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19"
+    ],
+    "selectable": [
+      "0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19"
+    ],
+    "default": "0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19",
+    "0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19": {
+      "symbol": "TEST",
+      "isExperipie": true,
+      "name": "Test Index",
+      "description": "Polly Test index consisting of amDAI & WMATIC",
+      "useMintOverBuy": true,
+      "useRecipe": true,
+      "swapEnabled": false,
+      "swapFees": "0.2",
+      "streamingFees": "1%",
+      "coingeckoId": "metaverse-nft-index",
+      "composition": [
+        {"symbol":"cmDAI","coingeckoId":"aave-dai", "address":"0x27f8d03b3a2196956ed754badc28d73be8830a6e", "coingeckoImageId": ""},
+        {"symbol":"WMATIC","coingeckoId":"matic","address":"0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270", "coingeckoImageId": ""}
+      ],
+      "docs": "https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md"
+    }
+  }

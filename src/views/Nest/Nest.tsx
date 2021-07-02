@@ -13,8 +13,11 @@ import useRedeem from '../../hooks/useRedeem'
 import { getContract } from '../../utils/erc20'
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
+import {subgraphRequest} from './helpers/Subgraph.js'
+import PriceChartArea from './components/PriceChartsArea'
+import poolsConfig from './helpers/Pools.json';
 
-const Index: React.FC = () => {
+const Nest: React.FC = () => {
 	const { farmId }: any = useParams()
 	const {
 		pid,
@@ -66,6 +69,7 @@ const Index: React.FC = () => {
 				subtitle={`Deposit ${lpTokenName}  Tokens and earn BAO`}
 				title={name}
 			/>
+			<PriceChartArea coingeckoId={poolsConfig..coingeckoId}/>
 			<StyledFarm>
 				<StyledCardsWrapper>
 					<StyledCardWrapper>
@@ -129,4 +133,4 @@ const StyledInfo = styled.h3`
 	text-align: center;
 `
 
-export default Index
+export default Nest

@@ -11,7 +11,7 @@ import useModal from '../../hooks/useModal'
 import Farm from '../Farm'
 import NestList from './components/ListView/NestList';
 
-const Indexes: React.FC = () => {
+const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
 	const { account } = useWallet()
 	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
@@ -65,4 +65,4 @@ const StyledInfo = styled.h3`
 	}
 `
 
-export default Indexes
+export default Nests
