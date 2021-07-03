@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import pollyBanner from '../../assets/img/polly.png'
+import pollyBanner from '../../assets/img/polly-nests.png'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
@@ -11,7 +11,7 @@ import useModal from '../../hooks/useModal'
 import Farm from '../Farm'
 import NestList from './components/ListView/NestList';
 
-const Indexes: React.FC = () => {
+const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
 	const { account } = useWallet()
 	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
@@ -23,8 +23,8 @@ const Indexes: React.FC = () => {
 						<Route exact path={path}>
 							<PageHeader
 								icon={pollyBanner}
-								subtitle="Earn POLLY (?) tokens by staking your indexes!"
-								title="Select Your Fav Dim Sum Entrees!"
+								subtitle="Tokenized Portfolios with Set and Forget Strategies"
+								title="Nests"
 							/>
 							<NestList />
 						</Route>
@@ -65,4 +65,4 @@ const StyledInfo = styled.h3`
 	}
 `
 
-export default Indexes
+export default Nests

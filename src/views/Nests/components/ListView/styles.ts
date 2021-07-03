@@ -20,8 +20,9 @@ export const ListItemContainer = styled.div`
 	background: #f0e9e7;
 	padding: 25px;
 	display: block;
-	border: 1px solid ${darken(0.1, '#f0e9e7')}; 
-	border-radius: 5px;
+	box-shadow: #a79e99 0px 0px 1px inset; 
+	border: 1px solid #e2d6cfff;
+	border-radius: 12px;
 	margin-bottom: 10px;
 `;
 

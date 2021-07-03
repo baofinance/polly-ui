@@ -38,7 +38,7 @@ module.exports = {
   globals: {
     'importScripts': 'readonly',
     'window.bao': 'writable',
-    'process': 'readonly'
+    'process': 'readonly',
   },
   rules: {
     // Existing rules

@@ -35,7 +35,7 @@ const Farm: React.FC = () => {
 		name: '',
 		icon: '',
 		refUrl: '',
-		poolType: PoolType.BAOSWAP,
+		poolType: PoolType.POLLY,
 	}
 
 	useEffect(() => {
