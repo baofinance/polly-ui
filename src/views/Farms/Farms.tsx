@@ -49,7 +49,7 @@ const Farms: React.FC = () => {
 						</Route>
 					</>
 				) : (
-					<div className="btn-primary"
+					<div
 						style={{
 							alignItems: 'center',
 							display: 'flex',
