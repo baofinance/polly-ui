@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useMemo, useCallback, useState } from 'react'
+import { useParams, Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
@@ -8,91 +8,99 @@ import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 import { PoolType } from '../../contexts/Farms/types'
 import useBao from '../../hooks/useBao'
-import useFarm from '../../hooks/useFarm'
+import useNest from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
 import { getContract } from '../../utils/erc20'
-import Harvest from './components/Harvest'
-import Stake from './components/Stake'
+import Button from '../../components/Button'
+import WalletProviderModal from '../../components/WalletProviderModal'
+import useModal from '../../hooks/useModal'
+import IssueModal from './components/IssueModal'
+import RedeemModal from './components/RedeemModal'
+import useAllowance from '../../hooks/useAllowance'
+import useApprove from '../../hooks/useApprove'
+import { Contract } from 'web3-eth-contract'
 
-const Index: React.FC = () => {
-	const { farmId }: any = useParams()
+
+const Nest: React.FC = () => {
+	const { nestId }: any = useParams()
 	const {
-		pid,
-		lpToken,
-		lpTokenAddress,
-		tokenAddress,
-		earnToken,
+		nid,
 		name,
+		symbol,
 		icon,
-		refUrl,
-		poolType,
-	} = useFarm(farmId) || {
-		pid: 0,
-		lpToken: '',
-		lpTokenAddress: '',
-		tokenAddress: '',
-		earnToken: '',
+		nestAddress,
+		nestContract,
+	} = useNest(nestId) || {
+		nid: 0,
 		name: '',
+		symbol: '',
 		icon: '',
-		refUrl: '',
-		poolType: PoolType.POLLY,
+		nestAddress: '',
+		nestContract: '',
 	}
 
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [])
+	const { path } = useRouteMatch()
+	const { account } = useWallet()
+	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
 
-	const bao = useBao()
-	const { ethereum } = useWallet()
+	const [requestedApproval, setRequestedApproval] = useState(false)
 
-	const lpContract = useMemo(() => {
-		return getContract(ethereum as provider, lpTokenAddress)
-	}, [ethereum, lpTokenAddress])
+	const allowance = useAllowance(nestContract)
+	const { onApprove } = useApprove(nestContract)
 
-	const { onRedeem } = useRedeem(getMasterChefContract(bao))
+	const tokenBalance = useTokenBalance(nestContract.options.address)
+	const nestBalance = useNestBalance(nid)
 
-	const lpTokenName = useMemo(() => {
-		return lpToken.toUpperCase()
-	}, [lpToken])
+	const { onIssue } = useIssue(nid)
+	const { onRedeem } = useRedeem(nid)
 
-	const earnTokenName = useMemo(() => {
-		return earnToken.toUpperCase()
-	}, [earnToken])
 
+	const [onPresentIssue] = useModal(
+		<IssueModal
+			max={tokenBalance}
+			onConfirm={onIssue}
+			tokenName={tokenName}
+		/>,
+	)
+
+	const [onPresentRedeem] = useModal(
+		<RedeemModal
+			max={stakedBalance}
+			onConfirm={onRedeem}
+			tokenName={tokenName}
+		/>,
+	)
+
+	
 	return (
 		<>
 			<PageHeader
-				icon={icon}
-				subtitle={`Deposit ${lpTokenName}  Tokens and earn BAO`}
-				title={name}
+				icon={''}
+				subtitle={`Issue and Redeem Test Index`}
+				title={'Test Nest'}
 			/>
-			<StyledFarm>
+			<StyledNest>
 				<StyledCardsWrapper>
-					<StyledCardWrapper>
-						<Harvest pid={pid} />
-					</StyledCardWrapper>
-					<Spacer />
-					<StyledCardWrapper>
-						<Stake
-							lpContract={lpContract}
-							pid={pid}
-							tokenName={lpToken.toUpperCase()}
-							poolType={poolType}
+				<Button
+							onClick={onPresentWalletProviderModal}
+							text="Issue"
 						/>
-					</StyledCardWrapper>
+				<Button
+							onClick={onPresentWalletProviderModal}
+							text="Redeem"
+						/>
 				</StyledCardsWrapper>
 				<Spacer size="lg" />
 				<StyledInfo>
-					⭐️ Every time you stake and unstake LP tokens, the contract will
-					automagically harvest BAO rewards for you!
+					⭐️ Every time you mint a nest, BAO is burnt!
 				</StyledInfo>
 				<Spacer size="lg" />
-			</StyledFarm>
+			</StyledNest>
 		</>
 	)
 }
 
-const StyledFarm = styled.div`
+const StyledNest = styled.div`
 	align-items: center;
 	display: flex;
 	flex-direction: column;
@@ -129,4 +137,4 @@ const StyledInfo = styled.h3`
 	text-align: center;
 `
 
-export default Index
+export default Nest

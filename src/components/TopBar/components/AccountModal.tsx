@@ -49,7 +49,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
 				<Spacer />
 				<Button
-					href={`https://blockscout.com/xdai/mainnet/address/${account}`}
+					href={`https://polygonscan.com/address/${account}`}
 					text="View on Blockscout"
 					variant="secondary"
 				/>

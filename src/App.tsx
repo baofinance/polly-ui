@@ -13,6 +13,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
+import Nest from './views/Nest'
 
 const url = new URL(window.location.toString())
 if (url.searchParams.has('ref')) {
@@ -44,6 +45,9 @@ const App: React.FC = () => {
 					</Route>
 					<Route path="/Nests">
 						<Nests />
+					</Route>
+					<Route path="/Nest">
+						<Nest />
 					</Route>
 					<Route path="/Farms">
 						<Farms />

@@ -5,6 +5,7 @@ import {
 	SUBTRACT_GAS_LIMIT,
 	contractAddresses,
 	supportedPools,
+	supportedNests,
 } from './constants.js'
 
 import UNIV2PairAbi from './abi/uni_v2_lp.json'

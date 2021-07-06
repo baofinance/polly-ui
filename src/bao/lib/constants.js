@@ -89,3 +89,71 @@ export const supportedPools = [
 		refUrl: '',
 	},
 ]
+
+export const supportedNests = [
+	{
+		nid: 2,
+		nestAddress: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
+		},
+		symbol: 'TEST',
+		isExperipie: true,
+		name: 'Test Index',
+		description: 'Polly Nest consisting of amDAI & WMATIC',
+		useMintOverBuy: true,
+		useRecipe: true,
+		swapEnabled: false,
+		swapFees: '0.2',
+		streamingFees: '1%',
+		coingeckoId: 'metaverse-nft-index',
+		composition: [
+			{symbol:'cmDAI','coingeckoId':'aave-dai', 'address':'0x27f8d03b3a2196956ed754badc28d73be8830a6e', 'coingeckoImageId': ''},
+			{symbol:'WMATIC','coingeckoId':'matic','address':'0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', 'coingeckoImageId': ''}
+		],
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md'
+	},
+	{
+		nid: 3,
+		nestAddress: {
+			137: '0xE6af83Ba3604385f76f43C087619c6BF42E98426'
+		},
+		symbol: 'TEST2',
+		isExperipie: true,
+		name: 'Test Index 2',
+		description: 'Polly Nest consisting of crDAI & crWETH',
+		useMintOverBuy: true,
+		useRecipe: true,
+		swapEnabled: false,
+		swapFees: '0.2',
+		streamingFees: '1%',
+		coingeckoId: 'metaverse-nft-index',
+		composition: [
+			{symbol:'crDAI','coingeckoId':'dai', 'address':'0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', 'coingeckoImageId': ''},
+			{symbol:'crWETH','coingeckoId':'weth','address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
+		],
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md'
+	},
+	{
+		nid: 4,
+		nestAddress: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
+		},
+		symbol: 'pDEFI',
+		isExperipie: true,
+		name: 'Polygon DeFi Ecosystem Nest Test',
+		description: 'Polly Nest consisting of amDAI & WMATIC',
+		useMintOverBuy: true,
+		useRecipe: true,
+		swapEnabled: false,
+		swapFees: '0.2',
+		streamingFees: '1%',
+		coingeckoId: 'metaverse-nft-index',
+		composition: [
+			{symbol:'SUSHI','coingeckoId':'sushi', 'address':'0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a', 'coingeckoImageId': ''},
+			{symbol:'GRT','coingeckoId':'the-graph', 'address':'0x5fe2b58c013d7601147dcdd68c143a77499f5531', 'coingeckoImageId': ''},
+			{symbol:'LINK','coingeckoId':'chainlink', 'address':'0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39', 'coingeckoImageId': ''},
+			{symbol:'WETH','coingeckoId':'weth', 'address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
+		],
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md'
+	}
+]
