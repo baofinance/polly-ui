@@ -17,6 +17,8 @@ import UniOracleABI from './abi/unioracle.json'
 import ChainOracle from './abi/chainoracle.json'
 import tBaoAbi from './abi/tbao.json'
 import TeaMakerAbi from './abi/teamaker.json'
+import ExperipieAbi from './abi/experipie.json'
+import RecipeAbi from './abi/recipe.json'
 
 export class Contracts {
 	constructor(provider, networkId, web3, options) {
@@ -30,7 +32,7 @@ export class Contracts {
 
 		this.bao = new this.web3.eth.Contract(BaoAbi)
 		this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
-		//this.indexes = new this.web3.eth.Contract(IndexesAbi)
+		this.recipe = new this.web3.eth.Contract(RecipeAbi)
 		this.weth = new this.web3.eth.Contract(WETHAbi)
 
 		this.pools = supportedPools.map((pool) =>
@@ -41,6 +43,13 @@ export class Contracts {
 				tokenContract: new this.web3.eth.Contract(ERC20Abi),
 			}),
 		)
+
+		this.nests = supportedNests.map((nest) =>
+		Object.assign(nest, {
+			nestAddress: nest.nestAddress[networkId],
+			nestContract: new this.web3.eth.Contract(ExperipieAbi),
+		}),
+	)
 
 		this.setProvider(provider, networkId)
 		this.setDefaultAccount(this.web3.eth.defaultAccount)
@@ -60,7 +69,7 @@ export class Contracts {
 
 		setProvider(this.bao, contractAddresses.bao[networkId])
 		setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-		//setProvider(this.indexes, contractAddresses.indexes[networkId])
+		setProvider(this.recipe, contractAddresses.recipe[networkId])
 		setProvider(this.weth, contractAddresses.weth[networkId])
 
 		this.pools.forEach(
@@ -69,12 +78,18 @@ export class Contracts {
 				setProvider(tokenContract, tokenAddress)
 			},
 		)
+
+		this.nests.forEach(
+			({ nestContract, nestAddress }) => {
+				setProvider(nestContract, nestAddress)
+			},
+		)
 	}
 
 	setDefaultAccount(account) {
 		this.bao.options.from = account
 		this.masterChef.options.from = account
-		//this.indexes.options.from = account
+		this.recipe.options.from = account
 	}
 
 	async callContractFunction(method, options) {
