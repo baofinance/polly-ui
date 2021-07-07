@@ -54,6 +54,10 @@ export const gettBaoStakingContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.tBaoStaking
 }
 
+export const getNestContract = (bao) => {
+	return bao && bao.contracts && bao.contracts.nests
+}
+
 export const getNests = (bao) => {
 	return bao
 		? bao.contracts.nests.map(
