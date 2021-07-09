@@ -58,6 +58,10 @@ export const getNestContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.nests
 }
 
+export const getRecipeContract = (bao) => {
+	return bao && bao.contracts && bao.contracts.recipe
+}
+
 export const getNests = (bao) => {
 	return bao
 		? bao.contracts.nests.map(
@@ -280,6 +284,36 @@ export const redeem = async (masterChefContract, account) => {
 			})
 	} else {
 		alert('pool not active')
+	}
+}
+
+export const nestRedeem = async (nestContract, account) => {
+	let now = new Date().getTime() / 1000
+	if (now >= 1597172400) {
+		return nestContract.methods
+			.exitPool()
+			.send({ from: account })
+			.on('transactionHash', (tx) => {
+				console.log(tx)
+				return tx.transactionHash
+			})
+	} else {
+		alert('pool not active')
+	}
+}
+
+export const nestIssue = async (recipeContract, account) => {
+	let now = new Date().getTime() / 1000
+	if (now >= 1597172400) {
+		return recipeContract.methods
+			.bake()
+			.send({ from: account })
+			.on('transactionHash', (tx) => {
+				console.log(tx)
+				return tx.transactionHash
+			})
+	} else {
+		alert('nest not active')
 	}
 }
 

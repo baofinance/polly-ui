@@ -1,10 +1,12 @@
 import { Contract } from 'web3-eth-contract'
 
 export interface Nest {
-  pid: number
+  nid: number
   name: string
   nestContract: Contract
-  nestAddress: string
+  nestToken: string
+  nestTokenAddress: string
+  mintingTokenAddress: string
   icon: string
   id: string
   tokenSymbol: string

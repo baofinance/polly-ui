@@ -3,13 +3,13 @@ import { useParams, Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
-import { getMasterChefContract } from '../../bao/utils'
+import { getRecipeContract, getNestContract } from '../../bao/utils'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
-import { PoolType } from '../../contexts/Farms/types'
 import useBao from '../../hooks/useBao'
-import useNest from '../../hooks/useFarm'
-import useRedeem from '../../hooks/useRedeem'
+import useNest from '../../hooks/useNest'
+import useNestIssue from '../../hooks/useNestIssue'
+import useNestRedeem from '../../hooks/useNestRedeem'
 import { getContract } from '../../utils/erc20'
 import Button from '../../components/Button'
 import WalletProviderModal from '../../components/WalletProviderModal'
@@ -19,88 +19,78 @@ import RedeemModal from './components/RedeemModal'
 import useAllowance from '../../hooks/useAllowance'
 import useApprove from '../../hooks/useApprove'
 import { Contract } from 'web3-eth-contract'
+import Redeem from './components/Redeem'
+import Issue from './components/Issue'
 
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
 	const {
 		nid,
+		nestToken,
+		nestTokenAddress,
+		mintingTokenAddress,
 		name,
-		symbol,
 		icon,
-		nestAddress,
-		nestContract,
 	} = useNest(nestId) || {
 		nid: 0,
+		nestToken: '',
+		nestTokenAddress: '',
+		mintingTokenAddress: '',
 		name: '',
-		symbol: '',
 		icon: '',
-		nestAddress: '',
-		nestContract: '',
 	}
-
-	const { path } = useRouteMatch()
-	const { account } = useWallet()
-	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
-
-	const [requestedApproval, setRequestedApproval] = useState(false)
-
-	const allowance = useAllowance(nestContract)
-	const { onApprove } = useApprove(nestContract)
-
-	const tokenBalance = useTokenBalance(nestContract.options.address)
-	const nestBalance = useNestBalance(nid)
-
-	const { onIssue } = useIssue(nid)
-	const { onRedeem } = useRedeem(nid)
-
-
-	const [onPresentIssue] = useModal(
-		<IssueModal
-			max={tokenBalance}
-			onConfirm={onIssue}
-			tokenName={tokenName}
-		/>,
-	)
-
-	const [onPresentRedeem] = useModal(
-		<RedeemModal
-			max={stakedBalance}
-			onConfirm={onRedeem}
-			tokenName={tokenName}
-		/>,
-	)
-
 	
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+
+	const bao = useBao()
+	const { ethereum } = useWallet()
+
+	const nestContract = useMemo(() => {
+		return getContract(ethereum as provider, nestTokenAddress)
+	}, [ethereum, nestTokenAddress])
+
+	const { onRedeem } = useNestRedeem(getRecipeContract(bao))
+
+	const nestTokenName = useMemo(() => {
+		return nestToken.toUpperCase()
+	}, [nestToken])
+
 	return (
 		<>
 			<PageHeader
-				icon={''}
-				subtitle={`Issue and Redeem Test Index`}
-				title={'Test Nest'}
+				icon={icon}
+				subtitle={`Issue & Redeem ${nestTokenName}`}
+				title={name}
 			/>
-			<StyledNest>
+			<StyledFarm>
 				<StyledCardsWrapper>
-				<Button
-							onClick={onPresentWalletProviderModal}
-							text="Issue"
+					<StyledCardWrapper>
+						<Redeem nid={nid} />
+					</StyledCardWrapper>
+					<Spacer />
+					<StyledCardWrapper>
+						<Issue
+							nestContract={nestContract}
+							nid={nid}
+							nestName={nestToken.toUpperCase()}
 						/>
-				<Button
-							onClick={onPresentWalletProviderModal}
-							text="Redeem"
-						/>
+					</StyledCardWrapper>
 				</StyledCardsWrapper>
 				<Spacer size="lg" />
 				<StyledInfo>
-					⭐️ Every time you mint a nest, BAO is burnt!
+					⭐️ Every time you stake and unstake LP tokens, the contract will
+					automagically harvest BAO rewards for you!
 				</StyledInfo>
 				<Spacer size="lg" />
-			</StyledNest>
+			</StyledFarm>
 		</>
 	)
 }
 
-const StyledNest = styled.div`
+const StyledFarm = styled.div`
 	align-items: center;
 	display: flex;
 	flex-direction: column;
