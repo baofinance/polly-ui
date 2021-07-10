@@ -45,11 +45,11 @@ export class Contracts {
 		)
 
 		this.nests = supportedNests.map((nest) =>
-		Object.assign(nest, {
-			nestAddress: nest.nestAddress[networkId],
-			nestContract: new this.web3.eth.Contract(ExperipieAbi),
-		}),
-	)
+			Object.assign(nest, {
+				nestAddress: nest.nestAddress[networkId],
+				nestContract: new this.web3.eth.Contract(ExperipieAbi),
+			}),
+		)
 
 		this.setProvider(provider, networkId)
 		this.setDefaultAccount(this.web3.eth.defaultAccount)

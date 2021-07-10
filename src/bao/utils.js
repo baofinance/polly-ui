@@ -72,6 +72,7 @@ export const getNests = (bao) => {
 					icon,
 					nestAddress,
 					nestContract,
+					indexType,
 				}) => ({
 					nid,
 					id: symbol,
@@ -79,6 +80,7 @@ export const getNests = (bao) => {
 					icon,
 					nestAddress,
 					nestContract,
+					indexType,
 				}),
 		  )
 		: []
@@ -212,6 +214,7 @@ export const unstake = async (
 			return tx.transactionHash
 		})
 }
+
 export const harvest = async (masterChefContract, pid, account) => {
 	return masterChefContract.methods
 		.claimReward(pid)
@@ -287,7 +290,54 @@ export const redeem = async (masterChefContract, account) => {
 	}
 }
 
-export const nestRedeem = async (nestContract, account) => {
+export const enter = async (contract, amount, account) => {
+	return contract?.methods
+		.enter(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+}
+
+export const leave = async (contract, amount, account) => {
+	return contract.methods
+		.leave(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+}
+
+export const nestIssue = async (recipeContract, nid, amount, account, ref) => {
+	return recipeContract.methods
+		.bake(nid, ethers.utils.parseUnits(amount, 18), ref)
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+}
+
+export const nestRedeem = async (
+	nestContract,
+	nid,
+	amount,
+	account,
+	ref,
+) => {
+	return nestContract.methods
+		.exitPool(nid, ethers.utils.parseUnits(amount, 18), ref)
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+}
+
+{/* 
+	export const nestRedeem = async (nestContract, account) => {
 	let now = new Date().getTime() / 1000
 	if (now >= 1597172400) {
 		return nestContract.methods
@@ -316,23 +366,4 @@ export const nestIssue = async (recipeContract, account) => {
 		alert('nest not active')
 	}
 }
-
-export const enter = async (contract, amount, account) => {
-	return contract?.methods
-		.enter(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
-
-export const leave = async (contract, amount, account) => {
-	return contract.methods
-		.leave(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
+*/}

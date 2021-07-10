@@ -1,18 +1,30 @@
 import { useCallback } from 'react'
+
+import useBao from './useBao'
 import { useWallet } from 'use-wallet'
-import { Contract } from 'web3-eth-contract'
-import { nestRedeem } from '../bao/utils'
 
-const useNestRedeem = (nestContract: Contract) => {
+import { nestRedeem, getNestContract } from '../bao/utils'
+
+const useNestRedeem = (nid: number) => {
   const { account } = useWallet()
+  const bao = useBao()
+  const nestContract = getNestContract(bao)
 
-  const handleRedeem = useCallback(async () => {
-    const txHash = await nestRedeem(nestContract, account)
-    console.log(txHash)
-    return txHash
-  }, [account, nestContract])
+  const handleNestRedeem = useCallback(
+    async (amount: string) => {
+      console.log()
+      const txHash = await nestRedeem(
+        nestContract,
+        nid,
+        amount,
+        account,
+      )
+      console.log(txHash)
+    },
+    [account, nid, bao],
+  )
 
-  return { onRedeem: handleRedeem }
+  return { onNestRedeem: handleNestRedeem }
 }
 
 export default useNestRedeem

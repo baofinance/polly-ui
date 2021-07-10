@@ -110,7 +110,8 @@ export const supportedNests = [
 			{symbol:'cmDAI','coingeckoId':'aave-dai', 'address':'0x27f8d03b3a2196956ed754badc28d73be8830a6e', 'coingeckoImageId': ''},
 			{symbol:'WMATIC','coingeckoId':'matic','address':'0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', 'coingeckoImageId': ''}
 		],
-		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md'
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
+		indexType: 'test',
 	},
 	{
 		nid: 3,
@@ -131,7 +132,8 @@ export const supportedNests = [
 			{symbol:'crDAI','coingeckoId':'dai', 'address':'0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', 'coingeckoImageId': ''},
 			{symbol:'crWETH','coingeckoId':'weth','address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
 		],
-		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md'
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
+		indexType: 'test',
 	},
 	{
 		nid: 4,
@@ -154,6 +156,7 @@ export const supportedNests = [
 			{symbol:'LINK','coingeckoId':'chainlink', 'address':'0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39', 'coingeckoImageId': ''},
 			{symbol:'WETH','coingeckoId':'weth', 'address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
 		],
-		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md'
+		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
+		indexType: 'test',
 	}
 ]

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import baoIcon from '../../../assets/img/bao.png'
 import Button from '../../../components/Button'
@@ -23,7 +23,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance'
 import useNestBalance from '../../../hooks/useNestBalance'
 import useNestRedeem from '../../../hooks/useNestRedeem'
 import RedeemModal from './RedeemModal'
-
+import BigNumber from 'bignumber.js'
 
 interface RedeemProps {
 	nestContract: Contract
@@ -42,42 +42,56 @@ const Redeem: React.FC<RedeemProps> = ({
 	const { onApprove } = useApprove(nestContract)
 
 	const tokenBalance = useTokenBalance(nestContract.options.address)
-	const stakedBalance = useNestBalance(nid)
+	const nestBalance = useNestBalance(nid)
 
-	const { onRedeem } = useNestRedeem(nid)
-	const [onPresentWithdraw] = useModal(
+	const { onNestRedeem } = useNestRedeem(nid)
+	const [onPresentRedeem] = useModal(
 		<RedeemModal
-			max={stakedBalance}
-			onConfirm={onRedeem}
-			tokenName={nestName}
+			max={nestBalance}
+			onConfirm={onNestRedeem}
+			nestName={nestName}
 		/>,
 	)
+
+	const handleApprove = useCallback(async () => {
+		try {
+			setRequestedApproval(true)
+			const txHash = await onApprove()
+			// user rejected tx or didn't go thru
+			if (!txHash) {
+				setRequestedApproval(false)
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}, [onApprove, setRequestedApproval])
 
 	return (
 		<Card>
 			<CardContent>
 				<StyledCardContentInner>
-				<StyledCardHeader>
+					<StyledCardHeader>
 						<CardIcon>👨🏻‍🍳</CardIcon>
-						<Value value={getBalanceNumber(stakedBalance)} />
-						<Label text={`${tokenName} Tokens Staked`} />
+						<Value value={getBalanceNumber(nestBalance)} />
+						<Label text={`Redeem ${nestName} for WETH`} />
 					</StyledCardHeader>
 					<StyledCardActions>
-					{!allowance.toNumber() ? (
+						{!allowance.toNumber() ? (
 							<Button
 								disabled={requestedApproval}
 								onClick={handleApprove}
-								text={`Approve ${tokenName}`}
+								text={`Approve ${nestName}`}
 							/>
 						) : (
 							<>
 								<Button
-									disabled={stakedBalance.eq(new BigNumber(0))}
+									disabled={nestBalance.eq(new BigNumber(0))}
 									text="Redeem"
-									onClick={onPresentWithdraw}
+									onClick={onPresentRedeem}
 								/>
 							</>
-						)}					</StyledCardActions>
+						)}
+					</StyledCardActions>
 				</StyledCardContentInner>
 			</CardContent>
 		</Card>
@@ -109,4 +123,4 @@ const StyledCardContentInner = styled.div`
 	justify-content: space-between;
 `
 
-export default Harvest
+export default Redeem

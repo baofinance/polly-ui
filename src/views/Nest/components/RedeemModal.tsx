@@ -11,14 +11,14 @@ import { getFullDisplayBalance } from '../../../utils/formatBalance'
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
-	tokenName?: string
+	nestName?: string
 }
 
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onConfirm,
 	onDismiss,
 	max,
-	tokenName = '',
+	nestName = '',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -40,13 +40,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
 	return (
 		<Modal>
-			<ModalTitle text={`Withdraw ${tokenName}`} />
+			<ModalTitle text={`Withdraw ${nestName}`} />
 			<TokenInput
 				onSelectMax={handleSelectMax}
 				onChange={handleChange}
 				value={val}
 				max={fullBalance}
-				symbol={tokenName}
+				symbol={nestName}
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />

@@ -3,27 +3,24 @@ import { useCallback } from 'react'
 import useBao from './useBao'
 import { useWallet } from 'use-wallet'
 
-import { stake, getMasterChefContract, getRefUrl } from '../bao/utils'
+import { nestIssue, getRecipeContract } from '../bao/utils'
 
-const useNestIssue = (pid: number) => {
+const useNestIssue = (nid: number) => {
   const { account } = useWallet()
   const bao = useBao()
 
-  const handleStake = useCallback(
+  const handleIssue = useCallback(
     async (amount: string) => {
-      const txHash = await stake(
-        getMasterChefContract(bao),
-        pid,
-        amount,
-        account,
-        getRefUrl(),
+      const txHash = await nestIssue(
+        getRecipeContract(bao),
+        nid,
       )
       console.log(txHash)
     },
-    [account, pid, bao],
+    [account, nid, bao],
   )
 
-  return { onStake: handleStake }
+  return { onIssue: handleIssue }
 }
 
 export default useNestIssue

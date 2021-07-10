@@ -1,9 +1,9 @@
 import { useContext } from 'react'
-import { Context as FarmsContext } from '../contexts/Farms'
+import { Context as NestsContext } from '../contexts/Nests'
 
-const useFarms = () => {
-  const { farms } = useContext(FarmsContext)
-  return [farms]
+const useNests = () => {
+  const { nests } = useContext(NestsContext)
+  return [nests]
 }
 
-export default useFarms
+export default useNests

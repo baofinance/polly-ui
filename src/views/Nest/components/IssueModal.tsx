@@ -11,14 +11,14 @@ import { getFullDisplayBalance } from '../../../utils/formatBalance'
 interface DepositModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
-	tokenName?: string
+	nestName?: string
 }
 
 const DepositModal: React.FC<DepositModalProps> = ({
 	max,
 	onConfirm,
 	onDismiss,
-	tokenName = '',
+	nestName = '',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -40,13 +40,13 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
 	return (
 		<Modal>
-			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
+			<ModalTitle text={`Deposit ${nestName} Tokens`} />
 			<TokenInput
 				value={val}
 				onSelectMax={handleSelectMax}
 				onChange={handleChange}
 				max={fullBalance}
-				symbol={tokenName}
+				symbol={nestName}
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />

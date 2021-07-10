@@ -14,43 +14,38 @@ import { PoolType } from '../../../contexts/Farms/types'
 import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
 import useModal from '../../../hooks/useModal'
-import useStake from '../../../hooks/useStake'
-import useStakedBalance from '../../../hooks/useStakedBalance'
+import useNestIssue from '../../../hooks/useNestIssue'
+import useNestBalance from '../../../hooks/useNestBalance'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useUnstake from '../../../hooks/useUnstake'
 import { getBalanceNumber } from '../../../utils/formatBalance'
-import DepositModal from './DepositModal'
-import WithdrawModal from './WithdrawModal'
+import IssueModal from './IssueModal'
 
-interface StakeProps {
-	lpContract: Contract
-	pid: number
-	tokenName: string
-	poolType: PoolType
+interface IssueProps {
+	nestContract: Contract
+	nid: number
+	nestName: string
 }
 
-const Stake: React.FC<StakeProps> = ({
-	lpContract,
-	pid,
-	tokenName,
-	poolType,
+const Issue: React.FC<IssueProps> = ({
+	nestContract,
+	nid,
+	nestName,
 }) => {
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
-	const allowance = useAllowance(lpContract)
-	const { onApprove } = useApprove(lpContract)
+	const allowance = useAllowance(nestContract)
+	const { onApprove } = useApprove(nestContract)
 
-	const tokenBalance = useTokenBalance(lpContract.options.address)
-	const stakedBalance = useStakedBalance(pid)
+	const tokenBalance = useTokenBalance(nestContract.options.address)
+	const nestBalance = useNestBalance(nid)
 
-	const { onStake } = useStake(pid)
-	const { onUnstake } = useUnstake(pid)
+	const { onIssue } = useNestIssue(nid)
 
 	const [onPresentDeposit] = useModal(
-		<DepositModal
+		<IssueModal
 			max={tokenBalance}
-			onConfirm={onStake}
-			tokenName={tokenName}
+			onConfirm={onIssue}
+			nestName={nestName}
 		/>,
 	)
 
@@ -73,26 +68,24 @@ const Stake: React.FC<StakeProps> = ({
 				<StyledCardContentInner>
 					<StyledCardHeader>
 						<CardIcon>👨🏻‍🍳</CardIcon>
-						<Value value={getBalanceNumber(stakedBalance)} />
-						<Label text={`${tokenName} Tokens Staked`} />
+						<Value value={getBalanceNumber(tokenBalance)} />
+						<Label text={`Issue ${nestName} with WETH`} />
 					</StyledCardHeader>
 					<StyledCardActions>
 						{!allowance.toNumber() ? (
 							<Button
 								disabled={requestedApproval}
 								onClick={handleApprove}
-								text={`Approve ${tokenName}`}
+								text={`Approve ${nestName}`}
 							/>
 						) : (
 							<>
-								<StyledActionSpacer />
-								{poolType !== PoolType.ARCHIVED ? (
 									<IconButton onClick={onPresentDeposit}>
 										<AddIcon />
 									</IconButton>
 								) : (
 									''
-								)}
+								)
 							</>
 						)}
 					</StyledCardActions>
@@ -127,4 +120,4 @@ const StyledCardContentInner = styled.div`
 	justify-content: space-between;
 `
 
-export default Stake
+export default Issue

@@ -8,8 +8,9 @@ import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
-import Farm from '../Farm'
+import Nest from '../Nest'
 import NestList from './components/ListView/NestList';
+import NestCards from './components/NestCards'
 
 const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -21,15 +22,10 @@ const Nests: React.FC = () => {
 				{account ? (
 					<>
 						<Route exact path={path}>
-							<PageHeader
-								icon={pollyBanner}
-								subtitle="Tokenized Portfolios with Set and Forget Strategies"
-								title="Nests"
-							/>
-							<NestList />
+							<NestCards />
 						</Route>
-						<Route path={`${path}/:farmId`}>
-							<Farm />
+						<Route path={`${path}/:nestId`}>
+							<Nest />
 						</Route>
 					</>
 				) : (

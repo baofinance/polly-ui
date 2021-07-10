@@ -29,14 +29,12 @@ const Nest: React.FC = () => {
 		nid,
 		nestToken,
 		nestTokenAddress,
-		mintingTokenAddress,
 		name,
 		icon,
 	} = useNest(nestId) || {
 		nid: 0,
 		nestToken: '',
 		nestTokenAddress: '',
-		mintingTokenAddress: '',
 		name: '',
 		icon: '',
 	}
@@ -52,7 +50,7 @@ const Nest: React.FC = () => {
 		return getContract(ethereum as provider, nestTokenAddress)
 	}, [ethereum, nestTokenAddress])
 
-	const { onRedeem } = useNestRedeem(getRecipeContract(bao))
+	const { onNestRedeem } = useNestRedeem(getNestContract(bao))
 
 	const nestTokenName = useMemo(() => {
 		return nestToken.toUpperCase()
@@ -68,7 +66,11 @@ const Nest: React.FC = () => {
 			<StyledFarm>
 				<StyledCardsWrapper>
 					<StyledCardWrapper>
-						<Redeem nid={nid} />
+						<Redeem 
+							nestContract={nestContract}
+							nid={nid}
+							nestName={nestToken.toUpperCase()}
+						/>
 					</StyledCardWrapper>
 					<Spacer />
 					<StyledCardWrapper>
