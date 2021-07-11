@@ -11,8 +11,6 @@ import Context from './context'
 import { Nest } from './types'
 
 const Nests: React.FC = ({ children }) => {
-	const [unharvested, setUnharvested] = useState(0)
-
 	const bao = useBao()
 	const { account } = useWallet()
 
