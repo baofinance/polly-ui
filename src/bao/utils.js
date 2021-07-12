@@ -65,61 +65,61 @@ export const getRecipeContract = (bao) => {
 export const getNests = (bao) => {
 	return bao
 		? bao.contracts.nests.map(
-				({
-					nid,
-					name,
-					symbol,
-					icon,
-					nestAddress,
-					nestContract,
-					indexType,
-				}) => ({
-					nid,
-					id: symbol,
-					name,
-					icon,
-					nestAddress,
-					nestContract,
-					indexType,
-				}),
-		  )
+			({
+				nid,
+				name,
+				symbol,
+				icon,
+				nestAddress,
+				nestContract,
+				indexType,
+			}) => ({
+				nid,
+				id: symbol,
+				name,
+				icon,
+				nestAddress,
+				nestContract,
+				indexType,
+			}),
+		)
 		: []
 }
 
 export const getFarms = (bao) => {
 	return bao
 		? bao.contracts.pools.map(
-				({
-					pid,
-					name,
-					symbol,
-					icon,
-					tokenAddress,
-					tokenDecimals,
-					tokenSymbol,
-					tokenContract,
-					lpAddress,
-					lpContract,
-					refUrl,
-					poolType,
-				}) => ({
-					pid,
-					id: symbol,
-					name,
-					lpToken: symbol,
-					lpTokenAddress: lpAddress,
-					lpContract,
-					tokenAddress,
-					tokenDecimals,
-					tokenSymbol,
-					tokenContract,
-					earnToken: 'BAO',
-					earnTokenAddress: bao.contracts.bao.options.address,
-					icon,
-					refUrl,
-					poolType,
-				}),
-		  )
+			({
+				pid,
+				name,
+				symbol,
+				icon,
+				tokenAddress,
+				tokenDecimals,
+				tokenSymbol,
+				tokenContract,
+				lpAddress,
+				lpContract,
+				refUrl,
+				poolType,
+			}) => ({
+				pid,
+				id: symbol,
+				name,
+				lpToken: symbol,
+				lpTokenAddress: lpAddress,
+				lpContract,
+				tokenAddress,
+				tokenDecimals,
+				tokenSymbol,
+				tokenContract,
+				earnToken: 'BAO',
+				earnTokenAddress: bao.contracts.bao.options.address,
+				icon,
+				refUrl,
+				poolType,
+			}),
+		)
 		: []
 }
 
@@ -310,9 +310,31 @@ export const leave = async (contract, amount, account) => {
 		})
 }
 
-export const nestIssue = async (recipeContract, nid, amount, account, ref) => {
+//functions from PieDAO
+
+export const fetchCalcToNest = async (nestAddress, amount) => {
+	const recipe = getRecipeContract;
+  
+	const nestAmount = BigNumber(amount).multipliedBy(10 ** 18).toFixed(0);
+  
+	const amountEthNecessary = await recipe.callStatic.calcToNest(nestAddress, nestAmount);
+  
+	return {
+	  val: amountEthNecessary,
+	  label: ethers.utils.formatEther(amountEthNecessary),
+	};
+  };
+
+export const fetchNestQuote = async (nestAddress, account, amount) => {
+	try {
+		const nestToMint = nestAddress
+		await fetchCalcToNest(nestToMint, amount)
+	} catch (e) { console.error(e) }
+}
+
+export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
 	return recipeContract.methods
-		.bake(nid, ethers.utils.parseUnits(amount, 18), ref)
+		.bake(_inputToken, _outputToken, ethers.utils.parseUnits(_maxInput, 18), _data)
 		.send({ from: account })
 		.on('transactionHash', (tx) => {
 			console.log(tx)
@@ -335,35 +357,3 @@ export const nestRedeem = async (
 			return tx.transactionHash
 		})
 }
-
-{/* 
-	export const nestRedeem = async (nestContract, account) => {
-	let now = new Date().getTime() / 1000
-	if (now >= 1597172400) {
-		return nestContract.methods
-			.exitPool()
-			.send({ from: account })
-			.on('transactionHash', (tx) => {
-				console.log(tx)
-				return tx.transactionHash
-			})
-	} else {
-		alert('pool not active')
-	}
-}
-
-export const nestIssue = async (recipeContract, account) => {
-	let now = new Date().getTime() / 1000
-	if (now >= 1597172400) {
-		return recipeContract.methods
-			.bake()
-			.send({ from: account })
-			.on('transactionHash', (tx) => {
-				console.log(tx)
-				return tx.transactionHash
-			})
-	} else {
-		alert('nest not active')
-	}
-}
-*/}

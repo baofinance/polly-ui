@@ -5,13 +5,15 @@ import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
 import ModalContent from '../../../components/ModalContent'
 import ModalTitle from '../../../components/ModalTitle'
-import TokenInput from '../../../components/TokenInput'
+import NestTokenOutput from '../../../components/NestTokenOutput'
+import NestTokenInput from '../../../components/NestTokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
 interface IssueModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
 	nestName?: string
+	inputTokenName?: string
 }
 
 const IssueModal: React.FC<IssueModalProps> = ({
@@ -19,6 +21,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	onConfirm,
 	onDismiss,
 	nestName = '',
+	inputTokenName = '',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -41,12 +44,24 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	return (
 		<Modal>
 			<ModalTitle text={`Issue ${nestName} Tokens`} />
-			<TokenInput
+			<ModalContent>
+				{
+					"Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned."
+				}
+			</ModalContent>
+			<NestTokenOutput
 				value={val}
 				onSelectMax={handleSelectMax}
 				onChange={handleChange}
 				max={fullBalance}
 				symbol={nestName}
+			/>
+			<NestTokenInput
+				value={val}
+				onSelectMax={handleSelectMax}
+				onChange={handleChange}
+				max={fullBalance}
+				symbol={inputTokenName}
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
@@ -61,11 +76,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					}}
 				/>
 			</ModalActions>
-			<ModalContent>
-				{
-					"Remember a 0.75% fee will be added to the treasury when depositing but you'll earn the APY to offset it."
-				}
-			</ModalContent>
 		</Modal>
 	)
 }

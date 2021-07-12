@@ -48,6 +48,7 @@ const Issue: React.FC<IssueProps> = ({
 			max={inputTokenBalance}
 			onConfirm={onIssue}
 			nestName={nestName}
+			inputTokenName={inputTokenName}
 		/>,
 	)
 
@@ -79,7 +80,7 @@ const Issue: React.FC<IssueProps> = ({
 							<Button
 								disabled={requestedApproval}
 								onClick={handleApprove}
-								text={`Approve WETH`}
+								text={`Approve ${inputTokenName}`}
 							/>
 						) : (
 							<Button
