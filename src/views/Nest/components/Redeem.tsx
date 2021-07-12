@@ -72,8 +72,9 @@ const Redeem: React.FC<RedeemProps> = ({
 				<StyledCardContentInner>
 					<StyledCardHeader>
 						<CardIcon>👨🏻‍🍳</CardIcon>
-						<Value value={getBalanceNumber(nestBalance)} />
 						<Label text={`Redeem ${nestName} for WETH`} />
+						<Value value={getBalanceNumber(nestBalance)} />
+						<Label text={`Your Total ${nestName}`} />
 					</StyledCardHeader>
 					<StyledCardActions>
 						{!allowance.toNumber() ? (

@@ -8,13 +8,13 @@ import ModalTitle from '../../../components/ModalTitle'
 import TokenInput from '../../../components/TokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
-interface DepositModalProps extends ModalProps {
+interface IssueModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
 	nestName?: string
 }
 
-const DepositModal: React.FC<DepositModalProps> = ({
+const IssueModal: React.FC<IssueModalProps> = ({
 	max,
 	onConfirm,
 	onDismiss,
@@ -40,7 +40,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
 	return (
 		<Modal>
-			<ModalTitle text={`Deposit ${nestName} Tokens`} />
+			<ModalTitle text={`Issue ${nestName} Tokens`} />
 			<TokenInput
 				value={val}
 				onSelectMax={handleSelectMax}
@@ -70,4 +70,4 @@ const DepositModal: React.FC<DepositModalProps> = ({
 	)
 }
 
-export default DepositModal
+export default IssueModal

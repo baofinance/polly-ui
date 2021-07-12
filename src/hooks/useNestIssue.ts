@@ -1,11 +1,12 @@
 import { useCallback } from 'react'
 
+import { Contract } from 'web3-eth-contract'
 import useBao from './useBao'
 import { useWallet } from 'use-wallet'
 
 import { nestIssue, getRecipeContract } from '../bao/utils'
 
-const useNestIssue = (nid: number) => {
+const useNestIssue = (nestContract: Contract) => {
   const { account } = useWallet()
   const bao = useBao()
 
@@ -13,11 +14,11 @@ const useNestIssue = (nid: number) => {
     async (amount: string) => {
       const txHash = await nestIssue(
         getRecipeContract(bao),
-        nid,
+        nestContract,
       )
       console.log(txHash)
     },
-    [account, nid, bao],
+    [account, nestContract, bao],
   )
 
   return { onIssue: handleIssue }

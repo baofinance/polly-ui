@@ -29,13 +29,17 @@ const Nest: React.FC = () => {
 		nid,
 		nestToken,
 		nestTokenAddress,
+		inputToken,
+		inputTokenAddress,
 		name,
 		icon,
 	} = useNest(nestId) || {
 		nid: 0,
-		nestToken: '',
-		nestTokenAddress: '',
-		name: '',
+		nestToken: 'pDEFI',
+		nestTokenAddress: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+		inputToken: 'WETH',
+		inputTokenAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+		name: 'Polly DeFi Index Test',
 		icon: '',
 	}
 	
@@ -49,6 +53,10 @@ const Nest: React.FC = () => {
 	const nestContract = useMemo(() => {
 		return getContract(ethereum as provider, nestTokenAddress)
 	}, [ethereum, nestTokenAddress])
+
+	const inputTokenContract = useMemo(() => {
+		return getContract(ethereum as provider, inputTokenAddress)
+	}, [ethereum, inputTokenAddress])
 
 	const { onNestRedeem } = useNestRedeem(getNestContract(bao))
 
@@ -76,8 +84,9 @@ const Nest: React.FC = () => {
 					<StyledCardWrapper>
 						<Issue
 							nestContract={nestContract}
-							nid={nid}
 							nestName={nestToken.toUpperCase()}
+							inputTokenContract={inputTokenContract}
+							inputTokenName={inputToken.toUpperCase()}
 						/>
 					</StyledCardWrapper>
 				</StyledCardsWrapper>

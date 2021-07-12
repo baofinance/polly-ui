@@ -13,6 +13,9 @@ export interface Nest {
   nestContract: Contract
   nestToken: string
   nestTokenAddress: string
+  inputTokenContract: Contract
+  inputToken: string
+  inputTokenAddress: string
   icon: string
   id: string
   tokenSymbol: string

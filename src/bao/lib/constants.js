@@ -96,6 +96,8 @@ export const supportedNests = [
 		nestAddress: {
 			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
 		},
+		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+		outputToken: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		symbol: 'TEST',
 		isExperipie: true,
 		name: 'Test Index',
@@ -138,8 +140,10 @@ export const supportedNests = [
 	{
 		nid: 4,
 		nestAddress: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6'
 		},
+		inputToken: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+		outputToken: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		symbol: 'pDEFI',
 		isExperipie: true,
 		name: 'Polygon DeFi Ecosystem Nest Test',

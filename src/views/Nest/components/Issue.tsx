@@ -11,8 +11,8 @@ import { AddIcon } from '../../../components/icons'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
 import { PoolType } from '../../../contexts/Farms/types'
-import useAllowance from '../../../hooks/useAllowance'
-import useApprove from '../../../hooks/useApprove'
+import useInputAllowance from '../../../hooks/useInputAllowance'
+import useInputApprove from '../../../hooks/useInputApprove'
 import useModal from '../../../hooks/useModal'
 import useNestIssue from '../../../hooks/useNestIssue'
 import useNestBalance from '../../../hooks/useNestBalance'
@@ -22,28 +22,30 @@ import IssueModal from './IssueModal'
 
 interface IssueProps {
 	nestContract: Contract
-	nid: number
 	nestName: string
+	inputTokenContract: Contract
+	inputTokenName: string
 }
 
 const Issue: React.FC<IssueProps> = ({
 	nestContract,
-	nid,
 	nestName,
+	inputTokenContract,
+	inputTokenName,
 }) => {
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
-	const allowance = useAllowance(nestContract)
-	const { onApprove } = useApprove(nestContract)
+	const allowance = useInputAllowance(inputTokenContract)
+	const { onApprove } = useInputApprove(inputTokenContract)
 
-	const tokenBalance = useTokenBalance(nestContract.options.address)
-	const nestBalance = useNestBalance(nid)
+	const inputTokenBalance = useTokenBalance(inputTokenContract.options.address)
+	const nestTokenBalance = useTokenBalance(nestContract.options.address)
 
-	const { onIssue } = useNestIssue(nid)
+	const { onIssue } = useNestIssue(nestContract)
 
 	const [onPresentDeposit] = useModal(
 		<IssueModal
-			max={tokenBalance}
+			max={inputTokenBalance}
 			onConfirm={onIssue}
 			nestName={nestName}
 		/>,
@@ -68,25 +70,22 @@ const Issue: React.FC<IssueProps> = ({
 				<StyledCardContentInner>
 					<StyledCardHeader>
 						<CardIcon>👨🏻‍🍳</CardIcon>
-						<Value value={getBalanceNumber(tokenBalance)} />
 						<Label text={`Issue ${nestName} with WETH`} />
+						<Value value={getBalanceNumber(inputTokenBalance)} />
+						<Label text={`Your Total ${nestName}`} />
 					</StyledCardHeader>
 					<StyledCardActions>
 						{!allowance.toNumber() ? (
 							<Button
 								disabled={requestedApproval}
 								onClick={handleApprove}
-								text={`Approve ${nestName}`}
+								text={`Approve WETH`}
 							/>
 						) : (
-							<>
-									<IconButton onClick={onPresentDeposit}>
-										<AddIcon />
-									</IconButton>
-								) : (
-									''
-								)
-							</>
+							<Button
+								text="Issue"
+								onClick={onPresentDeposit}
+							/>
 						)}
 					</StyledCardActions>
 				</StyledCardContentInner>
