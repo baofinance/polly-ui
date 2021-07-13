@@ -19,6 +19,7 @@ import useNestBalance from '../../../hooks/useNestBalance'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import IssueModal from './IssueModal'
+import { getRecipeContract } from '../../../bao/utils'
 
 interface IssueProps {
 	nestContract: Contract

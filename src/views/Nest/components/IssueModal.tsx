@@ -11,6 +11,9 @@ import { getFullDisplayBalance } from '../../../utils/formatBalance'
 import { fetchNestQuote, fetchCalcToNest } from '../../../bao/utils'
 import debounce from 'debounce'
 import { ethers } from "ethers";
+import useBao from '../../../hooks/useBao'
+import { getRecipeContract } from '../../../bao/utils'
+import { Contract } from 'web3-eth-contract'
 
 interface IssueModalProps extends ModalProps {
 	onConfirm: (amount: string) => void
@@ -25,6 +28,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	onConfirm,
 	onDismiss,
 	nestName = '',
+	nestAddress ='',
 	inputTokenName = '',
 	_inputToken = '',
 	_outputToken = '',
@@ -39,8 +43,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		[setVal],
 	)
 
-	let ethNeededSingleEntry = { val: 0, label:'-'};
-
+	const bao = useBao()
+	const recipeContract = getRecipeContract(bao)
+  
 	return (
 		<Modal>
 			<ModalTitle text={`Issue ${nestName} Tokens`} />
@@ -59,7 +64,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalContent>
 			</ModalContent>
 			<NestTokenInput
-				value={ethNeededSingleEntry.label}
+				value={fetchCalcToNest(recipeContract, nestAddress, val)}
 				onChange={handleChange}
 				symbol={inputTokenName}
 				_inputToken={_inputToken}

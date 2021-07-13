@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import BigNumber from 'bignumber.js'
 
 import Button from '../Button'
 import NestInput, { InputProps } from '../NestInput'
@@ -10,7 +11,7 @@ interface NestTokenInputProps extends InputProps {
 	symbol: string
 	_inputToken?: string
 	_outputToken?: string
-	value: string
+	value: any
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 

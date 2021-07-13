@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import { supportedPools } from './lib/constants'
 import recipeAbi from './lib/abi/recipe.json'
+import smartcontracts from './lib/smartcontracts.json';
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -316,24 +317,26 @@ export const leave = async (contract, amount, account) => {
 let amount = "1.00000000";
 let ethNeededSingleEntry = { val: 0, label:'-'};
 
-export const fetchCalcToNest = async (bao, nestAddress, nestAmount) => {
-	const recipe = bao.contracts.recipe
+export const fetchCalcToNest = async (recipeContract, nestAddress, nestAmount) => {
+
+	const recipe = recipeContract
+
+	const amount = BigNumber(nestAmount).times(10 ** 18).toFixed(0)
   
-	const amount = new BigNumber(nestAmount).times(10 ** 18).toFixed(0);
-  
-	const amountEthNecessary = await recipe.methods.calcToNest(nestAddress, amount);
+	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount)
+
   
 	return {
-	  val: amountEthNecessary,
-	  label: ethers.utils.formatEther(amountEthNecessary),
+		val: amountEthNecessary,
+		label: ethers.utils.formatEther(amountEthNecessary),
+	  };
 	};
-  };
-  
-export const fetchNestQuote = async ( nestAddress ) => {
-	ethNeededSingleEntry.label = '-';
+
+export const fetchNestQuote = async (nestAddress, nestAmount) => {
+	ethNeededSingleEntry.label = '-'
     try {
-      const nestToMint = nestAddress;
-      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, amount));
+      const nestToMint = nestAddress
+      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, nestAmount))
     } catch (e) { console.error(e)}
   }
 
