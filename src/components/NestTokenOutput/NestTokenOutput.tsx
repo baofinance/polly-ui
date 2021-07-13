@@ -21,16 +21,6 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 	value,
 	_outputToken
 }) => {
-	
-	const nestToMint = _outputToken;
-
-	let ethNeeded
-
-	const fetchNestQuote = async (_outputToken: any, value: any) => {
-		try {
-		  ethNeeded = (await fetchCalcToNest(_outputToken, value));
-		} catch (e) { console.error(e)}
-	  }
 
 	return (
 		<StyledTokenInput>
