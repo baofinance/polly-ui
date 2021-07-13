@@ -9,6 +9,7 @@ export enum IndexType {
 
 export interface Nest {
   nid: number
+  id: string
   name: string
   nestContract: Contract
   nestToken: string
@@ -17,7 +18,6 @@ export interface Nest {
   inputToken: string
   inputTokenAddress: string
   icon: string
-  id: string
   tokenSymbol: string
   indexType?: IndexType
 }

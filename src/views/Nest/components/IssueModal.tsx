@@ -8,27 +8,29 @@ import ModalTitle from '../../../components/ModalTitle'
 import NestTokenOutput from '../../../components/NestTokenOutput'
 import NestTokenInput from '../../../components/NestTokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
+import { fetchNestQuote, fetchCalcToNest } from '../../../bao/utils'
+import debounce from 'debounce'
+import { ethers } from "ethers";
 
 interface IssueModalProps extends ModalProps {
-	max: BigNumber
 	onConfirm: (amount: string) => void
 	nestName?: string
 	inputTokenName?: string
+	nestAddress?: string
+	_inputToken?: string
+	_outputToken?: string
 }
 
 const IssueModal: React.FC<IssueModalProps> = ({
-	max,
 	onConfirm,
 	onDismiss,
 	nestName = '',
 	inputTokenName = '',
+	_inputToken = '',
+	_outputToken = '',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
-
-	const fullBalance = useMemo(() => {
-		return getFullDisplayBalance(max)
-	}, [max])
 
 	const handleChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
@@ -37,9 +39,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		[setVal],
 	)
 
-	const handleSelectMax = useCallback(() => {
-		setVal(fullBalance)
-	}, [fullBalance, setVal])
+	let ethNeededSingleEntry = { val: 0, label:'-'};
 
 	return (
 		<Modal>
@@ -51,17 +51,21 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			</ModalContent>
 			<NestTokenOutput
 				value={val}
-				onSelectMax={handleSelectMax}
 				onChange={handleChange}
-				max={fullBalance}
 				symbol={nestName}
+				_outputToken={_outputToken}
+				onKeyUp={ debounce(fetchNestQuote, 250)}
 			/>
+			<ModalContent>
+				{
+					"Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned."
+				}
+			</ModalContent>
 			<NestTokenInput
-				value={val}
-				onSelectMax={handleSelectMax}
+				value={ethNeededSingleEntry.label}
 				onChange={handleChange}
-				max={fullBalance}
 				symbol={inputTokenName}
+				_inputToken={_inputToken}
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />

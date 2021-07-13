@@ -25,6 +25,7 @@ interface IssueProps {
 	nestName: string
 	inputTokenContract: Contract
 	inputTokenName: string
+	outputTokenContract: Contract
 }
 
 const Issue: React.FC<IssueProps> = ({
@@ -32,6 +33,7 @@ const Issue: React.FC<IssueProps> = ({
 	nestName,
 	inputTokenContract,
 	inputTokenName,
+	outputTokenContract,
 }) => {
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
@@ -41,14 +43,18 @@ const Issue: React.FC<IssueProps> = ({
 	const inputTokenBalance = useTokenBalance(inputTokenContract.options.address)
 	const nestTokenBalance = useTokenBalance(nestContract.options.address)
 
+	const _inputToken = inputTokenContract.options.address
+	const _outputToken = outputTokenContract.options.address
+
 	const { onIssue } = useNestIssue(nestContract)
 
 	const [onPresentDeposit] = useModal(
 		<IssueModal
-			max={inputTokenBalance}
 			onConfirm={onIssue}
 			nestName={nestName}
 			inputTokenName={inputTokenName}
+			_inputToken={_inputToken}
+			_outputToken={_outputToken}
 		/>,
 	)
 

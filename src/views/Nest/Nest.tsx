@@ -47,7 +47,6 @@ const Nest: React.FC = () => {
 		window.scrollTo(0, 0)
 	}, [])
 
-	const bao = useBao()
 	const { ethereum } = useWallet()
 
 	const nestContract = useMemo(() => {
@@ -58,7 +57,9 @@ const Nest: React.FC = () => {
 		return getContract(ethereum as provider, inputTokenAddress)
 	}, [ethereum, inputTokenAddress])
 
-	const { onNestRedeem } = useNestRedeem(getNestContract(bao))
+	const outputTokenContract = useMemo(() => {
+		return getContract(ethereum as provider, nestTokenAddress)
+	}, [ethereum, nestTokenAddress])
 
 	const nestTokenName = useMemo(() => {
 		return nestToken.toUpperCase()
@@ -87,6 +88,7 @@ const Nest: React.FC = () => {
 							nestName={nestToken.toUpperCase()}
 							inputTokenContract={inputTokenContract}
 							inputTokenName={inputToken.toUpperCase()}
+							outputTokenContract={outputTokenContract}
 						/>
 					</StyledCardWrapper>
 				</StyledCardsWrapper>

@@ -2,24 +2,28 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Button from '../Button'
-import Input, { InputProps } from '../Input'
+import NestInput, { InputProps } from '../NestInput'
+import NestOutput from '../NestOutput'
+import { fetchCalcToNest } from '../../bao/utils'
 
 interface NestTokenInputProps extends InputProps {
-	max: number | string
 	symbol: string
-	onSelectMax?: () => void
+	_inputToken?: string
+	_outputToken?: string
+	value: string
+	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 const NestTokenInput: React.FC<NestTokenInputProps> = ({
-	max,
 	symbol,
 	onChange,
-	onSelectMax,
 	value,
+	_outputToken
 }) => {
+
 	return (
 		<StyledTokenInput>
-			<Input
+			<NestInput
 				startAdornment={
 					<StyledTokenAdornmentWrapper>
 						<StyledTokenSymbol>WITH</StyledTokenSymbol>
@@ -31,9 +35,9 @@ const NestTokenInput: React.FC<NestTokenInputProps> = ({
 						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
 					</StyledTokenAdornmentWrapper>
 				}
-				onChange={onChange}
 				placeholder="0"
 				value={value}
+				onChange={onChange}
 			/>
 		</StyledTokenInput>
 	)

@@ -2,24 +2,39 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Button from '../Button'
-import Input, { InputProps } from '../Input'
+import NestInput, { InputProps } from '../NestInput'
+import NestOutput from '../NestOutput'
+import { fetchCalcToNest } from '../../bao/utils'
 
 interface NestTokenOutputProps extends InputProps {
-	max: number | string
 	symbol: string
-	onSelectMax?: () => void
+	_inputToken?: string
+	_outputToken?: string
+	value: string
+	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+	onKeyUp: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
-	max,
 	symbol,
 	onChange,
-	onSelectMax,
 	value,
+	_outputToken
 }) => {
+	
+	const nestToMint = _outputToken;
+
+	let ethNeeded
+
+	const fetchNestQuote = async (_outputToken: any, value: any) => {
+		try {
+		  ethNeeded = (await fetchCalcToNest(_outputToken, value));
+		} catch (e) { console.error(e)}
+	  }
+
 	return (
 		<StyledTokenInput>
-			<Input
+				<NestOutput
 				startAdornment={
 					<StyledTokenAdornmentWrapper>
 						<StyledTokenSymbol>MINT</StyledTokenSymbol>

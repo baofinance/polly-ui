@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import { supportedPools } from './lib/constants'
+import recipeAbi from './lib/abi/recipe.json'
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -312,25 +313,29 @@ export const leave = async (contract, amount, account) => {
 
 //functions from PieDAO
 
-export const fetchCalcToNest = async (nestAddress, amount) => {
-	const recipe = getRecipeContract;
+let amount = "1.00000000";
+let ethNeededSingleEntry = { val: 0, label:'-'};
+
+export const fetchCalcToNest = async (bao, nestAddress, nestAmount) => {
+	const recipe = bao.contracts.recipe
   
-	const nestAmount = BigNumber(amount).multipliedBy(10 ** 18).toFixed(0);
+	const amount = new BigNumber(nestAmount).times(10 ** 18).toFixed(0);
   
-	const amountEthNecessary = await recipe.callStatic.calcToNest(nestAddress, nestAmount);
+	const amountEthNecessary = await recipe.methods.calcToNest(nestAddress, amount);
   
 	return {
 	  val: amountEthNecessary,
 	  label: ethers.utils.formatEther(amountEthNecessary),
 	};
   };
-
-export const fetchNestQuote = async (nestAddress, account, amount) => {
-	try {
-		const nestToMint = nestAddress
-		await fetchCalcToNest(nestToMint, amount)
-	} catch (e) { console.error(e) }
-}
+  
+export const fetchNestQuote = async ( nestAddress ) => {
+	ethNeededSingleEntry.label = '-';
+    try {
+      const nestToMint = nestAddress;
+      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, amount));
+    } catch (e) { console.error(e)}
+  }
 
 export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
 	return recipeContract.methods

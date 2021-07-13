@@ -1,36 +1,43 @@
 import React from 'react'
 import styled from 'styled-components'
 import debounce from 'debounce'
+import { fetchCalcToNest } from '../../bao/utils'
 
-export interface InputProps {
+export interface OutputProps {
 	endAdornment?: React.ReactNode
+	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 	placeholder?: string
 	startAdornment?: React.ReactNode
 	value: string
-	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+	_inputToken?: string
+	_outputToken?: string
+	onKeyUp?: React.ReactNode
 }
 
-const NestInput: React.FC<InputProps> = ({
+const NestOutput: React.FC<OutputProps> = ({
 	endAdornment,
+	onChange,
 	placeholder,
 	startAdornment,
 	value,
-	onChange,
+	_inputToken,
+	_outputToken,
 }) => {
+
 	return (
-		<StyledInputWrapper>
+		<StyledOutputWrapper>
 			{!!startAdornment && startAdornment}
-			<StyledInput
+			<StyledOutput
 				placeholder={placeholder}
 				value={value}
 				onChange={onChange}
 			/>
 			{!!endAdornment && endAdornment}
-		</StyledInputWrapper>
+		</StyledOutputWrapper>
 	)
 }
 
-const StyledInputWrapper = styled.div`
+const StyledOutputWrapper = styled.div`
 	align-items: center;
 	background-color: ${(props) => props.theme.color.grey[200]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
@@ -41,7 +48,7 @@ const StyledInputWrapper = styled.div`
 	padding: 0 ${(props) => props.theme.spacing[3]}px;
 `
 
-const StyledInput = styled.input`
+const StyledOutput = styled.input`
 	background: none;
 	border: 0;
 	color: ${(props) => props.theme.color.grey[600]};
@@ -53,4 +60,4 @@ const StyledInput = styled.input`
 	outline: none;
 `
 
-export default NestInput
+export default NestOutput
