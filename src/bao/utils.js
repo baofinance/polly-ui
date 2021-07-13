@@ -323,14 +323,11 @@ export const fetchCalcToNest = async (recipeContract, nestAddress, nestAmount) =
 
 	const amount = BigNumber(nestAmount).times(10 ** 18).toFixed(0)
   
-	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount)
-
+	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount) //error is on this line
   
-	return {
-		val: amountEthNecessary,
-		label: ethers.utils.formatEther(amountEthNecessary),
-	  };
-	};
+	return ethers.utils.formatEther(amountEthNecessary)
+}
+
 
 export const fetchNestQuote = async (nestAddress, nestAmount) => {
 	ethNeededSingleEntry.label = '-'
