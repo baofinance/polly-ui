@@ -57,9 +57,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				onKeyUp={ debounce(fetchNestQuote, 250)}
 			/>
 			<ModalContent>
-				{
-					"Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned."
-				}
 			</ModalContent>
 			<NestTokenInput
 				value={ethNeededSingleEntry.label}
