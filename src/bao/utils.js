@@ -325,7 +325,7 @@ export const fetchCalcToNest = async (recipeContract, nestAddress, nestAmount) =
   
 	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount) //error is on this line
   
-	return ethers.utils.formatEther(amountEthNecessary)
+	return BigNumber(amountEthNecessary).div(10 ** 18)
 }
 
 

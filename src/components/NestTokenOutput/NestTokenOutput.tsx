@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import Button from '../Button'
 import NestInput, { InputProps } from '../NestInput'
 import NestOutput from '../NestOutput'
-import { fetchCalcToNest } from '../../bao/utils'
 
 interface NestTokenOutputProps extends InputProps {
 	symbol: string
@@ -12,7 +11,6 @@ interface NestTokenOutputProps extends InputProps {
 	_outputToken?: string
 	value: string
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
-	onKeyUp: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 const NestTokenOutput: React.FC<NestTokenOutputProps> = ({

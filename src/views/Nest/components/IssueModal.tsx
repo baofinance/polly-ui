@@ -59,7 +59,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				onChange={handleChange}
 				symbol={nestName}
 				_outputToken={_outputToken}
-				onKeyUp={ debounce(fetchNestQuote, 250)}
 			/>
 			<ModalContent>
 			</ModalContent>
