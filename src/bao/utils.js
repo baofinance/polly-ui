@@ -317,16 +317,31 @@ export const leave = async (contract, amount, account) => {
 let amount = "1.00000000";
 let ethNeededSingleEntry = { val: 0, label:'-'};
 
-export const fetchCalcToNest = async (recipeContract, nestAddress, nestAmount) => {
-
+export const fetchCalcToNest = async ( recipeContract, nestAddress, nestAmount) => {
+  
     const recipe = recipeContract
+    
+	const amount = ethers.BigNumber.from(
+	  BigNumber(nestAmount)
+		.multipliedBy(10 ** 18)
+		.toFixed(0),
+	)
+  
+	const amountEthNecessary = await recipe.callStatic.calcToPie(nestAddress, amount)
+  
+	return {
+	  val: amountEthNecessary,
+	  label: ethers.utils.formatEther(amountEthNecessary),
+	}
+  }
 
-    const amount = new BigNumber(nestAmount).times(10 ** 18).toFixed(0)
-  
-    const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount) //error is on this line
-  
-    return new BigNumber(amountEthNecessary).div(10 ** 18)
-}
+export const fetchNestQuote = async (event, nestAddress) => {
+    ethNeededSingleEntry.label = '-'
+    try {
+      const nestToMint = nestAddress
+      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, amount))
+    } catch (e) { console.error(e)}
+  }
 
 export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
 	return recipeContract.methods

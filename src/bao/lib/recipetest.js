@@ -14,22 +14,34 @@ const contracts = {
   recipe: '0xF6bCa56DE573380d5424F950367d257B73E40280',
   nest: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6'
 };
-const amount = 1
-
-const nestAddress = '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6'
-const recipeAddress = '0xF6bCa56DE573380d5424F950367d257B73E40280'
+const amount = new BigNumber(1)
+  .times(new BigNumber(10).pow(18))
+  .toFixed(0);
 
 // functions
 
-const recipe = new ethers.Contract(
-  contracts.recipe,
-  recipeAbi,
-  ethersProvider
-);
+const callContractWeb3 = async () => {
+  const recipe = new web3.eth.Contract(
+    recipeAbi,
+    contracts.recipe
+  );
 
   const ethNecessary =
-  recipe.methods.calcToPie(nestAddress, amount).call();
+    await recipe.methods.calcToPie(contracts.nest, amount).call();
   console.log(`[web3] Eth Necessary: ${decimate(ethNecessary)}`);
+};
+
+const callContractEthers = async () => {
+  const recipe = new ethers.Contract(
+    contracts.recipe,
+    recipeAbi,
+    ethersProvider
+  );
+
+  const ethNecessary =
+    await recipe.callStatic.calcToPie(contracts.nest, amount);
+  console.log(`[ethers] Eth Necessary: ${ethers.util.formatEther(ethNecessary)}`);
+};
 
 // util
 
