@@ -22,6 +22,7 @@ import IssueModal from './IssueModal'
 import { getRecipeContract } from '../../../bao/utils'
 
 interface IssueProps {
+	nestTokenAddress: string
 	nestContract: Contract
 	nestName: string
 	inputTokenContract: Contract
@@ -30,6 +31,7 @@ interface IssueProps {
 }
 
 const Issue: React.FC<IssueProps> = ({
+	nestTokenAddress,
 	nestContract,
 	nestName,
 	inputTokenContract,
@@ -53,6 +55,7 @@ const Issue: React.FC<IssueProps> = ({
 		<IssueModal
 			onConfirm={onIssue}
 			nestName={nestName}
+			nestAddress={nestTokenAddress}
 			inputTokenName={inputTokenName}
 			_inputToken={_inputToken}
 			_outputToken={_outputToken}

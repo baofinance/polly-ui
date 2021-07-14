@@ -28,7 +28,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	onConfirm,
 	onDismiss,
 	nestName = '',
-	nestAddress ='',
+	nestAddress = '',
 	inputTokenName = '',
 	_inputToken = '',
 	_outputToken = '',

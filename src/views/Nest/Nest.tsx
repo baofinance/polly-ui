@@ -84,6 +84,7 @@ const Nest: React.FC = () => {
 					<Spacer />
 					<StyledCardWrapper>
 						<Issue
+							nestTokenAddress={nestTokenAddress}
 							nestContract={nestContract}
 							nestName={nestToken.toUpperCase()}
 							inputTokenContract={inputTokenContract}

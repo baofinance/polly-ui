@@ -50,7 +50,7 @@ export const contractAddresses = {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 	},
 	recipe: {
-		137: '0x2e055084295177D60B65F33416e872dd7aB34d5c',
+		137: '0xF6bCa56DE573380d5424F950367d257B73E40280',
 	}
 }
 //
