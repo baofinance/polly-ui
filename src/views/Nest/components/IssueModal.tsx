@@ -8,7 +8,7 @@ import ModalTitle from '../../../components/ModalTitle'
 import NestTokenOutput from '../../../components/NestTokenOutput'
 import NestTokenInput from '../../../components/NestTokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
-import { fetchNestQuote, fetchCalcToNest } from '../../../bao/utils'
+import { fetchCalcToNest } from '../../../bao/utils'
 import debounce from 'debounce'
 import { ethers } from "ethers";
 import useBao from '../../../hooks/useBao'

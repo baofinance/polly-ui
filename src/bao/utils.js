@@ -319,23 +319,14 @@ let ethNeededSingleEntry = { val: 0, label:'-'};
 
 export const fetchCalcToNest = async (recipeContract, nestAddress, nestAmount) => {
 
-	const recipe = recipeContract
+    const recipe = recipeContract
 
-	const amount = BigNumber(nestAmount).times(10 ** 18).toFixed(0)
+    const amount = new BigNumber(nestAmount).times(10 ** 18).toFixed(0)
   
-	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount) //error is on this line
+    const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount) //error is on this line
   
-	return BigNumber(amountEthNecessary).div(10 ** 18)
+    return new BigNumber(amountEthNecessary).div(10 ** 18)
 }
-
-
-export const fetchNestQuote = async (nestAddress, nestAmount) => {
-	ethNeededSingleEntry.label = '-'
-    try {
-      const nestToMint = nestAddress
-      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, nestAmount))
-    } catch (e) { console.error(e)}
-  }
 
 export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
 	return recipeContract.methods
