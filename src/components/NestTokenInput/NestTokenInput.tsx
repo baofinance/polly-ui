@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-
 import Button from '../Button'
 import NestInput, { InputProps } from '../NestInput'
 import NestOutput from '../NestOutput'
 import { fetchCalcToNest } from '../../bao/utils'
+import Web3 from 'web3'
+import { ethers } from 'ethers'
 
 interface NestTokenInputProps extends InputProps {
 	symbol: string
 	_inputToken?: string
-	_outputToken?: string
-	value: any
+	value: string
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
@@ -19,8 +19,30 @@ const NestTokenInput: React.FC<NestTokenInputProps> = ({
 	symbol,
 	onChange,
 	value,
-	_outputToken
+	_inputToken,
 }) => {
+	const recipeAbi = require('../../bao/lib/abi/recipe.json')
+
+	const rpcUrl = 'https://rpc-mainnet.maticvigil.com'
+	const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl))
+
+	const contracts = {
+		recipe: '0xF6bCa56DE573380d5424F950367d257B73E40280',
+	}
+
+	const decimate = (num: BigNumber.Value, dec = 18) =>
+		new BigNumber(num).div(new BigNumber(10).pow(dec))
+
+	const callContractWeb3 = async () => {
+		const recipe = new web3.eth.Contract(recipeAbi, contracts.recipe)
+
+		const ethNecessary = await recipe.methods
+			.calcToPie(_inputToken, value)
+			.call()
+		console.log(`${decimate(ethNecessary)}`)
+	}
+
+	callContractWeb3()
 
 	return (
 		<StyledTokenInput>
@@ -36,8 +58,7 @@ const NestTokenInput: React.FC<NestTokenInputProps> = ({
 						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
 					</StyledTokenAdornmentWrapper>
 				}
-				placeholder="0"
-				value={value}
+				value={callContractWeb3}
 				onChange={onChange}
 			/>
 		</StyledTokenInput>

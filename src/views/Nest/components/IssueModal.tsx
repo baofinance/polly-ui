@@ -33,15 +33,24 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	_inputToken = '',
 	_outputToken = '',
 }) => {
-	const [val, setVal] = useState('')
+	const [nestAmount, setNestAmount] = useState('')
+	const [wethNeeded, setWethNeeded] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
 
-	const handleChange = useCallback(
+	const handleOutputChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
-			setVal(e.currentTarget.value)
+			setNestAmount(e.currentTarget.value)
 		},
-		[setVal],
+		[setNestAmount],
 	)
+
+	const handleInputChange = useCallback(
+		(e: React.FormEvent<HTMLInputElement>) => {
+			setWethNeeded(e.currentTarget.value)
+		},
+		[setWethNeeded],
+	)
+
 
 	const bao = useBao()
 	const recipeContract = getRecipeContract(bao)
@@ -55,16 +64,16 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				}
 			</ModalContent>
 			<NestTokenOutput
-				value={val}
-				onChange={handleChange}
+				value={nestAmount}
+				onChange={handleOutputChange}
 				symbol={nestName}
 				_outputToken={_outputToken}
 			/>
 			<ModalContent>
 			</ModalContent>
 			<NestTokenInput
-				value={fetchCalcToNest(recipeContract, nestAddress, val)}
-				onChange={handleChange}
+				value={wethNeeded}
+				onChange={handleInputChange}
 				symbol={inputTokenName}
 				_inputToken={_inputToken}
 			/>
@@ -75,7 +84,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
 					onClick={async () => {
 						setPendingTx(true)
-						await onConfirm(val)
+						await onConfirm(nestAmount)
 						setPendingTx(false)
 						onDismiss()
 					}}

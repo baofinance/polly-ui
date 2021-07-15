@@ -35,7 +35,7 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 					</StyledTokenAdornmentWrapper>
 				}
 				onChange={onChange}
-				placeholder="0"
+				placeholder="1"
 				value={value}
 			/>
 		</StyledTokenInput>

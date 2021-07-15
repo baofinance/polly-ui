@@ -6,7 +6,7 @@ export interface InputProps {
 	endAdornment?: React.ReactNode
 	placeholder?: string
 	startAdornment?: React.ReactNode
-	value: string
+	value: any
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 

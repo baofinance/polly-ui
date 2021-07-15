@@ -28,19 +28,7 @@ const callContractWeb3 = async () => {
 
   const ethNecessary =
     await recipe.methods.calcToPie(contracts.nest, amount).call();
-  console.log(`[web3] Eth Necessary: ${decimate(ethNecessary)}`);
-};
-
-const callContractEthers = async () => {
-  const recipe = new ethers.Contract(
-    contracts.recipe,
-    recipeAbi,
-    ethersProvider
-  );
-
-  const ethNecessary =
-    await recipe.callStatic.calcToPie(contracts.nest, amount);
-  console.log(`[ethers] Eth Necessary: ${ethers.util.formatEther(ethNecessary)}`);
+  console.log(`${decimate(ethNecessary)}`);
 };
 
 // util
@@ -51,4 +39,3 @@ const decimate = (num, dec = 18) =>
 // init
 
 callContractWeb3();
-callContractEthers();
