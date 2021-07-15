@@ -39,22 +39,43 @@ const IssueModal: React.FC<IssueModalProps> = ({
 
 	const handleOutputChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
+			if (e.currentTarget.value.length === 0) {
+				setNestAmount('')
+				setWethNeeded('')
+			}
+
 			setNestAmount(e.currentTarget.value)
+
+			const inputAmount = parseFloat(e.currentTarget.value)
+			if (isNaN(inputAmount)) return
+
+			fetchCalcToNest(recipeContract, _outputToken, 1)
+				.then((val) => setWethNeeded(val.times(inputAmount).toString()))
 		},
 		[setNestAmount],
 	)
 
 	const handleInputChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
+			if (e.currentTarget.value.length === 0) {
+				setNestAmount('')
+				setWethNeeded('')
+			}
+
 			setWethNeeded(e.currentTarget.value)
+
+			const inputAmount = parseFloat(e.currentTarget.value)
+			if (isNaN(inputAmount)) return
+
+			fetchCalcToNest(recipeContract, _outputToken, 1)
+				.then((val: BigNumber) => setNestAmount(new BigNumber(inputAmount).div(val).toString()))
 		},
 		[setWethNeeded],
 	)
 
-
 	const bao = useBao()
 	const recipeContract = getRecipeContract(bao)
-  
+
 	return (
 		<Modal>
 			<ModalTitle text={`Issue ${nestName} Tokens`} />

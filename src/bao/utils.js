@@ -318,19 +318,18 @@ let amount = "1.00000000";
 let ethNeededSingleEntry = { val: 0, label:'-'};
 
 export const fetchCalcToNest = async ( recipeContract, nestAddress, nestAmount) => {
-	
 	const decimate = (num, dec = 18) =>
   	new BigNumber(num).div(new BigNumber(10).pow(dec));
 
-    const recipe = recipeContract
-    
-	const amount = new BigNumber(1)
-	.times(new BigNumber(10).pow(18))
-	.toFixed(0);
-	
-	const amountEthNecessary =  await recipe.methods.calcToPie(nestAddress, amount).call();
-	console.log(`${decimate(amountEthNecessary)}`);
-  };
+  const recipe = recipeContract
+
+	const amount = new BigNumber(nestAmount)
+		.times(new BigNumber(10).pow(18))
+		.toFixed(0);
+
+	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount).call()
+	return decimate(amountEthNecessary)
+};
 
 export const fetchNestQuote = async (event, nestAddress) => {
     ethNeededSingleEntry.label = '-'
