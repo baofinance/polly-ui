@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import BigNumber from 'bignumber.js';
 
 import useBao from './useBao'
 import { useWallet } from 'use-wallet'
@@ -13,7 +14,11 @@ const useNestIssue = (nestContractAddress: string) => {
 
   const handleIssue = useCallback(
     async (amountWeth: string, amountIndex: string) => {
-      const encodedAmountData = await recipeContract.methods.encodeData(amountIndex).call();
+      const encodedAmountData = await recipeContract.methods.encodeData(
+        new BigNumber(amountIndex)
+          .times(10 ** 18)
+          .toString()
+      ).call();
 
       const txHash = await nestIssue(
         recipeContract,
