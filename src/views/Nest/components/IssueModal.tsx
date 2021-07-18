@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
@@ -7,16 +7,12 @@ import ModalContent from '../../../components/ModalContent'
 import ModalTitle from '../../../components/ModalTitle'
 import NestTokenOutput from '../../../components/NestTokenOutput'
 import NestTokenInput from '../../../components/NestTokenInput'
-import { getFullDisplayBalance } from '../../../utils/formatBalance'
 import { fetchCalcToNest } from '../../../bao/utils'
-import debounce from 'debounce'
-import { ethers } from "ethers";
 import useBao from '../../../hooks/useBao'
 import { getRecipeContract } from '../../../bao/utils'
-import { Contract } from 'web3-eth-contract'
+import useNestIssue from '../../../hooks/useNestIssue';
 
 interface IssueModalProps extends ModalProps {
-	onConfirm: (amount: string) => void
 	nestName?: string
 	inputTokenName?: string
 	nestAddress?: string
@@ -25,7 +21,6 @@ interface IssueModalProps extends ModalProps {
 }
 
 const IssueModal: React.FC<IssueModalProps> = ({
-	onConfirm,
 	onDismiss,
 	nestName = '',
 	nestAddress = '',
@@ -75,6 +70,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 
 	const bao = useBao()
 	const recipeContract = getRecipeContract(bao)
+	const { onIssue } = useNestIssue(nestAddress)
 
 	return (
 		<Modal>
@@ -105,7 +101,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
 					onClick={async () => {
 						setPendingTx(true)
-						await onConfirm(nestAmount)
+						await onIssue(wethNeeded, nestAmount)
 						setPendingTx(false)
 						onDismiss()
 					}}

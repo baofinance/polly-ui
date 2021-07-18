@@ -1,8 +1,5 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
-import { supportedPools } from './lib/constants'
-import recipeAbi from './lib/abi/recipe.json'
-import smartcontracts from './lib/smartcontracts.json';
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -341,7 +338,7 @@ export const fetchNestQuote = async (event, nestAddress) => {
 
 export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
 	return recipeContract.methods
-		.bake(_inputToken, _outputToken, ethers.utils.parseUnits(_maxInput, 18), _data)
+		.bake(_inputToken, _outputToken, new BigNumber(_maxInput).times(10 ** 18).toString(), _data)
 		.send({ from: account })
 		.on('transactionHash', (tx) => {
 			console.log(tx)

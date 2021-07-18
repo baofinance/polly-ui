@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { Contract } from 'web3-eth-contract'
@@ -6,20 +5,14 @@ import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
-import IconButton from '../../../components/IconButton'
-import { AddIcon } from '../../../components/icons'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
-import { PoolType } from '../../../contexts/Farms/types'
 import useInputAllowance from '../../../hooks/useInputAllowance'
 import useInputApprove from '../../../hooks/useInputApprove'
 import useModal from '../../../hooks/useModal'
-import useNestIssue from '../../../hooks/useNestIssue'
-import useNestBalance from '../../../hooks/useNestBalance'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import IssueModal from './IssueModal'
-import { getRecipeContract } from '../../../bao/utils'
 
 interface IssueProps {
 	nestTokenAddress: string
@@ -49,11 +42,8 @@ const Issue: React.FC<IssueProps> = ({
 	const _inputToken = inputTokenContract.options.address
 	const _outputToken = outputTokenContract.options.address
 
-	const { onIssue } = useNestIssue(nestContract)
-
 	const [onPresentDeposit] = useModal(
 		<IssueModal
-			onConfirm={onIssue}
 			nestName={nestName}
 			nestAddress={nestTokenAddress}
 			inputTokenName={inputTokenName}

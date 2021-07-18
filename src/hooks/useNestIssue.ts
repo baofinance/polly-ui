@@ -1,24 +1,31 @@
 import { useCallback } from 'react'
 
-import { Contract } from 'web3-eth-contract'
 import useBao from './useBao'
 import { useWallet } from 'use-wallet'
 
 import { nestIssue, getRecipeContract } from '../bao/utils'
+import { wethMaticAddress } from '../constants/tokenAddresses';
 
-const useNestIssue = (nestContract: Contract) => {
+const useNestIssue = (nestContractAddress: string) => {
   const { account } = useWallet()
   const bao = useBao()
+  const recipeContract = getRecipeContract(bao)
 
   const handleIssue = useCallback(
-    async (amount: string) => {
+    async (amountWeth: string, amountIndex: string) => {
+      const encodedAmountData = await recipeContract.methods.encodeData(amountIndex).call();
+
       const txHash = await nestIssue(
-        getRecipeContract(bao),
-        nestContract,
+        recipeContract,
+        nestContractAddress,
+        wethMaticAddress,
+        amountWeth,
+        encodedAmountData,
+        account
       )
       console.log(txHash)
     },
-    [account, nestContract, bao],
+    [account, nestContractAddress, bao],
   )
 
   return { onIssue: handleIssue }
