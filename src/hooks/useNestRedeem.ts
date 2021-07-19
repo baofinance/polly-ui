@@ -8,14 +8,12 @@ import { nestRedeem, getNestContract } from '../bao/utils'
 const useNestRedeem = (nid: number) => {
   const { account } = useWallet()
   const bao = useBao()
-  const nestContract = getNestContract(bao)
+  const nestContract = getNestContract(bao, nid)
 
   const handleNestRedeem = useCallback(
     async (amount: string) => {
-      console.log()
       const txHash = await nestRedeem(
-        nestContract,
-        nid,
+        nestContract.nestContract,
         amount,
         account,
       )

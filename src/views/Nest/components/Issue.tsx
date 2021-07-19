@@ -73,7 +73,7 @@ const Issue: React.FC<IssueProps> = ({
 						<CardIcon>👨🏻‍🍳</CardIcon>
 						<Label text={`Issue ${nestName} with WETH`} />
 						<Value value={getBalanceNumber(inputTokenBalance)} />
-						<Label text={`Your Total ${nestName}`} />
+						<Label text={`Your Total wETH`} />
 					</StyledCardHeader>
 					<StyledCardActions>
 						{!allowance.toNumber() ? (

@@ -1,5 +1,9 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
+import _ from 'lodash'
+
+import nestAbi from './lib/abi/experipie.json'
+import basketAbi from './lib/abi/basketFacet.json'
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -53,8 +57,16 @@ export const gettBaoStakingContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.tBaoStaking
 }
 
-export const getNestContract = (bao) => {
-	return bao && bao.contracts && bao.contracts.nests
+export const getNestContract = (bao, nid) => {
+	if (bao && bao.contracts && bao.contracts.nests) {
+		const nest = _.find(bao.contracts.nests, { nid })
+		const address = nest.nestAddress
+		return {
+			address,
+			nestContract: new bao.web3.eth.Contract(nestAbi, address),
+			basketContract: new bao.web3.eth.Contract(basketAbi, address)
+		}
+	}
 }
 
 export const getRecipeContract = (bao) => {
@@ -348,16 +360,16 @@ export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxI
 
 export const nestRedeem = async (
 	nestContract,
-	nid,
 	amount,
 	account,
-	ref,
 ) => {
-	return nestContract.methods
-		.exitPool(nid, ethers.utils.parseUnits(amount, 18), ref)
+	nestContract.methods.exitPool(new BigNumber(amount).times(10 ** 18).toString())
 		.send({ from: account })
 		.on('transactionHash', (tx) => {
 			console.log(tx)
 			return tx.transactionHash
+		})
+		.on('error', (err, receipt) => {
+			console.log(err, receipt)
 		})
 }

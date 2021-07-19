@@ -20,7 +20,6 @@ import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
 import useModal from '../../../hooks/useModal'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useNestBalance from '../../../hooks/useNestBalance'
 import useNestRedeem from '../../../hooks/useNestRedeem'
 import RedeemModal from './RedeemModal'
 import BigNumber from 'bignumber.js'
@@ -42,12 +41,11 @@ const Redeem: React.FC<RedeemProps> = ({
 	const { onApprove } = useApprove(nestContract)
 
 	const tokenBalance = useTokenBalance(nestContract.options.address)
-	const nestBalance = useNestBalance(nid)
 
 	const { onNestRedeem } = useNestRedeem(nid)
 	const [onPresentRedeem] = useModal(
 		<RedeemModal
-			max={nestBalance}
+			max={tokenBalance}
 			onConfirm={onNestRedeem}
 			nestName={nestName}
 		/>,
@@ -73,25 +71,15 @@ const Redeem: React.FC<RedeemProps> = ({
 					<StyledCardHeader>
 						<CardIcon>👨🏻‍🍳</CardIcon>
 						<Label text={`Redeem ${nestName} for WETH`} />
-						<Value value={getBalanceNumber(nestBalance)} />
+						<Value value={getBalanceNumber(tokenBalance)} />
 						<Label text={`Your Total ${nestName}`} />
 					</StyledCardHeader>
 					<StyledCardActions>
-						{!allowance.toNumber() ? (
-							<Button
-								disabled={requestedApproval}
-								onClick={handleApprove}
-								text={`Approve ${nestName}`}
-							/>
-						) : (
-							<>
-								<Button
-									disabled={nestBalance.eq(new BigNumber(0))}
-									text="Redeem"
-									onClick={onPresentRedeem}
-								/>
-							</>
-						)}
+						<Button
+							disabled={tokenBalance.eq(new BigNumber(0))}
+							text="Redeem"
+							onClick={onPresentRedeem}
+						/>
 					</StyledCardActions>
 				</StyledCardContentInner>
 			</CardContent>
