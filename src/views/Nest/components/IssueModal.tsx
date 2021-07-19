@@ -45,7 +45,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			if (isNaN(inputAmount)) return
 
 			fetchCalcToNest(recipeContract, _outputToken, 1)
-				.then((val) => setWethNeeded(val.times(inputAmount).toString()))
+				.then((val) => setWethNeeded(val.times(inputAmount).toFixed(18)))
 		},
 		[setNestAmount],
 	)
@@ -63,7 +63,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			if (isNaN(inputAmount)) return
 
 			fetchCalcToNest(recipeContract, _outputToken, 1)
-				.then((val: BigNumber) => setNestAmount(new BigNumber(inputAmount).div(val).toString()))
+				.then((val: BigNumber) => setNestAmount(new BigNumber(inputAmount).div(val).toFixed(18)))
 		},
 		[setWethNeeded],
 	)
