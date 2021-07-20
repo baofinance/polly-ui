@@ -23,21 +23,9 @@ const Nests: React.FC = () => {
 					<>
 						<PageHeader
 							icon={pollyNests}
-							title="Build Your Nest!"
-							subtitle="Stake Sushiswap and Baoswap LP tokens to earn BAO!"
+							title="Build Your Nest"
+							subtitle="Tokenized Portfolios with Set and Forget Strategies!"
 						/>
-						<StyledInfo>
-							Be sure to read{' '}
-							<a href="https://docs.bao.finance">docs.bao.finance</a> before
-							using the pools so you are familiar with protocol risks and fees!
-						</StyledInfo>
-						<Spacer size="md" />
-						<StyledInfo>
-							Please note this is the MATIC version of Bao, Polly. For mainnet,
-							visit <a href="https://bao.finance">bao.finance</a>{' '}
-						</StyledInfo>
-						<Spacer size="md" />
-
 						<Route exact path={path}>
 							<NestCards />
 						</Route>

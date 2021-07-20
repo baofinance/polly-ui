@@ -10,17 +10,10 @@ import { getContract } from '../../utils/erc20'
 import Redeem from './components/Redeem'
 import Issue from './components/Issue'
 
-
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
-	const {
-		nid,
-		nestToken,
-		nestTokenAddress,
-		inputTokenAddress,
-		name,
-		icon,
-	} = useNest(nestId)
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
+		useNest(nestId)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -46,15 +39,11 @@ const Nest: React.FC = () => {
 
 	return (
 		<>
-			<PageHeader
-				icon={icon}
-				subtitle={`Issue & Redeem ${nestTokenName}`}
-				title={name}
-			/>
+			<NestHeader>{name}</NestHeader>
 			<StyledFarm>
 				<StyledCardsWrapper>
 					<StyledCardWrapper>
-						<Redeem 
+						<Redeem
 							nestContract={nestContract}
 							nid={nid}
 							nestName={nestToken.toUpperCase()}
@@ -115,6 +104,16 @@ const StyledInfo = styled.h3`
 	color: ${(props) => props.theme.color.grey[400]};
 	font-size: 16px;
 	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+`
+
+const NestHeader = styled.h1`
+	font-family: 'Kaushan Script', sans-serif;
+	color: ${(props) => props.theme.color.red[200]};
+	font-size: 48px;
+	font-weight: 700;
 	margin: 0;
 	padding: 0;
 	text-align: center;
