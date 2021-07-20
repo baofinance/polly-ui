@@ -8,6 +8,9 @@ import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
 import Nest from '../Nest'
 import NestCards from './components/NestCards'
+import PageHeader from '../../components/PageHeader'
+import Spacer from '../../components/Spacer'
+import pollyNests from '../../assets/img/polly-nests.png'
 
 const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -18,8 +21,24 @@ const Nests: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
+						<PageHeader
+							icon={pollyNests}
+							title="Build Your Nest!"
+							subtitle="Stake Sushiswap and Baoswap LP tokens to earn BAO!"
+						/>
+						<StyledInfo>
+							Be sure to read{' '}
+							<a href="https://docs.bao.finance">docs.bao.finance</a> before
+							using the pools so you are familiar with protocol risks and fees!
+						</StyledInfo>
+						<Spacer size="md" />
+						<StyledInfo>
+							Please note this is the MATIC version of Bao, Polly. For mainnet,
+							visit <a href="https://bao.finance">bao.finance</a>{' '}
+						</StyledInfo>
+						<Spacer size="md" />
+
 						<Route exact path={path}>
-							<StyledHeader>Nests</StyledHeader>
 							<NestCards />
 						</Route>
 						<Route path={`${path}/:nestId`}>
