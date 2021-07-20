@@ -157,34 +157,38 @@ export const supportedNests = [
 		composition: [
 			{
 				'symbol': 'SUSHI',
-				'coingeckoId': 'sushi',
 				'address': '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
-				"color": "#0171F5",
+				'decimals': 18,
+				'color': '#0171F5',
 				'percentage': 25,
+				'coingeckoId': 'sushi',
 				'coingeckoImageId': 12271
 			},
 			{
 				'symbol': 'GRT',
-				'coingeckoId': 'the-graph',
 				'address': '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
-				"color": "#4c2caf",
+				'decimals': 18,
+				'color': '#4c2caf',
 				'percentage': 25,
+				'coingeckoId': 'the-graph',
 				'coingeckoImageId': 13397
 			},
 			{
 				'symbol': 'LINK',
-				'coingeckoId': 'chainlink',
 				'address': '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
-				"color": "#2a5ada",
+				'decimals': 18,
+				'color': '#2a5ada',
 				'percentage': 25,
+				'coingeckoId': 'chainlink',
 				'coingeckoImageId': 877
 			},
 			{
 				'symbol': 'WETH',
-				'coingeckoId': 'weth',
 				'address': '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-				"color": "#da2a2a",
+				'decimals': 18,
+				'color': '#da2a2a',
 				'percentage': 25,
+				'coingeckoId': 'weth',
 				'coingeckoImageId': 2518
 			},
 		],
