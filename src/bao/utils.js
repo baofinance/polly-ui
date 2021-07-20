@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 import nestAbi from './lib/abi/experipie.json'
 import basketAbi from './lib/abi/basketFacet.json'
+import { wethMaticAddress } from '../constants/tokenAddresses';
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -89,9 +90,12 @@ export const getNests = (bao) => {
 				id: symbol,
 				name,
 				icon,
-				nestAddress,
 				nestContract,
 				indexType,
+				nestTokenAddress: nestAddress,
+				inputToken: 'wETH',
+				nestToken: symbol,
+				inputTokenAddress: wethMaticAddress,
 			}),
 		)
 		: []

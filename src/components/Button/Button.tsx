@@ -2,6 +2,7 @@ import React, { useContext, useMemo } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 
 import { Link } from 'react-router-dom'
+import { darken, lighten } from 'polished';
 
 interface ButtonProps {
 	children?: React.ReactNode
@@ -143,6 +144,17 @@ const StyledButton = styled.button<StyledButtonProps>`
 	  :hover {
 		transform: scale(1);
 	  }
+	
+	&:hover, &:focus {
+		transition: 0.2s;
+		transform: translate(1px, 1px);
+		background-color: ${(props) => lighten(0.025, props.theme.color.grey[200])};
+	}
+	
+	&:focus {
+		border-color: ${darken(0.05, 'rgb(226, 214, 207)')};
+		background-color: ${(props) => darken(0.025, props.theme.color.grey[200])};
+	}
 `
 
 const StyledLink = styled(Link)`

@@ -2,14 +2,11 @@ import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import pollyBanner from '../../assets/img/polly-nests.png'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
-import PageHeader from '../../components/PageHeader'
 import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
 import Nest from '../Nest'
-import NestList from './components/ListView/NestList';
 import NestCards from './components/NestCards'
 
 const Nests: React.FC = () => {
@@ -22,6 +19,7 @@ const Nests: React.FC = () => {
 				{account ? (
 					<>
 						<Route exact path={path}>
+							<StyledHeader>Nests</StyledHeader>
 							<NestCards />
 						</Route>
 						<Route path={`${path}/:nestId`}>
@@ -47,6 +45,15 @@ const Nests: React.FC = () => {
 		</Switch>
 	)
 }
+
+const StyledHeader = styled.h1`
+	font-size: 64px;
+	font-family: 'Kaushan Script', sans-serif;
+	color: ${(props) => props.theme.color.grey[500]};
+	width: 20%;
+	text-align: center;
+	border-bottom: 2px solid ${(props) => props.theme.color.grey[500]};
+`
 
 const StyledInfo = styled.h3`
 	color: ${(props) => props.theme.color.grey[500]};

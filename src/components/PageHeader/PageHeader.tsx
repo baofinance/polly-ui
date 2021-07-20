@@ -55,7 +55,6 @@ const StyledPageHeader = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-bottom: ${(props) => props.theme.spacing[6]}px;
-	padding-top: ${(props) => props.theme.spacing[6]}px;
 	margin: 0 auto;
 `
 
@@ -73,6 +72,7 @@ const StyledTitle = styled.h1`
 	font-weight: 700;
 	margin: 0;
 	padding: 0;
+	text-align: center;
 `
 
 const StyledSubtitle = styled.h3`

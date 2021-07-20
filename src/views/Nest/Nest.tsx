@@ -29,20 +29,11 @@ const Nest: React.FC = () => {
 		nid,
 		nestToken,
 		nestTokenAddress,
-		inputToken,
 		inputTokenAddress,
 		name,
 		icon,
-	} = useNest(nestId) || {
-		nid: 4,
-		nestToken: 'pDEFI',
-		nestTokenAddress: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		inputToken: 'WETH',
-		inputTokenAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		name: 'Polly DeFi Index Test',
-		icon: '',
-	}
-	
+	} = useNest(nestId)
+
 	useEffect(() => {
 		window.scrollTo(0, 0)
 	}, [])
@@ -88,7 +79,7 @@ const Nest: React.FC = () => {
 							nestContract={nestContract}
 							nestName={nestToken.toUpperCase()}
 							inputTokenContract={inputTokenContract}
-							inputTokenName={inputToken.toUpperCase()}
+							inputTokenName={'WETH'}
 							outputTokenContract={outputTokenContract}
 						/>
 					</StyledCardWrapper>

@@ -91,7 +91,7 @@ const NestCard: React.FC<NestCardProps> = ({ nest }) => {
 						<Button
 							disabled={!indexActive}
 							text={indexActive ? 'Select' : undefined}
-							to={`/nests/${nest.id}`}
+							to={`/nests/${nest.nid}`}
 						>
 						</Button>
 					</StyledContent>
@@ -173,6 +173,8 @@ const StyledTitle = styled.h4`
 	font-weight: 700;
 	margin: ${(props) => props.theme.spacing[2]}px 0 0;
 	padding: 0;
+	text-align: center;
+	height: 50px;
 `
 
 const StyledContent = styled.div`

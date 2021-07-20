@@ -6,11 +6,10 @@ import baoLogo from '../../assets/img/polly.svg'
 const Logo: React.FC = () => {
 	return (
 		<StyledLogo to="/">
-			<img src={baoLogo} height="50" style={{ marginTop: -4 }} />
+			<img src={baoLogo} height="50" />
 			<StyledText>
 				<TitleText>
-					Polly
-					<TitleSubText>by Bao.Finance</TitleSubText>
+					Bao.Finance <Kaushan>PollyChef</Kaushan>
 				</TitleText>
 			</StyledText>
 		</StyledLogo>
@@ -20,23 +19,16 @@ const Logo: React.FC = () => {
 const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
-	color: ${(props) => props.theme.color.red[200]};
-	font-family: 'VT323 Script', sans-serif;
+	color: ${(props) => props.theme.color.grey[500]};
+	font-family: 'Reem Kufi', sans-serif;
 	font-weight: 600;
 	font-size: 24px;
 	letter-spacing: 0.03rem;
-	margin-top: -1rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
-const TitleSubText = styled.div`
-	width: fit-content;
-	white-space: nowrap;
-	color: ${(props) => props.theme.color.red[200]};
-	font-family: 'Reem Kufi', sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	line-height: 0.5rem;
-	letter-spacing: 0.03rem;
+
+const Kaushan = styled.span`
+	font-family: 'Kaushan Script', sans-serif;
 `
 
 const StyledLogo = styled(Link)`

@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "@types/bignumber.js": "^5.0.0",
+    "@types/lodash": "^4.14.171",
     "@types/numeral": "0.0.28",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",

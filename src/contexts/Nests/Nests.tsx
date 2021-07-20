@@ -1,20 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useWallet } from 'use-wallet'
 import useBao from '../../hooks/useBao'
 
-import { bnToDec } from '../../utils'
-import { getMasterChefContract, getEarned } from '../../bao/utils'
 import { getNests } from '../../bao/utils'
 
 import Context from './context'
-import { Nest } from './types'
 
 const Nests: React.FC = ({ children }) => {
 	const bao = useBao()
-	const { account } = useWallet()
+	const { ethereum } = useWallet()
 
-	const nests = getNests(bao)
+	const [nests, setNests] = useState(getNests(bao))
+	useEffect(() => setNests(getNests(bao)), [ethereum, bao])
 
 	return (
 		<Context.Provider
