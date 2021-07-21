@@ -7,18 +7,25 @@ import ModalTitle from '../../../components/ModalTitle'
 import ModalContent from '../../../components/ModalContent'
 import TokenInput from '../../../components/TokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
+import useAllowance from '../../../hooks/useAllowance'
+import useApprove from '../../../hooks/useApprove'
+import useTokenBalance from '../../../hooks/useTokenBalance'
+import { Contract } from 'web3-eth-contract'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
-	nestName?: string
+	nestName: string
+	nestContract: Contract
+	nid: number
 }
 
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onConfirm,
 	onDismiss,
 	max,
-	nestName = '',
+	nestName,
+	nestContract,
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -26,6 +33,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
 	}, [max])
+
+	const [requestedApproval, setRequestedApproval] = useState(false)
+
+	const allowance = useAllowance(nestContract)
+	const { onApprove } = useApprove(nestContract)
+
+	const tokenBalance = useTokenBalance(nestContract.options.address)
 
 	const handleChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
@@ -38,9 +52,23 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		setVal(fullBalance)
 	}, [fullBalance, setVal])
 
+	const handleApprove = useCallback(async () => {
+		try {
+			setRequestedApproval(true)
+			const txHash = await onApprove()
+			// user rejected tx or didn't go thru
+			if (!txHash) {
+				setRequestedApproval(false)
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}, [onApprove, setRequestedApproval])
+
+
 	return (
 		<Modal>
-			<ModalTitle text={`Withdraw ${nestName}`} />
+			<ModalTitle text={`Redeem ${nestName}`} />
 			<TokenInput
 				onSelectMax={handleSelectMax}
 				onChange={handleChange}
@@ -50,6 +78,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
+				{!allowance.toNumber() ? (
+							<Button
+								disabled={requestedApproval}
+								onClick={handleApprove}
+								text={`Approve ${nestName}`}
+							/>
+						) : (
 				<Button
 					disabled={pendingTx}
 					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
@@ -59,8 +94,9 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 						setPendingTx(false)
 						onDismiss()
 					}}
-				/>
-			</ModalActions>
+					/>
+					)}
+		</ModalActions>
 			<ModalContent>
 				{
 					'Remember the longer you stay in a pool the lower your fee. Read the docs for details, but most users will want to stay in a pool 5 days or longer.'
