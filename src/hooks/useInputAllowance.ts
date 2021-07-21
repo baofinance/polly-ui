@@ -13,11 +13,7 @@ const useInputAllowance = (inputTokenContract: Contract) => {
   const { account }: { account: string; ethereum: provider } = useWallet()
 
   const fetchAllowance = useCallback(async () => {
-    const allowance = await getAllowance(
-      inputTokenContract,
-      account,
-      recipe,
-    )
+    const allowance = await getAllowance(inputTokenContract, account, recipe)
     setAllowance(new BigNumber(allowance))
   }, [account, inputTokenContract])
 

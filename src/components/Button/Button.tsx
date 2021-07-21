@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 
 import { Link } from 'react-router-dom'
-import { darken, lighten } from 'polished';
+import { darken, lighten } from 'polished'
 
 interface ButtonProps {
 	children?: React.ReactNode
@@ -118,10 +118,11 @@ const StyledButton = styled.button<StyledButtonProps>`
 	background-color: ${(props) => props.theme.color.grey[200]};
 	border: 1px solid rgb(226, 214, 207);
 	border-radius: 10px;
-	box-shadow: rgb(255 252 245) -8px -8px 16px, rgb(181 176 174 / 50%) 4px 4px 8px, rgb(247 244 242) 1px 1px 0px inset; 
+	box-shadow: rgb(255 252 245) -8px -8px 16px,
+		rgb(181 176 174 / 50%) 4px 4px 8px, rgb(247 244 242) 1px 1px 0px inset;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}55`)};
 	cursor: pointer;
-	display: ${(props) => props.inline ? 'inline-block' : 'flex'};
+	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
 	font-size: ${(props) => props.fontSize}px;
 	font-weight: 700;
 	height: ${(props) => props.size}px;
@@ -130,27 +131,28 @@ const StyledButton = styled.button<StyledButtonProps>`
 	padding-left: ${(props) => props.padding}px;
 	padding-right: ${(props) => props.padding}px;
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
-	width: ${(props) => props.width ? props.width : '100%'};
+	width: ${(props) => (props.width ? props.width : '100%')};
 	@media (max-width: 960px) {
 		/* margin: 0 0.5rem 0 0.5rem; */
 		text-align: center;
 		text-decoration: none;
 		padding: 0.25rem 1rem;
-	  }
-	  @media (max-width: 640px) {
+	}
+	@media (max-width: 640px) {
 		width: 100%;
 		padding: 0.85rem 0.85rem;
-	  }
-	  :hover {
+	}
+	:hover {
 		transform: scale(1);
-	  }
-	
-	&:hover, &:focus {
+	}
+
+	&:hover,
+	&:focus {
 		transition: 0.2s;
 		transform: translate(1px, 1px);
 		background-color: ${(props) => lighten(0.025, props.theme.color.grey[200])};
 	}
-	
+
 	&:focus {
 		border-color: ${darken(0.05, 'rgb(226, 214, 207)')};
 		background-color: ${(props) => darken(0.025, props.theme.color.grey[200])};

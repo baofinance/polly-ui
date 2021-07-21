@@ -51,7 +51,7 @@ export const contractAddresses = {
 	},
 	recipe: {
 		137: '0xF6bCa56DE573380d5424F950367d257B73E40280',
-	}
+	},
 }
 //
 /*
@@ -94,7 +94,7 @@ export const supportedNests = [
 	{
 		nid: 2,
 		nestAddress: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 		outputToken: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
@@ -109,8 +109,18 @@ export const supportedNests = [
 		streamingFees: '1%',
 		coingeckoId: 'metaverse-nft-index',
 		composition: [
-			{symbol:'cmDAI','coingeckoId':'aave-dai', 'address':'0x27f8d03b3a2196956ed754badc28d73be8830a6e', 'coingeckoImageId': ''},
-			{symbol:'WMATIC','coingeckoId':'matic','address':'0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', 'coingeckoImageId': ''}
+			{
+				symbol: 'cmDAI',
+				coingeckoId: 'aave-dai',
+				address: '0x27f8d03b3a2196956ed754badc28d73be8830a6e',
+				coingeckoImageId: '',
+			},
+			{
+				symbol: 'WMATIC',
+				coingeckoId: 'matic',
+				address: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+				coingeckoImageId: '',
+			},
 		],
 		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
 		indexType: 'test',
@@ -118,7 +128,7 @@ export const supportedNests = [
 	{
 		nid: 3,
 		nestAddress: {
-			137: '0xE6af83Ba3604385f76f43C087619c6BF42E98426'
+			137: '0xE6af83Ba3604385f76f43C087619c6BF42E98426',
 		},
 		symbol: 'TEST2',
 		isExperipie: true,
@@ -131,8 +141,18 @@ export const supportedNests = [
 		streamingFees: '1%',
 		coingeckoId: 'metaverse-nft-index',
 		composition: [
-			{symbol:'crDAI','coingeckoId':'dai', 'address':'0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', 'coingeckoImageId': ''},
-			{symbol:'crWETH','coingeckoId':'weth','address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
+			{
+				symbol: 'crDAI',
+				coingeckoId: 'dai',
+				address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
+				coingeckoImageId: '',
+			},
+			{
+				symbol: 'crWETH',
+				coingeckoId: 'weth',
+				address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+				coingeckoImageId: '',
+			},
 		],
 		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
 		indexType: 'test',
@@ -140,7 +160,7 @@ export const supportedNests = [
 	{
 		nid: 4,
 		nestAddress: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6'
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		inputToken: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		outputToken: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
@@ -156,43 +176,43 @@ export const supportedNests = [
 		coingeckoId: 'metaverse-nft-index',
 		composition: [
 			{
-				'symbol': 'SUSHI',
-				'address': '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
-				'decimals': 18,
-				'color': '#0171F5',
-				'percentage': 25,
-				'coingeckoId': 'sushi',
-				'coingeckoImageId': 12271
+				symbol: 'SUSHI',
+				address: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+				decimals: 18,
+				color: '#0171F5',
+				percentage: 25,
+				coingeckoId: 'sushi',
+				coingeckoImageId: 12271,
 			},
 			{
-				'symbol': 'GRT',
-				'address': '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
-				'decimals': 18,
-				'color': '#4c2caf',
-				'percentage': 25,
-				'coingeckoId': 'the-graph',
-				'coingeckoImageId': 13397
+				symbol: 'GRT',
+				address: '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
+				decimals: 18,
+				color: '#4c2caf',
+				percentage: 25,
+				coingeckoId: 'the-graph',
+				coingeckoImageId: 13397,
 			},
 			{
-				'symbol': 'LINK',
-				'address': '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
-				'decimals': 18,
-				'color': '#2a5ada',
-				'percentage': 25,
-				'coingeckoId': 'chainlink',
-				'coingeckoImageId': 877
+				symbol: 'LINK',
+				address: '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
+				decimals: 18,
+				color: '#2a5ada',
+				percentage: 25,
+				coingeckoId: 'chainlink',
+				coingeckoImageId: 877,
 			},
 			{
-				'symbol': 'WETH',
-				'address': '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-				'decimals': 18,
-				'color': '#da2a2a',
-				'percentage': 25,
-				'coingeckoId': 'weth',
-				'coingeckoImageId': 2518
+				symbol: 'WETH',
+				address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+				decimals: 18,
+				color: '#da2a2a',
+				percentage: 25,
+				coingeckoId: 'weth',
+				coingeckoImageId: 2518,
 			},
 		],
 		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
 		indexType: 'test',
-	}
+	},
 ]

@@ -23,7 +23,6 @@ const NestOutput: React.FC<OutputProps> = ({
 	_inputToken,
 	_outputToken,
 }) => {
-
 	return (
 		<StyledOutputWrapper>
 			{!!startAdornment && startAdornment}

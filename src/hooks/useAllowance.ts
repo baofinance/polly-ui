@@ -13,11 +13,7 @@ const useAllowance = (lpContract: Contract) => {
   const { account }: { account: string; ethereum: provider } = useWallet()
 
   const fetchAllowance = useCallback(async () => {
-    const allowance = await getAllowance(
-      lpContract,
-      account,
-      masterChefAddress,
-    )
+    const allowance = await getAllowance(lpContract, account, masterChefAddress)
     setAllowance(new BigNumber(allowance))
   }, [account, lpContract])
 

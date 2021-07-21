@@ -17,12 +17,11 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 	symbol,
 	onChange,
 	value,
-	_outputToken
+	_outputToken,
 }) => {
-
 	return (
 		<StyledTokenInput>
-				<NestOutput
+			<NestOutput
 				startAdornment={
 					<StyledTokenAdornmentWrapper>
 						<StyledTokenSymbol>MINT</StyledTokenSymbol>

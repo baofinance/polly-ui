@@ -79,11 +79,9 @@ export class Contracts {
 			},
 		)
 
-		this.nests.forEach(
-			({ nestContract, nestAddress }) => {
-				setProvider(nestContract, nestAddress)
-			},
-		)
+		this.nests.forEach(({ nestContract, nestAddress }) => {
+			setProvider(nestContract, nestAddress)
+		})
 	}
 
 	setDefaultAccount(account) {

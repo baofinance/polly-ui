@@ -17,8 +17,8 @@ export const blue = {
 }
 
 export const gold = {
-  100: "#D79922",
-  200: "#EFE2BA",
+  100: '#D79922',
+  200: '#EFE2BA',
 }
 
 export const grey = {

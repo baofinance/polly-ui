@@ -13,11 +13,7 @@ const useOutputAllowance = (nestContract: Contract) => {
   const { account }: { account: string; ethereum: provider } = useWallet()
 
   const fetchAllowance = useCallback(async () => {
-    const allowance = await getAllowance(
-      nestContract,
-      account,
-      recipe,
-    )
+    const allowance = await getAllowance(nestContract, account, recipe)
     setAllowance(new BigNumber(allowance))
   }, [account, nestContract])
 

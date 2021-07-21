@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
-import NestListItem from './NestListItem';
-import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles';
+import NestListItem from './NestListItem'
+import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
 
 const NestList: React.FC = () => {
 	// to implement
@@ -19,7 +19,7 @@ const NestList: React.FC = () => {
 			<NestListItem name={'MemeDex 2'} pid={1} />
 			<NestListItem name={'MemeDex 3'} pid={2} />
 		</NestListContainer>
-	);
-};
+	)
+}
 
-export default NestList;
+export default NestList

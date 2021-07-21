@@ -15,7 +15,6 @@ import useInputAllowance from '../../../hooks/useInputAllowance'
 import useInputApprove from '../../../hooks/useInputApprove'
 import { Contract } from 'web3-eth-contract'
 
-
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
 	nestContract: Contract
@@ -57,8 +56,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			const inputAmount = parseFloat(e.currentTarget.value)
 			if (isNaN(inputAmount)) return
 
-			fetchCalcToNest(recipeContract, _outputToken, 1)
-				.then((val) => setWethNeeded(val.times(inputAmount).toFixed(18)))
+			fetchCalcToNest(recipeContract, _outputToken, 1).then((val) =>
+				setWethNeeded(val.times(inputAmount).toFixed(18)),
+			)
 		},
 		[setNestAmount],
 	)
@@ -75,8 +75,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			const inputAmount = parseFloat(e.currentTarget.value)
 			if (isNaN(inputAmount)) return
 
-			fetchCalcToNest(recipeContract, _outputToken, 1)
-				.then((val: BigNumber) => setNestAmount(new BigNumber(inputAmount).div(val).toFixed(18)))
+			fetchCalcToNest(recipeContract, _outputToken, 1).then((val: BigNumber) =>
+				setNestAmount(new BigNumber(inputAmount).div(val).toFixed(18)),
+			)
 		},
 		[setWethNeeded],
 	)
@@ -103,7 +104,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
 				{
-					"Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned."
+					'Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned.'
 				}
 			</ModalContent>
 			<NestTokenOutput
@@ -112,8 +113,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				symbol={nestName}
 				_outputToken={_outputToken}
 			/>
-			<ModalContent>
-			</ModalContent>
+			<ModalContent></ModalContent>
 			<NestTokenInput
 				value={wethNeeded}
 				onChange={handleInputChange}
@@ -123,22 +123,22 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
 				{!allowance.toNumber() ? (
-							<Button
-								disabled={requestedApproval}
-								onClick={handleApprove}
-								text={`Approve ${inputTokenName}`}
-							/>
-						) : (
-				<Button
-					disabled={pendingTx}
-					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
-					onClick={async () => {
-						setPendingTx(true)
-						await onIssue(wethNeeded, nestAmount)
-						setPendingTx(false)
-						onDismiss()
-					}}
-				/>
+					<Button
+						disabled={requestedApproval}
+						onClick={handleApprove}
+						text={`Approve ${inputTokenName}`}
+					/>
+				) : (
+					<Button
+						disabled={pendingTx}
+						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+						onClick={async () => {
+							setPendingTx(true)
+							await onIssue(wethNeeded, nestAmount)
+							setPendingTx(false)
+							onDismiss()
+						}}
+					/>
 				)}
 			</ModalActions>
 		</Modal>

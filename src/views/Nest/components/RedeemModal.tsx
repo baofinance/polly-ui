@@ -65,7 +65,6 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		}
 	}, [onApprove, setRequestedApproval])
 
-
 	return (
 		<Modal>
 			<ModalTitle text={`Redeem ${nestName}`} />
@@ -79,24 +78,24 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
 				{!allowance.toNumber() ? (
-							<Button
-								disabled={requestedApproval}
-								onClick={handleApprove}
-								text={`Approve ${nestName}`}
-							/>
-						) : (
-				<Button
-					disabled={pendingTx}
-					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
-					onClick={async () => {
-						setPendingTx(true)
-						await onConfirm(val)
-						setPendingTx(false)
-						onDismiss()
-					}}
+					<Button
+						disabled={requestedApproval}
+						onClick={handleApprove}
+						text={`Approve ${nestName}`}
 					/>
-					)}
-		</ModalActions>
+				) : (
+					<Button
+						disabled={pendingTx}
+						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+						onClick={async () => {
+							setPendingTx(true)
+							await onConfirm(val)
+							setPendingTx(false)
+							onDismiss()
+						}}
+					/>
+				)}
+			</ModalActions>
 			<ModalContent>
 				{
 					'Remember the longer you stay in a pool the lower your fee. Read the docs for details, but most users will want to stay in a pool 5 days or longer.'
