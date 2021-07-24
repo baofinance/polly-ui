@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Button from '../Button'
 import Input, { InputProps } from '../Input'
 
 interface TokenInputProps extends InputProps {
 	max: number | string
 	symbol: string
 	onSelectMax?: () => void
+	onSelectHalf?: () => void
 }
 
 const TokenInput: React.FC<TokenInputProps> = ({
@@ -15,6 +15,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
 	symbol,
 	onChange,
 	onSelectMax,
+	onSelectHalf,
 	value,
 }) => {
 	return (
@@ -25,11 +26,11 @@ const TokenInput: React.FC<TokenInputProps> = ({
 			<Input
 				endAdornment={
 					<StyledTokenAdornmentWrapper>
-						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
-						<StyledSpacer />
 						<div>
-							<Button size="sm" text="Max" onClick={onSelectMax} />
+						<MaxButton onClick={onSelectHalf}>½</MaxButton>
+							<MaxButton onClick={onSelectMax}>MAX</MaxButton>
 						</div>
+						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
 					</StyledTokenAdornmentWrapper>
 				}
 				onChange={onChange}
@@ -40,17 +41,22 @@ const TokenInput: React.FC<TokenInputProps> = ({
 	)
 }
 
-/*
-            <div>
-              <Button size="sm" text="Max" />
-            </div>
-*/
+const MaxButton = styled.a`
+	padding: 5px;
+	border: 1px solid ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[500]};
+	border-radius: 5px;
+	vertical-align: middle;
+	margin-right: 10px;
+	transition: 100ms;
+	&:hover {
+		background-color: ${(props) => props.theme.color.grey[300]};
+		color: #524d4d;
+		cursor: pointer;
+	}
+`
 
 const StyledTokenInput = styled.div``
-
-const StyledSpacer = styled.div`
-	width: ${(props) => props.theme.spacing[3]}px;
-`
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;
