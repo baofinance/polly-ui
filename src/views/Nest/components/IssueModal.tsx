@@ -53,10 +53,20 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	}
 
 	const handleOutputChange = useCallback(
-		(e: React.FormEvent<HTMLInputElement>) => {
+		(e) => {
+			const updateInput = (inputAmount: string) => {
+				fetchRate().then((val) =>
+					setWethNeeded(val.times(inputAmount).toFixed(18)),
+				)
+			}
+
+			if (typeof e === 'string') {
+				return updateInput(e)
+			}
+
 			const inputAmount = e.currentTarget.value
 
-			if (e.currentTarget.value.length === 0) {
+			if (inputAmount.length === 0) {
 				setNestAmount('')
 				setWethNeeded('')
 				return
@@ -67,11 +77,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
 			) return
 
-			setNestAmount(e.currentTarget.value)
-
-			fetchRate().then((val) =>
-				setWethNeeded(val.times(inputAmount).toFixed(18)),
-			)
+			setNestAmount(inputAmount)
+			updateInput(inputAmount)
 		},
 		[setNestAmount],
 	)
@@ -153,6 +160,15 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				onChange={handleOutputChange}
 				symbol={nestName}
 				_outputToken={_outputToken}
+				addInput={
+					(n: number) => {
+						const result = new BigNumber(nestAmount === '' ? 0 : nestAmount).plus(n)
+						if (result.toNumber() >= 0) {
+							setNestAmount(result.toString())
+							handleOutputChange(result.toString())
+						}
+					}
+				}
 			/>
 			<ModalContent></ModalContent>
 			<NestTokenInput

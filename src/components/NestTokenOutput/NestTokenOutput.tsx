@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Button from '../Button'
 import NestInput, { InputProps } from '../NestInput'
 import NestOutput from '../NestOutput'
 
@@ -11,6 +10,7 @@ interface NestTokenOutputProps extends InputProps {
 	_outputToken?: string
 	value: string
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+	addInput: (n: number) => void
 }
 
 const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
@@ -18,6 +18,7 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 	onChange,
 	value,
 	_outputToken,
+	addInput
 }) => {
 	return (
 		<StyledTokenInput>
@@ -29,9 +30,13 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 					</StyledTokenAdornmentWrapper>
 				}
 				endAdornment={
-					<StyledTokenAdornmentWrapper>
-						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
-					</StyledTokenAdornmentWrapper>
+					<>
+						<MaxButton onClick={() => addInput(1)}>↟</MaxButton>
+						<MaxButton onClick={() => addInput(-1)}>↡</MaxButton>
+						<StyledTokenAdornmentWrapper>
+							<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
+						</StyledTokenAdornmentWrapper>
+					</>
 				}
 				onChange={onChange}
 				value={value}
@@ -45,6 +50,23 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 			  <Button size="sm" text="Max" />
 			</div>
 */
+
+const MaxButton = styled.a`
+	padding: 5px;
+	border: 1px solid ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[500]};
+	border-radius: 5px;
+	vertical-align: middle;
+	margin-right: 10px;
+	transition: 100ms;
+	user-select: none;
+	
+	&:hover {
+		background-color: ${(props) => props.theme.color.grey[300]};
+		color: #524d4d;
+		cursor: pointer;
+	}
+`
 
 const StyledTokenInput = styled.div``
 
