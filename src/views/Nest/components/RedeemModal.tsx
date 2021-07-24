@@ -29,7 +29,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
 	const handleChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
-			setVal(e.currentTarget.value)
+			const inputAmount = e.currentTarget.value
+			if (inputAmount.length === 0) setVal('')
+			if (!/^\d+$/.test(inputAmount)) return
+			setVal(inputAmount)
 		},
 		[setVal],
 	)
@@ -38,11 +41,16 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		setVal(fullBalance)
 	}, [fullBalance, setVal])
 
+	const handleSelectHalf = useCallback(() => {
+		setVal(max.div(10 ** 18).div(2).toString())
+	}, [fullBalance, setVal])
+
 	return (
 		<Modal>
 			<ModalTitle text={`Withdraw ${nestName}`} />
 			<TokenInput
 				onSelectMax={handleSelectMax}
+				onSelectHalf={handleSelectHalf}
 				onChange={handleChange}
 				value={val}
 				max={fullBalance}
@@ -51,7 +59,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
 				<Button
-					disabled={pendingTx}
+					disabled={
+						pendingTx ||
+						isNaN(parseFloat(val)) ||
+						parseFloat(val) === 0 ||
+						parseFloat(val) < 0 ||
+						parseFloat(val) > max.div(10 ** 18).toNumber()
+					}
 					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
 					onClick={async () => {
 						setPendingTx(true)

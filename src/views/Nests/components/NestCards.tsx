@@ -81,6 +81,7 @@ const NestCard: React.FC<NestCardProps> = ({ nest }) => {
 				<CardContent>
 					<StyledContent>
 						<CardIcon>
+							🦜
 							<img src={nest.icon} alt="" height="50" />
 						</CardIcon>
 						<StyledTitle>{nest.name}</StyledTitle>

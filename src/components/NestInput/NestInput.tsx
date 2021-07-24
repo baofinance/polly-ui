@@ -1,13 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-import debounce from 'debounce'
+import BigNumber from 'bignumber.js'
 
 export interface InputProps {
 	endAdornment?: React.ReactNode
 	placeholder?: string
 	startAdornment?: React.ReactNode
 	value: any
+	setValue?: Function
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+	wethBalance?: BigNumber
 }
 
 const NestInput: React.FC<InputProps> = ({
@@ -15,7 +17,9 @@ const NestInput: React.FC<InputProps> = ({
 	placeholder,
 	startAdornment,
 	value,
+	setValue,
 	onChange,
+	wethBalance,
 }) => {
 	return (
 		<StyledInputWrapper>
@@ -25,10 +29,34 @@ const NestInput: React.FC<InputProps> = ({
 				value={value}
 				onChange={onChange}
 			/>
+			{wethBalance && setValue && (
+				<>
+					<MaxButton onClick={() => { setValue(wethBalance.div(10 ** 18).div(2).toFixed(18)) }}>
+						½
+					</MaxButton>
+					<MaxButton onClick={() => { setValue(wethBalance.div(10 ** 18).toFixed(18)) }}>MAX</MaxButton>
+				</>
+			)}
 			{!!endAdornment && endAdornment}
 		</StyledInputWrapper>
 	)
 }
+
+const MaxButton = styled.a`
+	padding: 5px;
+	border: 1px solid ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[500]};
+	border-radius: 5px;
+	vertical-align: middle;
+	margin-right: 10px;
+	transition: 100ms;
+
+	&:hover {
+		background-color: ${(props) => props.theme.color.grey[300]};
+		color: #524d4d;
+		cursor: pointer;
+	}
+`
 
 const StyledInputWrapper = styled.div`
 	align-items: center;

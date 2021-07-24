@@ -1,25 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import Button from '../Button'
 import NestInput, { InputProps } from '../NestInput'
-import NestOutput from '../NestOutput'
-import { fetchCalcToNest } from '../../bao/utils'
-import Web3 from 'web3'
-import { ethers } from 'ethers'
 
 interface NestTokenInputProps extends InputProps {
 	symbol: string
 	_inputToken?: string
 	value: string
+	setValue?: Function
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+	wethBalance?: BigNumber
 }
 
 const NestTokenInput: React.FC<NestTokenInputProps> = ({
 	symbol,
 	onChange,
 	value,
+	setValue,
 	_inputToken,
+	wethBalance,
 }) => {
 	return (
 		<StyledTokenInput>
@@ -36,7 +35,9 @@ const NestTokenInput: React.FC<NestTokenInputProps> = ({
 					</StyledTokenAdornmentWrapper>
 				}
 				value={value}
+				setValue={setValue}
 				onChange={onChange}
+				wethBalance={wethBalance}
 			/>
 		</StyledTokenInput>
 	)
