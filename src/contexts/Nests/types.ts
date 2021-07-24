@@ -19,6 +19,7 @@ export interface Nest {
   inputTokenAddress: string
   icon: string
   tokenSymbol: string
+  coingeckoId: string
   indexType?: IndexType
 }
 

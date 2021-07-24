@@ -12,6 +12,7 @@
     "bignumber.js": "^9.0.1",
     "debounce": "^1.2.0",
     "ethers": "^5.0.2",
+    "lightweight-charts": "3.4.0",
     "lodash": "^4.17.21",
     "numeral": "^2.0.6",
     "polished": "^4.1.3",

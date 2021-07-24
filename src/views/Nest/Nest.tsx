@@ -14,6 +14,7 @@ import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import BigNumber from 'bignumber.js'
 
+
 const infoIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/eaee121300a4c64c1293bb0f80723539357696c5/misc/Infoicon.svg'
 const nestIcon =
