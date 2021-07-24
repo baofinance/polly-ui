@@ -4,7 +4,7 @@ import { darken } from 'polished'
 export const ListLabelCol = styled.span`
   font-family: 'Kaushan Script', sans-serif;
   display: inline-block;
-  text-align: center;
+  text-align: ${(props: ColProps) => props.align};
   color: #5b3926;
   vertical-align: middle;
   font-weight: bold;
@@ -47,11 +47,12 @@ export const NestListContainer = styled.div`
 export const ListCol = styled.div`
   display: inline-block;
   width: ${(props: ColProps) => props.width};
-  text-align: center;
+  text-align: ${(props: ColProps) => props.align};
 `
 
 // Props and stuff
 
 interface ColProps {
   width: string
+  align: string
 }

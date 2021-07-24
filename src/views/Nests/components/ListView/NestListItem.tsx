@@ -5,37 +5,45 @@ import DogeMan from './sample-img-to-remove/doge.png'
 import Button from '../../../../components/Button'
 import { AssetImage, ListCol, ColumnText, ListItemContainer } from './styles'
 
-const NestListItem: React.FC<IProps> = (props) => {
-	const { name, pid }: IProps = props
+import { useWallet } from 'use-wallet'
+import useBao from '../../../../hooks/useBao'
+import 'react-tabs/style/react-tabs.css'
+import '../tab-styles.css'
+import { Nest } from '../../../../contexts/Nests'
+import { margin } from 'polished'
+
+interface NestWithIssuedTokens extends Nest {}
+
+const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
+	const { account } = useWallet()
+	const { nestTokenAddress } = nest
+	const bao = useBao()
+
+	const indexActive = true // startTime * 1000 - Date.now() <= 0
 
 	return (
 		<ListItemContainer>
-			<ListCol width={'7.5%'}>
-				<AssetImage src={DogeMan} />
+			<ListCol width={'20%'} align={'left'}>
+				🦜
+				<AssetImage src={nest.icon} />
+				<ColumnText>{nest.nestToken}</ColumnText>
 			</ListCol>
-			<ListCol width={'17.5%'}>
-				<ColumnText>{name}</ColumnText>
+			<ListCol width={'40%'} align={'center'}>
+				<ColumnText>🦜🦜🦜🦜🦜🦜🦜🦜</ColumnText>
 			</ListCol>
-			<ListCol width={'12.5%'}>
-				<ColumnText>$0.000</ColumnText>
+			<ListCol width={'15%'} align={'center'}>
+				<ColumnText>$1.50</ColumnText>
 			</ListCol>
-			<ListCol width={'12.5%'}>
-				<ColumnText>0.000</ColumnText>
+			<ListCol width={'15%'} align={'center'}>
+				<ColumnText>+10%</ColumnText>
 			</ListCol>
-			<ListCol width={'12.5%'}>
-				<ColumnText>0.000</ColumnText>
-			</ListCol>
-			<ListCol width={'12.5%'}>
-				<ColumnText>$0.000</ColumnText>
-			</ListCol>
-			<ListCol width={'25%'}>
-				<Button inline={true} width={'40%'}>
-					Stake
-				</Button>
-				<span style={{ marginRight: '20px' }} />
-				<Button inline={true} width={'40%'}>
-					Buy
-				</Button>
+			<ListCol width={'10%'} align={'center'}>
+				<Button
+					width={'100%'}
+					disabled={!indexActive}
+					text={indexActive ? 'Select' : undefined}
+					to={`/nests/${nest.nid}`}
+				></Button>
 			</ListCol>
 		</ListItemContainer>
 	)
@@ -43,14 +51,8 @@ const NestListItem: React.FC<IProps> = (props) => {
 
 // Props and stuff
 
-interface IProps {
-	name: string
-	pid: number
-}
-
-NestListItem.propTypes = {
-	name: PropTypes.string.isRequired,
-	pid: PropTypes.number.isRequired,
+interface NestListItemProps {
+	nest: NestWithIssuedTokens
 }
 
 export default NestListItem

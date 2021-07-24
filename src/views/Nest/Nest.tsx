@@ -144,7 +144,7 @@ const NestContent = styled.div`
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	margin: auto;
+	margin: 0px auto;
 	max-width: 1280px;
 	overflow: hidden;
 	padding-bottom: 20px;

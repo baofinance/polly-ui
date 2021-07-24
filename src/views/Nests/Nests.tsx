@@ -7,6 +7,7 @@ import Page from '../../components/Page'
 import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
 import Nest from '../Nest'
+import NestList from './components/ListView/NestList'
 import NestCards from './components/NestCards'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
@@ -27,7 +28,7 @@ const Nests: React.FC = () => {
 							subtitle="Tokenized Portfolios with Set and Forget Strategies!"
 						/>
 						<Route exact path={path}>
-							<NestCards />
+							<NestList />
 						</Route>
 						<Route path={`${path}/:nestId`}>
 							<Nest />
