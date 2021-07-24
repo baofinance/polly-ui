@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import baoBanner from '../../assets/img/bao-banner.png'
+import pollyBanner from '../../assets/img/polly.svg'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
@@ -11,6 +11,8 @@ import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
 import Farm from '../Farm'
 import FarmCards from './components/FarmCards'
+import Container from '../../components/Container'
+import Balances from './components/Balances'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -21,24 +23,25 @@ const Farms: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
+								<PageHeader
+				icon={pollyBanner}
+				title="PollyChef is Ready"
+				subtitle="Stake Sushiswap and Baoswap LP tokens to earn BAO!"
+			/>
+			<StyledInfo>
+				Be sure to read <a href="https://docs.bao.finance">docs.bao.finance</a>{' '}
+				before using the pools so you are familiar with protocol risks and fees!
+			</StyledInfo>
+			<Spacer size="md" />
+			<StyledInfo>
+				Please note this is the MATIC version of Bao, Polly. For mainnet, visit{' '}
+				<a href="https://bao.finance">bao.finance</a>{' '}
+			</StyledInfo>
+			<Spacer size="md" />
+			<Container>
+				<Balances />
+			</Container>
 						<Route exact path={path}>
-							<PageHeader
-								icon={baoBanner}
-								subtitle="Earn BAO tokens by staking Sushi and Baoswap V2 LP Tokens. And soon generate synthetic assets!"
-								title="Select Your Fav Dim Sum Entrees!"
-							/>
-							<StyledInfo>
-								❗️<b>Important</b>: Bao.cx distribution has hit its soft cap of
-								1T. Minting of new Bao.cx has ended, meaning farming rewards are
-								no longer accumulating. We are currently evaluating all
-								options. Please visit the Bao Finance{' '}
-								<a href="https://gov.bao.finance/">forums</a>,{' '}
-								<a href="https://snapshot.page/#/baovotes.eth">Snapshot </a>
-								or our <a href="https://discord.gg/BW3P62vJXT">Discord</a> for
-								more information.
-								<br />
-							</StyledInfo>
-							<Spacer size="md" />
 							<FarmCards />
 						</Route>
 						<Route path={`${path}/:farmId`}>

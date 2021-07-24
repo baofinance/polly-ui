@@ -1,6 +1,10 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
-import { supportedPools } from './lib/constants'
+import _ from 'lodash'
+
+import nestAbi from './lib/abi/experipie.json'
+import basketAbi from './lib/abi/basketFacet.json'
+import { wethMaticAddress } from '../constants/tokenAddresses';
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -54,40 +58,83 @@ export const gettBaoStakingContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.tBaoStaking
 }
 
+export const getNestContract = (bao, nid) => {
+	if (bao && bao.contracts && bao.contracts.nests) {
+		const nest = _.find(bao.contracts.nests, { nid })
+		const address = nest.nestAddress
+		return {
+			address,
+			nestContract: new bao.web3.eth.Contract(nestAbi, address),
+			basketContract: new bao.web3.eth.Contract(basketAbi, address)
+		}
+	}
+}
+
+export const getRecipeContract = (bao) => {
+	return bao && bao.contracts && bao.contracts.recipe
+}
+
+export const getNests = (bao) => {
+	return bao
+		? bao.contracts.nests.map(
+			({
+				nid,
+				name,
+				symbol,
+				icon,
+				nestAddress,
+				nestContract,
+				indexType,
+			}) => ({
+				nid,
+				id: symbol,
+				name,
+				icon,
+				nestContract,
+				indexType,
+				nestTokenAddress: nestAddress,
+				inputToken: 'wETH',
+				nestToken: symbol,
+				inputTokenAddress: wethMaticAddress,
+			}),
+		)
+		: []
+}
+
 export const getFarms = (bao) => {
 	return bao
 		? bao.contracts.pools.map(
-				({
-					pid,
-					name,
-					symbol,
-					icon,
-					tokenAddress,
-					tokenDecimals,
-					tokenSymbol,
-					tokenContract,
-					lpAddress,
-					lpContract,
-					refUrl,
-					poolType,
-				}) => ({
-					pid,
-					id: symbol,
-					name,
-					lpToken: symbol,
-					lpTokenAddress: lpAddress,
-					lpContract,
-					tokenAddress,
-					tokenDecimals,
-					tokenSymbol,
-					tokenContract,
-					earnToken: 'BAO',
-					earnTokenAddress: bao.contracts.bao.options.address,
-					icon,
-					refUrl,
-					poolType,
-				}),
-		  )
+			({
+				pid,
+				name,
+				symbol,
+				icon,
+				tokenAddress,
+				tokenDecimals,
+				tokenSymbol,
+				tokenContract,
+				lpAddress,
+				lpContract,
+				refUrl,
+				poolType,
+			}) => ({
+				pid,
+				id: symbol,
+				name,
+				lpToken: symbol,
+				lpTokenAddress: lpAddress,
+				lpContract,
+				tokenAddress,
+				tokenDecimals,
+				tokenSymbol,
+				tokenContract,
+				earnToken: 'BAO',
+				earnTokenAddress: bao.contracts.bao.options.address,
+				icon,
+				refUrl,
+				poolType,
+			}),
+		)
 		: []
 }
 
@@ -182,6 +229,7 @@ export const unstake = async (
 			return tx.transactionHash
 		})
 }
+
 export const harvest = async (masterChefContract, pid, account) => {
 	return masterChefContract.methods
 		.claimReward(pid)
@@ -274,5 +322,58 @@ export const leave = async (contract, amount, account) => {
 		.on('transactionHash', (tx) => {
 			console.log(tx)
 			return tx.transactionHash
+		})
+}
+
+//functions from PieDAO
+
+let amount = "1.00000000";
+let ethNeededSingleEntry = { val: 0, label:'-'};
+
+export const fetchCalcToNest = async ( recipeContract, nestAddress, nestAmount) => {
+	const decimate = (num, dec = 18) =>
+  	new BigNumber(num).div(new BigNumber(10).pow(dec));
+
+  const recipe = recipeContract
+
+	const amount = new BigNumber(nestAmount)
+		.times(new BigNumber(10).pow(18))
+		.toFixed(0);
+
+	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount).call()
+	return decimate(amountEthNecessary)
+};
+
+export const fetchNestQuote = async (event, nestAddress) => {
+    ethNeededSingleEntry.label = '-'
+    try {
+      const nestToMint = nestAddress
+      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, amount))
+    } catch (e) { console.error(e)}
+  }
+
+export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
+	return recipeContract.methods
+		.bake(_inputToken, _outputToken, new BigNumber(_maxInput).times(10 ** 18).toString(), _data)
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+}
+
+export const nestRedeem = async (
+	nestContract,
+	amount,
+	account,
+) => {
+	nestContract.methods.exitPool(new BigNumber(amount).times(10 ** 18).toString())
+		.send({ from: account })
+		.on('transactionHash', (tx) => {
+			console.log(tx)
+			return tx.transactionHash
+		})
+		.on('error', (err, receipt) => {
+			console.log(err, receipt)
 		})
 }

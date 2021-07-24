@@ -5,6 +5,7 @@ import {
 	SUBTRACT_GAS_LIMIT,
 	contractAddresses,
 	supportedPools,
+	supportedNests,
 } from './constants.js'
 
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
@@ -16,6 +17,8 @@ import UniOracleABI from './abi/unioracle.json'
 import ChainOracle from './abi/chainoracle.json'
 import tBaoAbi from './abi/tbao.json'
 import TeaMakerAbi from './abi/teamaker.json'
+import ExperipieAbi from './abi/experipie.json'
+import RecipeAbi from './abi/recipe.json'
 
 export class Contracts {
 	constructor(provider, networkId, web3, options) {
@@ -28,11 +31,9 @@ export class Contracts {
 		this.defaultGasPrice = options.defaultGasPrice
 
 		this.bao = new this.web3.eth.Contract(BaoAbi)
-		this.tBaoStaking = new this.web3.eth.Contract(tBaoAbi)
 		this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
+		this.recipe = new this.web3.eth.Contract(RecipeAbi)
 		this.weth = new this.web3.eth.Contract(WETHAbi)
-		this.wethPrice = new this.web3.eth.Contract(ChainOracle)
-		this.baoPrice = new this.web3.eth.Contract(UniOracleABI)
 
 		this.pools = supportedPools.map((pool) =>
 			Object.assign(pool, {
@@ -40,6 +41,13 @@ export class Contracts {
 				tokenAddress: pool.tokenAddresses[networkId],
 				lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
 				tokenContract: new this.web3.eth.Contract(ERC20Abi),
+			}),
+		)
+
+		this.nests = supportedNests.map((nest) =>
+			Object.assign(nest, {
+				nestAddress: nest.nestAddress[networkId],
+				nestContract: new this.web3.eth.Contract(ExperipieAbi),
 			}),
 		)
 
@@ -60,11 +68,9 @@ export class Contracts {
 		}
 
 		setProvider(this.bao, contractAddresses.bao[networkId])
-		setProvider(this.tBaoStaking, contractAddresses.tbao[networkId])
 		setProvider(this.masterChef, contractAddresses.masterChef[networkId])
+		setProvider(this.recipe, contractAddresses.recipe[networkId])
 		setProvider(this.weth, contractAddresses.weth[networkId])
-		setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
-		setProvider(this.baoPrice, contractAddresses.baoPrice[networkId])
 
 		this.pools.forEach(
 			({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
@@ -72,13 +78,18 @@ export class Contracts {
 				setProvider(tokenContract, tokenAddress)
 			},
 		)
+
+		this.nests.forEach(
+			({ nestContract, nestAddress }) => {
+				setProvider(nestContract, nestAddress)
+			},
+		)
 	}
 
 	setDefaultAccount(account) {
 		this.bao.options.from = account
 		this.masterChef.options.from = account
-		this.wethPrice.options.from = account
-		this.baoPrice.options.from = account
+		this.recipe.options.from = account
 	}
 
 	async callContractFunction(method, options) {

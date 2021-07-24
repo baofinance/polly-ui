@@ -8,11 +8,12 @@ import FarmsProvider from './contexts/Farms'
 import ModalsProvider from './contexts/Modals'
 import TransactionProvider from './contexts/Transactions'
 import BaoProvider from './contexts/BaoProvider'
-import useModal from './hooks/useModal'
+import NestsProvider from './contexts/Nests'
 import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
-import Staking from './views/Staking'
+import Nests from './views/Nests'
+import Nest from './views/Nest'
 
 const url = new URL(window.location.toString())
 if (url.searchParams.has('ref')) {
@@ -42,11 +43,11 @@ const App: React.FC = () => {
 					<Route path="/" exact>
 						<Home />
 					</Route>
-					<Route path="/farms">
-						<Farms />
+					<Route path="/Nests">
+						<Nests />
 					</Route>
-					<Route path="/staking">
-						<Staking />
+					<Route path="/Farms">
+						<Farms />
 					</Route>
 				</Switch>
 			</Router>
@@ -58,17 +59,19 @@ const Providers: React.FC = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<UseWalletProvider
-				chainId={100}
+				chainId={137}
 				connectors={{
-					walletconnect: { rpcUrl: 'https://rpc.xdaichain.com/' },
+					walletconnect: { rpcUrl: 'https://rpc-mainnet.maticvigil.com/' },
 				}}
 			>
 				<BaoProvider>
-					<TransactionProvider>
-						<FarmsProvider>
-							<ModalsProvider>{children}</ModalsProvider>
-						</FarmsProvider>
-					</TransactionProvider>
+					<NestsProvider>
+						<TransactionProvider>
+							<FarmsProvider>
+								<ModalsProvider>{children}</ModalsProvider>
+							</FarmsProvider>
+						</TransactionProvider>
+					</NestsProvider>
 				</BaoProvider>
 			</UseWalletProvider>
 		</ThemeProvider>

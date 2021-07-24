@@ -36,12 +36,10 @@ export class Bao {
 			this.web3.eth.defaultAccount = options.defaultAccount
 		}
 		this.contracts = new Contracts(realProvider, networkId, this.web3, options)
-		this.baoAddress = contractAddresses.bao[100]
-		this.tbaoAddress = contractAddresses.tbao[100]
-		this.masterChefAddress = contractAddresses.masterChef[100]
-		this.wethAddress = contractAddresses.weth[100]
-		this.wethPriceAddress = contractAddresses.wethPrice[100]
-		this.baoPriceAddress = contractAddresses.baoPrice[100]
+		this.baoAddress = contractAddresses.bao[137]
+		this.masterChefAddress = contractAddresses.masterChef[137]
+		this.recipe = contractAddresses.recipe[137]
+		this.wethAddress = contractAddresses.weth[137]
 		console.log(`network Id: ${networkId}`, contractAddresses)
 	}
 

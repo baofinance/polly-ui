@@ -1,42 +1,54 @@
-import BigNumber from 'bignumber.js'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
+import { Contract } from 'web3-eth-contract'
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
+import useInputAllowance from '../../../hooks/useInputAllowance'
+import useInputApprove from '../../../hooks/useInputApprove'
 import useModal from '../../../hooks/useModal'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { getBalanceNumber } from '../../../utils/formatBalance'
-import DepositModal from './DepositModal'
-import { contractAddresses } from '../../../bao/lib/constants'
-import useEnter from '../../../hooks/useEnter'
-import useLeave from '../../../hooks/useLeave'
-import useAllowanceStaking from '../../../hooks/useAllowanceStaking'
-import useApproveStaking from '../../../hooks/useApproveStaking'
-import bao from '../../../assets/img/bao.png'
+import IssueModal from './IssueModal'
 
-interface StakeProps {}
+interface IssueProps {
+	nestTokenAddress: string
+	nestContract: Contract
+	nestName: string
+	inputTokenContract: Contract
+	inputTokenName: string
+	outputTokenContract: Contract
+}
 
-const StakeBao: React.FC<StakeProps> = ({}) => {
-	const tokenName = 'BAOcx'
+const Issue: React.FC<IssueProps> = ({
+	nestTokenAddress,
+	nestContract,
+	nestName,
+	inputTokenContract,
+	inputTokenName,
+	outputTokenContract,
+}) => {
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
-	const allowance = useAllowanceStaking()
-	const { onApprove } = useApproveStaking()
+	const allowance = useInputAllowance(inputTokenContract)
+	const { onApprove } = useInputApprove(inputTokenContract)
 
-	const tokenBalance = useTokenBalance(contractAddresses.bao[100])
+	const inputTokenBalance = useTokenBalance(inputTokenContract.options.address)
+	const nestTokenBalance = useTokenBalance(nestContract.options.address)
 
-	const { onEnter } = useEnter()
-	const { onLeave } = useLeave()
+	const _inputToken = inputTokenContract.options.address
+	const _outputToken = outputTokenContract.options.address
 
 	const [onPresentDeposit] = useModal(
-		<DepositModal
-			max={tokenBalance}
-			onConfirm={onEnter}
-			tokenName={tokenName}
+		<IssueModal
+			nestName={nestName}
+			nestAddress={nestTokenAddress}
+			inputTokenName={inputTokenName}
+			_inputToken={_inputToken}
+			_outputToken={_outputToken}
 		/>,
 	)
 
@@ -58,28 +70,23 @@ const StakeBao: React.FC<StakeProps> = ({}) => {
 			<CardContent>
 				<StyledCardContentInner>
 					<StyledCardHeader>
-						<CardIcon>
-							<img src={bao} alt="" height="50" />
-						</CardIcon>
-						<Value value={getBalanceNumber(tokenBalance)} />
-						<Label text={`BAOcx Available`} />
+						<CardIcon>👨🏻‍🍳</CardIcon>
+						<Label text={`Issue ${nestName} with WETH`} />
+						<Value value={getBalanceNumber(inputTokenBalance)} />
+						<Label text={`Your Total wETH`} />
 					</StyledCardHeader>
 					<StyledCardActions>
 						{!allowance.toNumber() ? (
 							<Button
 								disabled={requestedApproval}
 								onClick={handleApprove}
-								text={`Approve BAOcx`}
+								text={`Approve ${inputTokenName}`}
 							/>
 						) : (
-							<>
-								<Button
-									disabled={tokenBalance.eq(new BigNumber(0))}
-									text="Convert to tBAO"
-									onClick={onPresentDeposit}
-								/>
-								<StyledActionSpacer />
-							</>
+							<Button
+								text="Issue"
+								onClick={onPresentDeposit}
+							/>
 						)}
 					</StyledCardActions>
 				</StyledCardContentInner>
@@ -113,4 +120,4 @@ const StyledCardContentInner = styled.div`
 	justify-content: space-between;
 `
 
-export default StakeBao
+export default Issue

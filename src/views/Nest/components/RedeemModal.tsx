@@ -4,20 +4,21 @@ import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
 import ModalTitle from '../../../components/ModalTitle'
+import ModalContent from '../../../components/ModalContent'
 import TokenInput from '../../../components/TokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
-interface DepositModalProps extends ModalProps {
+interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
-	tokenName?: string
+	nestName?: string
 }
 
-const DepositModal: React.FC<DepositModalProps> = ({
-	max,
+const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onConfirm,
 	onDismiss,
-	tokenName = 'BAOcx',
+	max,
+	nestName = '',
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -28,7 +29,10 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
 	const handleChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
-			setVal(e.currentTarget.value)
+			const inputAmount = e.currentTarget.value
+			if (inputAmount.length === 0) setVal('')
+			if (!/^\d+$/.test(inputAmount)) return
+			setVal(inputAmount)
 		},
 		[setVal],
 	)
@@ -37,20 +41,31 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		setVal(fullBalance)
 	}, [fullBalance, setVal])
 
+	const handleSelectHalf = useCallback(() => {
+		setVal(max.div(10 ** 18).div(2).toString())
+	}, [fullBalance, setVal])
+
 	return (
 		<Modal>
-			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
+			<ModalTitle text={`Withdraw ${nestName}`} />
 			<TokenInput
-				value={val}
 				onSelectMax={handleSelectMax}
+				onSelectHalf={handleSelectHalf}
 				onChange={handleChange}
+				value={val}
 				max={fullBalance}
-				symbol={tokenName}
+				symbol={nestName}
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
 				<Button
-					disabled={pendingTx}
+					disabled={
+						pendingTx ||
+						isNaN(parseFloat(val)) ||
+						parseFloat(val) === 0 ||
+						parseFloat(val) < 0 ||
+						parseFloat(val) > max.div(10 ** 18).toNumber()
+					}
 					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
 					onClick={async () => {
 						setPendingTx(true)
@@ -60,8 +75,13 @@ const DepositModal: React.FC<DepositModalProps> = ({
 					}}
 				/>
 			</ModalActions>
+			<ModalContent>
+				{
+					'Remember the longer you stay in a pool the lower your fee. Read the docs for details, but most users will want to stay in a pool 5 days or longer.'
+				}
+			</ModalContent>
 		</Modal>
 	)
 }
 
-export default DepositModal
+export default WithdrawModal
