@@ -45,7 +45,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		(e: React.FormEvent<HTMLInputElement>) => {
 			const inputAmount = e.currentTarget.value
 			if (inputAmount.length === 0) setVal('')
-			if (!/^\d+$/.test(inputAmount)) return
+			if (
+				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
+				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
+			) return
 			setVal(inputAmount)
 		},
 		[setVal],
@@ -100,6 +103,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 					<Button
 						disabled={
 							pendingTx ||
+							val.slice(-1) === '.' ||
 							isNaN(parseFloat(val)) ||
 							parseFloat(val) === 0 ||
 							parseFloat(val) < 0 ||

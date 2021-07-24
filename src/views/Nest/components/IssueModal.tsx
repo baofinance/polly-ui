@@ -61,7 +61,11 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				setWethNeeded('')
 				return
 			}
-			if (isNaN(parseFloat(inputAmount)) || !/^\d+$/.test(inputAmount)) return
+			if (
+				isNaN(parseFloat(inputAmount)) ||
+				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
+				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
+			) return
 
 			setNestAmount(e.currentTarget.value)
 
@@ -91,7 +95,11 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				setWethNeeded('')
 				return
 			}
-			if (isNaN(parseFloat(inputAmount)) || !/^\d+$/.test(inputAmount)) return
+			if (
+				isNaN(parseFloat(inputAmount)) ||
+				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
+				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
+			) return
 
 			setWethNeeded(inputAmount)
 			updateInput(inputAmount)
@@ -170,6 +178,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					<Button
 						disabled={
 							pendingTx ||
+							wethNeeded.slice(-1) === '.' ||
+							nestAmount.slice(-1) === '.' ||
 							isNaN(parseFloat(wethNeeded)) ||
 							parseFloat(wethNeeded) === 0 ||
 							parseFloat(wethNeeded) < 0 ||
