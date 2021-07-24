@@ -155,10 +155,42 @@ export const supportedNests = [
 		streamingFees: '1%',
 		coingeckoId: 'metaverse-nft-index',
 		composition: [
-			{symbol:'SUSHI','coingeckoId':'sushi', 'address':'0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a', 'coingeckoImageId': ''},
-			{symbol:'GRT','coingeckoId':'the-graph', 'address':'0x5fe2b58c013d7601147dcdd68c143a77499f5531', 'coingeckoImageId': ''},
-			{symbol:'LINK','coingeckoId':'chainlink', 'address':'0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39', 'coingeckoImageId': ''},
-			{symbol:'WETH','coingeckoId':'weth', 'address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
+			{
+				'symbol': 'SUSHI',
+				'address': '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+				'decimals': 18,
+				'color': '#0171F5',
+				'percentage': 25,
+				'coingeckoId': 'sushi',
+				'coingeckoImageId': 12271
+			},
+			{
+				'symbol': 'GRT',
+				'address': '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
+				'decimals': 18,
+				'color': '#4c2caf',
+				'percentage': 25,
+				'coingeckoId': 'the-graph',
+				'coingeckoImageId': 13397
+			},
+			{
+				'symbol': 'LINK',
+				'address': '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
+				'decimals': 18,
+				'color': '#2a5ada',
+				'percentage': 25,
+				'coingeckoId': 'chainlink',
+				'coingeckoImageId': 877
+			},
+			{
+				'symbol': 'WETH',
+				'address': '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+				'decimals': 18,
+				'color': '#da2a2a',
+				'percentage': 25,
+				'coingeckoId': 'weth',
+				'coingeckoImageId': 2518
+			},
 		],
 		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
 		indexType: 'test',

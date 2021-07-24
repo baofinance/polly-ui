@@ -8,6 +8,9 @@ import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
 import Nest from '../Nest'
 import NestCards from './components/NestCards'
+import PageHeader from '../../components/PageHeader'
+import Spacer from '../../components/Spacer'
+import pollyNests from '../../assets/img/polly-nests.png'
 
 const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -18,8 +21,12 @@ const Nests: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
+						<PageHeader
+							icon={pollyNests}
+							title="Build Your Nest"
+							subtitle="Tokenized Portfolios with Set and Forget Strategies!"
+						/>
 						<Route exact path={path}>
-							<StyledHeader>Nests</StyledHeader>
 							<NestCards />
 						</Route>
 						<Route path={`${path}/:nestId`}>

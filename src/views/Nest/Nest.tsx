@@ -1,38 +1,19 @@
-import React, { useEffect, useMemo, useCallback, useState } from 'react'
-import { useParams, Route, Switch, useRouteMatch } from 'react-router-dom'
+import React, { useEffect, useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
-import { getRecipeContract, getNestContract } from '../../bao/utils'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
-import useBao from '../../hooks/useBao'
 import useNest from '../../hooks/useNest'
-import useNestIssue from '../../hooks/useNestIssue'
-import useNestRedeem from '../../hooks/useNestRedeem'
 import { getContract } from '../../utils/erc20'
-import Button from '../../components/Button'
-import WalletProviderModal from '../../components/WalletProviderModal'
-import useModal from '../../hooks/useModal'
-import IssueModal from './components/IssueModal'
-import RedeemModal from './components/RedeemModal'
-import useAllowance from '../../hooks/useAllowance'
-import useApprove from '../../hooks/useApprove'
-import { Contract } from 'web3-eth-contract'
 import Redeem from './components/Redeem'
 import Issue from './components/Issue'
 
-
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
-	const {
-		nid,
-		nestToken,
-		nestTokenAddress,
-		inputTokenAddress,
-		name,
-		icon,
-	} = useNest(nestId)
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
+		useNest(nestId)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -58,15 +39,11 @@ const Nest: React.FC = () => {
 
 	return (
 		<>
-			<PageHeader
-				icon={icon}
-				subtitle={`Issue & Redeem ${nestTokenName}`}
-				title={name}
-			/>
+			<NestHeader>{name}</NestHeader>
 			<StyledFarm>
 				<StyledCardsWrapper>
 					<StyledCardWrapper>
-						<Redeem 
+						<Redeem
 							nestContract={nestContract}
 							nid={nid}
 							nestName={nestToken.toUpperCase()}
@@ -127,6 +104,16 @@ const StyledInfo = styled.h3`
 	color: ${(props) => props.theme.color.grey[400]};
 	font-size: 16px;
 	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+`
+
+const NestHeader = styled.h1`
+	font-family: 'Kaushan Script', sans-serif;
+	color: ${(props) => props.theme.color.red[200]};
+	font-size: 48px;
+	font-weight: 700;
 	margin: 0;
 	padding: 0;
 	text-align: center;
