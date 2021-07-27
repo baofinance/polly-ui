@@ -13,7 +13,15 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
-import Nest from './views/Nest'
+
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+// FontAwesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+library.add(fas, fab)
 
 const url = new URL(window.location.toString())
 if (url.searchParams.has('ref')) {

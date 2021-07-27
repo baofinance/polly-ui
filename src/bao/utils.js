@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 import nestAbi from './lib/abi/experipie.json'
 import basketAbi from './lib/abi/basketFacet.json'
+import chainOracle from './lib/abi/chainoracle.json'
 import { wethMaticAddress } from '../constants/tokenAddresses'
 
 BigNumber.config({
@@ -85,6 +86,7 @@ export const getNests = (bao) => {
 					nestAddress,
 					nestContract,
 					indexType,
+					composition
 				}) => ({
 					nid,
 					id: symbol,
@@ -92,6 +94,7 @@ export const getNests = (bao) => {
 					icon,
 					nestContract,
 					indexType,
+					composition,
 					nestTokenAddress: nestAddress,
 					inputToken: 'wETH',
 					nestToken: symbol,
@@ -335,26 +338,19 @@ export const fetchCalcToNest = async (
 	nestAddress,
 	nestAmount,
 ) => {
-	const decimate = (num, dec = 18) =>
-		new BigNumber(num).div(new BigNumber(10).pow(dec))
-
-	const recipe = recipeContract
-
 	const amount = new BigNumber(nestAmount)
 		.times(new BigNumber(10).pow(18))
-		.toFixed(0)
 
-	const amountEthNecessary = await recipe.methods
-		.calcToPie(nestAddress, amount)
+	const amountEthNecessary = await recipeContract.methods
+		.calcToPie(nestAddress, amount.toFixed(0))
 		.call()
-	return decimate(amountEthNecessary)
+	return new BigNumber(amountEthNecessary).div(new BigNumber(10).pow(18))
 }
 
 export const fetchNestQuote = async (event, nestAddress) => {
 	ethNeededSingleEntry.label = '-'
 	try {
-		const nestToMint = nestAddress
-		ethNeededSingleEntry = await fetchCalcToNest(nestToMint, amount)
+		ethNeededSingleEntry = await fetchCalcToNest(nestAddress, amount)
 	} catch (e) {
 		console.error(e)
 	}
@@ -394,3 +390,14 @@ export const nestRedeem = async (nestContract, amount, account) => {
 			console.log(err, receipt)
 		})
 }
+
+export const getWethPriceLink = async (bao) => {
+	const priceOracle = new bao.web3.eth.Contract(chainOracle, '0xF9680D99D6C9589e2a93a78A04A279e509205945')
+
+	const [decimals, latestRound] = await Promise.all([
+		priceOracle.methods.decimals().call(),
+		priceOracle.methods.latestRoundData().call()
+	]);
+
+	return new BigNumber(latestRound.answer).div(10 ** decimals);
+};

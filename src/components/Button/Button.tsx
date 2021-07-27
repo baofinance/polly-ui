@@ -183,4 +183,23 @@ const StyledExternalLink = styled.a`
 	text-decoration: none;
 `
 
+export const MaxButton = styled.a`
+	padding: 5px;
+	border: 1px solid ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[500]};
+	border-radius: 5px;
+	vertical-align: middle;
+	margin-right: 10px;
+	transition: 100ms;
+	user-select: none;
+	font-weight: bold;
+	text-decoration: none;
+	
+	&:hover {
+		background-color: ${(props) => props.theme.color.grey[300]};
+		color: #524d4d;
+		cursor: pointer;
+	}
+`
+
 export default Button

@@ -17,6 +17,8 @@ import { Contract } from 'web3-eth-contract'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { wethMaticAddress } from '../../../constants/tokenAddresses'
 import { getDisplayBalance } from '../../../utils/formatBalance'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { SpinnerLoader } from '../../../components/Loader'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -147,12 +149,16 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				<br />
 				<b>
 					Your wETH Balance:{' '}
-					{(wethBalance && getDisplayBalance(wethBalance)) || '...'}
+					{`${(wethBalance && getDisplayBalance(wethBalance)) || <SpinnerLoader />} `}
+					<FontAwesomeIcon icon={['fab', 'ethereum']} />
 				</b>
 				<br />
 				<b>
 					1 {nestName} ={' '}
-					{wethRate ? `${getDisplayBalance(wethRate, 0)} wETH` : '...'}
+					<>
+						{`${wethRate && getDisplayBalance(wethRate, 0) || <SpinnerLoader />} `}
+						<FontAwesomeIcon icon={['fab', 'ethereum']} />
+					</>
 				</b>
 			</ModalContent>
 			<NestTokenOutput

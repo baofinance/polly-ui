@@ -5,7 +5,7 @@ export const ListLabelCol = styled.span`
   font-family: 'Kaushan Script', sans-serif;
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
-  color: #5b3926;
+  color: ${props => props.theme.color.grey[500]};
   vertical-align: middle;
   font-weight: bold;
   padding: 0;
@@ -26,15 +26,35 @@ export const ListItemContainer = styled.div`
   margin-bottom: 10px;
 `
 
-export const AssetImage = styled.img`
-  height: 48px;
-  vertical-align: middle;
+export const NestImage = styled.img`
+  height: 32px;
+  margin-right: 15px;
+`
+
+export const AssetImageContainer = styled.div`
+	height: 100%;
   align-items: center;
+  
+	&:hover {
+		img {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+	}
+`
+
+export const AssetImage = styled(NestImage)`
+  margin: 0 0 -15px -15px;
+  vertical-align: super;
+  transition: 200ms;
+  user-select: none;
+  -webkit-user-drag: none;
 `
 
 export const ColumnText = styled.span`
   color: #805e49;
   vertical-align: middle;
+  text-align: center;
   font-weight: bold;
 `
 

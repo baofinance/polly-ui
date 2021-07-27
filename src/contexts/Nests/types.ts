@@ -7,6 +7,17 @@ export enum IndexType {
   TEST = 'test',
 }
 
+interface NestComponent {
+  symbol: string
+  address: string
+  decimals: number
+  color: string
+  percentage: number
+  coingeckoId: number
+  coingeckoImageId: number
+  imageUrl?: string
+}
+
 export interface Nest {
   nid: number
   id: string
@@ -21,6 +32,7 @@ export interface Nest {
   tokenSymbol: string
   coingeckoId: string
   indexType?: IndexType
+  composition: Array<NestComponent>
 }
 
 export interface NestsContext {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
@@ -13,10 +13,15 @@ import useNestRedeem from '../../hooks/useNestRedeem'
 import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import BigNumber from 'bignumber.js'
+import { fetchCalcToNest, getRecipeContract, getWethPriceLink } from '../../bao/utils'
+import useBao from '../../hooks/useBao'
+import { getDisplayBalance } from '../../utils/formatBalance'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Collapse from 'react-bootstrap/Collapse'
+import { Badge, Card, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { SpinnerLoader } from '../../components/Loader'
 
-
-const infoIcon =
-	'https://raw.githubusercontent.com/pie-dao/brand/eaee121300a4c64c1293bb0f80723539357696c5/misc/Infoicon.svg'
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
 
@@ -48,6 +53,8 @@ const Nest: React.FC = () => {
 	}, [nestToken])
 
 	const tokenBalance = useTokenBalance(nestContract.options.address)
+	const bao = useBao()
+	const recipeContract = getRecipeContract(bao)
 
 	const _inputToken = inputTokenContract.options.address
 	const _outputToken = outputTokenContract.options.address
@@ -76,259 +83,223 @@ const Nest: React.FC = () => {
 		/>,
 	)
 
+	const [wethRate, setWethRate]: any = useState()
+	const [wethPrice, setWethPrice]: any = useState()
+	const [supply, setSupply]: any = useState()
+	const [analyticsOpen, setAnalyticsOpen] = useState(false)
+
+	useEffect(() => {
+		fetchCalcToNest(recipeContract, nestTokenAddress, 1).then(wethRateRes => {
+			setWethRate(wethRateRes)
+			getWethPriceLink(bao).then(wethPriceRes => {
+				setWethPrice(wethPriceRes)
+				nestContract.methods.totalSupply().call().then((_supply: any) => setSupply(new BigNumber(_supply)))
+			})
+		})
+	}, [bao, ethereum])
+
 	return (
 		<>
-			<NestContent>
-				<NestHeader>
-					<NestSummary>
-						<NestInfo>
-							<NestIcon>
-								<Icon src={nestIcon} alt={nestToken} />
-							</NestIcon>
-							<NestMeta>
-								<NestSymbol>{nestToken}</NestSymbol>
-								<NestName>{name}</NestName>
-								<NestPriceInfo>
-									<NestPrice>$1.00 </NestPrice>
-									<NestPercentChange>+5%</NestPercentChange>
-								</NestPriceInfo>
-							</NestMeta>
-						</NestInfo>
-
-						<NestButtons>
-							<Button text="Issue" onClick={onPresentDeposit} width="210px" />
-							<Spacer />
-							<Button
-								disabled={tokenBalance.eq(new BigNumber(0))}
-								text="Redeem"
-								onClick={onPresentRedeem}
-								width="210px"
-							/>
-						</NestButtons>
-					</NestSummary>
-				</NestHeader>
-
-				<NestPerformance>
-					<NestNav>
-						<NavPrice>$1.00</NavPrice>
-						<NavText>
-							NAV
-							<img src={infoIcon} alt={nestToken} />
-						</NavText>
-					</NestNav>
-
-					<NestPremium>
-						<PremiumPercent>0%</PremiumPercent>
-						<PremiumText>Premium</PremiumText>
-					</NestPremium>
-
-					<NestAPY>
-						<APYPercent>40%</APYPercent>
-						<APYText>Tot APY 🔥</APYText>
-					</NestAPY>
-
-					<NestCap>
-						<CapNumber>$1,000,000</CapNumber>
-						<CapText>Market Cap</CapText>
-					</NestCap>
-				</NestPerformance>
-			</NestContent>
+			<NestBox>
+				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>View Analytics</Tooltip>} placement='bottom'>
+					<NestCornerButton
+						onClick={() => setAnalyticsOpen(!analyticsOpen)}
+						aria-controls='analytics-collapse'
+						aria-expanded={analyticsOpen}
+					>
+						<FontAwesomeIcon icon='chart-line' />
+					</NestCornerButton>
+				</OverlayTrigger>
+				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>View Contract</Tooltip>} placement='bottom'>
+					<NestCornerButton href={`https://polygonscan.com/address/${nestTokenAddress}`} target='_blank'>
+						<FontAwesomeIcon icon='file-contract' />
+					</NestCornerButton>
+				</OverlayTrigger>
+				<NestBoxHeader>
+					<Icon src={nestIcon} alt={nestToken} />
+					{name}
+				</NestBoxHeader>
+				<NestBoxBreak />
+				<StatsCard>
+					<StatsCardHeader>
+						1 {nestToken} = {wethRate && getDisplayBalance(wethRate, 0) || <SpinnerLoader />}{' '}
+						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
+						{wethRate && wethPrice && getDisplayBalance(wethRate.times(wethPrice), 0) || <SpinnerLoader />}
+					</StatsCardHeader>
+					<StatsCardBody>
+						<NestStats horizontal>
+							<NestStat key={'mkt-cap'}>
+								<span>Market Cap</span>
+								<br />
+								{(
+									supply &&
+									wethPrice &&
+									wethRate &&
+									<StyledBadge>
+										${getDisplayBalance(supply.div(10 ** 18).times(wethPrice.times(wethRate)), 0)}
+									</StyledBadge>
+								) || <SpinnerLoader />}
+							</NestStat>
+							<NestStat key={'supply'}>
+								<span>Supply</span>
+								<br />
+								<StyledBadge>{(supply && `${getDisplayBalance(supply)} ${nestToken}`) || <SpinnerLoader />}</StyledBadge>
+							</NestStat>
+							<NestStat key={Math.random().toString()}>
+								<span>Placeholder</span>
+								<br />
+								<StyledBadge>0</StyledBadge>
+							</NestStat>
+							<NestStat key={Math.random().toString()}>
+								<span>Placeholder</span>
+								<br />
+								<StyledBadge>0</StyledBadge>
+							</NestStat>
+						</NestStats>
+					</StatsCardBody>
+				</StatsCard>
+				<NestAnalytics in={analyticsOpen}>
+					<NestAnalyticsContainer>
+						<br />
+						// TODO: charts, etc
+					</NestAnalyticsContainer>
+				</NestAnalytics>
+				<NestButtons>
+					<Button text="Issue" onClick={onPresentDeposit} width="30%" />
+					<Spacer />
+					<Button
+						disabled={tokenBalance.eq(new BigNumber(0))}
+						text="Redeem"
+						onClick={onPresentRedeem}
+						width="30%"
+					/>
+				</NestButtons>
+			</NestBox>
 		</>
 	)
 }
 
-const NestContent = styled.div`
-	-webkit-text-size-adjust: 100%;
-	line-height: inherit;
-	font-family: Rubik, sans-serif;
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	margin: 0px auto;
-	max-width: 1280px;
-	overflow: hidden;
-	padding-bottom: 20px;
-	padding-top: 20px;
-	width: 96%;
+const NestBox = styled.div`
+	width: 60%;
+	background-color: ${(props) => props.theme.color.grey[200]};
+	border: 2px solid ${(props) => props.theme.color.grey[300]};
+	border-radius: 5px;
+	padding: 15px;
+	text-align: center;
 `
 
-const NestHeader = styled.div`
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
-	display: flex;
+const NestBoxHeader = styled.h1`
+	font-family: 'Reem Kufi', sans-serif;
+	color: ${props => props.theme.color.grey[500]};
+	margin-bottom: 10px;
+	margin-top: 0;
+	font-size: 32px;
+	
+	small {
+		display: block;
+		font-family: 'Reem Kufi', sans-serif;
+		font-size: 40%;
+		margin-top: 5px;
+	}
 `
 
-const NestSummary = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	align-content: space-between;
-	justify-content: space-between;
-	width: 100%;
+const NestBoxBreak = styled.hr`
+	border: none;
+	margin: auto auto 15px;
+	border-bottom: 2px solid ${props => props.theme.color.grey[500]};
+	width: 40%;
 `
 
-const NestInfo = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+const NestCornerButton = styled.a`
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+	font-size: 24px;
+	vertical-align: middle;
+	
+	&:hover {
+		cursor: pointer;
+	}
 `
 
-const NestIcon = styled.div`
-	height: 80px;
-	display: inline;
+const NestAnalytics = styled(Collapse)`
+	margin-bottom: 50px;
+`
+
+const NestAnalyticsContainer = styled.div.attrs(props => ({
+	id: 'analytics-collapse'
+}))``
+
+const StatsCard = styled(Card)`
+	background-color: transparent;
+	border: none;
+	justify-content: center;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+`
+
+const StatsCardHeader = styled(Card.Header)`
+	font-weight: bold;
+	background-color: ${props => props.theme.color.grey[300]};
+	color: ${props => props.theme.color.grey[600]};
+	width: 70%;
+	margin: 0 auto 0;
+	border: 1px solid ${props => props.theme.color.grey[400]};
+	border-bottom: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+`
+
+const StatsCardBody = styled(Card.Body)`
+	padding: 0;
+`
+
+const NestStats = styled(ListGroup)`
+	margin: 0 auto;
+	width: 70%;
+	justify-content: center;
+
+	.list-group-item:last-child {
+		border-top-right-radius: 0 !important;
+	}
+	
+	.list-group-item:first-child {
+		border-top-left-radius: 0;
+	}
+`
+
+const NestStat = styled(ListGroup.Item)`
+	background-color: ${props => props.theme.color.grey[100]};
+	border-color: ${props => props.theme.color.grey[400]};
+	color: ${props => props.theme.color.grey[500]};
+	width: 25%;
+	
+	span {
+		font-weight: bold;
+	}
+`
+
+const StyledBadge = styled(Badge)`
+	background-color: ${props => props.theme.color.grey[500]};
+	color: ${props => props.theme.color.grey[100]};
 `
 
 const Icon = styled.img`
 	vertical-align: middle;
-	max-width: 100%;
+	width: 100%;
 	display: inline;
 	height: 80px;
 `
 
-const NestMeta = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin-left: 0.75rem;
-	margin-right: 0.75rem;
-`
-
-const NestSymbol = styled.h1`
-	font-family: 'Kaushan Script', sans-serif;
-	margin: 0;
-	font-weight: inherit;
-	font-size: 2.3rem;
-	line-height: 1;
-	width: 100%;
-`
-
-const NestName = styled.h2`
-	margin: 0;
-	font-weight: inherit;
-	font-size: 1rem;
-	line-height: 1;
-	margin-bottom: 4px;
-`
-
-const NestPriceInfo = styled.div`
-	display: flex;
-	align-items: center;
-	width: fit-content;
-`
-
-const NestPrice = styled.div`
-	font-weight: 100;
-	font-size: 2.3rem;
-	line-height: 1;
-	white-space: nowrap;
-	width: fit-content;
-`
-
-const NestPercentChange = styled.span`
-	font-size: 1.1rem;
-	margin-left: 0.5rem;
-	white-space: nowrap;
-	width: fit-content;
-`
-
-const NestChange = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	width: fit-content;
-	color: #24d897;
-`
-
 const NestButtons = styled.div`
-	flex-direction: row-reverse;
 	align-items: center;
 	flex-grow: 1;
-	margin-right: 0px;
+	margin-right: 0;
+	justify-content: center;
+	vertical-align: middle;
 	display: flex;
-	justify-content: flex-start;
-	margin-top: 0px;
-	margin-bottom: 0px;
-`
-
-const NestPerformance = styled.div`
-	width: 100%;
-	display: flex;
-	margin-top: 2rem;
-`
-
-const NestNav = styled.div`
-	align-self: flex-start;
-	flex: 0 1 auto;
-	margin-right: 2rem;
-	padding: 0px;
-`
-
-const NavPrice = styled.div`
-	color: #ec1ea0;
-	font-size: 1rem;
-`
-
-const NavText = styled.div`
-	display: flex;
-	align-items: center;
-	font-weight: 500;
-	color: #ec1ea0;
-	font-size: 1.1rem;
-`
-
-const NestPremium = styled.div`
-	align-self: flex-start;
-	flex: 0 1 auto;
-	margin-right: 2rem;
-	padding: 0px;
-`
-
-const PremiumPercent = styled.div`
-	color: rgba(0, 0, 0, var(--tw-text-opacity));
-	font-size: 1rem;
-`
-
-const PremiumText = styled.div`
-	font-weight: 100;
-	color: rgba(0, 0, 0, var(--tw-text-opacity));
-	font-size: 1.1rem;
-`
-
-const NestAPY = styled.div`
-	align-self: flex-start;
-	flex: 0 1 auto;
-	margin-right: 2rem;
-	padding: 0px;
-`
-
-const APYPercent = styled.div`
-	font-weight: 500;
-	color: rgba(0, 0, 0);
-	font-size: 1rem;
-`
-
-const APYText = styled.div`
-	font-weight: 100;
-	--tw-text-opacity: 1;
-	color: rgba(0, 0, 0);
-	font-size: 1.1rem;
-`
-
-const NestCap = styled.div`
-	align-self: flex-start;
-	flex: 0 1 auto;
-	margin-right: 1.5rem;
-	padding: 0px;
-`
-
-const CapNumber = styled.div`
-	font-size: 1rem;
-`
-
-const CapText = styled.div`
-	font-weight: 100;
-	font-size: 1.1rem;
+	margin-top: 15px;
+	margin-bottom: 0;
 `
 
 export default Nest

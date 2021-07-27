@@ -8,9 +8,7 @@ import WalletProviderModal from '../../components/WalletProviderModal'
 import useModal from '../../hooks/useModal'
 import Nest from '../Nest'
 import NestList from './components/ListView/NestList'
-import NestCards from './components/NestCards'
 import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
 import pollyNests from '../../assets/img/polly-nests.png'
 
 const Nests: React.FC = () => {

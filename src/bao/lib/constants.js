@@ -117,7 +117,7 @@ export const supportedNests = [
 			},
 			{
 				symbol: 'WMATIC',
-				coingeckoId: 'matic',
+				coingeckoId: 'matic-network',
 				address: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
 				coingeckoImageId: '',
 			},
@@ -143,13 +143,13 @@ export const supportedNests = [
 		composition: [
 			{
 				symbol: 'crDAI',
-				coingeckoId: 'dai',
+				coingeckoId: 'aave-dai',
 				address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
 				coingeckoImageId: '',
 			},
 			{
 				symbol: 'crWETH',
-				coingeckoId: 'weth',
+				coingeckoId: 'ethereum',
 				address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 				coingeckoImageId: '',
 			},
@@ -208,7 +208,7 @@ export const supportedNests = [
 				decimals: 18,
 				color: '#da2a2a',
 				percentage: 25,
-				coingeckoId: 'weth',
+				coingeckoId: 'ethereum',
 				coingeckoImageId: 2518,
 			},
 		],

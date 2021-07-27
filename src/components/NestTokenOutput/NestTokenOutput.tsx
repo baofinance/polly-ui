@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import NestInput, { InputProps } from '../NestInput'
 import NestOutput from '../NestOutput'
+import { MaxButton } from '../Button'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface NestTokenOutputProps extends InputProps {
 	symbol: string
@@ -31,8 +34,12 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 				}
 				endAdornment={
 					<>
-						<MaxButton onClick={() => addInput(1)}>↟</MaxButton>
-						<MaxButton onClick={() => addInput(-1)}>↡</MaxButton>
+						<MaxButton onClick={() => addInput(1)}>
+							<FontAwesomeIcon icon='arrow-up' />
+						</MaxButton>
+						<MaxButton onClick={() => addInput(-1)}>
+							<FontAwesomeIcon icon='arrow-down' />
+						</MaxButton>
 						<StyledTokenAdornmentWrapper>
 							<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
 						</StyledTokenAdornmentWrapper>
@@ -50,23 +57,6 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 			  <Button size="sm" text="Max" />
 			</div>
 */
-
-const MaxButton = styled.a`
-	padding: 5px;
-	border: 1px solid ${(props) => props.theme.color.grey[500]};
-	color: ${(props) => props.theme.color.grey[500]};
-	border-radius: 5px;
-	vertical-align: middle;
-	margin-right: 10px;
-	transition: 100ms;
-	user-select: none;
-	
-	&:hover {
-		background-color: ${(props) => props.theme.color.grey[300]};
-		color: #524d4d;
-		cursor: pointer;
-	}
-`
 
 const StyledTokenInput = styled.div``
 
