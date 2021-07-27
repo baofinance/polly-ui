@@ -157,7 +157,7 @@ const Nest: React.FC = () => {
 								<span>
 									<FontAwesomeIcon icon='times-circle' />
 									<br />
-									Placeholder
+									NAV
 								</span>
 								<br />
 								<StyledBadge>0</StyledBadge>
@@ -166,7 +166,7 @@ const Nest: React.FC = () => {
 								<span>
 									<FontAwesomeIcon icon='times-circle' />
 									<br />
-									Placeholder
+									Premium
 								</span>
 								<br />
 								<StyledBadge>0</StyledBadge>
@@ -197,9 +197,10 @@ const Nest: React.FC = () => {
 
 const NestBox = styled.div`
 	width: 60%;
-	background-color: ${(props) => props.theme.color.grey[200]};
-	border: 2px solid ${(props) => props.theme.color.grey[300]};
-	border-radius: 5px;
+    background: #f0e9e7;
+    border: 1px solid #e2d6cfff;
+    border-radius: 12px;
+    box-shadow: inset 1px 1px 0px #f7f4f2;
 	padding: 15px;
 	text-align: center;
 `

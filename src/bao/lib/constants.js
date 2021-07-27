@@ -110,16 +110,19 @@ export const supportedNests = [
 		coingeckoId: 'metaverse-nft-index',
 		composition: [
 			{
-				symbol: 'cmDAI',
+				symbol: 'amDAI',
 				coingeckoId: 'aave-dai',
 				address: '0x27f8d03b3a2196956ed754badc28d73be8830a6e',
 				coingeckoImageId: '',
 			},
 			{
-				symbol: 'WMATIC',
-				coingeckoId: 'matic-network',
-				address: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-				coingeckoImageId: '',
+				symbol: 'SUSHI',
+				address: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+				decimals: 18,
+				color: '#0171F5',
+				percentage: 25,
+				coingeckoId: 'sushi',
+				coingeckoImageId: 12271,
 			},
 		],
 		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
@@ -142,7 +145,7 @@ export const supportedNests = [
 		coingeckoId: 'metaverse-nft-index',
 		composition: [
 			{
-				symbol: 'crDAI',
+				symbol: 'amDAI',
 				coingeckoId: 'aave-dai',
 				address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
 				coingeckoImageId: '',

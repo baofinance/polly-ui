@@ -18,16 +18,16 @@ export const ListLabelContainer = styled.div`
 
 export const ListItemContainer = styled.div`
   background: #f0e9e7;
-  padding: 25px;
-  display: block;
-  box-shadow: #a79e99 0px 0px 1px inset;
   border: 1px solid #e2d6cfff;
   border-radius: 12px;
+  box-shadow: inset 1px 1px 0px #f7f4f2;  
+  padding: 25px;
+  display: block;
   margin-bottom: 10px;
 `
 
 export const NestImage = styled.img`
-  height: 32px;
+  height: 42px;
   margin-right: 15px;
 `
 
@@ -56,6 +56,7 @@ export const ColumnText = styled.span`
   vertical-align: middle;
   text-align: center;
   font-weight: bold;
+  font-size: 19px;
 `
 
 // List Item

@@ -49,8 +49,8 @@ const Button: React.FC<ButtonProps> = ({
 		case 'sm':
 			boxShadow = `4px 4px 8px ${color.grey[300]},
         -8px -8px 16px ${color.grey[100]}FF;`
-			buttonPadding = spacing[3]
-			buttonSize = 36
+			buttonPadding = spacing[4]
+			buttonSize = 40
 			fontSize = 14
 			break
 		case 'lg':
@@ -118,8 +118,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 	background-color: ${(props) => props.theme.color.grey[200]};
 	border: 1px solid rgb(226, 214, 207);
 	border-radius: 10px;
-	box-shadow: rgb(255 252 245) -8px -8px 16px,
-		rgb(181 176 174 / 50%) 4px 4px 8px, rgb(247 244 242) 1px 1px 0px inset;
+	box-shadow: rgb(181 176 174 / 50%) 4px 4px 8px, rgb(247 244 242) 1px 1px 0px inset;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}55`)};
 	cursor: pointer;
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
@@ -151,6 +150,9 @@ const StyledButton = styled.button<StyledButtonProps>`
 		transition: 0.2s;
 		transform: translate(1px, 1px);
 		background-color: ${(props) => lighten(0.025, props.theme.color.grey[200])};
+		border-color: ${lighten(0.025, 'rgb(226, 214, 207)')};
+		box-shadow: rgb(181 176 174 / 50%) 2px 2px 4px, rgb(247 244 242) 1px 1px 0px inset;
+
 	}
 
 	&:focus {

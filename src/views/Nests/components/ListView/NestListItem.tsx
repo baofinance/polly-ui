@@ -52,7 +52,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 
 	return (
 		<ListItemContainer>
-			<ListCol width={'20%'} align={'left'}>
+			<ListCol width={'17.5%'} align={'left'}>
 				<ColumnText>
 					<NestImage src={nestIcon} alt={nest.nestToken} />
 					{nest.nestToken}
@@ -73,7 +73,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 					}) : <SpinnerLoader /> }
 				</AssetImageContainer>
 			</ListCol>
-			<ListCol width={'15%'} align={'center'}>
+			<ListCol width={'17.5%'} align={'center'}>
 				<ColumnText>
 					${wethPrice && wethPerIndex ? getDisplayBalance(wethPrice.times(wethPerIndex), 0) : <SpinnerLoader />}
 					<> <FontAwesomeIcon icon='arrows-alt-h' /> </>
