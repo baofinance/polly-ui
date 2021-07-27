@@ -21,14 +21,18 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Collapse from 'react-bootstrap/Collapse'
 import { Badge, Card, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { SpinnerLoader } from '../../components/Loader'
+import useComposition from '../../hooks/useComposition'
+import useNestRate from '../../hooks/useNestRate'
 
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, composition: _composition, icon } =
 		useNest(nestId)
+	const composition = useComposition(_composition)
+	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -83,19 +87,11 @@ const Nest: React.FC = () => {
 		/>,
 	)
 
-	const [wethRate, setWethRate]: any = useState()
-	const [wethPrice, setWethPrice]: any = useState()
 	const [supply, setSupply]: any = useState()
 	const [analyticsOpen, setAnalyticsOpen] = useState(false)
 
 	useEffect(() => {
-		fetchCalcToNest(recipeContract, nestTokenAddress, 1).then(wethRateRes => {
-			setWethRate(wethRateRes)
-			getWethPriceLink(bao).then(wethPriceRes => {
-				setWethPrice(wethPriceRes)
-				nestContract.methods.totalSupply().call().then((_supply: any) => setSupply(new BigNumber(_supply)))
-			})
-		})
+		nestContract.methods.totalSupply().call().then((_supply: any) => setSupply(new BigNumber(_supply)))
 	}, [bao, ethereum])
 
 	return (
@@ -118,13 +114,27 @@ const Nest: React.FC = () => {
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					{name}
+					<br />
+					{composition ? composition.map((component: any) => {
+						return (
+							<OverlayTrigger
+								placement='bottom'
+								overlay={<Tooltip id={component.symbol}>{component.symbol}</Tooltip>}
+								key={component.symbol}
+							>
+								<AssetImageContainer>
+									<img src={component.imageUrl} />
+								</AssetImageContainer>
+							</OverlayTrigger>
+						)
+					}) : <SpinnerLoader />}
 				</NestBoxHeader>
 				<NestBoxBreak />
 				<StatsCard>
 					<StatsCardHeader>
-						1 {nestToken} = {wethRate && getDisplayBalance(wethRate, 0) || <SpinnerLoader />}{' '}
+						1 {nestToken} = {wethPerIndex && getDisplayBalance(wethPerIndex, 0) || <SpinnerLoader />}{' '}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
-						{wethRate && wethPrice && getDisplayBalance(wethRate.times(wethPrice), 0) || <SpinnerLoader />}
+						{usdPerIndex && getDisplayBalance(usdPerIndex, 0) || <SpinnerLoader />}
 					</StatsCardHeader>
 					<StatsCardBody>
 						<NestStats horizontal>
@@ -137,10 +147,9 @@ const Nest: React.FC = () => {
 								<br />
 								{(
 									supply &&
-									wethPrice &&
-									wethRate &&
+									usdPerIndex &&
 									<StyledBadge>
-										${getDisplayBalance(supply.div(10 ** 18).times(wethPrice.times(wethRate)), 0)}
+										${getDisplayBalance(supply.div(10 ** 18).times(usdPerIndex), 0)}
 									</StyledBadge>
 								) || <SpinnerLoader />}
 							</NestStat>
@@ -210,12 +219,25 @@ const NestBoxHeader = styled.h1`
 	margin-bottom: 10px;
 	margin-top: 0;
 	font-size: 32px;
-	
+
 	small {
 		display: block;
 		font-family: 'Reem Kufi', sans-serif;
 		font-size: 40%;
 		margin-top: 5px;
+	}
+`
+
+const AssetImageContainer = styled.div`
+	display: inline-block;
+	background-color: #e2d6cf;
+	border-radius: 50%;
+	width: 48px; 
+	height: 48px;
+	margin: 10px 15px;
+	
+	img {
+		height: 32px;
 	}
 `
 
@@ -232,7 +254,7 @@ const NestCornerButton = styled.a`
 	margin-right: 10px;
 	font-size: 24px;
 	vertical-align: middle;
-	
+
 	&:hover {
 		cursor: pointer;
 	}
@@ -278,7 +300,7 @@ const NestStats = styled(ListGroup)`
 	.list-group-item:last-child {
 		border-top-right-radius: 0 !important;
 	}
-	
+
 	.list-group-item:first-child {
 		border-top-left-radius: 0;
 	}
@@ -289,7 +311,7 @@ const NestStat = styled(ListGroup.Item)`
 	border-color: ${props => props.theme.color.grey[400]};
 	color: ${props => props.theme.color.grey[500]};
 	width: 25%;
-	
+
 	span {
 		font-weight: bold;
 	}

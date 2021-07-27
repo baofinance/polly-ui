@@ -4,7 +4,7 @@ import { Context } from '../contexts/Nests'
 import { supportedNests } from '../bao/lib/constants'
 import { wethMaticAddress } from '../constants/tokenAddresses'
 
-const useNest = (id: string) => {
+const useNest: any = (id: string) => {
   const { nests } = useContext(Context)
   const nest = supportedNests.find((nest) => nest.nid.toString() === id)
   return (

@@ -19,6 +19,7 @@ import { wethMaticAddress } from '../../../constants/tokenAddresses'
 import { getDisplayBalance } from '../../../utils/formatBalance'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SpinnerLoader } from '../../../components/Loader'
+import useNestRate from '../../../hooks/useNestRate'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -42,13 +43,13 @@ const IssueModal: React.FC<IssueModalProps> = ({
 }) => {
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
-	const [wethRate, setWethRate]: any = useState()
 	const [pendingTx, setPendingTx] = useState(false)
 
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
 	const allowance = useInputAllowance(inputTokenContract)
 	const { onApprove } = useInputApprove(inputTokenContract)
+	const { wethPerIndex } = useNestRate(nestAddress)
 
 	const fetchRate = async () => {
 		return fetchCalcToNest(recipeContract, _outputToken, 1)
@@ -116,10 +117,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		[setWethNeeded],
 	)
 
-	useEffect(() => {
-		fetchRate().then((val: BigNumber) => setWethRate(val))
-	}, [])
-
 	const handleApprove = useCallback(async () => {
 		try {
 			setRequestedApproval(true)
@@ -156,7 +153,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				<b>
 					1 {nestName} ={' '}
 					<>
-						{`${wethRate && getDisplayBalance(wethRate, 0) || <SpinnerLoader />} `}
+						{`${wethPerIndex && getDisplayBalance(wethPerIndex, 0) || <SpinnerLoader />} `}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} />
 					</>
 				</b>
