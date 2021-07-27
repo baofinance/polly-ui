@@ -129,7 +129,11 @@ const Nest: React.FC = () => {
 					<StatsCardBody>
 						<NestStats horizontal>
 							<NestStat key={'mkt-cap'}>
-								<span>Market Cap</span>
+								<span>
+									<FontAwesomeIcon icon='hand-holding-usd' />
+									<br />
+									Market Cap
+								</span>
 								<br />
 								{(
 									supply &&
@@ -141,17 +145,29 @@ const Nest: React.FC = () => {
 								) || <SpinnerLoader />}
 							</NestStat>
 							<NestStat key={'supply'}>
-								<span>Supply</span>
+								<span>
+									<FontAwesomeIcon icon='coins' />
+									<br />
+									Supply
+								</span>
 								<br />
 								<StyledBadge>{(supply && `${getDisplayBalance(supply)} ${nestToken}`) || <SpinnerLoader />}</StyledBadge>
 							</NestStat>
 							<NestStat key={Math.random().toString()}>
-								<span>Placeholder</span>
+								<span>
+									<FontAwesomeIcon icon='times-circle' />
+									<br />
+									Placeholder
+								</span>
 								<br />
 								<StyledBadge>0</StyledBadge>
 							</NestStat>
 							<NestStat key={Math.random().toString()}>
-								<span>Placeholder</span>
+								<span>
+									<FontAwesomeIcon icon='times-circle' />
+									<br />
+									Placeholder
+								</span>
 								<br />
 								<StyledBadge>0</StyledBadge>
 							</NestStat>
