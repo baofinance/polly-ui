@@ -7,7 +7,7 @@ export enum IndexType {
   TEST = 'test',
 }
 
-interface NestComponent {
+export interface NestComponent {
   symbol: string
   address: string
   decimals: number

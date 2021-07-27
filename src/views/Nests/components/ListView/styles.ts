@@ -34,8 +34,14 @@ export const NestImage = styled.img`
 export const AssetImageContainer = styled.div`
 	height: 100%;
   align-items: center;
+  margin: 0 auto;
+  display: inline-block;
   
 	&:hover {
+    border: 2px solid ${props => props.theme.color.grey[300]};
+    border-radius: 5px;
+    padding: 8px;
+    
 		img {
 			margin-left: 10px;
 			margin-right: 10px;
