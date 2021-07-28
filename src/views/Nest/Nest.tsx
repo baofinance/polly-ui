@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
@@ -13,17 +13,19 @@ import useNestRedeem from '../../hooks/useNestRedeem'
 import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import BigNumber from 'bignumber.js'
-import { fetchCalcToNest, getRecipeContract, getWethPriceLink } from '../../bao/utils'
+import { getRecipeContract } from '../../bao/utils'
 import useBao from '../../hooks/useBao'
 import { getDisplayBalance } from '../../utils/formatBalance'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Collapse from 'react-bootstrap/Collapse'
-import { Badge, Card, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { Badge, Card, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 import { SpinnerLoader } from '../../components/Loader'
 import useComposition from '../../hooks/useComposition'
 import useNestRate from '../../hooks/useNestRate'
 import PieGraph from '../../components/Graphs/PieGraph'
+import { ParentSize } from '@visx/responsive'
+import _ from 'lodash'
 
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
@@ -130,7 +132,7 @@ const Nest: React.FC = () => {
 						)
 					}) : <SpinnerLoader />}
 				</NestBoxHeader>
-				<NestBoxBreak />
+				<NestBoxBreak margin={10} />
 				<StatsCard>
 					<StatsCardHeader>
 						1 {nestToken} = {wethPerIndex && getDisplayBalance(wethPerIndex, 0) || <SpinnerLoader />}{' '}
@@ -196,8 +198,23 @@ const Nest: React.FC = () => {
 				</NestButtons>
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
-						<br />
-						{composition && <PieGraph width={512} height={512} composition={composition} />}
+						<NestBoxBreak />
+						<Row xs={1} sm={1} md={1} lg={2} style={{height: '500px' /* TODO: Responsive Size */}}>
+							{_.times(2, () => ( // Placeholder, need to add Price graph etc.
+								<Col>
+									<GraphLabel>Asset Allocation</GraphLabel>
+									<GraphContainer>
+										{composition && (
+											<ParentSize>
+												{parent => (
+													<PieGraph width={parent.width} height={parent.height} composition={composition} />
+												)}
+											</ParentSize>
+										)}
+									</GraphContainer>
+								</Col>
+							))}
+						</Row>
 					</NestAnalyticsContainer>
 				</NestAnalytics>
 			</NestBox>
@@ -244,9 +261,15 @@ const AssetImageContainer = styled.div`
 	}
 `
 
-const NestBoxBreak = styled.hr`
+interface NestBreakProps {
+	margin: number
+}
+
+const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
+	margin: props.margin ? `${props.margin}px auto` : '30px auto'
+}))`
 	border: none;
-	margin: auto auto 15px;
+	margin: ${props => props.margin};
 	border-bottom: 2px solid ${props => props.theme.color.grey[500]};
 	width: 40%;
 `
@@ -270,6 +293,28 @@ const NestAnalytics = styled(Collapse)`
 const NestAnalyticsContainer = styled.div.attrs(props => ({
 	id: 'analytics-collapse'
 }))``
+
+const GraphLabel = styled.h2`
+	font-family: 'Kaushan Script', sans-serif;
+	color: ${props => props.theme.color.grey[500]};
+	background-color: ${props => props.theme.color.grey[300]};
+	width: 80%;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid #e2d6cfff;
+	border-top-right-radius: 12px;
+	border-top-left-radius: 12px;
+`
+
+const GraphContainer = styled(Col)`
+	background-color: ${props => props.theme.color.grey[100]};
+	box-shadow: inset 1px 1px 0 #f7f4f2;
+	width: 80%;
+	height: 80%;
+	margin: 0 auto;
+	border: 1px solid #e2d6cfff;
+	border-radius: 0 0 12px 12px;
+`
 
 const StatsCard = styled(Card)`
 	background-color: transparent;
