@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract'
+import BigNumber from 'bignumber.js'
 
 export enum IndexType {
   PORTFOLIO = 'portfolio',
@@ -16,6 +17,8 @@ export interface NestComponent {
   coingeckoId: number
   coingeckoImageId: number
   imageUrl?: string
+  balance?: BigNumber
+  balanceDecimals: number
 }
 
 export interface Nest {

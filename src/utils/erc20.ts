@@ -6,11 +6,10 @@ import ERC20ABI from '../constants/abi/ERC20.json'
 
 export const getContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
-  const contract = new web3.eth.Contract(
-    ERC20ABI.abi as unknown as AbiItem,
+  return new web3.eth.Contract(
+    ERC20ABI as unknown as AbiItem,
     address,
   )
-  return contract
 }
 
 export const getAllowance = async (
@@ -42,4 +41,12 @@ export const getBalance = async (
   } catch (e) {
     return '0'
   }
+}
+
+export const getDecimals = async (
+  provider: provider,
+  tokenAddress: string,
+): Promise<string> => {
+  const tokenContract = getContract(provider, tokenAddress)
+  return await tokenContract.methods.decimals().call()
 }

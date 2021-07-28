@@ -23,15 +23,16 @@ import { Badge, Card, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { SpinnerLoader } from '../../components/Loader'
 import useComposition from '../../hooks/useComposition'
 import useNestRate from '../../hooks/useNestRate'
+import PieGraph from '../../components/Graphs/PieGraph'
 
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, composition: _composition, icon } =
-		useNest(nestId)
-	const composition = useComposition(_composition)
+	const nest = useNest(nestId)
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } = nest
+	const composition = useComposition(nest)
 	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
 
 	useEffect(() => {
@@ -183,12 +184,6 @@ const Nest: React.FC = () => {
 						</NestStats>
 					</StatsCardBody>
 				</StatsCard>
-				<NestAnalytics in={analyticsOpen}>
-					<NestAnalyticsContainer>
-						<br />
-						// TODO: charts, etc
-					</NestAnalyticsContainer>
-				</NestAnalytics>
 				<NestButtons>
 					<Button text="Issue" onClick={onPresentDeposit} width="30%" />
 					<Spacer />
@@ -199,6 +194,12 @@ const Nest: React.FC = () => {
 						width="30%"
 					/>
 				</NestButtons>
+				<NestAnalytics in={analyticsOpen}>
+					<NestAnalyticsContainer>
+						<br />
+						{composition && <PieGraph width={512} height={512} composition={composition} />}
+					</NestAnalyticsContainer>
+				</NestAnalytics>
 			</NestBox>
 		</>
 	)

@@ -22,7 +22,7 @@ interface NestWithIssuedTokens extends Nest {}
 const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 	const { account } = useWallet()
 	const { nestTokenAddress } = nest
-	const composition = useComposition(nest.composition)
+	const composition = useComposition(nest)
 	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
 
 	const indexActive = true // startTime * 1000 - Date.now() <= 0
