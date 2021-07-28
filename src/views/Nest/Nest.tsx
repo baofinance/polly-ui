@@ -87,7 +87,7 @@ const Nest: React.FC = () => {
 		/>,
 	)
 
-	const [supply, setSupply]: any = useState()
+	const [supply, setSupply] = useState<BigNumber | undefined>()
 	const [analyticsOpen, setAnalyticsOpen] = useState(false)
 
 	useEffect(() => {
@@ -206,10 +206,10 @@ const Nest: React.FC = () => {
 
 const NestBox = styled.div`
 	width: 60%;
-    background: #f0e9e7;
-    border: 1px solid #e2d6cfff;
-    border-radius: 12px;
-    box-shadow: inset 1px 1px 0px #f7f4f2;
+	background: #f0e9e7;
+	border: 1px solid #e2d6cfff;
+	border-radius: 12px;
+	box-shadow: inset 1px 1px 0 #f7f4f2;
 	padding: 15px;
 	text-align: center;
 `
@@ -233,12 +233,13 @@ const AssetImageContainer = styled.div`
 	display: inline-block;
 	background-color: #e2d6cf;
 	border-radius: 50%;
-	width: 48px; 
+	width: 48px;
 	height: 48px;
 	margin: 10px 15px;
-	
+
 	img {
 		height: 32px;
+		vertical-align: middle;
 	}
 `
 

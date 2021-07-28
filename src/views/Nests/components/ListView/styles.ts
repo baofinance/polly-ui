@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { darken } from 'polished'
 
 export const ListLabelCol = styled.span`
   font-family: 'Kaushan Script', sans-serif;
@@ -20,7 +19,7 @@ export const ListItemContainer = styled.div`
   background: #f0e9e7;
   border: 1px solid #e2d6cfff;
   border-radius: 12px;
-  box-shadow: inset 1px 1px 0px #f7f4f2;  
+  box-shadow: inset 1px 1px 0 #f7f4f2;  
   padding: 25px;
   display: block;
   margin-bottom: 10px;
@@ -36,12 +35,9 @@ export const AssetImageContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   display: inline-block;
+  vertical-align: middle;
   
 	&:hover {
-    border: 2px solid ${props => props.theme.color.grey[300]};
-    border-radius: 5px;
-    padding: 8px;
-    
 		img {
 			margin-left: 10px;
 			margin-right: 10px;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NestComponent } from '../contexts/Nests/types'
 
-const useComposition: any = (_composition: Array<NestComponent>) => {
-  const [composition, setComposition]: any = useState()
+const useComposition = (_composition: Array<NestComponent>) => {
+  const [composition, setComposition] = useState<Array<NestComponent> | undefined>()
 
   useEffect(() => {
     Promise.all(_composition.map(async (component: any) => {
