@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react'
+import BigNumber from 'bignumber.js'
 import { AreaClosed, Line, Bar } from '@visx/shape'
 import appleStock from '@visx/mock-data/lib/mocks/appleStock'
 import { curveMonotoneX } from '@visx/curve'
@@ -9,6 +10,7 @@ import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withToolti
 import { localPoint } from '@visx/event'
 import { LinearGradient } from '@visx/gradient'
 import { max, extent, bisector } from 'd3-array'
+import { getDisplayBalance } from '../../../utils/formatBalance'
 
 export type TimeseriesData = {
 	close: number
@@ -200,7 +202,7 @@ export default withTooltip<AreaProps, TooltipData>(({
 							left={tooltipLeft + 12}
 							style={tooltipStyles}
 						>
-							{`$${getValue(tooltipData)} ${formatDate(getDate(tooltipData))}`}
+							{`$${getDisplayBalance(new BigNumber(getValue(tooltipData)), 0)} ${formatDate(getDate(tooltipData))}`}
 						</TooltipWithBounds>
 					</div>
 				)}

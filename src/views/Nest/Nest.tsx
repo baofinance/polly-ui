@@ -26,6 +26,7 @@ import useNestRate from '../../hooks/useNestRate'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
 import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
+import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
 
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
@@ -36,6 +37,7 @@ const Nest: React.FC = () => {
 	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } = nest
 	const composition = useComposition(nest)
 	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
+	const priceHistory = useGraphPriceHistory(nest)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -217,8 +219,8 @@ const Nest: React.FC = () => {
 								<GraphLabel>Index Price</GraphLabel>
 								<GraphContainer>
 									<ParentSize>
-										{parent => (
-											<AreaGraph width={parent.width} height={parent.height} />
+										{parent => priceHistory && (
+											<AreaGraph width={parent.width} height={parent.height} timeseries={priceHistory} />
 										)}
 									</ParentSize>
 								</GraphContainer>
