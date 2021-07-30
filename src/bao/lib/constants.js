@@ -115,7 +115,7 @@ export const supportedNests = [
 				decimals: 18,
 				color: '#d9ae36',
 				percentage: 50,
-				coingeckoId: 'polygon',
+				coingeckoId: 'matic-network',
 				coingeckoImageId: 4713,
 			},
 			{
