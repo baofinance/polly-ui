@@ -12,6 +12,8 @@ const useNestRate = (nestAddress: string) => {
   const [usdPerIndex, setUsdPerIndex] = useState<BigNumber | undefined>()
 
   const nestRate = useCallback(async () => {
+    if (!recipeContract || !nestAddress) return
+
     const [wethPerNest, _wethPrice]: any = await Promise.all([
       fetchCalcToNest(recipeContract, nestAddress, 1),
       getWethPriceLink(bao)

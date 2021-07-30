@@ -10,6 +10,8 @@ const useComposition = (nest: Nest) => {
   const [composition, setComposition] = useState<Array<NestComponent> | undefined>()
 
   useEffect(() => {
+    if (!nest || !nest.composition) return
+
     Promise.all(nest.composition.map(async (component: any) => {
       const [coinGeckoInfo, componentBalance, tokenDecimals]: any = await Promise.all([
         (await fetch(`https://api.coingecko.com/api/v3/coins/${component.coingeckoId}`)).json(),

@@ -94,7 +94,8 @@ const Nest: React.FC = () => {
 	const [analyticsOpen, setAnalyticsOpen] = useState(false)
 
 	useEffect(() => {
-		nestContract.methods.totalSupply().call().then((_supply: any) => setSupply(new BigNumber(_supply)))
+		if (nestContract.options.address)
+			nestContract.methods.totalSupply().call().then((_supply: any) => setSupply(new BigNumber(_supply)))
 	}, [bao, ethereum])
 
 	return (
