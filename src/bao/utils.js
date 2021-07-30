@@ -342,7 +342,7 @@ export const fetchCalcToNest = async (
 		.times(new BigNumber(10).pow(18))
 
 	const amountEthNecessary = await recipeContract.methods
-		.calcToPie(nestAddress, amount.toFixed(0))
+		.calcToPie(nestAddress, amount.times(1.05).toFixed(0))
 		.call()
 	return new BigNumber(amountEthNecessary).div(new BigNumber(10).pow(18))
 }
