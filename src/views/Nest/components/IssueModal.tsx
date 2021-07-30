@@ -59,7 +59,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		(e) => {
 			const updateInput = (inputAmount: string) => {
 				fetchRate().then((val) =>
-					setWethNeeded(val.times(inputAmount).toFixed(18)),
+					setWethNeeded(val.times(inputAmount).times(1.05).toFixed(18)),
 				)
 			}
 
