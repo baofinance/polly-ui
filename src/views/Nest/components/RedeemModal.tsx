@@ -93,13 +93,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
-				{!allowance.toNumber() ? (
+				{/* {!allowance.toNumber() ? (
 					<Button
 						disabled={requestedApproval}
 						onClick={handleApprove}
 						text={`Approve ${nestName}`}
 					/>
-				) : (
+				) : ( */}
 					<Button
 						disabled={
 							pendingTx ||
@@ -117,7 +117,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 							onDismiss()
 						}}
 					/>
-				)}
+				{/* })} */}
 			</ModalActions>
 			<ModalContent>
 				{
