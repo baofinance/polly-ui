@@ -115,7 +115,7 @@ export const supportedNests = [
 				decimals: 18,
 				color: '#d9ae36',
 				percentage: 50,
-				coingeckoId: 'polygon',
+				coingeckoId: 'matic-network',
 				coingeckoImageId: 4713,
 			},
 			{
@@ -155,7 +155,7 @@ export const supportedNests = [
 				decimals: 8,
 				color: '#d9ae36',
 				percentage: 50,
-				coingeckoId: '',
+				coingeckoId: 'aave-polygon-dai',
 				coingeckoImageId: '',
 			},
 			{
@@ -164,7 +164,7 @@ export const supportedNests = [
 				decimals: 8,
 				color: '#da2a2a',
 				percentage: 50,
-				coingeckoId: '',
+				coingeckoId: 'aave-polygon-weth',
 				coingeckoImageId: '',
 			},
 		],

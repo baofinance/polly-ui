@@ -25,7 +25,7 @@ import useComposition from '../../hooks/useComposition'
 import useNestRate from '../../hooks/useNestRate'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
-import _ from 'lodash'
+import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
 
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
@@ -201,20 +201,28 @@ const Nest: React.FC = () => {
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
 						<Row xs={1} sm={1} md={1} lg={2} style={{height: '500px' /* TODO: Responsive Size */}}>
-							{_.times(2, () => ( // Placeholder, need to add Price graph etc.
-								<Col>
-									<GraphLabel>Asset Allocation</GraphLabel>
-									<GraphContainer>
-										{composition && (
-											<ParentSize>
-												{parent => (
-													<PieGraph width={parent.width} height={parent.height} composition={composition} />
-												)}
-											</ParentSize>
+							<Col>
+								<GraphLabel>Asset Allocation</GraphLabel>
+								<GraphContainer>
+									{composition && (
+										<ParentSize>
+											{parent => (
+												<PieGraph width={parent.width} height={parent.height} composition={composition} />
+											)}
+										</ParentSize>
+									)}
+								</GraphContainer>
+							</Col>
+							<Col>
+								<GraphLabel>Index Price</GraphLabel>
+								<GraphContainer>
+									<ParentSize>
+										{parent => (
+											<AreaGraph width={parent.width} height={parent.height} />
 										)}
-									</GraphContainer>
-								</Col>
-							))}
+									</ParentSize>
+								</GraphContainer>
+							</Col>
 						</Row>
 					</NestAnalyticsContainer>
 				</NestAnalytics>
@@ -315,6 +323,7 @@ const GraphContainer = styled(Col)`
 	margin: 0 auto;
 	border: 1px solid #e2d6cfff;
 	border-radius: 0 0 12px 12px;
+	overflow: hidden;
 `
 
 const StatsCard = styled(Card)`
