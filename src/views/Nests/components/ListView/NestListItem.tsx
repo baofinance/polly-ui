@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
-
-import Button from '../../../../components/Button'
-import { AssetImage, AssetImageContainer, NestImage, ListCol, ColumnText, ListItemContainer } from './styles'
-
-import { useWallet } from 'use-wallet'
-import 'react-tabs/style/react-tabs.css'
-import '../tab-styles.css'
 import { Nest } from '../../../../contexts/Nests'
-import { getDisplayBalance } from '../../../../utils/formatBalance'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SpinnerLoader } from '../../../../components/Loader'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
+import Button from '../../../../components/Button'
+import { AssetImage, AssetImageContainer, NestImage, ListCol, ColumnText, ListItemContainer } from './styles'
+import { getDisplayBalance } from '../../../../utils/formatBalance'
+import { useWallet } from 'use-wallet'
 import useComposition from '../../../../hooks/useComposition'
 import useNestRate from '../../../../hooks/useNestRate'
+
+import 'react-tabs/style/react-tabs.css'
+import '../tab-styles.css'
 
 const nestIcon =
 	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'

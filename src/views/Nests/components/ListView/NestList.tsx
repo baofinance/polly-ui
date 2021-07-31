@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
-
-import NestListItem from './NestListItem'
-import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
-
-import { useWallet } from 'use-wallet'
-import Loader from '../../../../components/Loader'
-import useNests from '../../../../hooks/useNests'
-import 'react-tabs/style/react-tabs.css'
-import '../tab-styles.css'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
 import { IndexType } from '../../../../contexts/Nests/types'
 import { Nest } from '../../../../contexts/Nests'
-import styled, { keyframes } from 'styled-components'
+import NestListItem from './NestListItem'
+import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
+import Loader from '../../../../components/Loader'
+import { useWallet } from 'use-wallet'
+import useNests from '../../../../hooks/useNests'
+
+import 'react-tabs/style/react-tabs.css'
+import '../tab-styles.css'
 
 interface NestWithIssuedTokens extends Nest {}
 

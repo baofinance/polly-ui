@@ -1,11 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import _ from 'lodash'
-
-import nestAbi from './lib/abi/experipie.json'
-import basketAbi from './lib/abi/basketFacet.json'
-import chainOracle from './lib/abi/chainoracle.json'
-import { wethMaticAddress } from '../constants/tokenAddresses'
+import { addressMap } from './lib/constants'
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -65,8 +61,8 @@ export const getNestContract = (bao, nid) => {
 		const address = nest.nestAddress
 		return {
 			address,
-			nestContract: new bao.web3.eth.Contract(nestAbi, address),
-			basketContract: new bao.web3.eth.Contract(basketAbi, address),
+			nestContract: nest.nestContract,
+			basketContract: nest.basketContract,
 		}
 	}
 }
@@ -98,7 +94,7 @@ export const getNests = (bao) => {
 					nestTokenAddress: nestAddress,
 					inputToken: 'wETH',
 					nestToken: symbol,
-					inputTokenAddress: wethMaticAddress,
+					inputTokenAddress: addressMap.WETH,
 				}),
 		  )
 		: []
@@ -392,7 +388,7 @@ export const nestRedeem = async (nestContract, amount, account) => {
 }
 
 export const getWethPriceLink = async (bao) => {
-	const priceOracle = new bao.web3.eth.Contract(chainOracle, '0xF9680D99D6C9589e2a93a78A04A279e509205945')
+	const priceOracle = getWethPriceContract(bao)
 
 	const [decimals, latestRound] = await Promise.all([
 		priceOracle.methods.decimals().call(),

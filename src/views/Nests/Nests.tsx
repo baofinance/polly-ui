@@ -1,14 +1,14 @@
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import WalletProviderModal from '../../components/WalletProviderModal'
-import useModal from '../../hooks/useModal'
 import Nest from '../Nest'
 import NestList from './components/ListView/NestList'
 import PageHeader from '../../components/PageHeader'
+import { useWallet } from 'use-wallet'
+import useModal from '../../hooks/useModal'
 import pollyNests from '../../assets/img/polly-nests.png'
 
 const Nests: React.FC = () => {

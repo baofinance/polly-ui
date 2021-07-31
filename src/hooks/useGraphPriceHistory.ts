@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import _ from 'lodash'
 import { Nest } from '../contexts/Nests'
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { TimeseriesData } from '../components/Graphs/AreaGraph/AreaGraph'
-import { wethMaticAddress } from '../constants/tokenAddresses'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { addressMap } from '../bao/lib/constants'
 
 const SUSHI_SUBGRAPH = 'https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange'
 
@@ -19,7 +19,7 @@ const useGraphPriceHistory = (nest: Nest) => {
   // Replace weth address with nest.nestAddress once sushi pools are live
   const query = `
   {
-    tokens(where: {id:"${wethMaticAddress}"}) {
+    tokens(where: {id:"${addressMap.WETH}"}) {
       id
       symbol
       name,

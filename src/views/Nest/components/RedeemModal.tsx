@@ -1,5 +1,6 @@
-import BigNumber from 'bignumber.js'
 import React, { useCallback, useMemo, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import { Contract } from 'web3-eth-contract'
 import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
@@ -10,7 +11,6 @@ import { getFullDisplayBalance } from '../../../utils/formatBalance'
 import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import { Contract } from 'web3-eth-contract'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber

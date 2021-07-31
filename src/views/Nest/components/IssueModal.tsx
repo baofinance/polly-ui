@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
@@ -7,19 +7,18 @@ import ModalContent from '../../../components/ModalContent'
 import ModalTitle from '../../../components/ModalTitle'
 import NestTokenOutput from '../../../components/NestTokenOutput'
 import NestTokenInput from '../../../components/NestTokenInput'
-import { fetchCalcToNest } from '../../../bao/utils'
+import { SpinnerLoader } from '../../../components/Loader'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useBao from '../../../hooks/useBao'
-import { getRecipeContract } from '../../../bao/utils'
 import useNestIssue from '../../../hooks/useNestIssue'
 import useInputAllowance from '../../../hooks/useInputAllowance'
 import useInputApprove from '../../../hooks/useInputApprove'
-import { Contract } from 'web3-eth-contract'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import { wethMaticAddress } from '../../../constants/tokenAddresses'
-import { getDisplayBalance } from '../../../utils/formatBalance'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { SpinnerLoader } from '../../../components/Loader'
 import useNestRate from '../../../hooks/useNestRate'
+import { fetchCalcToNest, getRecipeContract } from '../../../bao/utils'
+import { getDisplayBalance } from '../../../utils/formatBalance'
+import { Contract } from 'web3-eth-contract'
+import { addressMap } from '../../../bao/lib/constants'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -133,7 +132,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const bao = useBao()
 	const recipeContract = getRecipeContract(bao)
 	const { onIssue } = useNestIssue(nestAddress)
-	const wethBalance = useTokenBalance(wethMaticAddress)
+	const wethBalance = useTokenBalance(addressMap.WETH)
 
 	return (
 		<Modal>

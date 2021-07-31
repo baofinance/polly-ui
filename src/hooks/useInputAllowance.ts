@@ -6,14 +6,14 @@ import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
 
 import { getAllowance } from '../utils/erc20'
-import { recipe } from '../constants/tokenAddresses'
+import { contractAddresses } from '../bao/lib/constants'
 
 const useInputAllowance = (inputTokenContract: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
   const { account }: { account: string; ethereum: provider } = useWallet()
 
   const fetchAllowance = useCallback(async () => {
-    const allowance = await getAllowance(inputTokenContract, account, recipe)
+    const allowance = await getAllowance(inputTokenContract, account, contractAddresses.recipe[137])
     setAllowance(new BigNumber(allowance))
   }, [account, inputTokenContract])
 

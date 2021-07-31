@@ -5,7 +5,7 @@ import useBao from './useBao'
 import { useWallet } from 'use-wallet'
 
 import { nestIssue, getRecipeContract } from '../bao/utils'
-import { wethMaticAddress } from '../constants/tokenAddresses'
+import { addressMap } from '../bao/lib/constants'
 
 const useNestIssue = (nestContractAddress: string) => {
   const { account } = useWallet()
@@ -21,7 +21,7 @@ const useNestIssue = (nestContractAddress: string) => {
       const txHash = await nestIssue(
         recipeContract,
         nestContractAddress,
-        wethMaticAddress,
+        addressMap.WETH,
         amountWeth,
         encodedAmountData,
         account,
