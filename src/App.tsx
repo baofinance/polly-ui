@@ -14,6 +14,9 @@ import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
 
+// Visx
+import { GradientPurpleRed } from '@visx/gradient'
+
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 

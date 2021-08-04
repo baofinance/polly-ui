@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react'
-import styled, { ThemeContext } from 'styled-components'
+import styled, { ThemeContext, keyframes } from 'styled-components'
 
 import { Link } from 'react-router-dom'
 import { darken, lighten } from 'polished'
@@ -34,11 +34,11 @@ const Button: React.FC<ButtonProps> = ({
 	let buttonColor: string
 	switch (variant) {
 		case 'secondary':
-			buttonColor = color.grey[500]
+			buttonColor = '#a1a0a0'
 			break
 		case 'default':
 		default:
-			buttonColor = color.red[300]
+			buttonColor = '#f7f4f2'
 	}
 
 	let boxShadow: string
@@ -47,23 +47,23 @@ const Button: React.FC<ButtonProps> = ({
 	let fontSize: number
 	switch (size) {
 		case 'sm':
-			boxShadow = `4px 4px 8px ${color.grey[300]},
-        -8px -8px 16px ${color.grey[100]}FF;`
+			boxShadow = `4px 4px 8px ${color.grey[600]},
+        -8px -8px 16px ${color.grey[500]}FF;`
 			buttonPadding = spacing[4]
 			buttonSize = 40
 			fontSize = 14
 			break
 		case 'lg':
-			boxShadow = `6px 6px 12px ${color.grey[300]},
-        -12px -12px 24px ${color.grey[100]}ff;`
+			boxShadow = `6px 6px 12px ${color.grey[600]},
+        -12px -12px 24px ${color.grey[500]};`
 			buttonPadding = spacing[4]
 			buttonSize = 72
 			fontSize = 16
 			break
 		case 'md':
 		default:
-			boxShadow = `6px 6px 12px ${color.grey[300]},
-        -12px -12px 24px -2px ${color.grey[100]}ff;`
+			boxShadow = `6px 6px 12px ${color.grey[600]},
+        -12px -12px 24px -2px ${color.grey[500]};`
 			buttonPadding = spacing[4]
 			buttonSize = 56
 			fontSize = 16
@@ -84,6 +84,7 @@ const Button: React.FC<ButtonProps> = ({
 	}, [href, text, to])
 
 	return (
+		<>
 		<StyledButton
 			boxShadow={boxShadow}
 			color={buttonColor}
@@ -98,6 +99,7 @@ const Button: React.FC<ButtonProps> = ({
 			{children}
 			{ButtonChild}
 		</StyledButton>
+		</>
 	)
 }
 
@@ -112,14 +114,33 @@ interface StyledButtonProps {
 	width: string
 }
 
+const Glowing = keyframes`
+0% { background-position: 0 0; }
+50% { background-position: 400% 0; }
+100% { background-position: 0 0; }
+`
+
+const AnimateGradient = keyframes`
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}`
+
 const StyledButton = styled.button<StyledButtonProps>`
 	padding: 0.7rem 1.7rem;
 	align-items: center;
-	background-color: ${(props) => props.theme.color.grey[200]};
-	border: 1px solid rgb(226, 214, 207);
+	background-image: linear-gradient(to left, #220f68, #3c32f5);
+	background-size: 150% 150%;	
+	border: 1px solid ${(props) => props.theme.color.grey[600]};
 	border-radius: 10px;
-	box-shadow: rgb(181 176 174 / 50%) 4px 4px 8px, rgb(247 244 242) 1px 1px 0px inset;
-	color: ${(props) => (!props.disabled ? props.color : `${props.color}55`)};
+	box-shadow: 0px 57px 90px -47px ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	cursor: pointer;
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
 	font-size: ${(props) => props.fontSize}px;
@@ -145,19 +166,28 @@ const StyledButton = styled.button<StyledButtonProps>`
 		transform: scale(1);
 	}
 
+	&:hover:before{
+		transform: scale(1.2);
+		box-shadow: 0 0 15px #47007c;
+		filter: blur(3px);
+	}
+
 	&:hover,
 	&:focus {
 		transition: 0.2s;
 		transform: translate(1px, 1px);
-		background-color: ${(props) => lighten(0.025, props.theme.color.grey[200])};
-		border-color: ${lighten(0.025, 'rgb(226, 214, 207)')};
-		box-shadow: rgb(181 176 174 / 50%) 2px 2px 4px, rgb(247 244 242) 1px 1px 0px inset;
-
+		-webkit-animation: ${AnimateGradient} 3s ease infinite;
+		-moz-animation: ${AnimateGradient} 3s ease infinite;
+		animation: ${AnimateGradient} 3s ease infinite;		
+		border-color: ${lighten(0.025, '#090130')};
+		box-shadow: 0 0 15px #47007c;
 	}
 
 	&:focus {
-		border-color: ${darken(0.05, 'rgb(226, 214, 207)')};
-		background-color: ${(props) => darken(0.025, props.theme.color.grey[200])};
+		border-color: ${darken(0.05, '#090130')};
+		-webkit-animation: ${AnimateGradient} 3s ease infinite;
+		-moz-animation: ${AnimateGradient} 3s ease infinite;
+		animation: ${AnimateGradient} 3s ease infinite;	
 	}
 `
 

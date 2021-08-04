@@ -11,7 +11,7 @@ const StyledModalContent = styled.div`
 		flex: 1;
 		overflow: auto;
 	}
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 12px;
 	font-weight: 10;
 	padding: ${(props) => props.theme.spacing[4]}px;

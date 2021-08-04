@@ -5,15 +5,6 @@ import Sky from 'react-sky'
 class Hero extends Component {
 	render() {
 		return (
-			<div
-				style={{
-					height: '300px',
-					width: '900px',
-					position: 'relative',
-					padding: '0px',
-					margin: '0px',
-				}}
-			>
 				<Sky
 					images={{
 						0: 'https://assets.coingecko.com/coins/images/12271/small/512x512_Logo_no_chop.png',
@@ -40,7 +31,6 @@ class Hero extends Component {
 					time={120} /* time of animation */
 					size={'50px'} /* size of the rendered images */
 				/>
-			</div>
 		)
 	}
 }

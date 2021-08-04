@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const ListLabelCol = styled.span`
-  font-family: 'Kaushan Script', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
-  color: ${props => props.theme.color.grey[500]};
+  color: ${props => props.theme.color.grey[100]};
   vertical-align: middle;
   font-weight: bold;
   padding: 0;
@@ -16,13 +16,13 @@ export const ListLabelContainer = styled.div`
 `
 
 export const ListItemContainer = styled.div`
-  background: #f0e9e7;
-  border: 1px solid #e2d6cfff;
-  border-radius: 12px;
-  box-shadow: inset 1px 1px 0 #f7f4f2;  
+background: ${(props) => props.theme.color.grey[200]};
+border: 1px solid ${(props) => props.theme.color.grey[600]};
+border-radius: 12px;
   padding: 25px;
   display: block;
   margin-bottom: 10px;
+	box-shadow: inset 1px 1px 0px ${(props) => props.theme.color.grey[500]};
 `
 
 export const NestImage = styled.img`
@@ -54,8 +54,8 @@ export const AssetImage = styled(NestImage)`
 `
 
 export const ColumnText = styled.span`
-  color: #805e49;
-  vertical-align: middle;
+color: ${props => props.theme.color.grey[100]};
+vertical-align: middle;
   text-align: center;
   font-weight: bold;
   font-size: 19px;

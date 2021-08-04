@@ -82,7 +82,7 @@ export const getNests = (bao) => {
 					nestAddress,
 					nestContract,
 					indexType,
-					composition
+					composition,
 				}) => ({
 					nid,
 					id: symbol,
@@ -334,8 +334,7 @@ export const fetchCalcToNest = async (
 	nestAddress,
 	nestAmount,
 ) => {
-	const amount = new BigNumber(nestAmount)
-		.times(new BigNumber(10).pow(18))
+	const amount = new BigNumber(nestAmount).times(new BigNumber(10).pow(18))
 
 	const amountEthNecessary = await recipeContract.methods
 		.calcToPie(nestAddress, amount.toFixed(0))
@@ -392,8 +391,8 @@ export const getWethPriceLink = async (bao) => {
 
 	const [decimals, latestRound] = await Promise.all([
 		priceOracle.methods.decimals().call(),
-		priceOracle.methods.latestRoundData().call()
-	]);
+		priceOracle.methods.latestRoundData().call(),
+	])
 
-	return new BigNumber(latestRound.answer).div(10 ** decimals);
-};
+	return new BigNumber(latestRound.answer).div(10 ** decimals)
+}

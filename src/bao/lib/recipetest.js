@@ -11,7 +11,7 @@ const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl)
 const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl))
 
 const contracts = {
-	recipe: '0xd6a845697394bB9Cb4746F8bFd01064Cf98176fe',
+	recipe: '0xd683Cb11005EfC90A1c3995251821a20c7860f7A',
 	nest: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 }
 const amount = new BigNumber(1).times(new BigNumber(10).pow(18)).toFixed(0)

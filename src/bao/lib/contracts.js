@@ -32,7 +32,7 @@ export class Contracts {
 		this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
 		this.recipe = new this.web3.eth.Contract(RecipeAbi)
 		this.weth = new this.web3.eth.Contract(WETHAbi)
-		this.wethPrice = new this.web3.eth.Contract(ChainOracle);
+		this.wethPrice = new this.web3.eth.Contract(ChainOracle)
 
 		this.pools = supportedPools.map((pool) =>
 			Object.assign(pool, {
@@ -47,7 +47,7 @@ export class Contracts {
 			Object.assign(nest, {
 				nestAddress: nest.nestAddress[networkId],
 				nestContract: new this.web3.eth.Contract(ExperipieAbi),
-				basketContract: new this.web3.eth.Contract(BasketAbi)
+				basketContract: new this.web3.eth.Contract(BasketAbi),
 			}),
 		)
 

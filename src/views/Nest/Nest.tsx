@@ -203,7 +203,7 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
-						<Row xs={1} sm={1} md={1} lg={2} style={{height: '500px' /* TODO: Responsive Size */}}>
+						<Row xs={1} sm={1} md={1} lg={2} style={{height: '500px'}}>
 							<Col>
 								<GraphLabel>Asset Allocation</GraphLabel>
 								<GraphContainer>

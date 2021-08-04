@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
-import styled from 'styled-components'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import WalletProviderModal from '../../components/WalletProviderModal'
@@ -51,27 +50,5 @@ const Nests: React.FC = () => {
 		</Switch>
 	)
 }
-
-const StyledHeader = styled.h1`
-	font-size: 64px;
-	font-family: 'Kaushan Script', sans-serif;
-	color: ${(props) => props.theme.color.grey[500]};
-	width: 20%;
-	text-align: center;
-	border-bottom: 2px solid ${(props) => props.theme.color.grey[500]};
-`
-
-const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[500]};
-	font-size: 16px;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-
-	> b {
-		color: ${(props) => props.theme.color.grey[600]};
-	}
-`
 
 export default Nests
