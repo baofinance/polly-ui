@@ -233,7 +233,17 @@ const Nest: React.FC = () => {
 								</GraphContainer>
 							</Col>
 							<Col>
-								<GraphLabel>Index Price</GraphLabel>
+								<GraphLabel>
+									Index Price{' '}
+									<OverlayTrigger
+										placement='top'
+										overlay={<Tooltip id='warning-tt'>Asset does not have a price feed yet, displaying wETH</Tooltip>}
+									>
+										<span>
+											<FontAwesomeIcon icon='exclamation-triangle' style={{ color: '#cba92d' }} />
+										</span>
+									</OverlayTrigger>
+								</GraphLabel>
 								<GraphContainer>
 									<ParentSize>
 										{parent => priceHistory && (
