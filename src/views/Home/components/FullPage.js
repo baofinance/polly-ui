@@ -19,13 +19,12 @@ class FullpageWrapper extends React.Component {
 		return (
 			<ReactFullpage
 				scrollOverflow={true}
-        navigation={true}
+				navigation={true}
 				onLeave={this.onLeave.bind(this)}
 				afterLoad={this.afterLoad.bind(this)}
 				render={({ state, fullpageApi }) => {
 					return (
 						<div id="fullpage-wrapper">
-
 							<div
 								className="section"
 								style={{
@@ -33,22 +32,19 @@ class FullpageWrapper extends React.Component {
 									backgroundPosition: `center`,
 									backgroundRepeat: `no-repeat`,
 									backgroundAttachment: `fixed`,
-                  zIndex: `-99999`
+									zIndex: `-99999`,
 								}}
 							>
-								<h6>Diversified Exposure</h6>
-                                <SkyHero />
+								<h6>DIVERSIFIED<br />EXPOSURE</h6>
+								<SkyHero />
 							</div>
 
 							<div className="section">
-                <h6>Passive Yield</h6>
+								<h7>PASSIVE YIELD</h7>
 							</div>
 
 							<div className="section">
-								<h3>Section 3</h3>
-								<button onClick={() => fullpageApi.moveTo(1, 0)}>
-									Move top
-								</button>
+								<h7>AUTOMATED STRATEGIES</h7>
 							</div>
 						</div>
 					)

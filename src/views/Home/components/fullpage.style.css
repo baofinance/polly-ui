@@ -22,6 +22,22 @@ h6 {
 	animation: hue 10s infinite linear;
 }
 
+h7 {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 5rem !important;
+    line-height: 6.7rem;
+    letter-spacing: -0.2rem;
+    text-align: center;
+    font-weight: 900 !important;
+    letter-spacing: 2px;
+    text-align: center;
+    color: #f35626;
+    background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: hue 10s infinite linear;
+  }
+
 @keyframes hue {
   from {
     -webkit-filter: hue-rotate(0deg);
