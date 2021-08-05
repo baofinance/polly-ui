@@ -135,23 +135,24 @@ const AnimateGradient = keyframes`
 const StyledButton = styled.button<StyledButtonProps>`
 	padding: 0.7rem 1.7rem;
 	align-items: center;
+	background-color: #000;
 	background-image: linear-gradient(to left, #220f68, #3c32f5);
 	background-size: 150% 150%;	
-	border: 1px solid ${(props) => props.theme.color.grey[600]};
+	border: 1px solid ${props => props.theme.color.grey[600]};
 	border-radius: 10px;
-	box-shadow: 0px 57px 90px -47px ${(props) => props.theme.color.grey[500]};
-	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-	cursor: pointer;
-	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
-	font-size: ${(props) => props.fontSize}px;
+	box-shadow: 0px 57px 90px -47px ${props => props.theme.color.grey[500]};
+	color: ${props => (!props.disabled ? props.color : `${props.color}`)};
+	display: ${props => (props.inline ? 'inline-block' : 'flex')};
+	font-size: ${props => props.fontSize}px;
 	font-weight: 700;
-	height: ${(props) => props.size}px;
+	height: ${props => props.size}px;
 	justify-content: center;
 	outline: none;
-	padding-left: ${(props) => props.padding}px;
-	padding-right: ${(props) => props.padding}px;
-	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
-	width: ${(props) => (props.width ? props.width : '100%')};
+	padding-left: ${props => props.padding}px;
+	padding-right: ${props => props.padding}px;
+	pointer-events: ${props => (!props.disabled ? undefined : 'none')};
+	width: ${props => (props.width ? props.width : '100%')};
+	opacity: ${props => props.disabled ? 0.5 : 1};
 	@media (max-width: 960px) {
 		/* margin: 0 0.5rem 0 0.5rem; */
 		text-align: center;
@@ -168,7 +169,6 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 	&:hover:before{
 		transform: scale(1.2);
-		box-shadow: 0 0 15px #47007c;
 		filter: blur(3px);
 	}
 
@@ -178,16 +178,18 @@ const StyledButton = styled.button<StyledButtonProps>`
 		transform: translate(1px, 1px);
 		-webkit-animation: ${AnimateGradient} 3s ease infinite;
 		-moz-animation: ${AnimateGradient} 3s ease infinite;
-		animation: ${AnimateGradient} 3s ease infinite;		
+		animation: ${AnimateGradient} 3s ease infinite;
 		border-color: ${lighten(0.025, '#090130')};
-		box-shadow: 0 0 15px #47007c;
+		box-shadow: 0 0 5px ${props => lighten(0.1, props.theme.color.grey[200])};
+		color: ${props => props.theme.color.grey[100]};
+		cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'} !important;
 	}
 
 	&:focus {
 		border-color: ${darken(0.05, '#090130')};
 		-webkit-animation: ${AnimateGradient} 3s ease infinite;
 		-moz-animation: ${AnimateGradient} 3s ease infinite;
-		animation: ${AnimateGradient} 3s ease infinite;	
+		animation: ${AnimateGradient} 3s ease infinite;
 	}
 `
 
@@ -198,9 +200,13 @@ const StyledLink = styled(Link)`
 	flex: 1;
 	height: 56px;
 	justify-content: center;
-	margin: 0 ${(props) => -props.theme.spacing[4]}px;
-	padding: 0 ${(props) => props.theme.spacing[4]}px;
+	margin: 0 ${props => -props.theme.spacing[4]}px;
+	padding: 0 ${props => props.theme.spacing[4]}px;
 	text-decoration: none;
+
+	&:hover, &:focus {
+		color: ${props => props.theme.color.grey[100]};
+	}
 `
 
 const StyledExternalLink = styled.a`
@@ -210,15 +216,19 @@ const StyledExternalLink = styled.a`
 	flex: 1;
 	height: 56px;
 	justify-content: center;
-	margin: 0 ${(props) => -props.theme.spacing[4]}px;
-	padding: 0 ${(props) => props.theme.spacing[4]}px;
+	margin: 0 ${props => -props.theme.spacing[4]}px;
+	padding: 0 ${props => props.theme.spacing[4]}px;
 	text-decoration: none;
+	
+	&:hover, &:focus {
+		color: ${props => props.theme.color.grey[100]};
+	}
 `
 
 export const MaxButton = styled.a`
 	padding: 5px;
-	border: 1px solid ${(props) => props.theme.color.grey[500]};
-	color: ${(props) => props.theme.color.grey[500]};
+	border: 1px solid ${props => props.theme.color.grey[100]};
+	color: ${props => props.theme.color.grey[100]};
 	border-radius: 5px;
 	vertical-align: middle;
 	margin-right: 10px;
@@ -228,8 +238,8 @@ export const MaxButton = styled.a`
 	text-decoration: none;
 	
 	&:hover {
-		background-color: ${(props) => props.theme.color.grey[300]};
-		color: #524d4d;
+		background-color: ${props => lighten(0.1, props.theme.color.darkGrey[100])};
+		color: ${props => props.theme.color.blue[400]};
 		cursor: pointer;
 	}
 `

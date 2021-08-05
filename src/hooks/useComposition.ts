@@ -16,7 +16,7 @@ const useComposition = (nest: Nest) => {
     if (!nest || !nest.nestContract) return
 
     nest.nestContract.methods.getTokens().call().then(async (tokenComposition: string[]) => {
-      const prices: any = await GraphClient.getPriceHistoryMultiple(tokenComposition);
+      const prices: any = await GraphClient.getPriceHistoryMultiple(tokenComposition)
       const res = await Promise.all(tokenComposition.map(async (component: any) => {
         const graphData = _.find(prices.tokens, token => token.id === component.toLowerCase())
 
@@ -58,7 +58,7 @@ const useComposition = (nest: Nest) => {
       })
 
       setComposition(res)
-    });
+    })
   }, [nest])
 
   return composition

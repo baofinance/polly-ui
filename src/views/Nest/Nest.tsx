@@ -110,7 +110,7 @@ const Nest: React.FC = () => {
 	)
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
-	const [analyticsOpen, setAnalyticsOpen] = useState(false)
+	const [analyticsOpen, setAnalyticsOpen] = useState(true)
 
 	useEffect(() => {
 		if (nestContract.options.address)
@@ -120,7 +120,7 @@ const Nest: React.FC = () => {
 	return (
 		<>
 			<NestBox>
-				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>View Analytics</Tooltip>} placement='bottom'>
+				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>{analyticsOpen ? 'Hide' : 'View'} Analytics</Tooltip>} placement='bottom'>
 					<NestCornerButton
 						onClick={() => setAnalyticsOpen(!analyticsOpen)}
 						aria-controls='analytics-collapse'
