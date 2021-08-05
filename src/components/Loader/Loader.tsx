@@ -46,7 +46,7 @@ const StyledText = styled.div`
 `
 
 export const SpinnerLoader = () => <Spinner animation='border' size='sm' style={
-	{ color: `${(props: any) => props.theme.color.grey[500]}` }
+	{ color: `${(props: any) => props.theme.color.grey[100]}` }
 } />
 
 export default Loader

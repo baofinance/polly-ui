@@ -19,14 +19,14 @@ export type TimeseriesData = {
 
 type TooltipData = TimeseriesData
 
-export const background = '#805e49'
+export const background = '#f7f4f2';
 export const accentColor = background
-export const accentColorDark = '#e7a984'
+export const accentColorDark = '#00ff00'
 const tooltipStyles = {
 	...defaultStyles,
 	background,
-	border: '1px solid #e7a984',
-	color: 'white',
+	border: '1px solid #00ff00',
+	color: 'black',
 }
 
 // util

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { provider } from 'web3-core'
 import Spacer from '../../components/Spacer'
@@ -7,9 +6,7 @@ import Button from '../../components/Button'
 import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ListGroup from 'react-bootstrap/ListGroup'
-import Collapse from 'react-bootstrap/Collapse'
-import { Badge, Card, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
+import { Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 import { SpinnerLoader } from '../../components/Loader'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
@@ -27,6 +24,25 @@ import { useWallet } from 'use-wallet'
 import useBao from '../../hooks/useBao'
 import useModal from '../../hooks/useModal'
 import { useParams } from 'react-router-dom'
+import {
+	NestBox,
+	NestCornerButton,
+	NestBoxHeader,
+	AssetImageContainer,
+	Icon,
+	NestBoxBreak,
+	StatsCard,
+	StatsCardHeader,
+	StatsCardBody,
+	NestStats,
+	NestStat,
+	NestButtons,
+	StyledBadge,
+	NestAnalytics,
+	NestAnalyticsContainer,
+	GraphLabel,
+	GraphContainer
+} from './styles'
 
 // will replace with nest icons once they're designed
 const nestIcon =
@@ -233,172 +249,5 @@ const Nest: React.FC = () => {
 		</>
 	)
 }
-
-const NestBox = styled.div`
-	width: 60%;
-	background: #f0e9e7;
-	border: 1px solid #e2d6cfff;
-	border-radius: 12px;
-	box-shadow: inset 1px 1px 0 #f7f4f2;
-	padding: 15px;
-	text-align: center;
-`
-
-const NestBoxHeader = styled.h1`
-	font-family: 'Reem Kufi', sans-serif;
-	color: ${props => props.theme.color.grey[500]};
-	margin-bottom: 10px;
-	margin-top: 0;
-	font-size: 32px;
-
-	small {
-		display: block;
-		font-family: 'Reem Kufi', sans-serif;
-		font-size: 40%;
-		margin-top: 5px;
-	}
-`
-
-const AssetImageContainer = styled.div`
-	display: inline-block;
-	background-color: #e2d6cf;
-	border-radius: 50%;
-	width: 48px;
-	height: 48px;
-	margin: 10px 15px;
-
-	img {
-		height: 32px;
-		vertical-align: middle;
-	}
-`
-
-interface NestBreakProps {
-	margin: number
-}
-
-const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
-	margin: props.margin ? `${props.margin}px auto` : '30px auto'
-}))`
-	border: none;
-	margin: ${props => props.margin};
-	border-bottom: 2px solid ${props => props.theme.color.grey[500]};
-	width: 40%;
-`
-
-const NestCornerButton = styled.a`
-	float: right;
-	margin-top: 10px;
-	margin-right: 10px;
-	font-size: 24px;
-	vertical-align: middle;
-
-	&:hover {
-		cursor: pointer;
-	}
-`
-
-const NestAnalytics = styled(Collapse)`
-	margin-bottom: 50px;
-`
-
-const NestAnalyticsContainer = styled.div.attrs(props => ({
-	id: 'analytics-collapse'
-}))``
-
-const GraphLabel = styled.h2`
-	font-family: 'Kaushan Script', sans-serif;
-	color: ${props => props.theme.color.grey[500]};
-	background-color: ${props => props.theme.color.grey[300]};
-	width: 80%;
-	margin: 0 auto;
-	padding: 10px;
-	border: 1px solid #e2d6cfff;
-	border-top-right-radius: 12px;
-	border-top-left-radius: 12px;
-`
-
-const GraphContainer = styled(Col)`
-	background-color: ${props => props.theme.color.grey[100]};
-	box-shadow: inset 1px 1px 0 #f7f4f2;
-	width: 80%;
-	height: 80%;
-	margin: 0 auto;
-	border: 1px solid #e2d6cfff;
-	border-radius: 0 0 12px 12px;
-	overflow: hidden;
-`
-
-const StatsCard = styled(Card)`
-	background-color: transparent;
-	border: none;
-	justify-content: center;
-	margin-top: 2.5rem;
-	margin-bottom: 2.5rem;
-`
-
-const StatsCardHeader = styled(Card.Header)`
-	font-weight: bold;
-	background-color: ${props => props.theme.color.grey[300]};
-	color: ${props => props.theme.color.grey[600]};
-	width: 70%;
-	margin: 0 auto 0;
-	border: 1px solid ${props => props.theme.color.grey[400]};
-	border-bottom: none;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-`
-
-const StatsCardBody = styled(Card.Body)`
-	padding: 0;
-`
-
-const NestStats = styled(ListGroup)`
-	margin: 0 auto;
-	width: 70%;
-	justify-content: center;
-
-	.list-group-item:last-child {
-		border-top-right-radius: 0 !important;
-	}
-
-	.list-group-item:first-child {
-		border-top-left-radius: 0;
-	}
-`
-
-const NestStat = styled(ListGroup.Item)`
-	background-color: ${props => props.theme.color.grey[100]};
-	border-color: ${props => props.theme.color.grey[400]};
-	color: ${props => props.theme.color.grey[500]};
-	width: 25%;
-
-	span {
-		font-weight: bold;
-	}
-`
-
-const StyledBadge = styled(Badge)`
-	background-color: ${props => props.theme.color.grey[500]};
-	color: ${props => props.theme.color.grey[100]};
-`
-
-const Icon = styled.img`
-	vertical-align: middle;
-	width: 100%;
-	display: inline;
-	height: 80px;
-`
-
-const NestButtons = styled.div`
-	align-items: center;
-	flex-grow: 1;
-	margin-right: 0;
-	justify-content: center;
-	vertical-align: middle;
-	display: flex;
-	margin-top: 15px;
-	margin-bottom: 0;
-`
 
 export default Nest

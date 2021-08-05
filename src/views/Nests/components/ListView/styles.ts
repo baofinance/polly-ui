@@ -16,13 +16,13 @@ export const ListLabelContainer = styled.div`
 `
 
 export const ListItemContainer = styled.div`
-background: ${(props) => props.theme.color.grey[200]};
-border: 1px solid ${(props) => props.theme.color.grey[600]};
-border-radius: 12px;
+  background: ${(props) => props.theme.color.grey[200]};
+  border: 1px solid ${(props) => props.theme.color.grey[600]};
+  border-radius: 12px;
   padding: 25px;
   display: block;
   margin-bottom: 10px;
-	box-shadow: inset 1px 1px 0px ${(props) => props.theme.color.grey[500]};
+	box-shadow: inset 1px 1px 0 ${(props) => props.theme.color.grey[500]};
 `
 
 export const NestImage = styled.img`
@@ -36,6 +36,7 @@ export const AssetImageContainer = styled.div`
   margin: 0 auto;
   display: inline-block;
   vertical-align: middle;
+  color: ${(props) => props.theme.color.grey[100]};
   
 	&:hover {
 		img {
@@ -54,8 +55,8 @@ export const AssetImage = styled(NestImage)`
 `
 
 export const ColumnText = styled.span`
-color: ${props => props.theme.color.grey[100]};
-vertical-align: middle;
+  color: ${props => props.theme.color.grey[100]} !important;
+  vertical-align: middle;
   text-align: center;
   font-weight: bold;
   font-size: 19px;
