@@ -82,7 +82,7 @@ export const getNests = (bao) => {
 					nestAddress,
 					nestContract,
 					indexType,
-					composition,
+					pieColors,
 				}) => ({
 					nid,
 					id: symbol,
@@ -90,7 +90,7 @@ export const getNests = (bao) => {
 					icon,
 					nestContract,
 					indexType,
-					composition,
+					pieColors,
 					nestTokenAddress: nestAddress,
 					inputToken: 'wETH',
 					nestToken: symbol,

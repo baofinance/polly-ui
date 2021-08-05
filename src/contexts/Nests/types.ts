@@ -14,8 +14,8 @@ export interface NestComponent {
   decimals: number
   color: string
   percentage: number
-  coingeckoId: number
-  coingeckoImageId: number
+  coingeckoId?: number
+  coingeckoImageId?: number
   imageUrl?: string
   balance?: BigNumber
   balanceDecimals?: number
@@ -36,7 +36,7 @@ export interface Nest {
   tokenSymbol: string
   coingeckoId: string
   indexType?: IndexType
-  composition: Array<NestComponent>
+  pieColors: any
 }
 
 export interface NestsContext {

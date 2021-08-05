@@ -104,46 +104,13 @@ export const supportedNests = [
 		symbol: 'pDEFI',
 		name: 'Polygon DeFi Test Nest',
 		description: 'Polygon DeFi Ecosystem Test Nest',
-		composition: [
-			{
-				symbol: 'SUSHI',
-				address: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
-				decimals: 18,
-				color: '#DB5FA9',
-				percentage: 25,
-				coingeckoId: 'sushi',
-				coingeckoImageId: 12271,
-			},
-			{
-				symbol: 'GRT',
-				address: '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
-				decimals: 18,
-				color: '#353993',
-				percentage: 25,
-				coingeckoId: 'the-graph',
-				coingeckoImageId: 13397,
-			},
-			{
-				symbol: 'LINK',
-				address: '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
-				decimals: 18,
-				color: '#2A5AD9',
-				percentage: 25,
-				coingeckoId: 'chainlink',
-				coingeckoImageId: 877,
-			},
-			{
-				symbol: 'WETH',
-				address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-				decimals: 18,
-				color: '#d05555',
-				percentage: 25,
-				coingeckoId: 'ethereum',
-				coingeckoImageId: 2518,
-			},
-		],
-		indexType: 'test',
-	},
+		pieColors: {
+			SUSHI: '#DB5FA9',
+			GRT: '#353993',
+			LINK: '#2A5AD9',
+			WETH: '#d05555',
+		},
+	},/*
 	{
 		nid: 6,
 		nestAddress: {
@@ -185,4 +152,5 @@ export const supportedNests = [
 		],
 		indexType: 'test',
 	},
+	*/
 ]

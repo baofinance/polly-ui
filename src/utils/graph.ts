@@ -21,13 +21,13 @@ const clients = {
 const _getClient = (network: string) =>
   network.toLowerCase() === 'matic' ? clients.matic : clients.mainnet
 
-const getPriceHistoryQuery = (tokenSymbol: string) =>
+const _getPriceHistoryQuery = (tokenAddress: string) =>
   `
   {
-    tokens(where: {symbol:"${tokenSymbol}"}) {
+    tokens(where: {id:"${tokenAddress}"}) {
       id
       symbol
-      name,
+      name
       dayData(orderBy:date, orderDirection:desc) {
         date
         priceUSD
@@ -36,13 +36,14 @@ const getPriceHistoryQuery = (tokenSymbol: string) =>
   }
   `
 
-const getPriceHistoryQueryMultiple = (tokenSymbols: string[]) =>
+const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
   `
   {
-    tokens(where: {symbol_in:["${tokenSymbols.join('","')}"]}) {
+    tokens(where: {id_in:["${tokenAddresses.map(symbol => symbol.toLowerCase()).join('","')}"]}) {
       id
+      name
       symbol
-      name,
+      decimals
       dayData(orderBy:date, orderDirection:desc) {
         date
         priceUSD
@@ -51,31 +52,31 @@ const getPriceHistoryQueryMultiple = (tokenSymbols: string[]) =>
   }
   `
 
-const getSubgraphPriceHistoryMultiple = (tokenSymbol: string[], network: string = 'matic') => {
+const getPriceHistoryMultiple = (tokenAddresses: string[], network: string = 'matic') => {
   const client = _getClient(network)
   return new Promise(resolve => {
     client.query({
-      query: gql(getPriceHistoryQueryMultiple(tokenSymbol))
+      query: gql(_getPriceHistoryQueryMultiple(tokenAddresses))
     })
       .then(({ data }) => resolve(data))
       .catch(() => {})
   })
 }
 
-const getSubgraphPriceHistory = (tokenSymbol: string, network: string = 'matic') => {
+const getPriceHistory = (tokenAddress: string, network: string = 'matic') => {
   const client = _getClient(network)
   return new Promise(resolve => {
     client.query({
-      query: gql(getPriceHistoryQuery(tokenSymbol))
+      query: gql(_getPriceHistoryQuery(tokenAddress))
     })
       .then(({ data }) => resolve(data))
       .catch(() => {})
   })
 }
 
-const getSubgraphPrice = async (tokenSymbol: string, network: string = 'matic') => {
-  const data: any = await getSubgraphPriceHistory(tokenSymbol, network)
+const getPrice = async (tokenAddress: string, network: string = 'matic') => {
+  const data: any = await getPriceHistory(tokenAddress, network)
   return data.tokens[0] && new BigNumber(data.tokens[0].dayData[0].priceUSD)
 }
 
-export { getSubgraphPriceHistory, getSubgraphPriceHistoryMultiple, getSubgraphPrice, getPriceHistoryQuery }
+export default { getPriceHistory, getPriceHistoryMultiple, getPrice }

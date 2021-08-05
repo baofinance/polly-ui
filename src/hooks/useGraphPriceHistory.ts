@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from 'react'
 import _ from 'lodash'
 import { Nest } from '../contexts/Nests'
 import { TimeseriesData } from '../components/Graphs/AreaGraph/AreaGraph'
-import { getSubgraphPriceHistory } from '../utils/graph'
+import GraphClient from '../utils/graph'
+import { addressMap } from '../bao/lib/constants'
 
 const useGraphPriceHistory = (nest: Nest) => {
   const [res, setRes] = useState<TimeseriesData[] | undefined>()
 
   const querySubgraph = useCallback(async () => {
-    const data: any = await getSubgraphPriceHistory('WETH', 'matic');
+    const data: any = await GraphClient.getPriceHistory(addressMap.WETH)
     const formattedData: Array<TimeseriesData> = []
 
     _.each(data.tokens[0].dayData, dayData => {
