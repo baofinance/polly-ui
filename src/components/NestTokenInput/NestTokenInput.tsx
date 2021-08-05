@@ -71,7 +71,7 @@ const StyledMaxText = styled.div`
 `
 
 const StyledTokenSymbol = styled.span`
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 `
 

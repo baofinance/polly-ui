@@ -16,8 +16,8 @@ export const ListLabelContainer = styled.div`
 `
 
 export const ListItemContainer = styled.div`
-  background: ${(props) => props.theme.color.grey[200]};
-  border: 1px solid ${(props) => props.theme.color.grey[600]};
+  background: ${(props) => props.theme.color.darkGrey[200]};
+  border: 1px solid ${(props) => props.theme.color.darkGrey[100]};
   border-radius: 12px;
   padding: 25px;
   display: block;

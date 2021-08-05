@@ -110,7 +110,7 @@ const Nest: React.FC = () => {
 	)
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
-	const [analyticsOpen, setAnalyticsOpen] = useState(false)
+	const [analyticsOpen, setAnalyticsOpen] = useState(true)
 
 	useEffect(() => {
 		if (nestContract.options.address)
@@ -120,7 +120,7 @@ const Nest: React.FC = () => {
 	return (
 		<>
 			<NestBox>
-				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>View Analytics</Tooltip>} placement='bottom'>
+				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>{analyticsOpen ? 'Hide' : 'View'} Analytics</Tooltip>} placement='bottom'>
 					<NestCornerButton
 						onClick={() => setAnalyticsOpen(!analyticsOpen)}
 						aria-controls='analytics-collapse'
@@ -233,7 +233,17 @@ const Nest: React.FC = () => {
 								</GraphContainer>
 							</Col>
 							<Col>
-								<GraphLabel>Index Price</GraphLabel>
+								<GraphLabel>
+									Index Price{' '}
+									<OverlayTrigger
+										placement='top'
+										overlay={<Tooltip id='warning-tt'>Asset does not have a price feed yet, displaying wETH</Tooltip>}
+									>
+										<span>
+											<FontAwesomeIcon icon='exclamation-triangle' style={{ color: '#cba92d' }} />
+										</span>
+									</OverlayTrigger>
+								</GraphLabel>
 								<GraphContainer>
 									<ParentSize>
 										{parent => priceHistory && (

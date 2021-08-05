@@ -15,6 +15,7 @@ export const blue = {
   100: '#0000ff',
   200: '#C5CBE3',
   300: '#4056A1',
+  400: '#7793f5',
 }
 
 export const gold = {
@@ -31,3 +32,9 @@ export const grey = {
   600: '#0b0019',
   800: '#2d1e12',
 }
+
+export const darkGrey = {
+  100: '#292C41',
+  200: '#202231',
+  300: '#161522',
+};

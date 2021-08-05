@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 export const NestBox = styled.div`
 	width: 60%;
-	background: ${props => props.theme.color.grey[500]};
+	background: ${props => props.theme.color.darkGrey[200]};
 	border: 1px solid ${props => props.theme.color.grey[600]};
 	border-radius: 12px;
 	box-shadow: inset 1px 1px 0 ${props => props.theme.color.grey[500]};
@@ -31,7 +31,7 @@ export const NestBoxHeader = styled.h1`
 
 export const AssetImageContainer = styled.div`
 	display: inline-block;
-	background-color: ${props => lighten(0.2, props.theme.color.grey[500])};
+	background-color: ${props => props.theme.color.darkGrey[100]};
 	border-radius: 50%;
 	width: 48px;
 	height: 48px;
@@ -52,7 +52,7 @@ export const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
 }))`
 	border: none;
 	margin: ${props => props.margin};
-	border-bottom: 2px solid ${props => lighten(0.3, props.theme.color.grey[500])};
+	border-bottom: 2px solid ${props => lighten(0.2, props.theme.color.darkGrey[100])};
 	width: 40%;
 `
 
@@ -80,7 +80,7 @@ export const NestAnalyticsContainer = styled.div.attrs(props => ({
 export const GraphLabel = styled.h2`
 	font-family: 'Kaushan Script', sans-serif;
 	color: ${props => props.theme.color.grey[100]};
-	background-color: ${props => lighten(0.2, props.theme.color.grey[500])};
+	background-color: ${props => props.theme.color.darkGrey[100]};
 	width: 80%;
 	margin: 0 auto;
 	padding: 10px;
@@ -91,7 +91,7 @@ export const GraphLabel = styled.h2`
 `
 
 export const GraphContainer = styled(Col)`
-	background-color: ${props => lighten(0.1, props.theme.color.grey[500])};
+	background-color: ${props => lighten(0.1, props.theme.color.darkGrey[100])};
 	width: 80%;
 	height: 80%;
 	margin: 0 auto;
@@ -110,11 +110,11 @@ export const StatsCard = styled(Card)`
 
 export const StatsCardHeader = styled(Card.Header)`
 	font-weight: bold;
-	background-color: ${props => lighten(0.1, props.theme.color.grey[500])};
+	background-color: ${props => props.theme.color.darkGrey[100]};
 	color: ${props => props.theme.color.grey[100]};
 	width: 70%;
 	margin: 0 auto 0;
-	border: 1px solid ${props => lighten(0.3, props.theme.color.grey[500])};
+	border: 1px solid ${props => lighten(0.2, props.theme.color.darkGrey[100])};
 	border-bottom: none;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
@@ -139,8 +139,8 @@ export const NestStats = styled(ListGroup)`
 `
 
 export const NestStat = styled(ListGroup.Item)`
-	background-color: ${props => lighten(0.2, props.theme.color.grey[500])};
-	border-color: ${props => lighten(0.3, props.theme.color.grey[500])};
+	background-color: ${props => lighten(0.1, props.theme.color.darkGrey[100])};
+	border-color: ${props => lighten(0.2, props.theme.color.darkGrey[100])};
 	color: ${props => props.theme.color.grey[100]};
 	width: 25%;
 
@@ -150,7 +150,8 @@ export const NestStat = styled(ListGroup.Item)`
 `
 
 export const StyledBadge = styled(Badge)`
-	background-color: ${props => props.theme.color.grey[500]};
+  font-size: 1.1em;
+	background-color: ${props => props.theme.color.blue[400]};
 	color: ${props => props.theme.color.grey[100]};
 `
 
