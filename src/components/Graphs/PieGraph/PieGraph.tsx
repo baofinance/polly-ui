@@ -3,14 +3,8 @@ import Pie, { PieArcDatum, ProvidedProps } from '@visx/shape/lib/shapes/Pie'
 import { Group } from '@visx/group'
 import { animated, interpolate, useTransition } from 'react-spring'
 import { NestComponent } from '../../../contexts/Nests/types'
-import { getDisplayBalance } from '../../../utils/formatBalance'
-import _ from 'lodash'
-
-interface AssetAllocation {
-	label: string
-	usage: number
-	color: string
-}
+import { getBalanceNumber, getDisplayBalance } from '../../../utils/formatBalance'
+import _ from 'lodash';
 
 interface AssetAllocationAmount {
 	label: string
@@ -33,23 +27,20 @@ export default function PieGraph({
   height,
   composition,
   margin = defaultMargin,
-  animate = false,
+  animate = true,
 }: PieProps) {
-	const [selectedAsset, setSelectedAsset] = useState<string | null>(null)
 	const [selectedAssetAmount, setSelectedAssetAmount] = useState<string | null>(null)
 
-	const assets: AssetAllocation[] = composition.map(component => ({
-		label: `${component.symbol}\n${component.percentage}%`,
-		usage: Number(component.percentage),
-		color: component.color,
-	}))
-	const assetsUsd: AssetAllocationAmount[] = _.reverse(composition).map(component => ({
-		label: `${getDisplayBalance(component.balance, component.balanceDecimals)} ${component.symbol}`,
+	const assetsBalance: AssetAllocationAmount[] = composition.map(component => ({
+		label: `
+			${component.percentage}%
+			${getDisplayBalance(component.balance, component.balanceDecimals)} ${component.symbol}
+			${component.price ? `$${getDisplayBalance(component.price.times(getBalanceNumber(component.balance, component.balanceDecimals)), 0)}` : ''}
+		`,
 		frequency: component.percentage,
 		color: component.color
 	}))
 
-	const usage = (d: AssetAllocation) => d.usage
 	const frequency = (d: AssetAllocationAmount) => d.frequency
 
 	if (width < 10) return null
@@ -59,43 +50,19 @@ export default function PieGraph({
 	const radius = Math.min(innerWidth, innerHeight) / 2
 	const centerY = innerHeight / 2
 	const centerX = innerWidth / 2
-	const donutThickness = 50
 
 	return (
 		<svg width={width} height={height}>
 			<Group top={centerY + margin.top} left={centerX + margin.left}>
 				<Pie
 					data={
-						selectedAsset ? assets.filter(({ label }) => label === selectedAsset) : assets
-					}
-					pieValue={usage}
-					outerRadius={radius}
-					innerRadius={radius - donutThickness}
-					cornerRadius={3}
-					padAngle={0.005}
-				>
-					{pie => (
-						<AnimatedPie<AssetAllocation>
-							{...pie}
-							animate={animate}
-							getKey={arc => arc.data.label}
-							onClickDatum={({ data: { label } }) =>
-								animate &&
-								setSelectedAsset(selectedAsset && selectedAsset === label ? null : label)
-							}
-							getColor={arc => arc.data.color}
-						/>
-					)}
-				</Pie>
-				<Pie
-					data={
 						selectedAssetAmount
-							? assetsUsd.filter(({ label }) => label === selectedAssetAmount)
-							: assetsUsd
+							? assetsBalance.filter(({ label }) => label === selectedAssetAmount)
+							: assetsBalance
 					}
 					pieValue={frequency}
 					pieSortValues={() => -1}
-					outerRadius={radius - donutThickness * 1.3}
+					outerRadius={radius}
 				>
 					{pie => (
 						<AnimatedPie<AssetAllocationAmount>
@@ -159,6 +126,7 @@ function AnimatedPie<Datum>({
 		const [centroidX, centroidY] = path.centroid(arc)
 		const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.1
 
+		let index = 0;
 		return (
 			<g key={key}>
 				<animated.path
@@ -176,20 +144,67 @@ function AnimatedPie<Datum>({
 				/>
 				{hasSpaceForLabel && (
 					<animated.g style={{ opacity: props.opacity }}>
-						<text
-							fill="white"
-							x={centroidX}
-							y={centroidY}
-							dy=".33em"
-							fontSize={9}
-							textAnchor="middle"
-							pointerEvents="none"
-						>
-							{getKey(arc)}
-						</text>
+						{_.map(_.filter(getKey(arc).split('\n'), line => line.length > 0), line => {
+							return (
+								<>
+									<text
+										fill="white"
+										x={centroidX}
+										y={centroidY + (index++ * 15)}
+										dy=".33em"
+										fontSize={12}
+										fontWeight='bold'
+										textAnchor="middle"
+										pointerEvents="none"
+									>
+										{line}
+									</text>
+									<br />
+								</>
+							)
+						})}
 					</animated.g>
 				)}
 			</g>
 		)
 	})
 }
+
+/*
+interface AssetAllocation {
+	label: string
+	usage: number
+	color: string
+}
+	const [selectedAsset, setSelectedAsset] = useState<string | null>(null)
+	const assets: AssetAllocation[] = composition.map(component => ({
+		label: `${component.symbol}\n${component.percentage}%`,
+		usage: Number(component.percentage),
+		color: component.color,
+	}))
+	const usage = (d: AssetAllocation) => d.usage
+	const donutThickness = 50
+	<Pie
+					data={
+						selectedAsset ? assets.filter(({ label }) => label === selectedAsset) : assets
+					}
+					pieValue={usage}
+					outerRadius={radius}
+					innerRadius={radius - donutThickness}
+					cornerRadius={3}
+					padAngle={0.005}
+				>
+					{pie => (
+						<AnimatedPie<AssetAllocation>
+							{...pie}
+							animate={animate}
+							getKey={arc => arc.data.label}
+							onClickDatum={({ data: { label } }) =>
+								animate &&
+								setSelectedAsset(selectedAsset && selectedAsset === label ? null : label)
+							}
+							getColor={arc => arc.data.color}
+						/>
+					)}
+				</Pie>
+	 */

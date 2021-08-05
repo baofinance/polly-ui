@@ -18,7 +18,8 @@ export interface NestComponent {
   coingeckoImageId: number
   imageUrl?: string
   balance?: BigNumber
-  balanceDecimals: number
+  balanceDecimals?: number
+  price?: BigNumber
 }
 
 export interface Nest {
