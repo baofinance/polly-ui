@@ -26,9 +26,9 @@ class Hero extends Component {
 						16: 'https://s3.amazonaws.com/token-icons/0xba100000625a3754423978a60c9317c58a424e3d.png',
 					}}
 					how={
-						62
+						124
 					} /* Pass the number of images Sky will render chosing randomly */
-					time={120} /* time of animation */
+					time={240} /* time of animation */
 					size={'50px'} /* size of the rendered images */
 				/>
 		)
