@@ -44,11 +44,11 @@ export const AssetImageContainer = styled.div`
 `
 
 interface NestBreakProps {
-  margin: number
+	margin: number
 }
 
 export const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
-  margin: props.margin ? `${props.margin}px auto` : '30px auto'
+	margin: props.margin ? `${props.margin}px auto` : '30px auto'
 }))`
 	border: none;
 	margin: ${props => props.margin};
@@ -74,7 +74,7 @@ export const NestAnalytics = styled(Collapse)`
 `
 
 export const NestAnalyticsContainer = styled.div.attrs(props => ({
-  id: 'analytics-collapse'
+	id: 'analytics-collapse'
 }))``
 
 export const GraphLabel = styled.h2`
@@ -171,4 +171,44 @@ export const NestButtons = styled.div`
 	display: flex;
 	margin-top: 15px;
 	margin-bottom: 0;
+`
+
+export const NestHeader = styled.h1`
+	font-family: 'Reem Kufi', sans-serif;
+	color: ${props => props.theme.color.grey[100]};
+	margin-bottom: 10px;
+	margin-top: 0;
+	font-size: 32px;
+
+	small {
+		display: block;
+		font-family: 'Reem Kufi', sans-serif;
+		font-size: 40%;
+		margin-top: 5px;
+	}
+`
+
+export const NestSubHeader = styled.h1`
+	font-family: 'Reem Kufi', sans-serif;
+	color: ${props => props.theme.color.grey[100]};
+	margin-bottom: 10px;
+	margin-top: 0;
+	font-size: 24px;
+
+	small {
+		display: block;
+		font-family: 'Reem Kufi', sans-serif;
+		font-size: 40%;
+		margin-top: 5px;
+	}
+`
+
+export const NestText = styled.div`
+color: ${props => props.theme.color.grey[100]};
+text-align: left;
+	margin: 50px;
+`
+
+export const NestList = styled.ul`
+margin-left: 25px;
 `

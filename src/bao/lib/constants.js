@@ -85,12 +85,88 @@ export const supportedPools = [
 			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		},
 		tokenDecimals: 18,
-		name: 'TEST INDEX FARM',
-		symbol: 'TESTERTOKEN',
-		tokenSymbol: 'TST',
+		name: 'Polygon DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
+		icon: '/bao.png',
+		refUrl: 'http://localhost:3000/nests/4',
+	},
+	{
+		pid: 0,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Polygon Stable Nest',
+		symbol: 'nSTBL',
+		tokenSymbol: 'nSTBL',
 		icon: '/bao.png',
 		refUrl: '',
 	},
+	{
+		pid: 0,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Polygon Infrastructure Nest',
+		symbol: 'nINFRA',
+		tokenSymbol: 'nINFRA',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+	{
+		pid: 0,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Dex Nest',
+		symbol: 'nDEX',
+		tokenSymbol: 'nDEX',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+	{
+		pid: 0,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Polygon Stable Nest',
+		symbol: 'nSTBL',
+		tokenSymbol: 'nSTBL',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+	{
+		pid: 0,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Polygon Infrastructure Nest',
+		symbol: 'nINFRA',
+		tokenSymbol: 'nINFRA',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+
 ]
 
 export const supportedNests = [

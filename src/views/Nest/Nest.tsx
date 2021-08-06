@@ -28,6 +28,10 @@ import {
 	NestBox,
 	NestCornerButton,
 	NestBoxHeader,
+	NestText,
+	NestHeader,
+	NestSubHeader,
+	NestList,
 	AssetImageContainer,
 	Icon,
 	NestBoxBreak,
@@ -219,7 +223,7 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
-						<Row xs={1} sm={1} md={1} lg={2} style={{height: '500px'}}>
+						<Row xs={1} sm={1} md={1} lg={2} style={{ height: '500px' }}>
 							<Col>
 								<GraphLabel>Asset Allocation</GraphLabel>
 								<GraphContainer>
@@ -255,6 +259,82 @@ const Nest: React.FC = () => {
 						</Row>
 					</NestAnalyticsContainer>
 				</NestAnalytics>
+				<NestBoxBreak />
+				<NestText>
+					<NestHeader>Description</NestHeader>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem. Donec blandit diam arcu,
+						quis ultricies urna volutpat a. Donec ac tortor volutpat, ullamcorper diam at, gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa. Etiam at molestie risus, nec pellentesque
+						lorem. Sed libero nunc, viverra mollis aliquet semper, pulvinar ac ante. Proin pellentesque, nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla sapien a lorem. Nulla nunc lectus,
+						sollicitudin at scelerisque non, tincidunt eu velit. Sed nec risus nulla.
+					</p>
+
+					<NestHeader>Objective</NestHeader>
+					<p>
+						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis. Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus sed
+						erat vitae metus elementum finibus. Sed blandit molestie consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In vel elit ac urna commodo pulvinar. Nullam
+						ultricies pretium tempor. Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.
+					</p>
+
+					<NestHeader>Criteria</NestHeader>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem. Donec blandit diam arcu, quis ultricies urna
+						volutpat a. Donec ac tortor volutpat, ullamcorper diam at, gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa. Etiam at molestie risus, nec pellentesque lorem. Sed libero nunc, viverra mollis
+						aliquet semper, pulvinar ac ante. Proin pellentesque, nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla sapien a lorem. Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.
+					</p>
+					<NestSubHeader>Descriptive Characteristics</NestSubHeader>
+					<NestList>
+						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
+						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
+						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
+						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+					</NestList>
+					<NestSubHeader>Supply Characteristics</NestSubHeader>
+					<NestList>
+						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
+						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
+						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
+						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+					</NestList>
+					<NestSubHeader>Traction Characteristics</NestSubHeader>
+					<NestList>
+						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
+						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
+						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
+						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+					</NestList>
+					<NestSubHeader>Safety Characteristics</NestSubHeader>
+					<NestList>
+						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
+						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
+						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
+						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+					</NestList>
+
+					<NestHeader>Calculations</NestHeader>
+					<p>
+						Etiam vel augue a velit eleifend commodo:
+					</p>
+					<NestList>
+						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
+						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
+						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
+					</NestList>
+
+					<NestHeader>Strategy</NestHeader>
+					<p>
+						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis. Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus sed
+						erat vitae metus elementum finibus. Sed blandit molestie consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In vel elit ac urna commodo pulvinar. Nullam
+						ultricies pretium tempor. Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.
+					</p>
+
+					<NestHeader>Management</NestHeader>
+					<p>
+						Pellentesque et neque iaculis, iaculis leo vitae, tincidunt lorem. Donec euismod sed elit faucibus porta. Vestibulum elit leo, interdum et feugiat nec, vehicula feugiat ipsum. Nunc sodales eros in tincidunt feugiat.
+						In vel sapien leo. Vestibulum erat enim, varius quis nulla luctus, varius rhoncus nisl. Phasellus placerat sagittis ultricies. Phasellus in sollicitudin magna, ultricies volutpat tortor. Nulla egestas nulla ac pulvinar
+						rhoncus. Maecenas vitae ultricies ipsum. Nunc ut erat iaculis, lacinia nisi at, sodales nunc. Proin ultricies suscipit egestas. Duis malesuada ut ante eget feugiat. Maecenas eget faucibus nisl.
+					</p>
+				</NestText>
 			</NestBox>
 		</>
 	)

@@ -26,7 +26,7 @@ const Farms: React.FC = () => {
 						<PageHeader
 							icon={pollyBanner}
 							title="PollyChef is Ready"
-							subtitle="Stake Sushiswap and Baoswap LP tokens to earn BAO!"
+							subtitle="Stake your Nest or Sushiswap LP tokens to earn POLLY!"
 						/>
 						<StyledInfo>
 							Be sure to read{' '}
@@ -35,7 +35,7 @@ const Farms: React.FC = () => {
 						</StyledInfo>
 						<Spacer size="md" />
 						<StyledInfo>
-							Please note this is the MATIC version of Bao, Polly. For mainnet,
+							Please note this is the MATIC franchise of Bao, Polly. For mainnet,
 							visit <a href="https://bao.finance">bao.finance</a>{' '}
 						</StyledInfo>
 						<Spacer size="md" />
@@ -70,7 +70,7 @@ const Farms: React.FC = () => {
 }
 
 const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 16px;
 	font-weight: 400;
 	margin: 0;
@@ -78,7 +78,7 @@ const StyledInfo = styled.h3`
 	text-align: center;
 
 	> b {
-		color: ${(props) => props.theme.color.grey[600]};
+		color: ${(props) => props.theme.color.grey[100]};
 	}
 `
 

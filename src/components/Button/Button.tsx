@@ -114,12 +114,6 @@ interface StyledButtonProps {
 	width: string
 }
 
-const Glowing = keyframes`
-0% { background-position: 0 0; }
-50% { background-position: 400% 0; }
-100% { background-position: 0 0; }
-`
-
 const AnimateGradient = keyframes`
 	0% {
 		background-position: 0% 50%;
@@ -169,7 +163,6 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 	&:hover:before{
 		transform: scale(1.2);
-		filter: blur(3px);
 	}
 
 	&:hover,
