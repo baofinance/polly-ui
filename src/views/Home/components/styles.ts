@@ -1,25 +1,35 @@
-.bubble-wrap {
-    overflow: hidden;
-    height: 600px;
-  }
-  
-  .bubbles {
-    position: relative;
-    background: salmon;
-  }
-  
+import styled from 'styled-components'
+
+export const BubbleOverlayText = styled.h6`
+  position: absolute;
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+`
+
+export const BubbleWrap = styled.div`
+  overflow: hidden;
+  height: 600px;  
+`
+
+export const BubbleContainer = styled.div`
+  position: relative;
+  background: salmon;
+
   .bubble {
+    opacity: 0.75;
     position: absolute;
     width: 152px;
     height: 152px;
     border-radius: 50%;
-    box-shadow: 
-      0 15px 35px rgba(0, 0, 0, 0.1),
-      0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow:
+            0 15px 35px rgba(0, 0, 0, 0.1),
+            0 3px 10px rgba(0, 0, 0, 0.1);
     background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/9332/stripe-logo-bubbles-spritesheet.png);
     background-size: 1076px 1076px;
   }
-  
+
   .logo1 { background-position:   0      0; }
   .logo2 { background-position:  -154px  0; }
   .logo3 { background-position:  -308px  0; }
@@ -53,3 +63,4 @@
   .logo31 { background-position: -308px -616px; }
   .logo32 { background-position: -462px -616px; }
   .logo33 { background-position: -616px -616px; }
+`

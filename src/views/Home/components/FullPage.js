@@ -1,24 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react'
+import React, { useRef } from 'react'
 import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
 import ReactFullpage from '@fullpage/react-fullpage'
 import lines from '../../../assets/img/bg-lines.png'
-import SkyHero from './SkyHero'
 import Lottie from 'react-lottie'
 import { Col, Row } from 'react-bootstrap'
+import { BubbleWrap, BubbleContainer, BubbleOverlayText } from './styles'
 
 import passiveYieldLottie from '../../../assets/img/lottie/passive-yield.json'
 import './fullpage.style.css'
-import './bubbles.css'
+import _ from 'lodash'
 
 const SCROLL_SPEED = 0.3;
-const NOISE_SPEED = 0.004;
 const NOISE_AMOUNT = 5;
 const CANVAS_WIDTH = 2800;
 
-const noise = 0;
-
-const bubblesEl = document.querySelector(".bubbles");
 const bubbleSpecs = [
   { s: 0.6, x: 1134, y: 45 },
   { s: 0.6, x: 1620, y: 271 },
@@ -56,11 +52,11 @@ const bubbleSpecs = [
 ];
 
 class Bubbles {
-  constructor(specs) {
+  constructor(specs, ref) {
     this.bubbles = [];
 
     specs.forEach((spec, index) => {
-      this.bubbles.push(new Bubble(index, spec));
+      this.bubbles.push(new Bubble(index, spec, ref));
     });
 
     requestAnimationFrame(this.update.bind(this));
@@ -73,25 +69,20 @@ class Bubbles {
 }
 
 class Bubble {
-  constructor(index, { x, y, s = 1 }) {
+  constructor(index, { x, y, s = 1 }, ref) {
     this.index = index;
     this.x = x;
     this.y = y;
     this.scale = s;
 
-    this.noiseSeedX = Math.floor(Math.random() * 64000);
-    this.noiseSeedY = Math.floor(Math.random() * 64000);
-
     this.el = document.createElement("div");
     this.el.className = `bubble logo${this.index + 1}`;
-    bubblesEl.appendChild(this.el);
+    ref.current.appendChild(this.el);
   }
 
   update() {
-    this.noiseSeedX += NOISE_SPEED;
-    this.noiseSeedY += NOISE_SPEED;
-    let randomX = noise.simplex2(this.noiseSeedX, 0);
-    let randomY = noise.simplex2(this.noiseSeedY, 0);
+    let randomX = Math.random() / 10;
+    let randomY = Math.random() / 10;
 
     this.x -= SCROLL_SPEED;
     this.xWithNoise = this.x + randomX * NOISE_AMOUNT;
@@ -107,85 +98,75 @@ class Bubble {
 
 // For perlin noise
 
-const bubbles = new Bubbles(bubbleSpecs);
+const FullpageWrapper = () => {
+	const bubbleRef = useRef()
 
-class FullpageWrapper extends React.Component {
-	onLeave(origin) {
-		console.log('Leaving section ' + origin.index)
-	}
-	afterLoad(origin, destination) {
-		console.log('After load: ' + destination.index)
-	}
-
-	render() {
-		return (
-			<ReactFullpage
-				scrollOverflow={true}
-				navigation={true}
-				onLeave={this.onLeave.bind(this)}
-				afterLoad={this.afterLoad.bind(this)}
-				render={() => {
-					return (
-						<div id="fullpage-wrapper">
-							<div
-								className="section"
-								style={{
-									background: `linear-gradient(to top, transparent, #1a003d), url(${lines})`,
-									backgroundPosition: `center`,
-									backgroundRepeat: `no-repeat`,
-									backgroundAttachment: `fixed`,
-									zIndex: `-99999`,
-								}}
-							>
-								<h6>
-									DIVERSIFIED
-									<br />
-									EXPOSURE
-								</h6>
-								<div class="bubble-wrap">
-									<div class="bubbles"></div>
-								</div>
-							</div>
-
-							<div className="section">
-								<Row>
-									<Col
-										sm
-										style={{
-											textAlign: 'right',
-											justifyContent: 'center',
-											alignItems: 'center',
-											margin: 'auto',
-										}}
-									>
-										<h6 style={{ textAlign: 'right' }}>
-											PASSIVE
-											<br />
-											YIELD
-										</h6>
-									</Col>
-									<Col sm>
-										<Lottie
-											options={{
-												animationData: passiveYieldLottie,
-												loop: true,
-												autoplay: true,
-											}}
-											width={500}
-											height={500}
-										/>
-									</Col>
-								</Row>
-							</div>
-							<div className="section">
-								<h7>AUTOMATED STRATEGIES</h7>
-							</div>
+	return (
+		<ReactFullpage
+			scrollOverflow={true}
+			navigation={true}
+			afterLoad={_.once(() => new Bubbles(bubbleSpecs, bubbleRef))}
+			render={() => {
+				return (
+					<div id="fullpage-wrapper">
+						<div
+							className="section"
+							style={{
+								background: `linear-gradient(to top, transparent, #1a003d), url(${lines})`,
+								backgroundPosition: `center`,
+								backgroundRepeat: `no-repeat`,
+								backgroundAttachment: `fixed`,
+								zIndex: `-99999`,
+							}}
+						>
+							<BubbleOverlayText>
+								DIVERSIFIED
+								<br />
+								EXPOSURE
+							</BubbleOverlayText>
+							<BubbleWrap>
+								<BubbleContainer ref={bubbleRef} />
+							</BubbleWrap>
 						</div>
-					)
-				}}
-			/>
-		)
-	}
+
+						<div className="section">
+							<Row>
+								<Col
+									sm
+									style={{
+										textAlign: 'right',
+										justifyContent: 'center',
+										alignItems: 'center',
+										margin: 'auto',
+									}}
+								>
+									<h6 style={{ textAlign: 'right' }}>
+										PASSIVE
+										<br />
+										YIELD
+									</h6>
+								</Col>
+								<Col sm>
+									<Lottie
+										options={{
+											animationData: passiveYieldLottie,
+											loop: true,
+											autoplay: true,
+										}}
+										width={500}
+										height={500}
+									/>
+								</Col>
+							</Row>
+						</div>
+						<div className="section">
+							<h7>AUTOMATED STRATEGIES</h7>
+						</div>
+					</div>
+				)
+			}}
+		/>
+	)
 }
 
 export default FullpageWrapper
