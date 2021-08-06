@@ -135,10 +135,10 @@ const AnimateGradient = keyframes`
 const StyledButton = styled.button<StyledButtonProps>`
 	padding: 0.7rem 1.7rem;
 	align-items: center;
-	background-color: #000;
+	background-color: #3c32f5;
 	background-image: linear-gradient(to left, #220f68, #3c32f5);
 	background-size: 150% 150%;	
-	border: 1px solid ${props => props.theme.color.grey[600]};
+	border: 1px solid ${props => props.theme.color.grey[500]};
 	border-radius: 10px;
 	box-shadow: 0px 57px 90px -47px ${props => props.theme.color.grey[500]};
 	color: ${props => (!props.disabled ? props.color : `${props.color}`)};

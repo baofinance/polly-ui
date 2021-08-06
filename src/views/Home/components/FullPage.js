@@ -1,21 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react'
-import ReactDOM from 'react-dom'
 import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
 import ReactFullpage from '@fullpage/react-fullpage'
 import lines from '../../../assets/img/bg-lines.png'
 import SkyHero from './SkyHero'
 import Lottie from 'react-lottie'
-import '@lottiefiles/lottie-player'
-import { create } from '@lottiefiles/lottie-interactivity'
+import { Col, Row } from 'react-bootstrap'
 
+import passiveYieldLottie from '../../../assets/img/lottie/passive-yield.json'
 import './fullpage.style.css'
 
 class FullpageWrapper extends React.Component {
-	onLeave(origin, destination, direction) {
+	onLeave(origin) {
 		console.log('Leaving section ' + origin.index)
 	}
-	afterLoad(origin, destination, direction) {
+	afterLoad(origin, destination) {
 		console.log('After load: ' + destination.index)
 	}
 
@@ -26,7 +25,7 @@ class FullpageWrapper extends React.Component {
 				navigation={true}
 				onLeave={this.onLeave.bind(this)}
 				afterLoad={this.afterLoad.bind(this)}
-				render={({ state, fullpageApi }) => {
+				render={() => {
 					return (
 						<div id="fullpage-wrapper">
 							<div
@@ -48,24 +47,26 @@ class FullpageWrapper extends React.Component {
 							</div>
 
 							<div className="section">
-								<div class="row">
-									<div class="col-sm-6" style={{ textAlign: 'right', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
+								<Row>
+									<Col sm style={{ textAlign: 'right', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
 										<h6 style={{ textAlign: 'right' }}>
 											PASSIVE
 											<br />
 											YIELD
 										</h6>
-									</div>
-									<div class="col-sm-6">
-										<lottie-player
-											src="https://assets8.lottiefiles.com/packages/lf20_favvv4h9.json"
-											speed="1"
-											style={{ width: '500px', height: '500px' }}
-											loop
-											autoplay
-										></lottie-player>
-									</div>
-								</div>
+									</Col>
+									<Col sm>
+										<Lottie
+											options={{
+												animationData: passiveYieldLottie,
+												loop: true,
+												autoplay: true
+											}}
+											width={500}
+											height={500}
+										/>
+									</Col>
+								</Row>
 							</div>
 							<div className="section">
 								<h7>AUTOMATED STRATEGIES</h7>
