@@ -10,6 +10,22 @@ import { Col, Row } from 'react-bootstrap'
 import passiveYieldLottie from '../../../assets/img/lottie/passive-yield.json'
 import './fullpage.style.css'
 
+const Parallax = () => {
+	const [offset, setOffset] = useState(0)
+
+	useEffect(() => {
+		function handleScroll() {
+			setOffset(window.pageYOffset)
+		}
+
+		window.addEventListener('scroll', handleScroll)
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [offset])
+}
+
 class FullpageWrapper extends React.Component {
 	onLeave(origin) {
 		console.log('Leaving section ' + origin.index)
@@ -36,6 +52,7 @@ class FullpageWrapper extends React.Component {
 									backgroundRepeat: `no-repeat`,
 									backgroundAttachment: `fixed`,
 									zIndex: `-99999`,
+									transform: `translateY(${Parallax.offset * 0.5}px)`,
 								}}
 							>
 								<h6>
