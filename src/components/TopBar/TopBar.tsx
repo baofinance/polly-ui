@@ -37,13 +37,12 @@ const StyledLogoWrapper = styled.div`
 `
 
 const StyledTopBar = styled.div`
-overflow: hidden;
-position: fixed;
-top: 0;
-width: 100%;
-z-index: 1 !important;
-background: linear-gradient(
-    to bottom, #1a053d 50%, transparent);
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1 !important;
+	background: linear-gradient(to bottom, #1a053d 50%, transparent);
 `
 
 const StyledTopBarInner = styled.div`

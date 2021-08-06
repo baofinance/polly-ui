@@ -101,8 +101,8 @@ export const supportedNests = [
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 		outputToken: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		symbol: 'pDEFI',
-		name: 'Polygon DeFi Test Nest',
+		symbol: 'nDEFI',
+		name: 'Polygon DeFi Nest Test',
 		description: 'Polygon DeFi Ecosystem Test Nest',
 		pieColors: {
 			SUSHI: '#DB5FA9',
@@ -118,39 +118,13 @@ export const supportedNests = [
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 		outputToken: '0x15F5742B377F65770344f35248931FA0eAb8c30c',
-		symbol: 'amsTEST',
-		name: 'Polygon Aave Stables Test Nest',
+		symbol: 'nLEND',
+		name: 'Polygon Lending Nest Test',
 		description: 'Polygon Aave Stable Strategy Test Nest',
-		composition: [
-			{
-				symbol: 'amDAI',
-				address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
-				decimals: 6,
-				color: '#F9AF1C',
-				percentage: 50,
-				coingeckoId: 'aave-polygon-dai',
-				coingeckoImageId: 17251,
+		pieColors: {
+			DAI: '#F9AF1C',
+			USDT: '#52AE95',
+			USDC: '#2775CA',
 			},
-			{
-				symbol: 'amUSDT',
-				address: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
-				decimals: 6,
-				color: '#52AE95',
-				percentage: 50,
-				coingeckoId: 'aave-polygon-usdt',
-				coingeckoImageId: 17264,
-			},
-			{
-				symbol: 'amUSDC',
-				address: '0x1a13f4ca1d028320a707d99520abfefca3998b7f',
-				decimals: 6,
-				color: '#2775CA',
-				percentage: 50,
-				coingeckoId: 'aave-polygon-usdc',
-				coingeckoImageId: 17249,
-			},
-		],
-		indexType: 'test',
-	},
-	*/
+	},*/
 ]
