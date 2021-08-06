@@ -16,6 +16,8 @@ const NOISE_SPEED = 0.004;
 const NOISE_AMOUNT = 5;
 const CANVAS_WIDTH = 2800;
 
+const noise = 0;
+
 const bubblesEl = document.querySelector(".bubbles");
 const bubbleSpecs = [
   { s: 0.6, x: 1134, y: 45 },
@@ -104,7 +106,6 @@ class Bubble {
 }
 
 // For perlin noise
-noise.seed(Math.floor(Math.random() * 6000));
 
 const bubbles = new Bubbles(bubbleSpecs);
 
