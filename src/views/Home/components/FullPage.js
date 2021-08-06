@@ -5,9 +5,9 @@ import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverfl
 import ReactFullpage from '@fullpage/react-fullpage'
 import lines from '../../../assets/img/bg-lines.png'
 import SkyHero from './SkyHero'
-import Lottie from "react-lottie"
-import '@lottiefiles/lottie-player';
-import { create } from '@lottiefiles/lottie-interactivity';
+import Lottie from 'react-lottie'
+import '@lottiefiles/lottie-player'
+import { create } from '@lottiefiles/lottie-interactivity'
 
 import './fullpage.style.css'
 
@@ -17,8 +17,8 @@ class FullpageWrapper extends React.Component {
 	}
 	afterLoad(origin, destination, direction) {
 		console.log('After load: ' + destination.index)
-	  }
-	
+	}
+
 	render() {
 		return (
 			<ReactFullpage
@@ -39,15 +39,34 @@ class FullpageWrapper extends React.Component {
 									zIndex: `-99999`,
 								}}
 							>
-								<h6>DIVERSIFIED<br />EXPOSURE</h6>
+								<h6>
+									DIVERSIFIED
+									<br />
+									EXPOSURE
+								</h6>
 								<SkyHero />
 							</div>
 
 							<div className="section">
-								<h7>PASSIVE YIELD</h7>
-								<img src="../../assets/img/passive-yield.svg" />
-								<lottie-player src="../../assets/img/passive-yield.json"  speed="1"  style={{ width: '600px', height: '300px' }}  loop  autoplay></lottie-player>							</div>
-
+								<div class="row">
+									<div class="col-sm-6" style={{ textAlign: 'right', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
+										<h6 style={{ textAlign: 'right' }}>
+											PASSIVE
+											<br />
+											YIELD
+										</h6>
+									</div>
+									<div class="col-sm-6">
+										<lottie-player
+											src="https://assets8.lottiefiles.com/packages/lf20_favvv4h9.json"
+											speed="1"
+											style={{ width: '500px', height: '500px' }}
+											loop
+											autoplay
+										></lottie-player>
+									</div>
+								</div>
+							</div>
 							<div className="section">
 								<h7>AUTOMATED STRATEGIES</h7>
 							</div>
