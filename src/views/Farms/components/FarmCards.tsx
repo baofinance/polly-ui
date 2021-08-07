@@ -191,17 +191,17 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							)}
 						</Button>
 						<Spacer />
-						<Button text={nestMint} to={'/nests/${nest.id'}></Button>
+						<Button text={nestMint} to={'/nests/4'}></Button>
 						<StyledInsight>
 							<span>APY</span>
 							<span>
-								{farm.apy
+								{/*{farm.apy
 									? `${farm.apy
 											.times(new BigNumber(100))
 											.toNumber()
 											.toLocaleString('en-US')
 											.slice(0, -1)}%`
-									: 'Loading ...'}
+									: '*/}Loading ...
 							</span>
 							{/* <span>
                 {farm.tokenAmount

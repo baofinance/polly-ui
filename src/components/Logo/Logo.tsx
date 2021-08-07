@@ -32,7 +32,7 @@ const TitleSubText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
 	color: white;
-	font-family: 'Kaushan Script', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 0.5rem;

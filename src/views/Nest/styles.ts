@@ -78,7 +78,7 @@ export const NestAnalyticsContainer = styled.div.attrs(props => ({
 }))``
 
 export const GraphLabel = styled.h2`
-	font-family: 'Kaushan Script', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	color: ${props => props.theme.color.grey[100]};
 	background-color: ${props => props.theme.color.darkGrey[100]};
 	width: 80%;
@@ -156,10 +156,10 @@ export const StyledBadge = styled(Badge)`
 `
 
 export const Icon = styled.img`
-	vertical-align: middle;
-	width: 100%;
+	margin-left: 70px;
 	display: inline;
 	height: 80px;
+	margin-bottom: 10px;
 `
 
 export const NestButtons = styled.div`

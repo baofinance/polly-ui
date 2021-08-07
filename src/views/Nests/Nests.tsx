@@ -22,7 +22,7 @@ const Nests: React.FC = () => {
 						<PageHeader
 							icon={pollyNests}
 							title="Build Your Nest"
-							subtitle="Tokenized Portfolios with Set and Forget Strategies!"
+							subtitle="Tokenized Portfolios with Automated Strategies!"
 						/>
 						<Route exact path={path}>
 							<NestList />

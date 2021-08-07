@@ -6,21 +6,21 @@ const Nav: React.FC = () => {
 		<StyledNav>
 			<StyledLink
 				target="_blank"
-				href="https://blockscout.com/poa/xdai/address/0xf712a82DD8e2Ac923299193e9d6dAEda2d5a32fd/"
+				href="https://polygonscan.com/address/0xd683Cb11005EfC90A1c3995251821a20c7860f7A/"
 			>
-				BaoChef Contract
+				NestBuilder Contract
 			</StyledLink>
 			<StyledLink
 				target="_blank"
-				href="https://app.uniswap.org/#/swap?inputCurrency=0x374cb8c27130e2c9e04f44303f3c8351b9de61c1&outputCurrency=ETH"
+				href="https://polygonscan.com/address/0xc847a016ed0a023196eeb641cf13a93ce3c82b6b/"
 			>
-				Uniswap BAO-ETH
+				PollyChef Contract
 			</StyledLink>
 			<StyledLink
 				target="_blank"
-				href="https://app.sushiswap.fi/pair/0x0eee7f7319013df1f24f5eaf83004fcf9cf49245"
+				href="https://analytics-polygon.sushi.com/pairs/0xe62ec2e799305e0d367b0cc3ee2cda135bf89816"
 			>
-				SushiSwap BAO-ETH
+				SushiSwap POLLY-ETH
 			</StyledLink>
 			<StyledLink target="_blank" href="https://discord.gg/BW3P62vJXT">
 				Discord

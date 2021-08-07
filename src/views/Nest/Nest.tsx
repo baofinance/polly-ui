@@ -49,8 +49,7 @@ import {
 } from './styles'
 
 // will replace with nest icons once they're designed
-const nestIcon =
-	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
+import nestIcon from '../../assets/img/egg.png'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
@@ -114,7 +113,7 @@ const Nest: React.FC = () => {
 	)
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
-	const [analyticsOpen, setAnalyticsOpen] = useState(true)
+	const [analyticsOpen, setAnalyticsOpen] = useState(false)
 
 	useEffect(() => {
 		if (nestContract.options.address)
@@ -140,7 +139,7 @@ const Nest: React.FC = () => {
 				</OverlayTrigger>
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
-					{name}
+					<p>{name}</p>
 					<br />
 					{composition ? composition.map((component: any) => {
 						return (
@@ -196,7 +195,7 @@ const Nest: React.FC = () => {
 									NAV
 								</span>
 								<br />
-								<StyledBadge>0</StyledBadge>
+								<StyledBadge>-</StyledBadge>
 							</NestStat>
 							<NestStat key={Math.random().toString()}>
 								<span>
@@ -205,7 +204,7 @@ const Nest: React.FC = () => {
 									Premium
 								</span>
 								<br />
-								<StyledBadge>0</StyledBadge>
+								<StyledBadge>-</StyledBadge>
 							</NestStat>
 						</NestStats>
 					</StatsCardBody>

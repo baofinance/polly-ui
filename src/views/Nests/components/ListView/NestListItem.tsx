@@ -13,8 +13,7 @@ import useNestRate from '../../../../hooks/useNestRate'
 import 'react-tabs/style/react-tabs.css'
 import '../tab-styles.css'
 
-const nestIcon =
-	'https://raw.githubusercontent.com/pie-dao/brand/master/PIE%20Tokens/PLAY.svg'
+import nestIcon from '../../../../assets/img/egg.png'
 
 interface NestWithIssuedTokens extends Nest {}
 
