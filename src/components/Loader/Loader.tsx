@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import CardIcon from '../CardIcon'
+import { Spinner } from 'react-bootstrap'
 
 interface LoaderProps {
 	text?: string
@@ -43,5 +44,9 @@ const StyledBao = styled.div`
 const StyledText = styled.div`
 	color: ${(props) => props.theme.color.grey[400]};
 `
+
+export const SpinnerLoader = () => <Spinner animation='border' size='sm' style={
+	{ color: `${(props: any) => props.theme.color.grey[100]}` }
+} />
 
 export default Loader

@@ -20,8 +20,7 @@ import 'react-tabs/style/react-tabs.css'
 import './tab-styles.css'
 import { IndexType } from '../../../contexts/Nests/types'
 
-interface NestWithIssuedTokens extends Nest {
-}
+interface NestWithIssuedTokens extends Nest {}
 
 const cardsPerRow = 3
 
@@ -46,7 +45,7 @@ const NestCards: React.FC = () => {
 		<Tabs>
 			<TabPanel>
 				<StyledCards>
-				{indexes[IndexType.TEST].length ? (
+					{indexes[IndexType.TEST].length ? (
 						indexes[IndexType.TEST].map((nest, i) => (
 							<React.Fragment key={i}>
 								<NestCard nest={nest} />
@@ -86,15 +85,16 @@ const NestCard: React.FC<NestCardProps> = ({ nest }) => {
 						</CardIcon>
 						<StyledTitle>{nest.name}</StyledTitle>
 						<StyledDetails>
-							<StyledDetail>Deposit {nest.nestToken.toUpperCase()}</StyledDetail>
+							<StyledDetail>
+								Deposit {nest.nestToken.toUpperCase()}
+							</StyledDetail>
 						</StyledDetails>
 						<Spacer />
 						<Button
 							disabled={!indexActive}
 							text={indexActive ? 'Select' : undefined}
 							to={`/nests/${nest.nid}`}
-						>
-						</Button>
+						></Button>
 					</StyledContent>
 				</CardContent>
 			</Card>

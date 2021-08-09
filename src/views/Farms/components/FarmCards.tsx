@@ -69,12 +69,6 @@ const FarmCards: React.FC = () => {
 
 	return (
 		<Tabs>
-			<TabList>
-				<Tab>Polly Pools</Tab>
-				<Tab>Sushi Pools</Tab>
-				<Tab>Archived Pools</Tab>
-			</TabList>
-
 			<TabPanel>
 				<StyledCards>
 					{pools[PoolType.POLLY].length ? (
@@ -86,7 +80,7 @@ const FarmCards: React.FC = () => {
 						))
 					) : (
 						<StyledLoadingWrapper>
-							<Loader text="Cooking the rice ..." />
+							<Loader text="Cooking the rice..." />
 						</StyledLoadingWrapper>
 					)}
 				</StyledCards>
@@ -102,7 +96,7 @@ const FarmCards: React.FC = () => {
 						))
 					) : (
 						<StyledLoadingWrapper>
-							<Loader text="Cooking the rice ..." />
+							<Loader text="Cooking the rice..." />
 						</StyledLoadingWrapper>
 					)}
 				</StyledCards>
@@ -118,7 +112,7 @@ const FarmCards: React.FC = () => {
 						))
 					) : (
 						<StyledLoadingWrapper>
-							<Loader text="Cooking the rice ..." />
+							<Loader text="Cooking the rice..." />
 						</StyledLoadingWrapper>
 					)}
 				</StyledCards>
@@ -167,11 +161,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	}, [bao, lpTokenAddress, account, setHarvestable])
 
 	const poolActive = true // startTime * 1000 - Date.now() <= 0
-	const tokenBuy = 'Buy ' + farm.tokenSymbol
+	const nestMint = 'Mint ' + farm.tokenSymbol
 	const destination = farm.refUrl
 	return (
 		<StyledCardWrapper>
-			{farm.tokenSymbol === 'BAO' && <StyledCardAccent />}
+			{farm.tokenSymbol === 'nDEFI' && <StyledCardAccent />}
 			<Card>
 				<CardContent>
 					<StyledContent>
@@ -197,17 +191,17 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							)}
 						</Button>
 						<Spacer />
-						<Button text={tokenBuy} href={destination}></Button>
+						<Button text={nestMint} to={'/nests/4'}></Button>
 						<StyledInsight>
 							<span>APY</span>
 							<span>
-								{farm.apy
+								{/*{farm.apy
 									? `${farm.apy
 											.times(new BigNumber(100))
 											.toNumber()
 											.toLocaleString('en-US')
 											.slice(0, -1)}%`
-									: 'Loading ...'}
+									: '*/}Loading ...
 							</span>
 							{/* <span>
                 {farm.tokenAmount
@@ -296,7 +290,7 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledTitle = styled.h4`
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 19px;
 	font-weight: 700;
 	margin: ${(props) => props.theme.spacing[2]}px 0 0;
@@ -320,7 +314,7 @@ const StyledDetails = styled.div`
 `
 
 const StyledDetail = styled.div`
-	color: ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[100]};
 `
 
 const StyledInsight = styled.div`
@@ -328,13 +322,13 @@ const StyledInsight = styled.div`
 	justify-content: space-between;
 	box-sizing: border-box;
 	border-radius: 8px;
-	background: #fffdfa;
-	color: #aa9584;
+	background: #2f3349;
+	color: ${(props) => props.theme.color.grey[100]};
 	width: 100%;
 	margin-top: 12px;
 	line-height: 32px;
 	font-size: 13px;
-	border: 1px solid #e6dcd5;
+	border: 1px solid #202231;
 	text-align: center;
 	padding: 0 12px;
 `

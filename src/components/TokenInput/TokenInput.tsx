@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Input, { InputProps } from '../Input'
+import { MaxButton } from '../Button'
 
 interface TokenInputProps extends InputProps {
 	max: number | string
@@ -41,33 +42,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
 	)
 }
 
-/*
-            <div>
-              <Button size="sm" text="Max" />
-            </div>
-*/
-
 const StyledTokenInput = styled.div``
-
-const MaxButton = styled.a`
-	padding: 5px;
-	border: 1px solid ${(props) => props.theme.color.grey[500]};
-	color: ${(props) => props.theme.color.grey[500]};
-	border-radius: 5px;
-	vertical-align: middle;
-	margin-right: 10px;
-	transition: 100ms;
-
-	&:hover {
-		background-color: ${(props) => props.theme.color.grey[300]};
-		color: #524d4d;
-		cursor: pointer;
-	}
-`;
-
-const StyledSpacer = styled.div`
-	width: ${(props) => props.theme.spacing[3]}px;
-`
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;
@@ -76,7 +51,7 @@ const StyledTokenAdornmentWrapper = styled.div`
 
 const StyledMaxText = styled.div`
 	align-items: center;
-	color: ${(props) => props.theme.color.grey[400]};
+	color: ${(props) => props.theme.color.grey[100]};
 	display: flex;
 	font-size: 14px;
 	font-weight: 700;
@@ -85,7 +60,7 @@ const StyledMaxText = styled.div`
 `
 
 const StyledTokenSymbol = styled.span`
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 `
 

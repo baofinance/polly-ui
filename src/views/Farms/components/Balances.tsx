@@ -79,7 +79,7 @@ const Balances: React.FC = () => {
 	const [totalReferrals, setTotalReferrals] = useState<string>()
 	const [refLink, setRefLink] = useState<string>()
 	const bao = useBao()
-	const baoBalance = useTokenBalance(getBaoAddress(bao))
+	const pollyBalance = useTokenBalance(getBaoAddress(bao))
 	const masterChefContract = getMasterChefContract(bao)
 	const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 
@@ -105,7 +105,7 @@ const Balances: React.FC = () => {
 
 	useEffect(() => {
 		async function fetchRefLink() {
-			const usrReflink = 'www.bao.finance?ref=' + account
+			const usrReflink = 'www.pollyfinance.com?ref=' + account
 			setRefLink(usrReflink)
 		}
 		if (bao) {
@@ -123,9 +123,9 @@ const Balances: React.FC = () => {
 								<BaoIcon />
 								<Spacer />
 								<div style={{ flex: 1 }}>
-									<Label text="Your BAOcx Balance" />
+									<Label text="Your POLLY Balance" />
 									<Value
-										value={account ? getBalanceNumber(baoBalance) : 'Locked'}
+										value={account ? getBalanceNumber(pollyBalance) : 'Locked'}
 									/>
 								</div>
 							</StyledBalance>
@@ -134,7 +134,7 @@ const Balances: React.FC = () => {
 					<Footnote>
 						Pending harvest
 						<FootnoteValue>
-							<PendingRewards /> BAOcx
+							<PendingRewards /> POLLY
 						</FootnoteValue>
 					</Footnote>
 				</Card>
@@ -142,14 +142,14 @@ const Balances: React.FC = () => {
 
 				<Card>
 					<CardContent>
-						<Label text="Total BAOcx Supply" />
+						<Label text="Total POLLY Supply" />
 						<Value
 							value={totalSupply ? getBalanceNumber(totalSupply) : 'Locked'}
 						/>
 					</CardContent>
 					<Footnote>
 						New rewards per block
-						<FootnoteValue>312.5 BAOcx</FootnoteValue>
+						<FootnoteValue>312.5 POLLY</FootnoteValue>
 					</Footnote>
 				</Card>
 			</StyledWrapper>
@@ -162,9 +162,10 @@ const Balances: React.FC = () => {
 const Footnote = styled.div`
 	font-size: 14px;
 	padding: 8px 20px;
-	color: ${(props) => props.theme.color.grey[400]};
-	border-top: solid 1px ${(props) => props.theme.color.grey[300]};
+	color: ${(props) => props.theme.color.grey[100]};
+	border-top: solid 1px #161522;
 `
+
 const FootnoteValue = styled.div`
 	font-family: 'Roboto Mono', monospace;
 	float: right;

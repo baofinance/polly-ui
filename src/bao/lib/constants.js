@@ -50,8 +50,11 @@ export const contractAddresses = {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 	},
 	recipe: {
-		137: '0xF6bCa56DE573380d5424F950367d257B73E40280',
-	}
+		137: '0xd683Cb11005EfC90A1c3995251821a20c7860f7A',
+	},
+	wethPrice: {
+		137: '0xF9680D99D6C9589e2a93a78A04A279e509205945',
+	},
 }
 //
 /*
@@ -82,117 +85,122 @@ export const supportedPools = [
 			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
 		},
 		tokenDecimals: 18,
-		name: 'TEST INDEX FARM',
-		symbol: 'TESTERTOKEN',
-		tokenSymbol: 'TST',
+		name: 'DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
+		icon: '/bao.png',
+		refUrl: 'http://localhost:3000/nests/4',
+	},
+	{
+		pid: 1,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Stable Nest',
+		symbol: 'nSTBL',
+		tokenSymbol: 'nSTBL',
 		icon: '/bao.png',
 		refUrl: '',
 	},
+	{
+		pid: 2,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Infrastructure Nest',
+		symbol: 'nINFRA',
+		tokenSymbol: 'nINFRA',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+	{
+		pid: 3,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Dex Nest',
+		symbol: 'nDEX',
+		tokenSymbol: 'nDEX',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+	{
+		pid: 4,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Stable Nest',
+		symbol: 'nSTBL',
+		tokenSymbol: 'nSTBL',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+	{
+		pid: 5,
+		lpAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenAddresses: {
+			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+		},
+		tokenDecimals: 18,
+		name: 'Infrastructure Nest',
+		symbol: 'nINFRA',
+		tokenSymbol: 'nINFRA',
+		icon: '/bao.png',
+		refUrl: '',
+	},
+
 ]
 
 export const supportedNests = [
 	{
-		nid: 2,
-		nestAddress: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19'
-		},
-		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		outputToken: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
-		symbol: 'TEST',
-		isExperipie: true,
-		name: 'Test Index',
-		description: 'Polly Nest consisting of amDAI & WMATIC',
-		useMintOverBuy: true,
-		useRecipe: true,
-		swapEnabled: false,
-		swapFees: '0.2',
-		streamingFees: '1%',
-		coingeckoId: 'metaverse-nft-index',
-		composition: [
-			{symbol:'cmDAI','coingeckoId':'aave-dai', 'address':'0x27f8d03b3a2196956ed754badc28d73be8830a6e', 'coingeckoImageId': ''},
-			{symbol:'WMATIC','coingeckoId':'matic','address':'0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', 'coingeckoImageId': ''}
-		],
-		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
-		indexType: 'test',
-	},
-	{
-		nid: 3,
-		nestAddress: {
-			137: '0xE6af83Ba3604385f76f43C087619c6BF42E98426'
-		},
-		symbol: 'TEST2',
-		isExperipie: true,
-		name: 'Test Index 2',
-		description: 'Polly Nest consisting of crDAI & crWETH',
-		useMintOverBuy: true,
-		useRecipe: true,
-		swapEnabled: false,
-		swapFees: '0.2',
-		streamingFees: '1%',
-		coingeckoId: 'metaverse-nft-index',
-		composition: [
-			{symbol:'crDAI','coingeckoId':'dai', 'address':'0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', 'coingeckoImageId': ''},
-			{symbol:'crWETH','coingeckoId':'weth','address':'0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', 'coingeckoImageId': ''}
-		],
-		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
-		indexType: 'test',
-	},
-	{
 		nid: 4,
 		nestAddress: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6'
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
-		inputToken: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		outputToken: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
-		symbol: 'pDEFI',
-		isExperipie: true,
-		name: 'Polygon DeFi Ecosystem Nest Test',
-		description: 'Polly Nest consisting of amDAI & WMATIC',
-		useMintOverBuy: true,
-		useRecipe: true,
-		swapEnabled: false,
-		swapFees: '0.2',
-		streamingFees: '1%',
-		coingeckoId: 'metaverse-nft-index',
-		composition: [
-			{
-				'symbol': 'SUSHI',
-				'address': '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
-				'decimals': 18,
-				'color': '#0171F5',
-				'percentage': 25,
-				'coingeckoId': 'sushi',
-				'coingeckoImageId': 12271
+		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+		outputToken: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+		symbol: 'nDEFI',
+		name: 'Polygon DeFi Nest Test',
+		description: 'Polygon DeFi Ecosystem Test Nest',
+		pieColors: {
+			SUSHI: '#DB5FA9',
+			GRT: '#353993',
+			LINK: '#2A5AD9',
+			WETH: '#d05555',
+		},
+	},/*
+	{
+		nid: 6,
+		nestAddress: {
+			137: '0x15F5742B377F65770344f35248931FA0eAb8c30c',
+		},
+		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+		outputToken: '0x15F5742B377F65770344f35248931FA0eAb8c30c',
+		symbol: 'nLEND',
+		name: 'Polygon Lending Nest Test',
+		description: 'Polygon Aave Stable Strategy Test Nest',
+		pieColors: {
+			DAI: '#F9AF1C',
+			USDT: '#52AE95',
+			USDC: '#2775CA',
 			},
-			{
-				'symbol': 'GRT',
-				'address': '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
-				'decimals': 18,
-				'color': '#4c2caf',
-				'percentage': 25,
-				'coingeckoId': 'the-graph',
-				'coingeckoImageId': 13397
-			},
-			{
-				'symbol': 'LINK',
-				'address': '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
-				'decimals': 18,
-				'color': '#2a5ada',
-				'percentage': 25,
-				'coingeckoId': 'chainlink',
-				'coingeckoImageId': 877
-			},
-			{
-				'symbol': 'WETH',
-				'address': '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-				'decimals': 18,
-				'color': '#da2a2a',
-				'percentage': 25,
-				'coingeckoId': 'weth',
-				'coingeckoImageId': 2518
-			},
-		],
-		docs: 'https://raw.githubusercontent.com/pie-dao/docs/master/current-pies/btc%2B%2B.md',
-		indexType: 'test',
-	}
+	},*/
 ]

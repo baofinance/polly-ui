@@ -1,5 +1,6 @@
-import BigNumber from 'bignumber.js'
 import React, { useCallback, useMemo, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import { Contract } from 'web3-eth-contract'
 import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
@@ -7,18 +8,24 @@ import ModalTitle from '../../../components/ModalTitle'
 import ModalContent from '../../../components/ModalContent'
 import TokenInput from '../../../components/TokenInput'
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
+import useAllowance from '../../../hooks/useAllowance'
+import useApprove from '../../../hooks/useApprove'
+import useTokenBalance from '../../../hooks/useTokenBalance'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
-	nestName?: string
+	nestName: string
+	nestContract: Contract
+	nid: number
 }
 
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onConfirm,
 	onDismiss,
 	max,
-	nestName = '',
+	nestName,
+	nestContract,
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
@@ -27,11 +34,21 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		return getFullDisplayBalance(max)
 	}, [max])
 
+	const [requestedApproval, setRequestedApproval] = useState(false)
+
+	const allowance = useAllowance(nestContract)
+	const { onApprove } = useApprove(nestContract)
+
+	const tokenBalance = useTokenBalance(nestContract.options.address)
+
 	const handleChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
 			const inputAmount = e.currentTarget.value
 			if (inputAmount.length === 0) setVal('')
-			if (!/^\d+$/.test(inputAmount)) return
+			if (
+				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
+				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
+			) return
 			setVal(inputAmount)
 		},
 		[setVal],
@@ -42,12 +59,30 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	}, [fullBalance, setVal])
 
 	const handleSelectHalf = useCallback(() => {
-		setVal(max.div(10 ** 18).div(2).toString())
+		setVal(
+			max
+				.div(10 ** 18)
+				.div(2)
+				.toString(),
+		)
 	}, [fullBalance, setVal])
+
+	const handleApprove = useCallback(async () => {
+		try {
+			setRequestedApproval(true)
+			const txHash = await onApprove()
+			// user rejected tx or didn't go thru
+			if (!txHash) {
+				setRequestedApproval(false)
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}, [onApprove, setRequestedApproval])
 
 	return (
 		<Modal>
-			<ModalTitle text={`Withdraw ${nestName}`} />
+			<ModalTitle text={`Redeem ${nestName}`} />
 			<TokenInput
 				onSelectMax={handleSelectMax}
 				onSelectHalf={handleSelectHalf}
@@ -58,22 +93,31 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
-				<Button
-					disabled={
-						pendingTx ||
-						isNaN(parseFloat(val)) ||
-						parseFloat(val) === 0 ||
-						parseFloat(val) < 0 ||
-						parseFloat(val) > max.div(10 ** 18).toNumber()
-					}
-					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
-					onClick={async () => {
-						setPendingTx(true)
-						await onConfirm(val)
-						setPendingTx(false)
-						onDismiss()
-					}}
-				/>
+				{/* {!allowance.toNumber() ? (
+					<Button
+						disabled={requestedApproval}
+						onClick={handleApprove}
+						text={`Approve ${nestName}`}
+					/>
+				) : ( */}
+					<Button
+						disabled={
+							pendingTx ||
+							val.slice(-1) === '.' ||
+							isNaN(parseFloat(val)) ||
+							parseFloat(val) === 0 ||
+							parseFloat(val) < 0 ||
+							parseFloat(val) > max.div(10 ** 18).toNumber()
+						}
+						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+						onClick={async () => {
+							setPendingTx(true)
+							await onConfirm(val)
+							setPendingTx(false)
+							onDismiss()
+						}}
+					/>
+				{/* })} */}
 			</ModalActions>
 			<ModalContent>
 				{

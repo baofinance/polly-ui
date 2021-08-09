@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import baoLogo from '../../assets/img/polly.svg'
+import baoLogo from '../../assets/img/logo-slimstroke.svg'
 
 const Logo: React.FC = () => {
 	return (
@@ -9,7 +9,8 @@ const Logo: React.FC = () => {
 			<img src={baoLogo} height="50" />
 			<StyledText>
 				<TitleText>
-					Bao.Finance <Kaushan>PollyChef</Kaushan>
+					Polly Finance
+					<TitleSubText>by Bao</TitleSubText>
 				</TitleText>
 			</StyledText>
 		</StyledLogo>
@@ -19,16 +20,23 @@ const Logo: React.FC = () => {
 const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
-	color: ${(props) => props.theme.color.grey[500]};
-	font-family: 'Reem Kufi', sans-serif;
+	color: white;
+	font-family: 'Noto Sans', sans-serif;
 	font-weight: 600;
 	font-size: 24px;
 	letter-spacing: 0.03rem;
+	margin-top: -1rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
-
-const Kaushan = styled.span`
-	font-family: 'Kaushan Script', sans-serif;
+const TitleSubText = styled.div`
+	width: fit-content;
+	white-space: nowrap;
+	color: white;
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 0.5rem;
+	letter-spacing: 0.03rem;
 `
 
 const StyledLogo = styled(Link)`
@@ -44,7 +52,7 @@ const StyledLogo = styled(Link)`
 
 const StyledText = styled.span`
 	color: ${(props) => props.theme.color.grey[600]};
-	font-family: 'Reem Kufi', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	font-size: 20px;
 	font-weight: 700;
 	letter-spacing: 0.03em;
@@ -52,10 +60,6 @@ const StyledText = styled.span`
 	@media (max-width: 400px) {
 		display: none;
 	}
-`
-
-const MasterChefText = styled.span`
-	font-family: 'Kaushan Script', sans-serif;
 `
 
 export default Logo

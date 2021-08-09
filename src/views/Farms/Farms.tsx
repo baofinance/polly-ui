@@ -23,24 +23,25 @@ const Farms: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
-								<PageHeader
-				icon={pollyBanner}
-				title="PollyChef is Ready"
-				subtitle="Stake Sushiswap and Baoswap LP tokens to earn BAO!"
-			/>
-			<StyledInfo>
-				Be sure to read <a href="https://docs.bao.finance">docs.bao.finance</a>{' '}
-				before using the pools so you are familiar with protocol risks and fees!
-			</StyledInfo>
-			<Spacer size="md" />
-			<StyledInfo>
-				Please note this is the MATIC version of Bao, Polly. For mainnet, visit{' '}
-				<a href="https://bao.finance">bao.finance</a>{' '}
-			</StyledInfo>
-			<Spacer size="md" />
-			<Container>
-				<Balances />
-			</Container>
+						<PageHeader
+							icon={pollyBanner}
+							title="PollyChef is Ready"
+							subtitle="Stake your Nest or Sushiswap LP tokens to earn POLLY!"
+						/>
+						<StyledInfo>
+							Be sure to read{' '}
+							<a href="https://docs.bao.finance">docs.bao.finance</a> before
+							using the pools so you are familiar with protocol risks and fees!
+						</StyledInfo>
+						<Spacer size="md" />
+						<StyledInfo>
+							Please note this is the MATIC franchise of Bao, Polly. For mainnet,
+							visit <a href="https://bao.finance">bao.finance</a>{' '}
+						</StyledInfo>
+						<Spacer size="md" />
+						<Container>
+							<Balances />
+						</Container>
 						<Route exact path={path}>
 							<FarmCards />
 						</Route>
@@ -69,7 +70,7 @@ const Farms: React.FC = () => {
 }
 
 const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[500]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 16px;
 	font-weight: 400;
 	margin: 0;
@@ -77,7 +78,7 @@ const StyledInfo = styled.h3`
 	text-align: center;
 
 	> b {
-		color: ${(props) => props.theme.color.grey[600]};
+		color: ${(props) => props.theme.color.grey[100]};
 	}
 `
 

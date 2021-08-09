@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
+import { MaxButton } from '../Button'
 
 export interface InputProps {
 	endAdornment?: React.ReactNode
@@ -14,7 +15,7 @@ export interface InputProps {
 
 const NestInput: React.FC<InputProps> = ({
 	endAdornment,
-	placeholder,
+	placeholder = '0',
 	startAdornment,
 	value,
 	setValue,
@@ -31,10 +32,25 @@ const NestInput: React.FC<InputProps> = ({
 			/>
 			{wethBalance && setValue && (
 				<>
-					<MaxButton onClick={() => { setValue(wethBalance.div(10 ** 18).div(2).toFixed(18)) }}>
+					<MaxButton
+						onClick={() => {
+							setValue(
+								wethBalance
+									.div(10 ** 18)
+									.div(2)
+									.toFixed(18),
+							)
+						}}
+					>
 						½
 					</MaxButton>
-					<MaxButton onClick={() => { setValue(wethBalance.div(10 ** 18).toFixed(18)) }}>MAX</MaxButton>
+					<MaxButton
+						onClick={() => {
+							setValue(wethBalance.div(10 ** 18).toFixed(18))
+						}}
+					>
+						MAX
+          </MaxButton>
 				</>
 			)}
 			{!!endAdornment && endAdornment}
@@ -42,28 +58,10 @@ const NestInput: React.FC<InputProps> = ({
 	)
 }
 
-const MaxButton = styled.a`
-	padding: 5px;
-	border: 1px solid ${(props) => props.theme.color.grey[500]};
-	color: ${(props) => props.theme.color.grey[500]};
-	border-radius: 5px;
-	vertical-align: middle;
-	margin-right: 10px;
-	transition: 100ms;
-
-	&:hover {
-		background-color: ${(props) => props.theme.color.grey[300]};
-		color: #524d4d;
-		cursor: pointer;
-	}
-`
-
 const StyledInputWrapper = styled.div`
 	align-items: center;
-	background-color: ${(props) => props.theme.color.grey[200]};
+	background-color: ${props => props.theme.color.darkGrey[100]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
-	box-shadow: inset 4px 4px 8px ${(props) => props.theme.color.grey[300]},
-		inset -6px -6px 12px ${(props) => props.theme.color.grey[100]};
 	display: flex;
 	height: 72px;
 	padding: 0 ${(props) => props.theme.spacing[3]}px;
@@ -72,7 +70,7 @@ const StyledInputWrapper = styled.div`
 const StyledInput = styled.input`
 	background: none;
 	border: 0;
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 18px;
 	flex: 1;
 	height: 56px;

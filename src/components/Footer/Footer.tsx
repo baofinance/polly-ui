@@ -15,6 +15,7 @@ const StyledFooter = styled.footer`
 	align-items: center;
 	display: flex;
 	justify-content: center;
+	margin-top: 72px;
 `
 const StyledFooterInner = styled.div`
 	align-items: center;

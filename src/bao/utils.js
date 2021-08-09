@@ -1,10 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import _ from 'lodash'
-
-import nestAbi from './lib/abi/experipie.json'
-import basketAbi from './lib/abi/basketFacet.json'
-import { wethMaticAddress } from '../constants/tokenAddresses';
+import { addressMap } from './lib/constants'
 
 BigNumber.config({
 	EXPONENTIAL_AT: 1000,
@@ -64,8 +61,8 @@ export const getNestContract = (bao, nid) => {
 		const address = nest.nestAddress
 		return {
 			address,
-			nestContract: new bao.web3.eth.Contract(nestAbi, address),
-			basketContract: new bao.web3.eth.Contract(basketAbi, address)
+			nestContract: nest.nestContract,
+			basketContract: nest.basketContract,
 		}
 	}
 }
@@ -77,64 +74,66 @@ export const getRecipeContract = (bao) => {
 export const getNests = (bao) => {
 	return bao
 		? bao.contracts.nests.map(
-			({
-				nid,
-				name,
-				symbol,
-				icon,
-				nestAddress,
-				nestContract,
-				indexType,
-			}) => ({
-				nid,
-				id: symbol,
-				name,
-				icon,
-				nestContract,
-				indexType,
-				nestTokenAddress: nestAddress,
-				inputToken: 'wETH',
-				nestToken: symbol,
-				inputTokenAddress: wethMaticAddress,
-			}),
-		)
+				({
+					nid,
+					name,
+					symbol,
+					icon,
+					nestAddress,
+					nestContract,
+					indexType,
+					pieColors,
+				}) => ({
+					nid,
+					id: symbol,
+					name,
+					icon,
+					nestContract,
+					indexType,
+					pieColors,
+					nestTokenAddress: nestAddress,
+					inputToken: 'wETH',
+					nestToken: symbol,
+					inputTokenAddress: addressMap.WETH,
+				}),
+		  )
 		: []
 }
 
 export const getFarms = (bao) => {
 	return bao
 		? bao.contracts.pools.map(
-			({
-				pid,
-				name,
-				symbol,
-				icon,
-				tokenAddress,
-				tokenDecimals,
-				tokenSymbol,
-				tokenContract,
-				lpAddress,
-				lpContract,
-				refUrl,
-				poolType,
-			}) => ({
-				pid,
-				id: symbol,
-				name,
-				lpToken: symbol,
-				lpTokenAddress: lpAddress,
-				lpContract,
-				tokenAddress,
-				tokenDecimals,
-				tokenSymbol,
-				tokenContract,
-				earnToken: 'BAO',
-				earnTokenAddress: bao.contracts.bao.options.address,
-				icon,
-				refUrl,
-				poolType,
-			}),
-		)
+				({
+					pid,
+					name,
+					symbol,
+					icon,
+					tokenAddress,
+					tokenDecimals,
+					tokenSymbol,
+					tokenContract,
+					lpAddress,
+					lpContract,
+					refUrl,
+					poolType,
+				}) => ({
+					pid,
+					id: symbol,
+					name,
+					lpToken: symbol,
+					lpTokenAddress: lpAddress,
+					lpContract,
+					tokenAddress,
+					tokenDecimals,
+					tokenSymbol,
+					tokenContract,
+					earnToken: 'BAO',
+					earnTokenAddress: bao.contracts.bao.options.address,
+					icon,
+					refUrl,
+					poolType,
+				}),
+		  )
 		: []
 }
 
@@ -327,34 +326,46 @@ export const leave = async (contract, amount, account) => {
 
 //functions from PieDAO
 
-let amount = "1.00000000";
-let ethNeededSingleEntry = { val: 0, label:'-'};
+let amount = '1.00000000'
+let ethNeededSingleEntry = { val: 0, label: '-' }
 
-export const fetchCalcToNest = async ( recipeContract, nestAddress, nestAmount) => {
-	const decimate = (num, dec = 18) =>
-  	new BigNumber(num).div(new BigNumber(10).pow(dec));
+export const fetchCalcToNest = async (
+	recipeContract,
+	nestAddress,
+	nestAmount,
+) => {
+	const amount = new BigNumber(nestAmount).times(new BigNumber(10).pow(18))
 
-  const recipe = recipeContract
-
-	const amount = new BigNumber(nestAmount)
-		.times(new BigNumber(10).pow(18))
-		.toFixed(0);
-
-	const amountEthNecessary = await recipe.methods.calcToPie(nestAddress, amount).call()
-	return decimate(amountEthNecessary)
-};
+	const amountEthNecessary = await recipeContract.methods
+		.calcToPie(nestAddress, amount.toFixed(0))
+		.call()
+	return new BigNumber(amountEthNecessary).div(new BigNumber(10).pow(18))
+}
 
 export const fetchNestQuote = async (event, nestAddress) => {
-    ethNeededSingleEntry.label = '-'
-    try {
-      const nestToMint = nestAddress
-      ethNeededSingleEntry = (await fetchCalcToNest(nestToMint, amount))
-    } catch (e) { console.error(e)}
-  }
+	ethNeededSingleEntry.label = '-'
+	try {
+		ethNeededSingleEntry = await fetchCalcToNest(nestAddress, amount)
+	} catch (e) {
+		console.error(e)
+	}
+}
 
-export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxInput, _data, account) => {
+export const nestIssue = async (
+	recipeContract,
+	_outputToken,
+	_inputToken,
+	_maxInput,
+	_data,
+	account,
+) => {
 	return recipeContract.methods
-		.bake(_inputToken, _outputToken, new BigNumber(_maxInput).times(10 ** 18).toString(), _data)
+		.bake(
+			_inputToken,
+			_outputToken,
+			new BigNumber(_maxInput).times(10 ** 18).toString(),
+			_data,
+		)
 		.send({ from: account })
 		.on('transactionHash', (tx) => {
 			console.log(tx)
@@ -362,12 +373,9 @@ export const nestIssue = async (recipeContract, _outputToken, _inputToken, _maxI
 		})
 }
 
-export const nestRedeem = async (
-	nestContract,
-	amount,
-	account,
-) => {
-	nestContract.methods.exitPool(new BigNumber(amount).times(10 ** 18).toString())
+export const nestRedeem = async (nestContract, amount, account) => {
+	nestContract.methods
+		.exitPool(new BigNumber(amount).times(10 ** 18).toString())
 		.send({ from: account })
 		.on('transactionHash', (tx) => {
 			console.log(tx)
@@ -376,4 +384,15 @@ export const nestRedeem = async (
 		.on('error', (err, receipt) => {
 			console.log(err, receipt)
 		})
+}
+
+export const getWethPriceLink = async (bao) => {
+	const priceOracle = getWethPriceContract(bao)
+
+	const [decimals, latestRound] = await Promise.all([
+		priceOracle.methods.decimals().call(),
+		priceOracle.methods.latestRoundData().call(),
+	])
+
+	return new BigNumber(latestRound.answer).div(10 ** decimals)
 }

@@ -36,7 +36,14 @@ const StyledLogoWrapper = styled.div`
 	}
 `
 
-const StyledTopBar = styled.div``
+const StyledTopBar = styled.div`
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1 !important;
+	background: linear-gradient(to bottom, #1a053d 50%, transparent);
+`
 
 const StyledTopBarInner = styled.div`
 	align-items: center;
@@ -45,14 +52,6 @@ const StyledTopBarInner = styled.div`
 	justify-content: space-between;
 	max-width: ${(props) => props.theme.siteWidth}px;
 	width: 100%;
-`
-const StyledNavWrapper = styled.div`
-	display: flex;
-	flex: 1;
-	justify-content: center;
-	@media (max-width: 400px) {
-		display: none;
-	}
 `
 
 const StyledAccountButtonWrapper = styled.div`
@@ -63,22 +62,6 @@ const StyledAccountButtonWrapper = styled.div`
 	@media (max-width: 400px) {
 		justify-content: center;
 		width: auto;
-	}
-`
-
-const StyledMenuButton = styled.button`
-	background: none;
-	border: 0;
-	margin: 0;
-	outline: 0;
-	padding: 0;
-	display: none;
-	@media (max-width: 400px) {
-		align-items: center;
-		display: flex;
-		height: 44px;
-		justify-content: center;
-		width: 44px;
 	}
 `
 

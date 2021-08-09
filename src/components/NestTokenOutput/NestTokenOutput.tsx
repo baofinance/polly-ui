@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Button from '../Button'
 import NestInput, { InputProps } from '../NestInput'
 import NestOutput from '../NestOutput'
+import { MaxButton } from '../Button'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface NestTokenOutputProps extends InputProps {
 	symbol: string
@@ -11,18 +13,19 @@ interface NestTokenOutputProps extends InputProps {
 	_outputToken?: string
 	value: string
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+	addInput: (n: number) => void
 }
 
 const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 	symbol,
 	onChange,
 	value,
-	_outputToken
+	_outputToken,
+	addInput
 }) => {
-
 	return (
 		<StyledTokenInput>
-				<NestOutput
+			<NestOutput
 				startAdornment={
 					<StyledTokenAdornmentWrapper>
 						<StyledTokenSymbol>MINT</StyledTokenSymbol>
@@ -30,9 +33,17 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 					</StyledTokenAdornmentWrapper>
 				}
 				endAdornment={
-					<StyledTokenAdornmentWrapper>
-						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
-					</StyledTokenAdornmentWrapper>
+					<>
+						<MaxButton onClick={() => addInput(1)}>
+							<FontAwesomeIcon icon='arrow-up' />
+						</MaxButton>
+						<MaxButton onClick={() => addInput(-1)}>
+							<FontAwesomeIcon icon='arrow-down' />
+						</MaxButton>
+						<StyledTokenAdornmentWrapper>
+							<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
+						</StyledTokenAdornmentWrapper>
+					</>
 				}
 				onChange={onChange}
 				value={value}
@@ -69,7 +80,7 @@ const StyledMaxText = styled.div`
 `
 
 const StyledTokenSymbol = styled.span`
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 `
 

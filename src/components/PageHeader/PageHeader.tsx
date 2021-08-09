@@ -56,6 +56,7 @@ const StyledPageHeader = styled.div`
 	flex-direction: column;
 	padding-bottom: ${(props) => props.theme.spacing[6]}px;
 	margin: 0 auto;
+	margin-top: 72px;
 `
 
 const StyledIcon = styled.div`
@@ -67,7 +68,7 @@ const StyledIcon = styled.div`
 
 const StyledTitle = styled.h1`
 	font-family: 'Kaushan Script', sans-serif;
-	color: ${(props) => props.theme.color.red[200]};
+	color: ${(props) => props.theme.color.blue[400]};
 	font-size: 48px;
 	font-weight: 700;
 	margin: 0;
@@ -76,12 +77,13 @@ const StyledTitle = styled.h1`
 `
 
 const StyledSubtitle = styled.h3`
-	color: ${(props) => props.theme.color.grey[400]};
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 18px;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
 	text-align: center;
+	opacity: 0.8;
 `
 
 export default PageHeader
