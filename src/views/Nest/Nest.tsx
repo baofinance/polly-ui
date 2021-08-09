@@ -11,7 +11,6 @@ import { SpinnerLoader } from '../../components/Loader'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
 import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import { getRecipeContract } from '../../bao/utils'
 import { getDisplayBalance } from '../../utils/formatBalance'
 import { getContract } from '../../utils/erc20'
 import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
@@ -45,7 +44,7 @@ import {
 	NestAnalytics,
 	NestAnalyticsContainer,
 	GraphLabel,
-	GraphContainer
+	GraphContainer,
 } from './styles'
 
 // will replace with nest icons once they're designed
@@ -77,13 +76,8 @@ const Nest: React.FC = () => {
 		return getContract(ethereum as provider, nestTokenAddress)
 	}, [ethereum, nestTokenAddress])
 
-	const nestTokenName = useMemo(() => {
-		return nestToken.toUpperCase()
-	}, [nestToken])
-
 	const tokenBalance = useTokenBalance(nestContract.options.address)
 	const bao = useBao()
-	const recipeContract = getRecipeContract(bao)
 
 	const _inputToken = inputTokenContract.options.address
 	const _outputToken = outputTokenContract.options.address
@@ -123,65 +117,92 @@ const Nest: React.FC = () => {
 	return (
 		<>
 			<NestBox>
-				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>{analyticsOpen ? 'Hide' : 'View'} Analytics</Tooltip>} placement='bottom'>
+				<OverlayTrigger
+					overlay={
+						<Tooltip id={Math.random().toString()}>
+							{analyticsOpen ? 'Hide' : 'View'} Analytics
+						</Tooltip>
+					}
+					placement="bottom"
+				>
 					<NestCornerButton
 						onClick={() => setAnalyticsOpen(!analyticsOpen)}
-						aria-controls='analytics-collapse'
+						aria-controls="analytics-collapse"
 						aria-expanded={analyticsOpen}
 					>
-						<FontAwesomeIcon icon='chart-line' />
+						<FontAwesomeIcon icon="chart-line" />
 					</NestCornerButton>
 				</OverlayTrigger>
-				<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>View Contract</Tooltip>} placement='bottom'>
+				<OverlayTrigger
+					overlay={
+						<Tooltip id={Math.random().toString()}>View Contract</Tooltip>
+					}
+					placement="bottom"
+				>
 					<NestCornerButton href={`https://polygonscan.com/address/${nestTokenAddress}`} target='_blank'>
-						<FontAwesomeIcon icon='file-contract' />
+						<FontAwesomeIcon icon="file-contract" />
 					</NestCornerButton>
 				</OverlayTrigger>
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					<p>{name}</p>
-					<br />
-					{composition ? composition.map((component: any) => {
-						return (
-							<OverlayTrigger
-								placement='bottom'
-								overlay={<Tooltip id={component.symbol}>{component.symbol}</Tooltip>}
-								key={component.symbol}
-							>
-								<AssetImageContainer>
-									<img src={component.imageUrl} />
-								</AssetImageContainer>
-							</OverlayTrigger>
-						)
-					}) : <SpinnerLoader />}
+					<div style={{ width: '70%', margin: '0 auto' }}>
+						{!composition ? (
+							<SpinnerLoader />
+						) : (
+							composition.map((component: any) => {
+								return (
+									<OverlayTrigger
+										placement="bottom"
+										overlay={
+											<Tooltip id={component.symbol}>
+												{component.symbol}
+											</Tooltip>
+										}
+										key={component.symbol}
+									>
+										<AssetImageContainer>
+											<img src={component.imageUrl} />
+										</AssetImageContainer>
+									</OverlayTrigger>
+								)
+							}))}
+					</div>
 				</NestBoxHeader>
 				<NestBoxBreak margin={10} />
 				<StatsCard>
 					<StatsCardHeader>
-						1 {nestToken} = {wethPerIndex && getDisplayBalance(wethPerIndex, 0) || <SpinnerLoader />}{' '}
+						1 {nestToken} ={' '}
+						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+							<SpinnerLoader />
+						)}{' '}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
-						{usdPerIndex && getDisplayBalance(usdPerIndex, 0) || <SpinnerLoader />}
+						{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
+							<SpinnerLoader />
+						)}
 					</StatsCardHeader>
 					<StatsCardBody>
 						<NestStats horizontal>
 							<NestStat key={'mkt-cap'}>
 								<span>
-									<FontAwesomeIcon icon='hand-holding-usd' />
+									<FontAwesomeIcon icon="hand-holding-usd" />
 									<br />
 									Market Cap
 								</span>
 								<br />
-								{(
-									supply &&
-									usdPerIndex &&
+								{(supply && usdPerIndex && (
 									<StyledBadge>
-										${getDisplayBalance(supply.div(10 ** 18).times(usdPerIndex), 0)}
+										$
+										{getDisplayBalance(
+											supply.div(10 ** 18).times(usdPerIndex),
+											0,
+										)}
 									</StyledBadge>
-								) || <SpinnerLoader />}
+								)) || <SpinnerLoader />}
 							</NestStat>
 							<NestStat key={'supply'}>
 								<span>
-									<FontAwesomeIcon icon='coins' />
+									<FontAwesomeIcon icon="coins" />
 									<br />
 									Supply
 								</span>
@@ -190,7 +211,7 @@ const Nest: React.FC = () => {
 							</NestStat>
 							<NestStat key={Math.random().toString()}>
 								<span>
-									<FontAwesomeIcon icon='times-circle' />
+									<FontAwesomeIcon icon="times-circle" />
 									<br />
 									NAV
 								</span>
@@ -199,7 +220,7 @@ const Nest: React.FC = () => {
 							</NestStat>
 							<NestStat key={Math.random().toString()}>
 								<span>
-									<FontAwesomeIcon icon='times-circle' />
+									<FontAwesomeIcon icon="times-circle" />
 									<br />
 									Premium
 								</span>
@@ -228,8 +249,12 @@ const Nest: React.FC = () => {
 								<GraphContainer>
 									{composition && (
 										<ParentSize>
-											{parent => (
-												<PieGraph width={parent.width} height={parent.height} composition={composition} />
+											{(parent) => (
+												<PieGraph
+													width={parent.width}
+													height={parent.height}
+													composition={composition}
+												/>
 											)}
 										</ParentSize>
 									)}
@@ -239,8 +264,12 @@ const Nest: React.FC = () => {
 								<GraphLabel>
 									Index Price{' '}
 									<OverlayTrigger
-										placement='top'
-										overlay={<Tooltip id='warning-tt'>Asset does not have a price feed yet, displaying wETH</Tooltip>}
+										placement="top"
+										overlay={
+											<Tooltip id="warning-tt">
+												Asset does not have a price feed yet, displaying wETH
+											</Tooltip>
+										}
 									>
 										<span>
 											<FontAwesomeIcon icon='exclamation-triangle' style={{ color: '#cba92d' }} />
@@ -249,9 +278,15 @@ const Nest: React.FC = () => {
 								</GraphLabel>
 								<GraphContainer>
 									<ParentSize>
-										{parent => priceHistory && (
-											<AreaGraph width={parent.width} height={parent.height} timeseries={priceHistory} />
-										)}
+										{(parent) =>
+											priceHistory && (
+												<AreaGraph
+													width={parent.width}
+													height={parent.height}
+													timeseries={priceHistory}
+												/>
+											)
+										}
 									</ParentSize>
 								</GraphContainer>
 							</Col>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Nest, NestComponent } from '../contexts/Nests/types'
 import { useWallet } from 'use-wallet'
-import { getBalance, getDecimals } from '../utils/erc20'
+import { getBalance } from '../utils/erc20'
 import { provider } from 'web3-core'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
@@ -22,7 +22,7 @@ const useComposition = (nest: Nest) => {
 
         if (!graphData) return
 
-        const imageUrl = require(`../assets/img/assets/${graphData.symbol}.png`)
+        const imageUrl = require(`../assets/img/assets/${_getImageURL(graphData.symbol)}.png`)
         const componentBalance = await getBalance(ethereum, component, nest.nestTokenAddress)
 
         return {
@@ -38,8 +38,6 @@ const useComposition = (nest: Nest) => {
           price: new BigNumber(graphData.dayData[0].priceUSD),
         }
       }))
-
-      console.log(res)
 
       // Calculate total USD value of all component tokens in nest contract
       const totalUsd = _.sum(_.map(res, component => {
@@ -63,5 +61,9 @@ const useComposition = (nest: Nest) => {
 
   return composition
 }
+
+// Special cases for image URLS, i.e. wrapped assets
+const _getImageURL = (symbol: string) =>
+  symbol.toLowerCase() === 'wmatic' ? 'MATIC' : symbol
 
 export default useComposition

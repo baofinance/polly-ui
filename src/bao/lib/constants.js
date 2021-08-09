@@ -166,12 +166,11 @@ export const supportedPools = [
 		icon: '/bao.png',
 		refUrl: '',
 	},
-
 ]
 
 export const supportedNests = [
 	{
-		nid: 4,
+		nid: 1,
 		nestAddress: {
 			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
@@ -186,21 +185,35 @@ export const supportedNests = [
 			LINK: '#2A5AD9',
 			WETH: '#d05555',
 		},
-	},/*
+	},
 	{
-		nid: 6,
+		nid: 2,
 		nestAddress: {
-			137: '0x15F5742B377F65770344f35248931FA0eAb8c30c',
+			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		outputToken: '0x15F5742B377F65770344f35248931FA0eAb8c30c',
-		symbol: 'nLEND',
-		name: 'Polygon Lending Nest Test',
-		description: 'Polygon Aave Stable Strategy Test Nest',
+		outputToken: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
+		symbol: 'nDEFI',
+		name: 'Scarlet Macaw',
+		description: '~',
 		pieColors: {
-			DAI: '#F9AF1C',
-			USDT: '#52AE95',
-			USDC: '#2775CA',
-			},
-	},*/
+			SUSHI: '#DB5FA9',
+			GRT: '#353993',
+			LINK: '#2A5AD9',
+			WETH: '#d05555',
+			CVX: '#3d3939',
+			CRV: '#F2E308',
+			SNX: '#00D1FF',
+			MKR: '#51AC9E',
+			AAVE: '#9965A6',
+			COMP: '#00D395',
+			BAO: '#5D2B22',
+			YFI: '#006AE3',
+			ALCX: '#C59D7E',
+			UNI: '#FF017A',
+			WMATIC: '#8247E5',
+			UMA: '#FF494A',
+			ALPHA: '#27B2FE',
+		},
+	},
 ]
