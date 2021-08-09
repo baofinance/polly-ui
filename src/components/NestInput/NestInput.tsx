@@ -50,7 +50,7 @@ const NestInput: React.FC<InputProps> = ({
 						}}
 					>
 						MAX
-					</MaxButton>
+          </MaxButton>
 				</>
 			)}
 			{!!endAdornment && endAdornment}
