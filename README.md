@@ -1,7 +1,7 @@
 ![GitHub Super-Linter](https://github.com/baofinance/ui/workflows/Lint%20Code%20Base/badge.svg)
 
-# Matic Franchise UI
-This is the [farms.baoswap.xyz](https://farms.baoswap.xyz) UI project.
+# Polly Finance UI
+This is the [pollyfinance.com](https://pollyfinanace.com) UI project.
 
 ## Contributing
 Please read through the [contribution guidelines](./CONTRIBUTING.md) for more information on 
