@@ -124,7 +124,7 @@ function AnimatedPie<Datum>({
 	})
 	return transitions((props, arc, { key }) => {
 		const [centroidX, centroidY] = path.centroid(arc)
-		const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.1
+		const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.5
 
 		let index = 0;
 		return (
