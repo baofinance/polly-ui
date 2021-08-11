@@ -6,23 +6,6 @@ body {
   background: #ffffff;
 }
 
-h3 {
-  font-family: 'Rubik', sans-serif;
-	font-size: 4rem !important;
-	line-height: 6.7rem;
-	letter-spacing: -0.2rem;
-	text-align: center;
-	font-weight: 700 !important;
-	letter-spacing: 2px;
-	color: #f35626;
-	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: hue 10s infinite linear;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-}
-
 h6 {
   font-family: 'Rubik', sans-serif;
 	font-size: 8rem !important;
@@ -39,20 +22,21 @@ h6 {
 }
 
 h7 {
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 5rem !important;
-    line-height: 6.7rem;
-    letter-spacing: -0.2rem;
-    text-align: center;
-    font-weight: 900 !important;
-    letter-spacing: 2px;
-    text-align: center;
-    color: #f35626;
-    background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: hue 10s infinite linear;
-  }
+  font-family: 'Rubik', sans-serif;
+	font-size: 4rem !important;
+	line-height: 6.7rem;
+	letter-spacing: -0.2rem;
+	text-align: center;
+	font-weight: 700 !important;
+	letter-spacing: 2px;
+	color: #f35626;
+	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: hue 10s infinite linear;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
 
 @keyframes hue {
   from {

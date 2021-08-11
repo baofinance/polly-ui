@@ -13710,6 +13710,11 @@ react-native-really-awesome-button@^1.6.0:
   resolved "https://registry.yarnpkg.com/react-native-really-awesome-button/-/react-native-really-awesome-button-1.6.0.tgz#71700f960aa6d419058beff177c7b6cf18694ef7"
   integrity sha512-Lar69MRWnCqO0CgOIk/s63P3bS0xKqeMi/m8TDul14tRkYuOW55ZaF4pBeL13GodI+3Cw0dbihwighsQ+obXSA==
 
+react-neu@^1.0.26:
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/react-neu/-/react-neu-1.0.26.tgz#21c16e670087b125c7c42c4fa57c1a59ae8975d3"
+  integrity sha512-0yDsyudUvvY4O+w+eahAYBakSxxG0EL3BRAEH88BXjnZ0HSDWKXkrZRhaKGlnZIs2lh3WceknmkCQItfKce47Q==
+
 react-overlays@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-5.1.1.tgz#2e7cf49744b56537c7828ccb94cfc63dd778ae4f"
@@ -13723,6 +13728,11 @@ react-overlays@^5.1.1:
     prop-types "^15.7.2"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
+
+react-parallax-tilt@^1.5.54:
+  version "1.5.54"
+  resolved "https://registry.yarnpkg.com/react-parallax-tilt/-/react-parallax-tilt-1.5.54.tgz#2a00a8b004e89646cfc9a6aec5fba2a79a96db6b"
+  integrity sha512-X4mf97kJdf8gwIGE4gu971S6jUC8JZRTlpfbnfwEwAKG3K+diRfIXKO4I3GyE+UutAa03Ugu7AVNfPa7aJ/Ydw==
 
 react-router-dom@^5.2.0:
   version "5.2.0"

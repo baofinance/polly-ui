@@ -5,7 +5,7 @@ import { Badge, Col, Row, Table } from 'react-bootstrap'
 
 export const NestBox = styled.div`
   width: 60%;
-  background: ${(props) => props.theme.color.darkGrey[200]};
+  background: ${(props) => props.theme.color.darkGrey[200]}95;
   border: 1px solid ${(props) => props.theme.color.grey[600]};
   border-radius: 12px;
   box-shadow: inset 1px 1px 0 ${(props) => props.theme.color.grey[500]};
@@ -14,7 +14,7 @@ export const NestBox = styled.div`
 `
 
 export const NestBoxHeader = styled.h1`
-  font-family: 'Reem Kufi', sans-serif;
+  font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.grey[100]};
   margin-bottom: 10px;
   margin-top: 0;
@@ -22,7 +22,7 @@ export const NestBoxHeader = styled.h1`
 
   small {
     display: block;
-    font-family: 'Reem Kufi', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 40%;
     margin-top: 5px;
   }
@@ -30,7 +30,7 @@ export const NestBoxHeader = styled.h1`
 
 export const AssetImageContainer = styled.div`
   display: inline-block;
-  background-color: ${(props) => props.theme.color.darkGrey[100]};
+  background-color: ${(props) => props.theme.color.darkGrey[100]}90;
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -141,7 +141,7 @@ export const StatsRow = styled(Row)`
 `
 
 export const StatCard = styled.div`
-  background-color: ${props => props.theme.color.darkGrey[100]};
+  background-color: ${props => props.theme.color.darkGrey[100]}95;
   width: 90%;
   margin: 0 auto;
   padding: 25px;
@@ -175,7 +175,7 @@ export const NestButtons = styled.div`
 `
 
 export const NestHeader = styled.h1`
-  font-family: 'Reem Kufi', sans-serif;
+  font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.grey[100]};
   margin-bottom: 10px;
   margin-top: 0;
@@ -183,14 +183,14 @@ export const NestHeader = styled.h1`
 
   small {
     display: block;
-    font-family: 'Reem Kufi', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 40%;
     margin-top: 5px;
   }
 `
 
 export const NestSubHeader = styled.h1`
-  font-family: 'Reem Kufi', sans-serif;
+  font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.grey[100]};
   margin-bottom: 10px;
   margin-top: 0;
@@ -198,7 +198,7 @@ export const NestSubHeader = styled.h1`
 
   small {
     display: block;
-    font-family: 'Reem Kufi', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 40%;
     margin-top: 5px;
   }

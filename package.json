@@ -41,6 +41,8 @@
     "react-ga": "^3.1.2",
     "react-lottie": "^1.2.3",
     "react-native-really-awesome-button": "^1.6.0",
+    "react-neu": "^1.0.26",
+    "react-parallax-tilt": "^1.5.54",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-sky": "^1.1.0",

@@ -12,8 +12,8 @@ const SectionTwo: React.FC = () => (
 		<StyledExplanationContainer>
 			<StyledCardContainer>
 				<Tilt
-					perspective={4000}
-					scale={1.05}
+					perspective={100000}
+					scale={1.1}
 					transitionEasing="cubic-bezier(.03,.98,.52,.99)"
 				>
 					<StyledCardContent>
@@ -32,8 +32,8 @@ const SectionTwo: React.FC = () => (
 
 			<StyledCardContainer>
 				<Tilt
-					perspective={5000}
-					scale={1.05}
+					perspective={100000}
+					scale={1.1}
 					transitionEasing="cubic-bezier(.03,.98,.52,.99)"
 				>
 					<StyledCardContent>
@@ -52,8 +52,8 @@ const SectionTwo: React.FC = () => (
 
 			<StyledCardContainer>
 				<Tilt
-					perspective={4000}
-					scale={1.05}
+					perspective={100000}
+					scale={1.1}
 					transitionEasing="cubic-bezier(.03,.98,.52,.99)"
 				>
 					<StyledCardContent>
