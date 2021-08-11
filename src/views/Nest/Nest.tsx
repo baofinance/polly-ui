@@ -7,7 +7,14 @@ import Button from '../../components/Button'
 import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button as BootButton, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import {
+	Badge,
+	Button as BootButton,
+	Col,
+	OverlayTrigger,
+	Row,
+	Tooltip,
+} from 'react-bootstrap'
 import { SpinnerLoader } from '../../components/Loader'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
@@ -361,23 +368,11 @@ const Nest: React.FC = () => {
 								</tbody>
 							</StyledTable>
 						) : (
-							<div style={{ height: '750px' }}>
-								<GraphLabel>
-									Market Cap: {marketCap || <SpinnerLoader />}{' '}
-									<OverlayTrigger
-										placement="top"
-										overlay={
-											<Tooltip id="info-tt-allocations">
-												Click on a section of the pie to view more information
-											</Tooltip>
-										}
-									>
-										<span>
-											<FontAwesomeIcon icon="question-circle" />
-										</span>
-									</OverlayTrigger>
-								</GraphLabel>
-								<GraphContainer>
+							<Row
+								lg={2}
+								style={{ height: '500px', width: '80%', margin: '0 auto' }}
+							>
+								<Col lg={8}>
 									{composition && (
 										<ParentSize>
 											{(parent) => (
@@ -389,8 +384,20 @@ const Nest: React.FC = () => {
 											)}
 										</ParentSize>
 									)}
-								</GraphContainer>
-							</div>
+								</Col>
+								<Col lg={4} style={{ margin: 'auto' }}>
+									<Row lg={2}>
+										{composition &&
+											composition.map((component) => (
+												<Col key={component.symbol}>
+													<Badge style={{ backgroundColor: component.color, margin: '10px 0' }}>
+														{component.symbol}
+													</Badge>
+												</Col>
+											))}
+									</Row>
+								</Col>
+							</Row>
 						)}
 					</NestAnalyticsContainer>
 				</NestAnalytics>
