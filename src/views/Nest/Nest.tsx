@@ -42,11 +42,6 @@ import {
 	AssetImageContainer,
 	Icon,
 	NestBoxBreak,
-	StatsCard,
-	StatsCardHeader,
-	StatsCardBody,
-	NestStats,
-	NestStat,
 	NestButtons,
 	StyledBadge,
 	NestAnalytics,
@@ -55,6 +50,8 @@ import {
 	PieGraphRow,
 	StyledTable,
 	PrefButtons,
+	StatsRow,
+	StatCard,
 } from './styles'
 import { Progress } from './components/Progress'
 
@@ -178,6 +175,19 @@ const Nest: React.FC = () => {
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					<p>{name}</p>
+					<small>
+						<StyledBadge>
+							1 {nestToken} ={' '}
+							{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+								<SpinnerLoader />
+							)}{' '}
+							<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
+							{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
+								<SpinnerLoader />
+							)}
+						</StyledBadge>
+					</small>
+					<br />
 					<div style={{ width: '70%', margin: '0 auto' }}>
 						{!composition ? (
 							<SpinnerLoader />
@@ -203,62 +213,56 @@ const Nest: React.FC = () => {
 					</div>
 				</NestBoxHeader>
 				<NestBoxBreak margin={10} />
-				<StatsCard>
-					<StatsCardHeader>
-						1 {nestToken} ={' '}
-						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
-							<SpinnerLoader />
-						)}{' '}
-						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
-						{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
-							<SpinnerLoader />
-						)}
-					</StatsCardHeader>
-					<StatsCardBody>
-						<NestStats horizontal>
-							<NestStat key={'mkt-cap'}>
-								<span>
-									<FontAwesomeIcon icon="hand-holding-usd" />
-									<br />
-									Market Cap
-								</span>
+				<StatsRow lg={4}>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="hand-holding-usd" />
 								<br />
-								<StyledBadge>{marketCap || <SpinnerLoader />}</StyledBadge>
-							</NestStat>
-							<NestStat key={'supply'}>
-								<span>
-									<FontAwesomeIcon icon="coins" />
-									<br />
-									Supply
-								</span>
+								Market Cap
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>{marketCap || <SpinnerLoader />}</StyledBadge>
+						</StatCard>
+					</Col>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="coins" />
 								<br />
-								<StyledBadge>
-									{(supply && `${getDisplayBalance(supply)} ${nestToken}`) || (
-										<SpinnerLoader />
-									)}
-								</StyledBadge>
-							</NestStat>
-							<NestStat key={Math.random().toString()}>
-								<span>
-									<FontAwesomeIcon icon="times-circle" />
-									<br />
-									NAV
-								</span>
+								Supply
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>
+								{(supply && `${getDisplayBalance(supply)} ${nestToken}`) || (
+									<SpinnerLoader />
+								)}
+							</StyledBadge>
+						</StatCard>
+					</Col>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="times-circle" />
 								<br />
-								<StyledBadge>-</StyledBadge>
-							</NestStat>
-							<NestStat key={Math.random().toString()}>
-								<span>
-									<FontAwesomeIcon icon="times-circle" />
-									<br />
-									Premium
-								</span>
+								NAV
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>-</StyledBadge>
+						</StatCard>
+					</Col>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="times-circle" />
 								<br />
-								<StyledBadge>-</StyledBadge>
-							</NestStat>
-						</NestStats>
-					</StatsCardBody>
-				</StatsCard>
+								Premium
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>-</StyledBadge>
+						</StatCard>
+					</Col>
+				</StatsRow>
 				<NestButtons>
 					<Button text="Issue" onClick={onPresentDeposit} width="30%" />
 					<Spacer />
