@@ -170,3 +170,39 @@ export const BubbleContainer = styled.div`
     background-image: url(${AAVE});
   }
 `
+
+export const StyledSectionContainer = styled.div`
+  display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`
+
+export const StyledSectionTitle = styled.h2`
+  font-size: 32px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.grey[100]};
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+`
+
+export const StyledCardContainer = styled.div`
+  flex: 1;
+`
+
+export const StyledCardContent = styled.div`
+  padding: 30px;
+`
+
+export const StyledCardTitle = styled.p`
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+`
+export const StyledCardIcon = styled.img`
+  margin-bottom: 20px;
+  width: 50px;
+`
+
+export const StyledCardDescription = styled.p`
+  font-size: 24px;
+`

@@ -1,13 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useRef } from 'react'
+import { Surface, Spacer, Container } from 'react-neu'
 import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
 import ReactFullpage from '@fullpage/react-fullpage'
-import lines from '../../../assets/img/bg-lines.png'
-import Lottie from 'react-lottie'
 import { Col, Row } from 'react-bootstrap'
-import { BubbleWrap, BubbleContainer, BubbleOverlayText } from './styles'
+import styled from 'styled-components'
+import { 
+	BubbleWrap, 
+	BubbleContainer, 
+	BubbleOverlayText,
+} from './styles'
 
-import passiveYieldLottie from '../../../assets/img/lottie/passive-yield.json'
+import SectionTwo from './SectionTwo'
+
 import './fullpage.style.css'
 import _ from 'lodash'
 
@@ -112,7 +117,6 @@ const FullpageWrapper = () => {
 						<div
 							className="section"
 							style={{
-								background: `linear-gradient(to top, transparent, #1a003d), url(${lines})`,
 								backgroundPosition: `center`,
 								backgroundRepeat: `no-repeat`,
 								backgroundAttachment: `fixed`,
@@ -128,37 +132,10 @@ const FullpageWrapper = () => {
 						</div>
 
 						<div className="section">
-							<Row>
-								<Col
-									sm
-									style={{
-										textAlign: 'right',
-										justifyContent: 'center',
-										alignItems: 'center',
-										margin: 'auto',
-									}}
-								>
-									<h6 style={{ textAlign: 'right' }}>
-										EARN
-										<br />
-										PASSIVE
-										<br />
-										YIELD
-									</h6>
-								</Col>
-								<Col sm>
-									<Lottie
-										options={{
-											animationData: passiveYieldLottie,
-											loop: true,
-											autoplay: true,
-										}}
-										width={500}
-										height={500}
-									/>
-								</Col>
-							</Row>
-						</div>
+							<Container size="lg">
+							<SectionTwo />
+							</Container>
+							</div>
 						<div className="section">
 							<h7>AUTOMATED STRATEGIES</h7>
 						</div>
