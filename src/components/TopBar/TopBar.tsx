@@ -42,7 +42,7 @@ const StyledTopBar = styled.div`
 	top: 0;
 	width: 100%;
 	z-index: 1 !important;
-	background: linear-gradient(to bottom, #1a053d 50%, transparent);
+	background: linear-gradient(to bottom, #1a053d 5%, #1c0745 5%);
 `
 
 const StyledTopBarInner = styled.div`

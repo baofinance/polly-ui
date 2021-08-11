@@ -3,6 +3,10 @@ import { Surface, Spacer } from 'react-neu'
 import Tilt from 'react-parallax-tilt'
 import styled from 'styled-components'
 
+import diversify from '../../../assets/img/icons/diversify.svg'
+import yieldIcon from '../../../assets/img/icons/yield.svg'
+import dao from '../../../assets/img/icons/dao.svg'
+
 const SectionTwo: React.FC = () => (
 	<div>
 		<StyledExplanationContainer>
@@ -12,19 +16,15 @@ const SectionTwo: React.FC = () => (
 					scale={1.05}
 					transitionEasing="cubic-bezier(.03,.98,.52,.99)"
 				>
-					<Surface fill>
-						<StyledCardContent>
-							<StyledCardIcon src="https://index-dao.s3.amazonaws.com/about_icon_1.svg" />
-							<StyledCardTitle>Earn Passive Yield</StyledCardTitle>
-							<StyledCardDescription>
-								Index Coop creates and maintains the world's best crypto index
-								products.
-							</StyledCardDescription>
-							<StyledCardDescription>
-								All index products are always fully collateralized.
-							</StyledCardDescription>
-						</StyledCardContent>
-					</Surface>
+					<StyledCardContent>
+						<StyledCardIcon src={diversify} />
+						<StyledCardTitle>Diversified Exposure</StyledCardTitle>
+						<StyledCardDescription>
+							Polly Finance creates and manages some of the most diverse indexes
+							on Polygon. Get exposure to the best assets in crypto with Polly
+							Nests.
+						</StyledCardDescription>
+					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
 
@@ -36,16 +36,15 @@ const SectionTwo: React.FC = () => (
 					scale={1.05}
 					transitionEasing="cubic-bezier(.03,.98,.52,.99)"
 				>
-					<Surface fill>
-						<StyledCardContent>
-							<StyledCardIcon src="https://index-dao.s3.amazonaws.com/about_icon_2.svg" />
-							<StyledCardTitle>Decentralized & Autonomous</StyledCardTitle>
-							<StyledCardDescription>
-								Index Coop is a Decentralized and Autonomous Asset Manager
-								governed, maintained, and upgraded by INDEX token holders.
-							</StyledCardDescription>
-						</StyledCardContent>
-					</Surface>
+					<StyledCardContent>
+						<StyledCardIcon src={yieldIcon} />
+						<StyledCardTitle>Passive Yield</StyledCardTitle>
+						<StyledCardDescription>
+							Maximize returns with active yield-generating strategies behind
+							the scenes. Staking, lending, yield-farming - completely
+							automated.
+						</StyledCardDescription>
+					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
 
@@ -57,20 +56,16 @@ const SectionTwo: React.FC = () => (
 					scale={1.05}
 					transitionEasing="cubic-bezier(.03,.98,.52,.99)"
 				>
-					<Surface fill>
-						<StyledCardContent>
-							<StyledCardIcon src="https://index-dao.s3.amazonaws.com/about_icon_3.svg" />
-							<StyledCardTitle>Built with DeFi Leaders</StyledCardTitle>
-							<StyledCardDescription>
-								Our products are built on Set Protocol's battle-tested V2
-								infrastructure.
-							</StyledCardDescription>
-							<StyledCardDescription>
-								Product methodologies are sourced from industry experts like
-								DeFi Pulse.
-							</StyledCardDescription>
-						</StyledCardContent>
-					</Surface>
+					<StyledCardContent>
+						<StyledCardParralax>
+						<StyledCardIcon src={dao} />
+						<StyledCardTitle>Polly DAO</StyledCardTitle>
+						<StyledCardDescription>
+							Polly is fully Decentralized and our Asset Manager and Strategies
+							are governed, maintained, and upgraded by POLLY token holders.
+						</StyledCardDescription>
+						</StyledCardParralax>
+					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
 		</StyledExplanationContainer>
@@ -87,8 +82,8 @@ const StyledExplanationContainer = styled.div`
 const StyledExplanationTitle = styled.h2`
 	font-size: 32px;
 	border-bottom: 1px solid ${(props) => props.theme.colors.grey[100]};
-	padding-bottom: 30px;
-	margin-bottom: 30px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 `
 
 const StyledCardContainer = styled.div`
@@ -96,19 +91,31 @@ const StyledCardContainer = styled.div`
 `
 
 const StyledCardContent = styled.div`
+color: white;
 	height: 500px;
 	padding: 30px;
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 12px;
+`
+
+const StyledCardParralax = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+transform: translateZ(60px);
 `
 
 const StyledCardTitle = styled.p`
 	font-size: 30px;
 	font-weight: 600;
-	margin: 0;
+	margin-bottom: 20px;
 `
 
 const StyledCardIcon = styled.img`
-	margin-bottom: 20px;
-	width: 50px;
+	margin: 30px 0px 30px 0px;
+	height: 80px;
+	width: 80px;
 `
 
 const StyledCardDescription = styled.p`
