@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import Collapse from 'react-bootstrap/Collapse'
-import {Badge, Card, Col, Row, Table} from 'react-bootstrap'
-import ListGroup from 'react-bootstrap/ListGroup'
+import { Badge, Col, Row, Table } from 'react-bootstrap'
 
 export const NestBox = styled.div`
   width: 60%;
@@ -136,53 +135,19 @@ export const PrefButtons = styled.div`
   }
 `
 
-export const StatsCard = styled(Card)`
-  background-color: transparent;
-  border: none;
-  justify-content: center;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+export const StatsRow = styled(Row)`
+  width: 80%;
+  margin: 50px auto;
 `
 
-export const StatsCardHeader = styled(Card.Header)`
-  font-weight: bold;
-  background-color: ${(props) => props.theme.color.darkGrey[100]};
-  color: ${(props) => props.theme.color.grey[100]};
-  width: 70%;
-  margin: 0 auto 0;
-  border: 1px solid ${(props) => lighten(0.2, props.theme.color.darkGrey[100])};
-  border-bottom: none;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-`
-
-export const StatsCardBody = styled(Card.Body)`
-  padding: 0;
-`
-
-export const NestStats = styled(ListGroup)`
+export const StatCard = styled.div`
+  background-color: ${props => props.theme.color.darkGrey[100]};
+  width: 90%;
   margin: 0 auto;
-  width: 70%;
-  justify-content: center;
-
-  .list-group-item:last-child {
-    border-top-right-radius: 0 !important;
-  }
-
-  .list-group-item:first-child {
-    border-top-left-radius: 0;
-  }
-`
-
-export const NestStat = styled(ListGroup.Item)`
-  background-color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
-  border-color: ${(props) => lighten(0.2, props.theme.color.darkGrey[100])};
-  color: ${(props) => props.theme.color.grey[100]};
-  width: 25%;
-
-  span {
-    font-weight: bold;
-  }
+  padding: 25px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: ${props => props.theme.color.grey[100]};
 `
 
 export const StyledBadge = styled(Badge)`
