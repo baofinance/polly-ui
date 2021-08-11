@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import Collapse from 'react-bootstrap/Collapse'
-import { Badge, Card, Col, Table } from 'react-bootstrap'
+import {Badge, Card, Col, Row, Table} from 'react-bootstrap'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 export const NestBox = styled.div`
@@ -78,27 +78,20 @@ export const NestAnalyticsContainer = styled.div.attrs((props) => ({
   id: 'analytics-collapse',
 }))``
 
-export const GraphLabel = styled.h2`
-  font-family: 'Noto Sans', sans-serif;
-  color: ${(props) => props.theme.color.grey[100]};
+export const PriceGraphContainer = styled(Col)`
   background-color: ${(props) => props.theme.color.darkGrey[100]};
   width: 80%;
-  margin: 0 auto;
-  padding: 10px;
+  height: 500px;
+  margin: 0 auto 50px;
   border: 1px solid ${(props) => props.theme.color.grey[600]};
-  border-bottom: none;
-  border-top-right-radius: 12px;
-  border-top-left-radius: 12px;
+  border-radius: 12px;
+  overflow: hidden;
 `
 
-export const GraphContainer = styled(Col)`
-  background-color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
+export const PieGraphRow = styled(Row)`
+  height: 500px;
   width: 80%;
-  height: 80%;
   margin: 0 auto;
-  border: 1px solid ${(props) => props.theme.color.grey[600]};
-  border-radius: 0 0 12px 12px;
-  overflow: hidden;
 `
 
 export const StyledTable = styled(Table)`
@@ -118,7 +111,7 @@ export const StyledTable = styled(Table)`
   }
 `
 
-export const AllocationDisplayPrefs = styled.div`
+export const PrefButtons = styled.div`
   width: 80%;
   margin: 0 auto 50px;
 

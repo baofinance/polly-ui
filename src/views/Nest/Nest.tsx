@@ -51,10 +51,10 @@ import {
 	StyledBadge,
 	NestAnalytics,
 	NestAnalyticsContainer,
-	GraphLabel,
-	GraphContainer,
+	PriceGraphContainer,
+	PieGraphRow,
 	StyledTable,
-	AllocationDisplayPrefs,
+	PrefButtons,
 } from './styles'
 import { Progress } from './components/Progress'
 
@@ -71,6 +71,7 @@ const Nest: React.FC = () => {
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
 	const [analyticsOpen, setAnalyticsOpen] = useState(true)
+	const [priceHistoryTimeFrame, setPriceHistoryTimeFrame] = useState('M')
 	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
 
 	useEffect(() => {
@@ -271,37 +272,35 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
-						<div style={{ height: '500px' }}>
-							<GraphLabel>
-								Index Price{' '}
-								<OverlayTrigger
-									placement="top"
-									overlay={
-										<Tooltip id="warning-tt">
-											Asset does not have a price feed yet, displaying wETH
-										</Tooltip>
-									}
+						<PrefButtons>
+							<NestBoxHeader style={{ float: 'left' }}>
+								Index Price
+							</NestBoxHeader>
+							{_.map(['W', 'M', 'Y'], (timeFrame) => (
+								<BootButton
+									variant="outline-primary"
+									onClick={() => setPriceHistoryTimeFrame(timeFrame)}
+									active={priceHistoryTimeFrame === timeFrame}
 								>
-									<span>
-										<FontAwesomeIcon icon='exclamation-triangle' style={{ color: '#cba92d' }} />
-									</span>
-								</OverlayTrigger>
-							</GraphLabel>
-							<GraphContainer>
-								<ParentSize>
-									{(parent) =>
-										priceHistory && (
-											<AreaGraph
-												width={parent.width}
-												height={parent.height}
-												timeseries={priceHistory}
-											/>
-										)
-									}
-								</ParentSize>
-							</GraphContainer>
-						</div>
-						<AllocationDisplayPrefs>
+									{timeFrame}
+								</BootButton>
+							))}
+						</PrefButtons>
+						<PriceGraphContainer>
+							<ParentSize>
+								{(parent) =>
+									priceHistory && (
+										<AreaGraph
+											width={parent.width}
+											height={parent.height}
+											timeseries={priceHistory}
+											timeframe={priceHistoryTimeFrame}
+										/>
+									)
+								}
+							</ParentSize>
+						</PriceGraphContainer>
+						<PrefButtons>
 							<NestBoxHeader style={{ float: 'left' }}>
 								Allocation Breakdown
 							</NestBoxHeader>
@@ -319,7 +318,7 @@ const Nest: React.FC = () => {
 							>
 								<FontAwesomeIcon icon="chart-pie" />
 							</BootButton>
-						</AllocationDisplayPrefs>
+						</PrefButtons>
 						{!allocationDisplayType ? (
 							<StyledTable bordered hover>
 								<thead>
@@ -368,10 +367,7 @@ const Nest: React.FC = () => {
 								</tbody>
 							</StyledTable>
 						) : (
-							<Row
-								lg={2}
-								style={{ height: '500px', width: '80%', margin: '0 auto' }}
-							>
+							<PieGraphRow lg={2}>
 								<Col lg={8}>
 									{composition && (
 										<ParentSize>
@@ -390,14 +386,19 @@ const Nest: React.FC = () => {
 										{composition &&
 											composition.map((component) => (
 												<Col key={component.symbol}>
-													<Badge style={{ backgroundColor: component.color, margin: '10px 0' }}>
+													<Badge
+														style={{
+															backgroundColor: component.color,
+															margin: '10px 0',
+														}}
+													>
 														{component.symbol}
 													</Badge>
 												</Col>
 											))}
 									</Row>
 								</Col>
-							</Row>
+							</PieGraphRow>
 						)}
 					</NestAnalyticsContainer>
 				</NestAnalytics>

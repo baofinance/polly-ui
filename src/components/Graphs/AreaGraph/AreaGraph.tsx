@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import { AreaClosed, Line, Bar } from '@visx/shape'
 import appleStock from '@visx/mock-data/lib/mocks/appleStock'
 import { curveMonotoneX } from '@visx/curve'
-import { GridRows, GridColumns } from '@visx/grid'
+import { GridColumns } from '@visx/grid'
 import { scaleTime, scaleLinear } from '@visx/scale'
 import { withTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip'
 import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip'
@@ -19,7 +19,7 @@ export type TimeseriesData = {
 
 type TooltipData = TimeseriesData
 
-export const background = '#f7f4f2';
+export const background = '#f7f4f2'
 export const accentColor = background
 export const accentColorDark = '#00ff00'
 const tooltipStyles = {
@@ -34,7 +34,7 @@ const formatDate = (date: any) => {
 	const options = {
 		month: 'short',
 		year: 'numeric',
-		day: '2-digit'
+		day: '2-digit',
 	}
 
 	return new Date(date).toLocaleDateString('en-US', options)
@@ -49,6 +49,7 @@ export type AreaProps = {
 	width: number
 	height: number
 	timeseries?: Array<TimeseriesData>
+	timeframe?: string
 	margin?: { top: number; right: number; bottom: number; left: number }
 }
 
@@ -56,6 +57,7 @@ export default withTooltip<AreaProps, TooltipData>(({
 		width,
 		height,
 		timeseries = appleStock,
+		timeframe,
 		margin = { top: 0, right: 0, bottom: 0, left: 0 },
 		showTooltip,
 		hideTooltip,
@@ -69,23 +71,29 @@ export default withTooltip<AreaProps, TooltipData>(({
 		const innerWidth = width - margin.left - margin.right
 		const innerHeight = height - margin.top - margin.bottom
 
+		const timeSeries = useMemo(() => {
+			return timeseries.slice(
+				timeframe === 'W' ? -7 : timeframe === 'M' ? -31 : -365,
+			)
+		}, [timeseries, timeframe])
+
 		// scales
 		const dateScale = useMemo(
 			() =>
 				scaleTime({
 					range: [margin.left, innerWidth + margin.left],
-					domain: extent(timeseries, getDate) as [Date, Date],
+					domain: extent(timeSeries, getDate) as [Date, Date],
 				}),
-			[innerWidth, margin.left],
+			[innerWidth, margin.left, timeSeries],
 		)
 		const valueScale = useMemo(
 			() =>
 				scaleLinear({
 					range: [innerHeight + margin.top, margin.top],
-					domain: [0, (max(timeseries, getValue) || 0) + innerHeight / 3],
+					domain: [0, (max(timeSeries, getValue) || 0) + innerHeight / 3],
 					nice: true,
 				}),
-			[margin.top, innerHeight],
+			[margin.top, innerHeight, timeSeries],
 		)
 
 		// tooltip handler
@@ -93,9 +101,9 @@ export default withTooltip<AreaProps, TooltipData>(({
 			(event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>) => {
 				const { x } = localPoint(event) || { x: 0 }
 				const x0 = dateScale.invert(x)
-				const index = bisectDate(timeseries, x0, 1)
-				const d0 = timeseries[index - 1]
-				const d1 = timeseries[index]
+				const index = bisectDate(timeSeries, x0, 1)
+				const d0 = timeSeries[index - 1]
+				const d1 = timeSeries[index]
 				let d = d0
 				if (d1 && getDate(d1)) {
 					d = x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0
@@ -117,36 +125,27 @@ export default withTooltip<AreaProps, TooltipData>(({
 						y={0}
 						width={width}
 						height={height}
-						fill='url(#area-background-gradient)'
+						fill="url(#area-background-gradient)"
 						rx={14}
 					/>
-					<LinearGradient id='area-gradient' from={accentColor} to={accentColor} toOpacity={0.5} />
-					<GridRows
-						left={margin.left}
-						scale={valueScale}
-						width={innerWidth}
-						strokeDasharray='1,3'
-						stroke={accentColor}
-						strokeOpacity={0}
-						pointerEvents='none'
-					/>
+					<LinearGradient id="area-gradient" from={accentColor} to={accentColor} toOpacity={0.5} />
 					<GridColumns
 						top={margin.top}
 						scale={dateScale}
 						height={innerHeight}
-						strokeDasharray='1,3'
+						strokeDasharray="1,3"
 						stroke={accentColor}
 						strokeOpacity={0.2}
-						pointerEvents='none'
+						pointerEvents="none"
 					/>
 					<AreaClosed<TimeseriesData>
-						data={timeseries}
+						data={timeSeries}
 						x={d => dateScale(getDate(d)) ?? 0}
 						y={d => valueScale(getValue(d)) ?? 0}
 						yScale={valueScale}
 						strokeWidth={1}
-						stroke='url(#area-gradient)'
-						fill='url(#area-gradient)'
+						stroke="url(#area-gradient)"
+						fill="url(#area-gradient)"
 						curve={curveMonotoneX}
 					/>
 					<Bar
@@ -154,7 +153,7 @@ export default withTooltip<AreaProps, TooltipData>(({
 						y={margin.top}
 						width={innerWidth}
 						height={innerHeight}
-						fill='transparent'
+						fill="transparent"
 						rx={14}
 						onTouchStart={handleTooltip}
 						onTouchMove={handleTooltip}
@@ -168,28 +167,28 @@ export default withTooltip<AreaProps, TooltipData>(({
 								to={{ x: tooltipLeft, y: innerHeight + margin.top }}
 								stroke={accentColorDark}
 								strokeWidth={2}
-								pointerEvents='none'
-								strokeDasharray='5,2'
+								pointerEvents="none"
+								strokeDasharray="5,2"
 							/>
 							<circle
 								cx={tooltipLeft}
 								cy={tooltipTop + 1}
 								r={4}
-								fill='black'
+								fill="black"
 								fillOpacity={0.1}
-								stroke='black'
+								stroke="black"
 								strokeOpacity={0.1}
 								strokeWidth={2}
-								pointerEvents='none'
+								pointerEvents="none"
 							/>
 							<circle
 								cx={tooltipLeft}
 								cy={tooltipTop}
 								r={4}
 								fill={accentColorDark}
-								stroke='white'
+								stroke="white"
 								strokeWidth={2}
-								pointerEvents='none'
+								pointerEvents="none"
 							/>
 						</g>
 					)}
