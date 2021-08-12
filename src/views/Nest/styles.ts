@@ -26,6 +26,13 @@ export const NestBoxHeader = styled.h1`
     font-size: 40%;
     margin-top: 5px;
   }
+
+  span.smalltext {
+    float: right;
+    font-size: 0.5em;
+    margin-top: 1em;
+    margin-left: 0.5em;
+  }
 `
 
 export const AssetImageContainer = styled.div`
@@ -77,15 +84,17 @@ export const NestAnalyticsContainer = styled.div.attrs((props) => ({
   id: 'analytics-collapse',
 }))``
 
-export const PriceGraphContainer = styled(Col)`
+export const GraphContainer = styled(Col)`
   width: 80%;
-  height: 400px;
+  height: 350px;
   margin: 0 auto 50px;
+  border: 1px solid ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
+  border-radius: 12px;
   overflow: hidden;
 `
 
 export const PieGraphRow = styled(Row)`
-  height: 500px;
+  height: 400px;
   width: 80%;
   margin: 0 auto;
 `

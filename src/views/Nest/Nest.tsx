@@ -46,7 +46,7 @@ import {
 	StyledBadge,
 	NestAnalytics,
 	NestAnalyticsContainer,
-	PriceGraphContainer,
+	GraphContainer,
 	PieGraphRow,
 	StyledTable,
 	PrefButtons,
@@ -99,6 +99,18 @@ const Nest: React.FC = () => {
 			)
 		)
 	}, [composition])
+
+	const indexPriceChange24h = useMemo(() => {
+		return (
+			priceHistory &&
+			new BigNumber(
+				((priceHistory[priceHistory.length - 1].close -
+					priceHistory[priceHistory.length - 2].close) /
+					priceHistory[priceHistory.length - 1].close) *
+					100,
+			)
+		)
+	}, [priceHistory])
 
 	const marketCap = useMemo(() => {
 		return (
@@ -289,8 +301,34 @@ const Nest: React.FC = () => {
 									{timeFrame}
 								</BootButton>
 							))}
+							<NestBoxHeader style={{ float: 'right' }}>
+								{indexPriceChange24h ? (
+									<>
+										$
+										{priceHistory &&
+											getDisplayBalance(
+												new BigNumber(
+													priceHistory[priceHistory.length - 1].close,
+												),
+												0,
+											)}
+										<span
+											className="smalltext"
+											style={{
+												color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+											}}
+										>
+											{priceHistory &&
+												getDisplayBalance(indexPriceChange24h, 0)}
+											{'%'}
+										</span>
+									</>
+								) : (
+									<SpinnerLoader />
+								)}
+							</NestBoxHeader>
 						</PrefButtons>
-						<PriceGraphContainer>
+						<GraphContainer>
 							<ParentSize>
 								{(parent) =>
 									priceHistory && (
@@ -303,7 +341,7 @@ const Nest: React.FC = () => {
 									)
 								}
 							</ParentSize>
-						</PriceGraphContainer>
+						</GraphContainer>
 						<PrefButtons>
 							<NestBoxHeader style={{ float: 'left' }}>
 								Allocation Breakdown
@@ -371,38 +409,40 @@ const Nest: React.FC = () => {
 								</tbody>
 							</StyledTable>
 						) : (
-							<PieGraphRow lg={2}>
-								<Col lg={8}>
-									{composition && (
-										<ParentSize>
-											{(parent) => (
-												<PieGraph
-													width={parent.width}
-													height={parent.height}
-													composition={composition}
-												/>
-											)}
-										</ParentSize>
-									)}
-								</Col>
-								<Col lg={4} style={{ margin: 'auto' }}>
-									<Row lg={2}>
-										{composition &&
-											composition.map((component) => (
-												<Col key={component.symbol}>
-													<Badge
-														style={{
-															backgroundColor: component.color,
-															margin: '10px 0',
-														}}
-													>
-														{component.symbol}
-													</Badge>
-												</Col>
-											))}
-									</Row>
-								</Col>
-							</PieGraphRow>
+							<GraphContainer style={{ height: '400px' }}>
+								<PieGraphRow lg={2}>
+									<Col lg={8}>
+										{composition && (
+											<ParentSize>
+												{(parent) => (
+													<PieGraph
+														width={parent.width}
+														height={parent.height}
+														composition={composition}
+													/>
+												)}
+											</ParentSize>
+										)}
+									</Col>
+									<Col lg={4} style={{ margin: 'auto' }}>
+										<Row lg={2}>
+											{composition &&
+												composition.map((component) => (
+													<Col key={component.symbol}>
+														<Badge
+															style={{
+																backgroundColor: component.color,
+																margin: '10px 0',
+															}}
+														>
+															{component.symbol}
+														</Badge>
+													</Col>
+												))}
+										</Row>
+									</Col>
+								</PieGraphRow>
+							</GraphContainer>
 						)}
 					</NestAnalyticsContainer>
 				</NestAnalytics>

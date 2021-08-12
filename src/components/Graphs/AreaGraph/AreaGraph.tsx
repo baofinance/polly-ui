@@ -1,16 +1,15 @@
 import React, { useMemo, useCallback } from 'react'
 import BigNumber from 'bignumber.js'
-import { AreaClosed, Line, Bar } from '@visx/shape'
+import { Line, Bar, LinePath, AreaClosed } from '@visx/shape'
 import appleStock from '@visx/mock-data/lib/mocks/appleStock'
-import { curveMonotoneX } from '@visx/curve'
-import { GridColumns } from '@visx/grid'
 import { scaleTime, scaleLinear } from '@visx/scale'
 import { withTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip'
 import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip'
 import { localPoint } from '@visx/event'
 import { LinearGradient } from '@visx/gradient'
-import { max, extent, bisector } from 'd3-array'
+import { min, max, extent, bisector } from 'd3-array'
 import { getDisplayBalance } from '../../../utils/formatBalance'
+import { curveMonotoneX } from '@visx/visx'
 
 export type TimeseriesData = {
 	close: number
@@ -19,14 +18,12 @@ export type TimeseriesData = {
 
 type TooltipData = TimeseriesData
 
-export const background = '#ff51c3'
-export const accentColor = background
-export const accentColorDark = '#9b6aff'
+export const accentColor = '#555'
 const tooltipStyles = {
 	...defaultStyles,
-	background,
-	border: '1px solid #00ff00',
-	color: 'black',
+	background: accentColor,
+	border: `1px solid ${accentColor}`,
+	color: 'white',
 }
 
 // util
@@ -53,7 +50,8 @@ export type AreaProps = {
 	margin?: { top: number; right: number; bottom: number; left: number }
 }
 
-export default withTooltip<AreaProps, TooltipData>(({
+export default withTooltip<AreaProps, TooltipData>(
+	({
 		width,
 		height,
 		timeseries = appleStock,
@@ -89,8 +87,11 @@ export default withTooltip<AreaProps, TooltipData>(({
 		const valueScale = useMemo(
 			() =>
 				scaleLinear({
-					range: [innerHeight + margin.top, margin.top],
-					domain: [0, (max(timeSeries, getValue) || 0) + innerHeight / 3],
+					range: [innerHeight + margin.top, 0],
+					domain: [
+						min(timeSeries, getValue) || 0,
+						(max(timeSeries, getValue) || 0) + innerHeight / 3,
+					],
 					nice: true,
 				}),
 			[margin.top, innerHeight, timeSeries],
@@ -128,15 +129,26 @@ export default withTooltip<AreaProps, TooltipData>(({
 						fill="transparent"
 						rx={14}
 					/>
-					<LinearGradient id="area-gradient" from={accentColor} to={accentColorDark} toOpacity={0} />
-					<GridColumns
-						top={margin.top}
-						scale={dateScale}
-						height={innerHeight}
-						strokeDasharray="1,3"
-						stroke="transparent"
-						strokeOpacity={0.2}
-						pointerEvents="none"
+					<LinearGradient
+						id="line-gradient"
+						from={'#3c32f5'}
+						to={'#6332f5'}
+						toOpacity={0.8}
+					/>
+					<LinearGradient
+						id="area-under-curve-gradient"
+						from="#3c32f5"
+						to="#6332f5"
+						fromOpacity={0.1}
+						toOpacity={0.25}
+					/>
+					<LinePath
+						stroke="url(#line-gradient)"
+						strokeWidth={2}
+						data={timeSeries}
+						x={d => dateScale(getDate(d)) ?? 0}
+						y={d => valueScale(getValue(d)) ?? 0}
+						curve={curveMonotoneX}
 					/>
 					<AreaClosed<TimeseriesData>
 						data={timeSeries}
@@ -144,8 +156,7 @@ export default withTooltip<AreaProps, TooltipData>(({
 						y={d => valueScale(getValue(d)) ?? 0}
 						yScale={valueScale}
 						strokeWidth={1}
-						stroke="url(#area-gradient)"
-						fill="url(#area-gradient)"
+						fill="url(#area-under-curve-gradient)"
 						curve={curveMonotoneX}
 					/>
 					<Bar
@@ -165,7 +176,7 @@ export default withTooltip<AreaProps, TooltipData>(({
 							<Line
 								from={{ x: tooltipLeft, y: margin.top }}
 								to={{ x: tooltipLeft, y: innerHeight + margin.top }}
-								stroke={accentColorDark}
+								stroke={'#896ed9'}
 								strokeWidth={2}
 								pointerEvents="none"
 								strokeDasharray="5,2"
@@ -185,7 +196,7 @@ export default withTooltip<AreaProps, TooltipData>(({
 								cx={tooltipLeft}
 								cy={tooltipTop}
 								r={4}
-								fill={accentColorDark}
+								fill={accentColor}
 								stroke="white"
 								strokeWidth={2}
 								pointerEvents="none"
@@ -201,7 +212,10 @@ export default withTooltip<AreaProps, TooltipData>(({
 							left={tooltipLeft + 12}
 							style={tooltipStyles}
 						>
-							{`$${getDisplayBalance(new BigNumber(getValue(tooltipData)), 0)} ${formatDate(getDate(tooltipData))}`}
+							{`$${getDisplayBalance(
+								new BigNumber(getValue(tooltipData)),
+								0,
+							)} ${formatDate(getDate(tooltipData))}`}
 						</TooltipWithBounds>
 					</div>
 				)}
