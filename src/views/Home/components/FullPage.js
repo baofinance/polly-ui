@@ -5,11 +5,7 @@ import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverfl
 import ReactFullpage from '@fullpage/react-fullpage'
 import { Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { 
-	BubbleWrap, 
-	BubbleContainer, 
-	BubbleOverlayText,
-} from './styles'
+import { BubbleWrap, BubbleContainer, BubbleOverlayText, BubbleText, BubbleHeader, BubbleSubHeader } from './styles'
 
 import SectionTwo from './SectionTwo'
 
@@ -114,18 +110,26 @@ const FullpageWrapper = () => {
 			render={() => {
 				return (
 					<div id="fullpage-wrapper">
-						<div
-							className="section"
-							style={{
-								backgroundPosition: `center`,
-								backgroundRepeat: `no-repeat`,
-								backgroundAttachment: `fixed`,
-								zIndex: `-99999`,
-							}}
-						>
+						<div className="section">
+							<Container>
 							<BubbleOverlayText>
-								<h6>DIVERSIFY YOUR EXPOSURE</h6>
+								<BubbleHeader>
+									DIVERSE YIELD
+									<br />
+									BEARING INDEXES
+								</BubbleHeader>
+								<BubbleSubHeader>
+									ON POLYGON
+								</BubbleSubHeader>
+								<BubbleText>
+									Polly simplifies decentralized finance for users of all
+									experience levels. Easily diversify your portfolio 
+									<br/>
+									while maximizing your returns, thanks to our advanced yield bearing
+									startegies.
+								</BubbleText>
 							</BubbleOverlayText>
+							</Container>
 							<BubbleWrap>
 								<BubbleContainer ref={bubbleRef} />
 							</BubbleWrap>
@@ -133,10 +137,10 @@ const FullpageWrapper = () => {
 
 						<div className="section">
 							<Container size="lg">
-							<h7>BUILD YOUR NEST</h7>
-							<SectionTwo />
+								<h7>BUILD YOUR NEST</h7>
+								<SectionTwo />
 							</Container>
-							</div>
+						</div>
 						<div className="section">
 							<h7>AUTOMATED STRATEGIES</h7>
 						</div>

@@ -19,9 +19,9 @@ export type TimeseriesData = {
 
 type TooltipData = TimeseriesData
 
-export const background = '#8150e6'
+export const background = '#ff51c3'
 export const accentColor = background
-export const accentColorDark = '#271e61'
+export const accentColorDark = '#9b6aff'
 const tooltipStyles = {
 	...defaultStyles,
 	background,
@@ -128,13 +128,13 @@ export default withTooltip<AreaProps, TooltipData>(({
 						fill="transparent"
 						rx={14}
 					/>
-					<LinearGradient id="area-gradient" from={accentColor} to="transparent" toOpacity={0} />
+					<LinearGradient id="area-gradient" from={accentColor} to={accentColorDark} toOpacity={0} />
 					<GridColumns
 						top={margin.top}
 						scale={dateScale}
 						height={innerHeight}
 						strokeDasharray="1,3"
-						stroke={accentColor}
+						stroke="transparent"
 						strokeOpacity={0.2}
 						pointerEvents="none"
 					/>

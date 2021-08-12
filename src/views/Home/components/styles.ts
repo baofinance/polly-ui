@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 // Token Asset Images
 import SUSHI from '../../../assets/img/assets/SUSHI.png'
@@ -37,14 +37,68 @@ import USDC from '../../../assets/img/assets/USDC.png'
 import UST from '../../../assets/img/assets/UST.png'
 import YFI from '../../../assets/img/assets/YFI.png'
 
-export const BubbleOverlayText = styled.h6`
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  width: 75%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  text-align: left;
+export const BubbleOverlayText = styled.div`
+position: absolute;
+top: 35%;
+left: 50%;
+width: 75%;
+transform: translate(-50%, -50%);
+z-index: 9999;
+text-align: left;
+`
+
+export const BubbleHeader = styled.h6`
+font-family: 'Rubik', sans-serif;
+font-size: 7rem !important;
+line-height: 6.7rem;
+letter-spacing: -0.2rem;
+text-align: center;
+font-weight: 700 !important;
+letter-spacing: 2px;
+color: #f35626;
+background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: hue 10s infinite linear;
+
+  @keyframes hue {
+    from {
+      -webkit-filter: hue-rotate(0deg);
+    }
+    to {
+      -webkit-filter: hue-rotate(-360deg);
+    }
+  }
+`
+
+export const BubbleSubHeader = styled.h6`
+font-family: 'Rubik', sans-serif;
+font-size: 4rem !important;
+letter-spacing: -0.2rem;
+text-align: center;
+font-weight: 700 !important;
+letter-spacing: 2px;
+color: #f35626;
+background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: hue 10s infinite linear;
+
+  @keyframes hue {
+    from {
+      -webkit-filter: hue-rotate(0deg);
+    }
+    to {
+      -webkit-filter: hue-rotate(-360deg);
+    }
+  }
+`
+
+export const BubbleText = styled.p`
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+  font-weight: 500;
 `
 
 export const BubbleWrap = styled.div`

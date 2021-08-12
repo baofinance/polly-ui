@@ -6,7 +6,7 @@ import FullPage from './components/FullPage'
 const Home: React.FC = () => {
 	return (
 		<Page>
-				<FullPage />
+			<FullPage />
 		</Page>
 	)
 }

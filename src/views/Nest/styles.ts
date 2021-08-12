@@ -78,12 +78,9 @@ export const NestAnalyticsContainer = styled.div.attrs((props) => ({
 }))``
 
 export const PriceGraphContainer = styled(Col)`
-  background-color: ${(props) => props.theme.color.darkGrey[100]};
   width: 80%;
-  height: 500px;
+  height: 400px;
   margin: 0 auto 50px;
-  border: 1px solid ${(props) => props.theme.color.grey[600]};
-  border-radius: 12px;
   overflow: hidden;
 `
 
