@@ -5,6 +5,7 @@ import Container from '../Container'
 import Logo from '../Logo'
 
 import AccountButton from './components/AccountButton'
+import MenuIcon from 'components/icons/MenuIcon'
 import Nav from './components/Nav'
 
 interface TopBarProps {
@@ -19,9 +20,14 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 					<StyledLogoWrapper>
 						<Logo />
 					</StyledLogoWrapper>
-					<Nav />
+					<StyledNavWrapper>
+						<Nav />
+					</StyledNavWrapper>
 					<StyledAccountButtonWrapper>
 						<AccountButton />
+						<StyledMenuButton onClick={onPresentMobileMenu}>
+							<MenuIcon />
+						</StyledMenuButton>
 					</StyledAccountButtonWrapper>
 				</StyledTopBarInner>
 			</Container>
@@ -30,19 +36,20 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 }
 
 const StyledLogoWrapper = styled.div`
-	width: 260px;
-	@media (max-width: 400px) {
+	width: 200px;
+	@media (max-width: 768px) {
 		width: auto;
 	}
 `
+const StyledTopBar = styled.div``
 
-const StyledTopBar = styled.div`
-	overflow: hidden;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 1 !important;
-	background: linear-gradient(to bottom, #1a053d 5%, #1c0745 5%);
+const StyledNavWrapper = styled.div`
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	@media (max-width: 768px) {
+		display: none;
+	}
 `
 
 const StyledTopBarInner = styled.div`
@@ -58,10 +65,27 @@ const StyledAccountButtonWrapper = styled.div`
 	align-items: center;
 	display: flex;
 	justify-content: flex-end;
-	width: 156px;
+	width: 200px;
 	@media (max-width: 400px) {
 		justify-content: center;
 		width: auto;
+	}
+`
+
+const StyledMenuButton = styled.button`
+	background: none;
+	border: 0;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	display: none;
+	@media (max-width: 768px) {
+		align-items: center;
+		display: flex;
+		height: 44px;
+		justify-content: center;
+		width: 44px;
+		margin-left: 10px;
 	}
 `
 

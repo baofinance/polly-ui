@@ -20,19 +20,34 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
 					<StyledLink
 						exact
 						activeClassName="active"
-						to="/farms"
+						to="/nests"
 						onClick={onDismiss}
 					>
-						Farms
+						Nests
 					</StyledLink>
 					<StyledLink
 						exact
 						activeClassName="active"
-						to="/staking"
+						to="/Farms"
 						onClick={onDismiss}
 					>
-						Staking
+						Farms
 					</StyledLink>
+					<StyledExternalLink
+						href="https://snapshot.page/#/baovotes.eth"
+						target="_blank"
+					>
+						Vote
+					</StyledExternalLink>
+					<StyledExternalLink href="https://gov.bao.finance" target="_blank">
+						Forum
+					</StyledExternalLink>
+					<StyledExternalLink href="https://docs.bao.finance" target="_blank">
+						About
+					</StyledExternalLink>
+					<StyledExternalLink href="https://docs.bao.finance" target="_blank">
+						FAQ
+					</StyledExternalLink>
 				</StyledMobileMenu>
 			</StyledMobileMenuWrapper>
 		)
@@ -81,12 +96,15 @@ const StyledMobileMenu = styled.div`
 	left: 100%;
 	bottom: 0;
 	width: calc(100% - 48px);
+	padding-top: 100px;
+	padding-bottom: 100px;
+	overflow-y: scroll;
 `
 
 const StyledLink = styled(NavLink)`
 	box-sizing: border-box;
-	color: ${(props) => props.theme.color.grey[400]};
-	font-size: 24px;
+	color: white;
+	font-size: 18px;
 	font-weight: 700;
 	padding: ${(props) => props.theme.spacing[3]}px
 		${(props) => props.theme.spacing[4]}px;
@@ -94,10 +112,28 @@ const StyledLink = styled(NavLink)`
 	text-decoration: none;
 	width: 100%;
 	&:hover {
-		color: ${(props) => props.theme.color.grey[500]};
+		color: ${(props) => props.theme.color.blue[400]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.primary.main};
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+`
+
+const StyledExternalLink = styled.a`
+	box-sizing: border-box;
+	color: white;
+	font-size: 18px;
+	font-weight: 700;
+	padding: ${(props) => props.theme.spacing[3]}px
+		${(props) => props.theme.spacing[4]}px;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+	&:hover {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+	&.active {
+		color: ${(props) => props.theme.color.blue[400]};
 	}
 `
 

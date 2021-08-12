@@ -5,12 +5,13 @@ import { Badge, Col, Row, Table } from 'react-bootstrap'
 
 export const NestBox = styled.div`
   width: 60%;
-  background: ${(props) => props.theme.color.darkGrey[200]}95;
-  border: 1px solid ${(props) => props.theme.color.grey[600]};
-  border-radius: 12px;
-  box-shadow: inset 1px 1px 0 ${(props) => props.theme.color.grey[500]};
+  background: transparent;
   padding: 15px;
   text-align: center;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `
 
 export const NestBoxHeader = styled.h1`
@@ -34,8 +35,16 @@ export const NestBoxHeader = styled.h1`
     margin-left: 0.5em;
   }
 `
-
 export const AssetImageContainer = styled.div`
+width: 70%;
+margin: 0 auto;
+
+@media screen and (max-width: 800px) {
+  width: 90%;
+}
+`
+
+export const AssetImageWrapper = styled.div`
   display: inline-block;
   background-color: ${(props) => props.theme.color.darkGrey[100]}90;
   border-radius: 50%;

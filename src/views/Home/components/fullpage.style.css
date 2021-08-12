@@ -1,68 +1,28 @@
 body {
-  font-family: arial, helvetica;
+    font-family: arial, helvetica;
 }
 
-#fp-nav ul li a span, .fp-slidesNav ul li a span {
-  background: #ffffff;
-}
-
-h6 {
-  font-family: 'Rubik', sans-serif;
-	font-size: 8rem !important;
-	line-height: 6.7rem;
-	letter-spacing: -0.2rem;
-	text-align: center;
-	font-weight: 700 !important;
-	letter-spacing: 2px;
-	color: #f35626;
-	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: hue 10s infinite linear;
-}
-
-h7 {
-  font-family: 'Rubik', sans-serif;
-	font-size: 4rem !important;
-	line-height: 6.7rem;
-	letter-spacing: -0.2rem;
-	text-align: center;
-	font-weight: 700 !important;
-	letter-spacing: 2px;
-	color: #f35626;
-	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: hue 10s infinite linear;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-}
-
-@keyframes hue {
-  from {
-    -webkit-filter: hue-rotate(0deg);
-  }
-  to {
-    -webkit-filter: hue-rotate(-360deg);
-  }
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+    background: #ffffff;
 }
 
 #section1 {
-  color: #fff;
+    color: #fff;
 }
 
 .fp-section {
-  text-align: center;
+    text-align: center;
 }
 
 button {
-  padding: 0.93em 1.87em;
-  background: #35495e;
-  border-radius: 5px;
-  border-color: transparent;
-  display: block;
-  color: #fff;
-  margin: 0 auto;
-  cursor: pointer;
-  font-size: 0.85em;
+    padding: 0.93em 1.87em;
+    background: #35495e;
+    border-radius: 5px;
+    border-color: transparent;
+    display: block;
+    color: #fff;
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: 0.85em;
 }

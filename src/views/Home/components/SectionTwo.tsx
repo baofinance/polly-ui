@@ -19,11 +19,11 @@ const SectionTwo: React.FC = () => (
 					<StyledCardContent>
 						<StyledCardIcon src={diversify} />
 						<StyledCardTitle>Diversified Exposure</StyledCardTitle>
-						<StyledCardDescription>
+						<StyledCardText>
 							Polly Finance creates and manages some of the most diverse indexes
 							on Polygon. Get exposure to the best assets in crypto with Polly
 							Nests.
-						</StyledCardDescription>
+						</StyledCardText>
 					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
@@ -39,11 +39,11 @@ const SectionTwo: React.FC = () => (
 					<StyledCardContent>
 						<StyledCardIcon src={yieldIcon} />
 						<StyledCardTitle>Passive Yield</StyledCardTitle>
-						<StyledCardDescription>
+						<StyledCardText>
 							Maximize returns with active yield-generating strategies behind
 							the scenes. Staking, lending, yield-farming - completely
 							automated.
-						</StyledCardDescription>
+						</StyledCardText>
 					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
@@ -58,12 +58,13 @@ const SectionTwo: React.FC = () => (
 				>
 					<StyledCardContent>
 						<StyledCardParralax>
-						<StyledCardIcon src={dao} />
-						<StyledCardTitle>Polly DAO</StyledCardTitle>
-						<StyledCardDescription>
-							Polly is fully Decentralized and our Asset Manager and Strategies
-							are governed, maintained, and upgraded by POLLY token holders.
-						</StyledCardDescription>
+							<StyledCardIcon src={dao} />
+							<StyledCardTitle>Polly DAO</StyledCardTitle>
+							<StyledCardText>
+								Polly is fully Decentralized and our Asset Manager and
+								Strategies are governed, maintained, and upgraded by POLLY token
+								holders.
+							</StyledCardText>
 						</StyledCardParralax>
 					</StyledCardContent>
 				</Tilt>
@@ -74,16 +75,10 @@ const SectionTwo: React.FC = () => (
 
 const StyledExplanationContainer = styled.div`
 	display: flex;
-	@media (max-width: 768px) {
+
+	@media (max-width: 414px) {
 		flex-direction: column;
 	}
-`
-
-const StyledExplanationTitle = styled.h2`
-	font-size: 32px;
-	border-bottom: 1px solid ${(props) => props.theme.colors.grey[100]};
-	padding-bottom: 20px;
-	margin-bottom: 20px;
 `
 
 const StyledCardContainer = styled.div`
@@ -91,35 +86,56 @@ const StyledCardContainer = styled.div`
 `
 
 const StyledCardContent = styled.div`
-color: white;
-	height: 500px;
+	color: white;
 	padding: 30px;
 	background: rgba(0, 0, 0, 0.4);
 	border-radius: 12px;
+	height: 550px;
+
+	@media (max-width: 414px) {
+		padding: 10px;
+		height: 250px;
+	}
 `
 
 const StyledCardParralax = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-transform: translateZ(60px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transform: translateZ(60px);
 `
 
 const StyledCardTitle = styled.p`
-	font-size: 30px;
+	font-size: 2rem;
 	font-weight: 600;
 	margin-bottom: 20px;
+
+	@media (max-width: 414px) {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: 5px;
+	}
 `
 
 const StyledCardIcon = styled.img`
 	margin: 30px 0px 30px 0px;
 	height: 80px;
 	width: 80px;
+
+	@media (max-width: 414px) {
+		margin: 15px 0px 15px 0px;
+		height: 50px;
+		width: 50px;
+	}
 `
 
-const StyledCardDescription = styled.p`
-	font-size: 24px;
+const StyledCardText = styled.p`
+	font-size: 1.5rem;
+
+	@media (max-width: 414px) {
+		font-size: 1rem;
+	}
 `
 
 export default SectionTwo

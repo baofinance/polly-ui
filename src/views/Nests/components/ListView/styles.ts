@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ListLabelCol = styled.span`
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Rubik', sans-serif;
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
   color: ${props => props.theme.color.grey[100]};

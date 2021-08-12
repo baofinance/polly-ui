@@ -4,7 +4,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -12,7 +12,8 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 b {
@@ -23,7 +24,8 @@ a {
   color: #7793f5;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: #7793f5;
 }
 

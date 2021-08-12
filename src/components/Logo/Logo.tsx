@@ -24,7 +24,7 @@ const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
 	color: white;
-	font-family: 'Noto Sans', sans-serif;
+	font-family: 'Rubik', sans-serif;
 	font-weight: 600;
 	font-size: 24px;
 	letter-spacing: 0.03rem;
@@ -35,7 +35,7 @@ const TitleSubText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
 	color: white;
-	font-family: 'Noto Sans', sans-serif;
+	font-family: 'Rubik', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 0.5rem;
@@ -55,7 +55,7 @@ const StyledLogo = styled(Link)`
 
 const StyledText = styled.span`
 	color: ${(props) => props.theme.color.grey[600]};
-	font-family: 'Noto Sans', sans-serif;
+	font-family: 'Rubik', sans-serif;
 	font-size: 20px;
 	font-weight: 700;
 	letter-spacing: 0.03em;

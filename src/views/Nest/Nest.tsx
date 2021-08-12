@@ -39,6 +39,7 @@ import {
 	NestHeader,
 	NestSubHeader,
 	NestList,
+	AssetImageWrapper,
 	AssetImageContainer,
 	Icon,
 	NestBoxBreak,
@@ -200,7 +201,7 @@ const Nest: React.FC = () => {
 						</StyledBadge>
 					</small>
 					<br />
-					<div style={{ width: '70%', margin: '0 auto' }}>
+					<AssetImageContainer>
 						{!composition ? (
 							<SpinnerLoader />
 						) : (
@@ -215,14 +216,14 @@ const Nest: React.FC = () => {
 										}
 										key={component.symbol}
 									>
-										<AssetImageContainer>
+										<AssetImageWrapper>
 											<img src={component.imageUrl} />
-										</AssetImageContainer>
+										</AssetImageWrapper>
 									</OverlayTrigger>
 								)
 							})
 						)}
-					</div>
+					</AssetImageContainer>
 				</NestBoxHeader>
 				<NestBoxBreak margin={10} />
 				<StatsRow lg={4}>
