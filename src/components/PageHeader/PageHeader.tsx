@@ -67,7 +67,7 @@ const StyledIcon = styled.div`
 `
 
 const StyledTitle = styled.h1`
-	font-family: 'Kaushan Script', sans-serif;
+	font-family: 'Rubik', sans-serif;
 	color: ${(props) => props.theme.color.blue[400]};
 	font-size: 64px;
 	font-weight: 700;
