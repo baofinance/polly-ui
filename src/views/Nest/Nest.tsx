@@ -264,13 +264,8 @@ const Nest: React.FC = () => {
 						onClick={onPresentRedeem}
 						width="20%"
 					/>
-										<Spacer />
-					<Button
-						disabled={true}
-						text="Swap"
-						width="20%"
-					/>
-
+					<Spacer />
+					<Button disabled={true} text="Swap" width="20%" />
 				</NestButtons>
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
