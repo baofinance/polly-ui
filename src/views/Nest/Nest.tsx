@@ -151,7 +151,10 @@ const Nest: React.FC = () => {
 
 	useEffect(() => {
 		if (nestContract.options.address)
-			nestContract.methods.totalSupply().call().then((_supply: any) => setSupply(new BigNumber(_supply)))
+			nestContract.methods
+				.totalSupply()
+				.call()
+				.then((_supply: any) => setSupply(new BigNumber(_supply)))
 	}, [bao, ethereum])
 
 	return (
@@ -179,7 +182,10 @@ const Nest: React.FC = () => {
 					}
 					placement="bottom"
 				>
-					<NestCornerButton href={`https://polygonscan.com/address/${nestTokenAddress}`} target='_blank'>
+					<NestCornerButton
+						href={`https://polygonscan.com/address/${nestTokenAddress}`}
+						target="_blank"
+					>
 						<FontAwesomeIcon icon="file-contract" />
 					</NestCornerButton>
 				</OverlayTrigger>
@@ -250,14 +256,21 @@ const Nest: React.FC = () => {
 					</Col>
 				</StatsRow>
 				<NestButtons>
-					<Button text="Issue" onClick={onPresentDeposit} width="30%" />
+					<Button text="Issue" onClick={onPresentDeposit} width="20%" />
 					<Spacer />
 					<Button
 						disabled={tokenBalance.eq(new BigNumber(0))}
 						text="Redeem"
 						onClick={onPresentRedeem}
-						width="30%"
+						width="20%"
 					/>
+										<Spacer />
+					<Button
+						disabled={true}
+						text="Swap"
+						width="20%"
+					/>
+
 				</NestButtons>
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
@@ -424,76 +437,161 @@ const Nest: React.FC = () => {
 				<NestText>
 					<NestHeader>Description</NestHeader>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem. Donec blandit diam arcu,
-						quis ultricies urna volutpat a. Donec ac tortor volutpat, ullamcorper diam at, gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa. Etiam at molestie risus, nec pellentesque
-						lorem. Sed libero nunc, viverra mollis aliquet semper, pulvinar ac ante. Proin pellentesque, nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla sapien a lorem. Nulla nunc lectus,
-						sollicitudin at scelerisque non, tincidunt eu velit. Sed nec risus nulla.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+						imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a
+						feugiat dolor sem in lorem. Donec blandit diam arcu, quis ultricies
+						urna volutpat a. Donec ac tortor volutpat, ullamcorper diam at,
+						gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa.
+						Etiam at molestie risus, nec pellentesque lorem. Sed libero nunc,
+						viverra mollis aliquet semper, pulvinar ac ante. Proin pellentesque,
+						nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla
+						sapien a lorem. Nulla nunc lectus, sollicitudin at scelerisque non,
+						tincidunt eu velit. Sed nec risus nulla.
 					</p>
 
 					<NestHeader>Objective</NestHeader>
 					<p>
-						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis. Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus sed
-						erat vitae metus elementum finibus. Sed blandit molestie consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In vel elit ac urna commodo pulvinar. Nullam
-						ultricies pretium tempor. Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.
+						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget
+						suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis.
+						Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus
+						sed erat vitae metus elementum finibus. Sed blandit molestie
+						consequat. Orci varius natoque penatibus et magnis dis parturient
+						montes, nascetur ridiculus mus. In vel elit ac urna commodo
+						pulvinar. Nullam ultricies pretium tempor. Pellentesque sit amet
+						erat gravida, aliquam sem sed, venenatis est.
 					</p>
 
 					<NestHeader>Criteria</NestHeader>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem. Donec blandit diam arcu, quis ultricies urna
-						volutpat a. Donec ac tortor volutpat, ullamcorper diam at, gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa. Etiam at molestie risus, nec pellentesque lorem. Sed libero nunc, viverra mollis
-						aliquet semper, pulvinar ac ante. Proin pellentesque, nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla sapien a lorem. Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+						imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a
+						feugiat dolor sem in lorem. Donec blandit diam arcu, quis ultricies
+						urna volutpat a. Donec ac tortor volutpat, ullamcorper diam at,
+						gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa.
+						Etiam at molestie risus, nec pellentesque lorem. Sed libero nunc,
+						viverra mollis aliquet semper, pulvinar ac ante. Proin pellentesque,
+						nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla
+						sapien a lorem. Nulla nunc lectus, sollicitudin at scelerisque non,
+						tincidunt eu velit.
 					</p>
 					<NestSubHeader>Descriptive Characteristics</NestSubHeader>
 					<NestList>
-						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
-						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
-						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
-						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+						<li>
+							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
+							est.
+						</li>
+						<li>
+							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
+							tempor.
+						</li>
+						<li>
+							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
+							lacus, a feugiat dolor sem in lorem.
+						</li>
+						<li>
+							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
+							velit.
+						</li>
 					</NestList>
 					<NestSubHeader>Supply Characteristics</NestSubHeader>
 					<NestList>
-						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
-						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
-						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
-						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+						<li>
+							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
+							est.
+						</li>
+						<li>
+							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
+							tempor.
+						</li>
+						<li>
+							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
+							lacus, a feugiat dolor sem in lorem.
+						</li>
+						<li>
+							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
+							velit.
+						</li>
 					</NestList>
 					<NestSubHeader>Traction Characteristics</NestSubHeader>
 					<NestList>
-						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
-						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
-						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
-						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+						<li>
+							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
+							est.
+						</li>
+						<li>
+							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
+							tempor.
+						</li>
+						<li>
+							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
+							lacus, a feugiat dolor sem in lorem.
+						</li>
+						<li>
+							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
+							velit.
+						</li>
 					</NestList>
 					<NestSubHeader>Safety Characteristics</NestSubHeader>
 					<NestList>
-						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
-						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
-						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
-						<li>Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu velit.</li>
+						<li>
+							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
+							est.
+						</li>
+						<li>
+							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
+							tempor.
+						</li>
+						<li>
+							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
+							lacus, a feugiat dolor sem in lorem.
+						</li>
+						<li>
+							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
+							velit.
+						</li>
 					</NestList>
 
 					<NestHeader>Calculations</NestHeader>
-					<p>
-						Etiam vel augue a velit eleifend commodo:
-					</p>
+					<p>Etiam vel augue a velit eleifend commodo:</p>
 					<NestList>
-						<li>Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.</li>
-						<li>In vel elit ac urna commodo pulvinar. Nullam ultricies pretium tempor.</li>
-						<li>Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a feugiat dolor sem in lorem.</li>
+						<li>
+							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
+							est.
+						</li>
+						<li>
+							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
+							tempor.
+						</li>
+						<li>
+							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
+							lacus, a feugiat dolor sem in lorem.
+						</li>
 					</NestList>
 
 					<NestHeader>Strategy</NestHeader>
 					<p>
-						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis. Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus sed
-						erat vitae metus elementum finibus. Sed blandit molestie consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In vel elit ac urna commodo pulvinar. Nullam
-						ultricies pretium tempor. Pellentesque sit amet erat gravida, aliquam sem sed, venenatis est.
+						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget
+						suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis.
+						Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus
+						sed erat vitae metus elementum finibus. Sed blandit molestie
+						consequat. Orci varius natoque penatibus et magnis dis parturient
+						montes, nascetur ridiculus mus. In vel elit ac urna commodo
+						pulvinar. Nullam ultricies pretium tempor. Pellentesque sit amet
+						erat gravida, aliquam sem sed, venenatis est.
 					</p>
 
 					<NestHeader>Management</NestHeader>
 					<p>
-						Pellentesque et neque iaculis, iaculis leo vitae, tincidunt lorem. Donec euismod sed elit faucibus porta. Vestibulum elit leo, interdum et feugiat nec, vehicula feugiat ipsum. Nunc sodales eros in tincidunt feugiat.
-						In vel sapien leo. Vestibulum erat enim, varius quis nulla luctus, varius rhoncus nisl. Phasellus placerat sagittis ultricies. Phasellus in sollicitudin magna, ultricies volutpat tortor. Nulla egestas nulla ac pulvinar
-						rhoncus. Maecenas vitae ultricies ipsum. Nunc ut erat iaculis, lacinia nisi at, sodales nunc. Proin ultricies suscipit egestas. Duis malesuada ut ante eget feugiat. Maecenas eget faucibus nisl.
+						Pellentesque et neque iaculis, iaculis leo vitae, tincidunt lorem.
+						Donec euismod sed elit faucibus porta. Vestibulum elit leo, interdum
+						et feugiat nec, vehicula feugiat ipsum. Nunc sodales eros in
+						tincidunt feugiat. In vel sapien leo. Vestibulum erat enim, varius
+						quis nulla luctus, varius rhoncus nisl. Phasellus placerat sagittis
+						ultricies. Phasellus in sollicitudin magna, ultricies volutpat
+						tortor. Nulla egestas nulla ac pulvinar rhoncus. Maecenas vitae
+						ultricies ipsum. Nunc ut erat iaculis, lacinia nisi at, sodales
+						nunc. Proin ultricies suscipit egestas. Duis malesuada ut ante eget
+						feugiat. Maecenas eget faucibus nisl.
 					</p>
 				</NestText>
 			</NestBox>

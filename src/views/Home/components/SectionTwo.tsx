@@ -15,12 +15,12 @@ import {
 	StyledCardTitle,
 	StyledCardText,
 	StyledCardParralax,
-	HeroSubHeader
+	HeroSubHeader,
 } from './styles'
 
 const SectionTwo: React.FC = () => (
 	<>
-	<HeroSubHeader>BUILD YOUR NEST</HeroSubHeader>
+		<HeroSubHeader>BUILD YOUR NEST</HeroSubHeader>
 		<StyledCardWrapper>
 			<StyledCardContainer>
 				<Tilt
@@ -32,9 +32,10 @@ const SectionTwo: React.FC = () => (
 						<StyledCardIcon src={diversify} />
 						<StyledCardTitle>Diversified Exposure</StyledCardTitle>
 						<StyledCardText>
-							Polly Finance creates and manages some of the most diverse indexes
-							on Polygon. Get exposure to the best assets in crypto with Polly
-							Nests.
+							Polly Finance is home to some of the most diverse indexes on
+							Polygon, all managed autonomously. With Polly Nests, you can
+							easily get balanced exposure to some of the best crypto assets on
+							the Polygon Network.
 						</StyledCardText>
 					</StyledCardContent>
 				</Tilt>
@@ -52,9 +53,10 @@ const SectionTwo: React.FC = () => (
 						<StyledCardIcon src={yieldIcon} />
 						<StyledCardTitle>Passive Yield</StyledCardTitle>
 						<StyledCardText>
-							Maximize returns with active yield-generating strategies behind
-							the scenes. Staking, lending, yield-farming - completely
-							automated.
+							Nests are designed to be truly set-and-forget. Maximize your
+							returns at a a fraction of the cost and effort. Our automated
+							strategies utilize staking, lending, and yield farming. No
+							management, no monitoring.
 						</StyledCardText>
 					</StyledCardContent>
 				</Tilt>
@@ -73,16 +75,16 @@ const SectionTwo: React.FC = () => (
 							<StyledCardIcon src={dao} />
 							<StyledCardTitle>Polly DAO</StyledCardTitle>
 							<StyledCardText>
-								Polly is fully Decentralized and our Asset Manager and
-								Strategies are governed, maintained, and upgraded by POLLY token
-								holders.
+								Polly's strategies and asset manager are governed, maintained,
+								and upgraded by Polly DAO. Additionally, metagovernance enables
+								POLLY holders to vote in other protocol’s governance decisions.
 							</StyledCardText>
 						</StyledCardParralax>
 					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
 		</StyledCardWrapper>
-		</>
+	</>
 )
 
 export default SectionTwo

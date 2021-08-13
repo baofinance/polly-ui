@@ -21,8 +21,8 @@ type TooltipData = TimeseriesData
 export const accentColor = '#555'
 const tooltipStyles = {
 	...defaultStyles,
-	background: accentColor,
-	border: `1px solid ${accentColor}`,
+	background: 'transparent',
+	border: `transparent`,
 	color: 'white',
 }
 
@@ -126,7 +126,7 @@ export default withTooltip<AreaProps, TooltipData>(
 						y={0}
 						width={width}
 						height={height}
-						fill="transparent"
+						fill={'transparent'}
 						rx={14}
 					/>
 					<LinearGradient
@@ -176,7 +176,7 @@ export default withTooltip<AreaProps, TooltipData>(
 							<Line
 								from={{ x: tooltipLeft, y: margin.top }}
 								to={{ x: tooltipLeft, y: innerHeight + margin.top }}
-								stroke={'#896ed9'}
+								stroke={'transparent'}
 								strokeWidth={2}
 								pointerEvents="none"
 								strokeDasharray="5,2"

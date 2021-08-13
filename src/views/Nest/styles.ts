@@ -4,7 +4,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import { Badge, Col, Row, Table } from 'react-bootstrap'
 
 export const NestBox = styled.div`
-  width: 60%;
+  width: 80%;
   background: transparent;
   padding: 15px;
   text-align: center;
@@ -18,8 +18,9 @@ export const NestBox = styled.div`
 export const NestBoxHeader = styled.h1`
   font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.grey[100]};
-  margin-bottom: 10px;
-  margin-top: 0;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-right: 25px;
   font-size: 32px;
 
   p {
@@ -46,11 +47,9 @@ interface NestBreakProps {
 export const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
   margin: props.margin ? `${props.margin}px auto` : '30px auto',
 }))`
-  border: none;
   margin: ${(props) => props.margin};
-  border-bottom: 2px solid
-    ${(props) => lighten(0.2, props.theme.color.darkGrey[100])};
   width: 40%;
+  background: transparent;
 `
 
 export const NestCornerButton = styled.a`
@@ -78,9 +77,9 @@ export const GraphContainer = styled(Col)`
   width: 80%;
   height: 350px;
   margin: 0 auto 50px;
-  border: 1px solid ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
   border-radius: 12px;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.4);
 `
 
 export const PieGraphRow = styled(Row)`
@@ -92,10 +91,15 @@ export const PieGraphRow = styled(Row)`
 export const StyledTable = styled(Table)`
   width: 80%;
   margin: 0 auto;
-  border-width: 2px;
-  border-radius: 15px;
-  border-color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
-  color: ${(props) => props.theme.color.grey[100]};
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  color: white;
+  border-color: transparent;
+
+  th {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
 
   tbody > tr {
     vertical-align: middle;
@@ -108,24 +112,22 @@ export const StyledTable = styled(Table)`
 
 export const PrefButtons = styled.div`
   width: 80%;
-  margin: 0 auto 50px;
+  margin: auto;
 
   > button {
     float: left;
-    margin: 0 10px;
-    border: 1px solid
-      ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
-    color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
+    margin-left: 10px;
+    margin-top: 25px;
+    border: 1px solid rgba(256, 256, 256, 0.4);
+    color: white;
 
     &:hover,
     &.active,
     &:active,
     &:focus {
-      border: 1px solid
-        ${(props) => lighten(0.3, props.theme.color.darkGrey[100])};
-      color: ${(props) => props.theme.color.darkGrey[100]};
-      background-color: ${(props) =>
-        lighten(0.3, props.theme.color.darkGrey[100])};
+      border: transparent;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4);
       box-shadow: none !important;
     }
   }
@@ -137,18 +139,19 @@ export const StatsRow = styled(Row)`
 `
 
 export const StatCard = styled.div`
-  background-color: ${props => props.theme.color.darkGrey[100]}95;
-  width: 90%;
+background: rgba(0, 0, 0, 0.4);
+width: 90%;
   margin: 0 auto;
-  padding: 25px;
+  padding: 15px;
   border-radius: 12px;
   font-weight: bold;
+  text-align: center;
   color: ${props => props.theme.color.grey[100]};
 `
 
 export const StyledBadge = styled(Badge)`
-  font-size: 1.1em;
-  background-color: ${(props) => props.theme.color.blue[400]};
+  font-size: 1em;
+  background: rgba(256, 256, 256, 0.1);
   color: ${(props) => props.theme.color.grey[100]};
 `
 
@@ -201,9 +204,13 @@ export const NestSubHeader = styled.h1`
 `
 
 export const NestText = styled.div`
+background: rgba(0, 0, 0, 0.4);
   color: ${(props) => props.theme.color.grey[100]};
   text-align: left;
-  margin: 50px;
+  width: 80%;
+  margin: auto;
+  padding: 50px;
+  border-radius: 12px;
 `
 
 export const NestList = styled.ul`

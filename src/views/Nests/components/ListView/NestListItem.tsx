@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Nest } from '../../../../contexts/Nests'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SpinnerLoader } from '../../../../components/Loader'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import Button from '../../../../components/Button'
@@ -49,7 +48,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						{nest.nestToken}
 					</ColumnText>
 				</ListCol>
-				<ListCol width={'40%'} align={'center'}>
+				<ListCol width={'45%'} align={'center'}>
 					<AssetImageContainer>
 						{composition ? (
 							composition.map((component: any) => {
@@ -72,7 +71,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						)}
 					</AssetImageContainer>
 				</ListCol>
-				<ListCol width={'17.5%'} align={'center'}>
+				<ListCol width={'10%'} align={'center'}>
 					<ColumnText>
 						$
 						{usdPerIndex ? (
@@ -80,33 +79,29 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						) : (
 							<SpinnerLoader />
 						)}
-						<>
-							{' '}
-							<FontAwesomeIcon icon="arrows-alt-h" />{' '}
-						</>
-						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
-							<SpinnerLoader />
-						)}{' '}
-						<FontAwesomeIcon icon={['fab', 'ethereum']} />
 					</ColumnText>
 				</ListCol>
-				<ListCol width={'15%'} align={'center'}>
+				<ListCol width={'10%'} align={'center'}>
 					<ColumnText>+10%</ColumnText>
 				</ListCol>
-				<ListCol width={'10%'} align={'center'}>
+				<ListCol width={'17.5%'} align={'right'}>
+					<div style={{height:'50px'}}>
 					<Button
-						width={'100%'}
+						width={'90%'}
 						disabled={!indexActive}
 						text={indexActive ? 'Select' : undefined}
 						to={`/nests/${nest.nid}`}
 					/>
+					</div>
 				</ListCol>
 			</ListItemContainer>
 
 			{/* Mobile List */}
 
 			<MobileNestLink
-			 href={`/nests/${nest.nid}`}
+			 exact
+			 activeClassName="active"
+			 to={`/nests/${nest.nid}`}
 			 >
 			<MobileListItemWrapper>
 				<MobileListItemContainer>
@@ -138,8 +133,6 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 		</>
 	)
 }
-
-// Props and stuff
 
 interface NestListItemProps {
 	nest: NestWithIssuedTokens
