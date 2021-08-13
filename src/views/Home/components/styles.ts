@@ -121,6 +121,7 @@ export const BubbleWrap = styled.div`
 export const BubbleContainer = styled.div`
   position: absolute;
   z-index: -9999;
+  height: 1000px;
 
   @media (max-width: 414px) {
     display: none;
@@ -254,24 +255,67 @@ export const StyledSectionTitle = styled.h2`
   margin-bottom: 30px;
 `
 
+export const StyledExplanationContainer = styled.div`
+	display: flex;
+
+	@media (max-width: 414px) {
+		flex-direction: column;
+	}
+`
+
 export const StyledCardContainer = styled.div`
-  flex: 1;
+	flex: 1;
 `
 
 export const StyledCardContent = styled.div`
-  padding: 30px;
+	color: white;
+	padding: 30px;
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 12px;
+	height: 550px;
+
+	@media (max-width: 414px) {
+		padding: 10px;
+		height: 250px;
+	}
+`
+
+export const StyledCardParralax = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transform: translateZ(60px);
 `
 
 export const StyledCardTitle = styled.p`
-  font-size: 30px;
-  font-weight: 600;
-  margin: 0;
-`
-export const StyledCardIcon = styled.img`
-  margin-bottom: 20px;
-  width: 50px;
+	font-size: 2rem;
+	font-weight: 600;
+	margin-bottom: 20px;
+
+	@media (max-width: 414px) {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: 5px;
+	}
 `
 
-export const StyledCardDescription = styled.p`
-  font-size: 24px;
+export const StyledCardIcon = styled.img`
+	margin: 30px 0px 30px 0px;
+	height: 80px;
+	width: 80px;
+
+	@media (max-width: 414px) {
+		margin: 15px 0px 15px 0px;
+		height: 50px;
+		width: 50px;
+	}
+`
+
+export const StyledCardText = styled.p`
+	font-size: 1.5rem;
+
+	@media (max-width: 414px) {
+		font-size: 1rem;
+	}
 `
