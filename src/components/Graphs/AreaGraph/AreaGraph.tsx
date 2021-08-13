@@ -21,8 +21,8 @@ type TooltipData = TimeseriesData
 export const accentColor = '#555'
 const tooltipStyles = {
 	...defaultStyles,
-	background: 'transparent',
-	border: `transparent`,
+	background: accentColor,
+	border: accentColor,
 	color: 'white',
 }
 

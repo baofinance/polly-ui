@@ -125,7 +125,7 @@ export const PrefButtons = styled.div`
     &.active,
     &:active,
     &:focus {
-      border: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.4);
       color: white;
       background-color: rgba(0, 0, 0, 0.4);
       box-shadow: none !important;
