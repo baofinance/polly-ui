@@ -1,29 +1,19 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
-	BubbleWrap,
-	BubbleContainer,
-	BubbleOverlayText,
-	HeroText,
-	HeroHeader,
-	HeroSubHeader,
-} from './styles'
+	GraphContainer,
+} from 'views/Nest/styles'
+import { ParentSize } from '@visx/responsive'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
+import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
+import { useParams } from 'react-router-dom'
+import useNest from 'hooks/useNest'
 
-const SectionOne: React.FC = () => (
+
+const SectionThree: React.FC = () => (
 		<>
-			<BubbleOverlayText>
-				<HeroHeader>
-					DIVERSE YIELD
-					<br />
-					BEARING INDEXES
-				</HeroHeader>
-				<HeroSubHeader>ON POLYGON</HeroSubHeader>
-				<HeroText>
-					Polly simplifies decentralized finance for users of all experience
-					levels. Easily diversify your portfolio while maximizing your returns,
-					thanks to our advanced yield bearing startegies.
-				</HeroText>
-			</BubbleOverlayText>
+						<GraphContainer>
+						</GraphContainer>
 		</>
 	)
 
-export default SectionOne
+export default SectionThree

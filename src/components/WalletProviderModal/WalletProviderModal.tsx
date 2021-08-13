@@ -50,6 +50,10 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 const StyledWalletsWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
+	@media (max-width: 414px) {
+		height: 100vh;
+		overflow-y: scroll;
+	  }
 	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		flex-direction: column;
 		flex-wrap: none;

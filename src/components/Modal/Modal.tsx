@@ -30,21 +30,21 @@ const StyledResponsiveWrapper = styled.div`
 	position: relative;
 	width: 100%;
 	max-width: 512px;
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: 411px) {
 		flex: 1;
 		position: absolute;
 		top: 100%;
 		right: 0;
 		left: 0;
-		max-height: calc(100% - ${(props) => props.theme.spacing[4]}px);
+		max-height: 100vh;
 		animation: ${mobileKeyframes} 0.3s forwards ease-out;
 	}
 `
 
 const StyledModal = styled.div`
 	padding: 0 20px;
-	background: ${(props) => props.theme.color.darkGrey[200]};
-	border: 1px solid ${(props) => props.theme.color.darkGrey[100]};
+	background: ${(props) => props.theme.color.darkGrey[300]};
+	border: 1px solid ${(props) => props.theme.color.darkGrey[200]};
 	border-radius: 12px;
 	display: flex;
 	flex-direction: column;

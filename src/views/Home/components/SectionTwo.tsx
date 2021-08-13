@@ -1,5 +1,5 @@
 import React from 'react'
-import { Surface, Spacer } from 'react-neu'
+import { Surface, Spacer, Container } from 'react-neu'
 import Tilt from 'react-parallax-tilt'
 import styled from 'styled-components'
 
@@ -8,18 +8,20 @@ import yieldIcon from '../../../assets/img/icons/yield.svg'
 import dao from '../../../assets/img/icons/dao.svg'
 
 import {
-	StyledExplanationContainer,
+	StyledCardWrapper,
 	StyledCardContainer,
 	StyledCardContent,
 	StyledCardIcon,
 	StyledCardTitle,
 	StyledCardText,
 	StyledCardParralax,
+	HeroSubHeader
 } from './styles'
 
 const SectionTwo: React.FC = () => (
-	<div>
-		<StyledExplanationContainer>
+	<>
+	<HeroSubHeader>BUILD YOUR NEST</HeroSubHeader>
+		<StyledCardWrapper>
 			<StyledCardContainer>
 				<Tilt
 					perspective={100000}
@@ -79,8 +81,8 @@ const SectionTwo: React.FC = () => (
 					</StyledCardContent>
 				</Tilt>
 			</StyledCardContainer>
-		</StyledExplanationContainer>
-	</div>
+		</StyledCardWrapper>
+		</>
 )
 
 export default SectionTwo

@@ -71,10 +71,14 @@ const StyledTitle = styled.h1`
 	color: ${(props) => props.theme.color.blue[400]};
 	font-size: 48px;
 	font-weight: 700;
-	margin: 0;
+	margin-top: 20px;
 	padding: 0;
 	text-align: center;
-`
+
+	@media (max-width: 414px) {
+		font-size: 32px;
+	}
+	`
 
 const StyledSubtitle = styled.h3`
 	color: ${(props) => props.theme.color.grey[100]};

@@ -255,7 +255,7 @@ export const StyledSectionTitle = styled.h2`
   margin-bottom: 30px;
 `
 
-export const StyledExplanationContainer = styled.div`
+export const StyledCardWrapper = styled.div`
 	display: flex;
 
 	@media (max-width: 414px) {
@@ -273,6 +273,7 @@ export const StyledCardContent = styled.div`
 	background: rgba(0, 0, 0, 0.4);
 	border-radius: 12px;
 	height: 550px;
+  width: 100%;
 
 	@media (max-width: 414px) {
 		padding: 10px;
@@ -292,6 +293,7 @@ export const StyledCardTitle = styled.p`
 	font-size: 2rem;
 	font-weight: 600;
 	margin-bottom: 20px;
+  text-align: center;
 
 	@media (max-width: 414px) {
 		font-size: 1.5rem;
@@ -301,19 +303,22 @@ export const StyledCardTitle = styled.p`
 `
 
 export const StyledCardIcon = styled.img`
-	margin: 30px 0px 30px 0px;
+	margin: 30px auto;
+  display: block;
 	height: 80px;
 	width: 80px;
 
 	@media (max-width: 414px) {
-		margin: 15px 0px 15px 0px;
+    display: block;
+		margin: 15px auto;
 		height: 50px;
 		width: 50px;
 	}
 `
 
 export const StyledCardText = styled.p`
-	font-size: 1.5rem;
+	font-size: 1.25rem;
+  text-align: center;
 
 	@media (max-width: 414px) {
 		font-size: 1rem;

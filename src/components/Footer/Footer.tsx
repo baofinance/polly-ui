@@ -24,6 +24,9 @@ const StyledFooterInner = styled.div`
 	height: ${(props) => props.theme.topBarSize}px;
 	max-width: ${(props) => props.theme.siteWidth}px;
 	width: 100%;
+
+	@media (max-width: 414px) {
+	  }
 `
 
 export default Footer

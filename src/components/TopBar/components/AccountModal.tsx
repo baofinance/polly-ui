@@ -14,7 +14,7 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
-import baoIcon from '../../../assets/img/bao.png'
+import pollyIcon from 'assets/img/logo.svg'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()
@@ -37,12 +37,12 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 					<StyledBalanceWrapper>
 						<CardIcon>
 							<span>
-								<img src={baoIcon} height={50} />
+								<img src={pollyIcon} height={50} />
 							</span>
 						</CardIcon>
 						<StyledBalance>
 							<Value value={getBalanceNumber(baoBalance)} />
-							<Label text="BAOcx Balance" />
+							<Label text="POLLY Balance" />
 						</StyledBalance>
 					</StyledBalanceWrapper>
 				</div>
@@ -50,7 +50,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 				<Spacer />
 				<Button
 					href={`https://polygonscan.com/address/${account}`}
-					text="View on Blockscout"
+					text="View on Polygonscan"
 					variant="secondary"
 				/>
 				<Spacer />

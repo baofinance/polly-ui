@@ -20,7 +20,7 @@ import SectionThree from './components/SectionThree'
 const Home: React.FC = () => {
 	return (
 		<Page>
-			<Container size="lg">
+			<Container>
 				<SectionOne />
 				<Spacer size='lg' />
 				<h1 style={{textAlign: 'center'}}>BUBBLES HERE</h1>
