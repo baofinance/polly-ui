@@ -4,7 +4,8 @@ export const ListLabelCol = styled.span`
   font-family: 'Rubik', sans-serif;
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
-  color: ${props => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.grey[100]};
+  opacity: 0.75;
   vertical-align: middle;
   font-weight: bold;
   padding: 0;
@@ -22,7 +23,6 @@ export const ListItemContainer = styled.div`
   padding: 25px;
   display: block;
   margin-bottom: 10px;
-	box-shadow: inset 1px 1px 0 ${(props) => props.theme.color.grey[500]};
 `
 
 export const NestImage = styled.img`
@@ -31,19 +31,19 @@ export const NestImage = styled.img`
 `
 
 export const AssetImageContainer = styled.div`
-	height: 100%;
+  height: 100%;
   align-items: center;
   margin: 0 auto;
   display: inline-block;
   vertical-align: middle;
   color: ${(props) => props.theme.color.grey[100]};
-  
-	&:hover {
-		img {
-			margin-left: 10px;
-			margin-right: 10px;
-		}
-	}
+
+  &:hover {
+    img {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
 `
 
 export const AssetImage = styled(NestImage)`
@@ -55,7 +55,7 @@ export const AssetImage = styled(NestImage)`
 `
 
 export const ColumnText = styled.span`
-  color: ${props => props.theme.color.grey[100]} !important;
+  color: ${(props) => props.theme.color.grey[100]} !important;
   vertical-align: middle;
   text-align: center;
   font-weight: bold;

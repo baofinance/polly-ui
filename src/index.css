@@ -1,8 +1,6 @@
 body {
-  background: url(./assets/img/bg-gradient.png) no-repeat;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: rgb(32,34,49);
+  background: radial-gradient(circle at center top, #202231, #161522) 0 0 / cover fixed;
   margin: 0;
   font-family: 'Rubik', sans-serif;
   font-size: 16px;
