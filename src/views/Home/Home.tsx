@@ -1,32 +1,32 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Page from '../../components/Page'
-import { Surface, Spacer, Container } from 'react-neu'
-import { Col, Row } from 'react-bootstrap'
-import styled from 'styled-components'
-import {
-	BubbleWrap,
-	BubbleContainer,
-	BubbleOverlayText,
-	HeroText,
-	HeroHeader,
-	HeroSubHeader,
-} from './components/styles'
+import { Container } from 'react-bootstrap'
+import { BubbleWrap, BubbleContainer } from './components/styles'
 
-import FullPage from './components/FullPage'
 import SectionTwo from './components/SectionTwo'
 import SectionOne from './components/SectionOne'
 import SectionThree from './components/SectionThree'
+import Bubbles from './components/Bubbles'
+import { bubbleSpecs } from './components/Bubbles'
+import Spacer from '../../components/Spacer'
 
 const Home: React.FC = () => {
+	const bubbleRef = useRef()
+
+	useEffect(() => {
+		new Bubbles(bubbleSpecs, bubbleRef)
+	}, [])
+
 	return (
 		<Page>
 			<Container>
 				<SectionOne />
-				<Spacer size='lg' />
-				<h1 style={{textAlign: 'center'}}>BUBBLES HERE</h1>
-				<Spacer size='lg' />
+				<Spacer size="md" />
+				<BubbleWrap>
+					<BubbleContainer ref={bubbleRef} />
+				</BubbleWrap>
 				<SectionTwo />
-				<Spacer size='lg' />
+				<Spacer size="md" />
 				<SectionThree />
 			</Container>
 		</Page>

@@ -145,7 +145,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				<br />
 				<b>
 					Your wETH Balance:{' '}
-					{`${(wethBalance && getDisplayBalance(wethBalance)) || <SpinnerLoader />} `}
+					{`$${wethBalance && getDisplayBalance(wethBalance)}` || (
+						<SpinnerLoader />
+					)}
 					<FontAwesomeIcon icon={['fab', 'ethereum']} />
 				</b>
 				<br />
@@ -162,15 +164,13 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				onChange={handleOutputChange}
 				symbol={nestName}
 				_outputToken={_outputToken}
-				addInput={
-					(n: number) => {
-						const result = new BigNumber(nestAmount === '' ? 0 : nestAmount).plus(n)
-						if (result.toNumber() >= 0) {
-							setNestAmount(result.toString())
-							handleOutputChange(result.toString())
-						}
+				addInput={(n: number) => {
+					const result = new BigNumber(nestAmount === '' ? 0 : nestAmount).plus(n)
+					if (result.toNumber() >= 0) {
+						setNestAmount(result.toString())
+						handleOutputChange(result.toString())
 					}
-				}
+				}}
 			/>
 			<ModalContent></ModalContent>
 			<NestTokenInput

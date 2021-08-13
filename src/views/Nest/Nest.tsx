@@ -39,8 +39,6 @@ import {
 	NestHeader,
 	NestSubHeader,
 	NestList,
-	AssetImageWrapper,
-	AssetImageContainer,
 	Icon,
 	NestBoxBreak,
 	NestButtons,
@@ -188,42 +186,17 @@ const Nest: React.FC = () => {
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					<p>{name}</p>
-					<small>
-						<StyledBadge>
-							1 {nestToken} ={' '}
-							{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
-								<SpinnerLoader />
-							)}{' '}
-							<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
-							{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
-								<SpinnerLoader />
-							)}
-						</StyledBadge>
-					</small>
-					<br />
-					<AssetImageContainer>
-						{!composition ? (
+					<StyledBadge>
+						1 {nestToken} ={' '}
+						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
 							<SpinnerLoader />
-						) : (
-							composition.map((component: any) => {
-								return (
-									<OverlayTrigger
-										placement="bottom"
-										overlay={
-											<Tooltip id={component.symbol}>
-												{component.symbol}
-											</Tooltip>
-										}
-										key={component.symbol}
-									>
-										<AssetImageWrapper>
-											<img src={component.imageUrl} />
-										</AssetImageWrapper>
-									</OverlayTrigger>
-								)
-							})
+						)}{' '}
+						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
+						{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
+							<SpinnerLoader />
 						)}
-					</AssetImageContainer>
+					</StyledBadge>
+					<br />
 				</NestBoxHeader>
 				<NestBoxBreak margin={10} />
 				<StatsRow lg={4}>

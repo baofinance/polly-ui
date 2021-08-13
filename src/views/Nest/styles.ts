@@ -8,6 +8,7 @@ export const NestBox = styled.div`
   background: transparent;
   padding: 15px;
   text-align: center;
+  margin-top: 1em;
 
   @media screen and (max-width: 800px) {
     width: 100%;
@@ -21,11 +22,13 @@ export const NestBoxHeader = styled.h1`
   margin-top: 0;
   font-size: 32px;
 
-  small {
-    display: block;
-    font-family: 'Rubik', sans-serif;
-    font-size: 40%;
-    margin-top: 5px;
+  p {
+    margin: 0;
+  }
+
+  span.badge {
+    font-size: 18px;
+    margin-bottom: 1rem;
   }
 
   span.smalltext {
@@ -33,28 +36,6 @@ export const NestBoxHeader = styled.h1`
     font-size: 0.5em;
     margin-top: 1em;
     margin-left: 0.5em;
-  }
-`
-export const AssetImageContainer = styled.div`
-width: 70%;
-margin: 0 auto;
-
-@media screen and (max-width: 800px) {
-  width: 90%;
-}
-`
-
-export const AssetImageWrapper = styled.div`
-  display: inline-block;
-  background-color: ${(props) => props.theme.color.darkGrey[100]}90;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  margin: 10px 15px;
-
-  img {
-    height: 32px;
-    vertical-align: middle;
   }
 `
 
@@ -133,18 +114,18 @@ export const PrefButtons = styled.div`
     float: left;
     margin: 0 10px;
     border: 1px solid
-      ${(props) => lighten(0.2, props.theme.color.darkGrey[100])};
-    color: ${(props) => lighten(0.2, props.theme.color.darkGrey[100])};
+      ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
+    color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
 
     &:hover,
     &.active,
     &:active,
     &:focus {
       border: 1px solid
-        ${(props) => lighten(0.4, props.theme.color.darkGrey[100])};
+        ${(props) => lighten(0.3, props.theme.color.darkGrey[100])};
       color: ${(props) => props.theme.color.darkGrey[100]};
       background-color: ${(props) =>
-        lighten(0.4, props.theme.color.darkGrey[100])};
+        lighten(0.3, props.theme.color.darkGrey[100])};
       box-shadow: none !important;
     }
   }

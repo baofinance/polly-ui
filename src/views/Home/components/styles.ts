@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 // Token Asset Images
 import SUSHI from '../../../assets/img/assets/SUSHI.png'
@@ -49,26 +49,26 @@ export const HeroHeader = styled.h6`
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
-	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-  background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: hue 10s infinite linear;
+  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hue 10s infinite linear;
+  margin-top: 0.5em;
 
   @media (max-width: 414px) {
     font-size: 3.5rem !important;
     line-height: 3.35rem;
   }
 
-    @keyframes hue {
-      from {
-        -webkit-filter: hue-rotate(0deg);
-      }
-      to {
-        -webkit-filter: hue-rotate(-360deg);
-      }
+  @keyframes hue {
+    from {
+      -webkit-filter: hue-rotate(0deg);
     }
-        `
+    to {
+      -webkit-filter: hue-rotate(-360deg);
+    }
+  }
+`
 
 export const HeroSubHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
@@ -78,11 +78,11 @@ export const HeroSubHeader = styled.h6`
   font-weight: 700 !important;
   letter-spacing: 2px;
   color: #f35626;
-	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
   background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: hue 10s infinite linear;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hue 10s infinite linear;
 
   @media (max-width: 414px) {
     font-size: 2rem !important;
@@ -103,6 +103,7 @@ export const HeroText = styled.p`
   color: white;
   text-align: center;
   font-weight: 400;
+  opacity: 0.75;
 
   @media (max-width: 414px) {
     font-size: 1rem !important;
@@ -110,23 +111,26 @@ export const HeroText = styled.p`
 `
 
 export const BubbleWrap = styled.div`
-  margin-top: -30%;
-  position: absolute;
+  height: 600px;
+  margin-left: calc(-100vw / 2 + 500px / 2);
+  margin-right: calc(-100vw / 2 + 500px / 2);
+  overflow: hidden;
 
   @media (max-width: 414px) {
     font-size: 1rem !important;
   }
+
+  @media (min-width: 2160px) {
+    display: none;
+  }
 `
 
 export const BubbleContainer = styled.div`
-  position: absolute;
-  z-index: -9999;
-  height: 1000px;
+  position: relative;
 
   @media (max-width: 414px) {
     display: none;
   }
-
 
   .bubble {
     opacity: 0.75;
@@ -258,13 +262,13 @@ export const StyledSectionTitle = styled.h2`
 export const StyledCardWrapper = styled.div`
 	display: flex;
 
-	@media (max-width: 414px) {
-		flex-direction: column;
-	}
+  @media (max-width: 414px) {
+    flex-direction: column;
+  }
 `
 
 export const StyledCardContainer = styled.div`
-	flex: 1;
+  flex: 1;
 `
 
 export const StyledCardContent = styled.div`
@@ -275,18 +279,18 @@ export const StyledCardContent = styled.div`
 	height: 550px;
   width: 100%;
 
-	@media (max-width: 414px) {
-		padding: 10px;
-		height: 250px;
-	}
+  @media (max-width: 414px) {
+    padding: 10px;
+    height: 250px;
+  }
 `
 
 export const StyledCardParralax = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	transform: translateZ(60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateZ(60px);
 `
 
 export const StyledCardTitle = styled.p`
@@ -295,11 +299,11 @@ export const StyledCardTitle = styled.p`
 	margin-bottom: 20px;
   text-align: center;
 
-	@media (max-width: 414px) {
-		font-size: 1.5rem;
-		font-weight: 600;
-		margin-bottom: 5px;
-	}
+  @media (max-width: 414px) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
 `
 
 export const StyledCardIcon = styled.img`
@@ -320,7 +324,7 @@ export const StyledCardText = styled.p`
 	font-size: 1.25rem;
   text-align: center;
 
-	@media (max-width: 414px) {
-		font-size: 1rem;
-	}
+  @media (max-width: 414px) {
+    font-size: 1rem;
+  }
 `

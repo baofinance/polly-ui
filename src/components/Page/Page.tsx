@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Footer from '../Footer'
+import overlay from '../../assets/img/overlay.png'
 
 const Page: React.FC = ({ children }) => (
 	<StyledPage>
@@ -9,7 +10,14 @@ const Page: React.FC = ({ children }) => (
 	</StyledPage>
 )
 
-const StyledPage = styled.div``
+const StyledPage = styled.div`
+	content: '';
+	background-image: url(${overlay});
+	background-size: cover;
+	background-repeat: no-repeat;
+	top: 0;
+	left: 0;
+`
 
 const StyledMain = styled.div`
 	align-items: center;

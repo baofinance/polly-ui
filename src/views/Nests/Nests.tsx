@@ -19,11 +19,8 @@ const Nests: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
-						<PageHeader
-							icon={pollyNests}
-							title="Build Your Nest"
-						/>
 						<Route exact path={path}>
+							<PageHeader icon={pollyNests} title="Build Your Nest" />
 							<NestList />
 						</Route>
 						<Route path={`${path}/:nestId`}>
