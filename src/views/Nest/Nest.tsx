@@ -1,12 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
+import _ from 'lodash'
 import { provider } from 'web3-core'
 import Spacer from '../../components/Spacer'
 import Button from '../../components/Button'
 import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
+import {
+	Badge,
+	Button as BootButton,
+	Col,
+	OverlayTrigger,
+	Row,
+	Tooltip,
+} from 'react-bootstrap'
 import { SpinnerLoader } from '../../components/Loader'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
@@ -34,18 +42,18 @@ import {
 	AssetImageContainer,
 	Icon,
 	NestBoxBreak,
-	StatsCard,
-	StatsCardHeader,
-	StatsCardBody,
-	NestStats,
-	NestStat,
 	NestButtons,
 	StyledBadge,
 	NestAnalytics,
 	NestAnalyticsContainer,
-	GraphLabel,
 	GraphContainer,
+	PieGraphRow,
+	StyledTable,
+	PrefButtons,
+	StatsRow,
+	StatCard,
 } from './styles'
+import { Progress } from './components/Progress'
 
 // will replace with nest icons once they're designed
 import nestIcon from '../../assets/img/egg.png'
@@ -53,10 +61,15 @@ import nestIcon from '../../assets/img/egg.png'
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
 	const nest = useNest(nestId)
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } = nest
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name } = nest
 	const composition = useComposition(nest)
 	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
+
+	const [supply, setSupply] = useState<BigNumber | undefined>()
+	const [analyticsOpen, setAnalyticsOpen] = useState(true)
+	const [priceHistoryTimeFrame, setPriceHistoryTimeFrame] = useState('M')
+	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -75,6 +88,37 @@ const Nest: React.FC = () => {
 	const outputTokenContract = useMemo(() => {
 		return getContract(ethereum as provider, nestTokenAddress)
 	}, [ethereum, nestTokenAddress])
+
+	const maxAllocationPercentage = useMemo(() => {
+		return (
+			composition &&
+			_.max(
+				_.map(composition, (component) =>
+					parseFloat(component.percentage.toString()),
+				),
+			)
+		)
+	}, [composition])
+
+	const indexPriceChange24h = useMemo(() => {
+		return (
+			priceHistory &&
+			new BigNumber(
+				((priceHistory[priceHistory.length - 1].close -
+					priceHistory[priceHistory.length - 2].close) /
+					priceHistory[priceHistory.length - 1].close) *
+					100,
+			)
+		)
+	}, [priceHistory])
+
+	const marketCap = useMemo(() => {
+		return (
+			supply &&
+			usdPerIndex &&
+			`$${getDisplayBalance(supply.div(10 ** 18).times(usdPerIndex), 0)}`
+		)
+	}, [supply, usdPerIndex])
 
 	const tokenBalance = useTokenBalance(nestContract.options.address)
 	const bao = useBao()
@@ -105,9 +149,6 @@ const Nest: React.FC = () => {
 			nid={nid}
 		/>,
 	)
-
-	const [supply, setSupply] = useState<BigNumber | undefined>()
-	const [analyticsOpen, setAnalyticsOpen] = useState(false)
 
 	useEffect(() => {
 		if (nestContract.options.address)
@@ -146,6 +187,19 @@ const Nest: React.FC = () => {
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					<p>{name}</p>
+					<small>
+						<StyledBadge>
+							1 {nestToken} ={' '}
+							{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+								<SpinnerLoader />
+							)}{' '}
+							<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
+							{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
+								<SpinnerLoader />
+							)}
+						</StyledBadge>
+					</small>
+					<br />
 					<div style={{ width: '70%', margin: '0 auto' }}>
 						{!composition ? (
 							<SpinnerLoader />
@@ -166,70 +220,61 @@ const Nest: React.FC = () => {
 										</AssetImageContainer>
 									</OverlayTrigger>
 								)
-							}))}
+							})
+						)}
 					</div>
 				</NestBoxHeader>
 				<NestBoxBreak margin={10} />
-				<StatsCard>
-					<StatsCardHeader>
-						1 {nestToken} ={' '}
-						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
-							<SpinnerLoader />
-						)}{' '}
-						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
-						{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
-							<SpinnerLoader />
-						)}
-					</StatsCardHeader>
-					<StatsCardBody>
-						<NestStats horizontal>
-							<NestStat key={'mkt-cap'}>
-								<span>
-									<FontAwesomeIcon icon="hand-holding-usd" />
-									<br />
-									Market Cap
-								</span>
+				<StatsRow lg={4}>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="hand-holding-usd" />
 								<br />
-								{(supply && usdPerIndex && (
-									<StyledBadge>
-										$
-										{getDisplayBalance(
-											supply.div(10 ** 18).times(usdPerIndex),
-											0,
-										)}
-									</StyledBadge>
-								)) || <SpinnerLoader />}
-							</NestStat>
-							<NestStat key={'supply'}>
-								<span>
-									<FontAwesomeIcon icon="coins" />
-									<br />
-									Supply
-								</span>
+								Market Cap
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>{marketCap || <SpinnerLoader />}</StyledBadge>
+						</StatCard>
+					</Col>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="coins" />
 								<br />
-								<StyledBadge>{(supply && `${getDisplayBalance(supply)} ${nestToken}`) || <SpinnerLoader />}</StyledBadge>
-							</NestStat>
-							<NestStat key={Math.random().toString()}>
-								<span>
-									<FontAwesomeIcon icon="times-circle" />
-									<br />
-									NAV
-								</span>
+								Supply
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>
+								{(supply && `${getDisplayBalance(supply)} ${nestToken}`) || (
+									<SpinnerLoader />
+								)}
+							</StyledBadge>
+						</StatCard>
+					</Col>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="times-circle" />
 								<br />
-								<StyledBadge>-</StyledBadge>
-							</NestStat>
-							<NestStat key={Math.random().toString()}>
-								<span>
-									<FontAwesomeIcon icon="times-circle" />
-									<br />
-									Premium
-								</span>
+								NAV
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>-</StyledBadge>
+						</StatCard>
+					</Col>
+					<Col>
+						<StatCard>
+							<span>
+								<FontAwesomeIcon icon="times-circle" />
 								<br />
-								<StyledBadge>-</StyledBadge>
-							</NestStat>
-						</NestStats>
-					</StatsCardBody>
-				</StatsCard>
+								Premium
+							</span>
+							<Spacer size={'sm'} />
+							<StyledBadge>-</StyledBadge>
+						</StatCard>
+					</Col>
+				</StatsRow>
 				<NestButtons>
 					<Button text="Issue" onClick={onPresentDeposit} width="30%" />
 					<Spacer />
@@ -243,54 +288,162 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
-						<Row xs={1} sm={1} md={1} lg={2} style={{ height: '500px' }}>
-							<Col>
-								<GraphLabel>Asset Allocation</GraphLabel>
-								<GraphContainer>
-									{composition && (
-										<ParentSize>
-											{(parent) => (
-												<PieGraph
-													width={parent.width}
-													height={parent.height}
-													composition={composition}
-												/>
+						<PrefButtons>
+							<NestBoxHeader style={{ float: 'left' }}>
+								Index Price
+							</NestBoxHeader>
+							{_.map(['W', 'M', 'Y'], (timeFrame) => (
+								<BootButton
+									variant="outline-primary"
+									onClick={() => setPriceHistoryTimeFrame(timeFrame)}
+									active={priceHistoryTimeFrame === timeFrame}
+								>
+									{timeFrame}
+								</BootButton>
+							))}
+							<NestBoxHeader style={{ float: 'right' }}>
+								{indexPriceChange24h ? (
+									<>
+										$
+										{priceHistory &&
+											getDisplayBalance(
+												new BigNumber(
+													priceHistory[priceHistory.length - 1].close,
+												),
+												0,
 											)}
-										</ParentSize>
-									)}
-								</GraphContainer>
-							</Col>
-							<Col>
-								<GraphLabel>
-									Index Price{' '}
-									<OverlayTrigger
-										placement="top"
-										overlay={
-											<Tooltip id="warning-tt">
-												Asset does not have a price feed yet, displaying wETH
-											</Tooltip>
-										}
-									>
-										<span>
-											<FontAwesomeIcon icon='exclamation-triangle' style={{ color: '#cba92d' }} />
+										<span
+											className="smalltext"
+											style={{
+												color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+											}}
+										>
+											{priceHistory &&
+												getDisplayBalance(indexPriceChange24h, 0)}
+											{'%'}
 										</span>
-									</OverlayTrigger>
-								</GraphLabel>
-								<GraphContainer>
-									<ParentSize>
-										{(parent) =>
-											priceHistory && (
-												<AreaGraph
-													width={parent.width}
-													height={parent.height}
-													timeseries={priceHistory}
-												/>
-											)
-										}
-									</ParentSize>
-								</GraphContainer>
-							</Col>
-						</Row>
+									</>
+								) : (
+									<SpinnerLoader />
+								)}
+							</NestBoxHeader>
+						</PrefButtons>
+						<GraphContainer>
+							<ParentSize>
+								{(parent) =>
+									priceHistory && (
+										<AreaGraph
+											width={parent.width}
+											height={parent.height}
+											timeseries={priceHistory}
+											timeframe={priceHistoryTimeFrame}
+										/>
+									)
+								}
+							</ParentSize>
+						</GraphContainer>
+						<PrefButtons>
+							<NestBoxHeader style={{ float: 'left' }}>
+								Allocation Breakdown
+							</NestBoxHeader>
+							<BootButton
+								variant="outline-primary"
+								onClick={() => setAllocationDisplayType(false)}
+								active={!allocationDisplayType}
+							>
+								<FontAwesomeIcon icon="table" />
+							</BootButton>
+							<BootButton
+								variant="outline-primary"
+								onClick={() => setAllocationDisplayType(true)}
+								active={allocationDisplayType}
+							>
+								<FontAwesomeIcon icon="chart-pie" />
+							</BootButton>
+						</PrefButtons>
+						{!allocationDisplayType ? (
+							<StyledTable bordered hover>
+								<thead>
+									<tr>
+										<th>Asset</th>
+										<th>Allocation %</th>
+										<th>Price</th>
+										<th>Strategy</th>
+									</tr>
+								</thead>
+								<tbody>
+									{(composition &&
+										maxAllocationPercentage &&
+										_.orderBy(
+											composition,
+											(component) =>
+												parseFloat(component.percentage.toString()),
+											'desc',
+										).map((component) => (
+											<tr key={component.symbol}>
+												<td>
+													<img
+														src={component.imageUrl}
+														style={{ height: '32px' }}
+													/>
+												</td>
+												<td>
+													<Progress
+														width={
+															(component.percentage / maxAllocationPercentage) *
+															100
+														}
+														label={`${getDisplayBalance(
+															new BigNumber(component.percentage),
+															0,
+														)}%`}
+														assetColor={component.color}
+													/>
+												</td>
+												<td>${getDisplayBalance(component.price, 0)}</td>
+												<td>
+													<StyledBadge>None</StyledBadge>
+												</td>
+											</tr>
+										))) || <SpinnerLoader />}
+								</tbody>
+							</StyledTable>
+						) : (
+							<GraphContainer style={{ height: '400px' }}>
+								<PieGraphRow lg={2}>
+									<Col lg={8}>
+										{composition && (
+											<ParentSize>
+												{(parent) => (
+													<PieGraph
+														width={parent.width}
+														height={parent.height}
+														composition={composition}
+													/>
+												)}
+											</ParentSize>
+										)}
+									</Col>
+									<Col lg={4} style={{ margin: 'auto' }}>
+										<Row lg={2}>
+											{composition &&
+												composition.map((component) => (
+													<Col key={component.symbol}>
+														<Badge
+															style={{
+																backgroundColor: component.color,
+																margin: '10px 0',
+															}}
+														>
+															{component.symbol}
+														</Badge>
+													</Col>
+												))}
+										</Row>
+									</Col>
+								</PieGraphRow>
+							</GraphContainer>
+						)}
 					</NestAnalyticsContainer>
 				</NestAnalytics>
 				<NestBoxBreak />
