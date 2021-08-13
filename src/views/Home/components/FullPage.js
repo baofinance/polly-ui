@@ -5,7 +5,14 @@ import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverfl
 import ReactFullpage from '@fullpage/react-fullpage'
 import { Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { BubbleWrap, BubbleContainer, BubbleOverlayText, HeroText, HeroHeader, HeroSubHeader } from './styles'
+import {
+	BubbleWrap,
+	BubbleContainer,
+	BubbleOverlayText,
+	HeroText,
+	HeroHeader,
+	HeroSubHeader,
+} from './styles'
 
 import SectionTwo from './SectionTwo'
 
@@ -112,23 +119,21 @@ const FullpageWrapper = () => {
 					<div id="fullpage-wrapper">
 						<div className="section">
 							<Container>
-							<BubbleOverlayText>
-								<HeroHeader>
-									DIVERSE YIELD
-									<br />
-									BEARING INDEXES
-								</HeroHeader>
-								<HeroSubHeader>
-									ON POLYGON
-								</HeroSubHeader>
-								<HeroText>
-									Polly simplifies decentralized finance for users of all
-									experience levels. Easily diversify your portfolio 
-									<br/>
-									while maximizing your returns, thanks to our advanced yield bearing
-									startegies.
-								</HeroText>
-							</BubbleOverlayText>
+								<BubbleOverlayText>
+									<HeroHeader>
+										DIVERSE YIELD
+										<br />
+										BEARING INDEXES
+									</HeroHeader>
+									<HeroSubHeader>ON POLYGON</HeroSubHeader>
+									<HeroText>
+										Polly simplifies decentralized finance for users of all
+										experience levels. Easily diversify your portfolio
+										<br />
+										while maximizing your returns, thanks to our advanced yield
+										bearing startegies.
+									</HeroText>
+								</BubbleOverlayText>
 							</Container>
 							<BubbleWrap>
 								<BubbleContainer ref={bubbleRef} />

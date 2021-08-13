@@ -2,11 +2,7 @@ import React from 'react'
 import TextTransition from 'react-text-transition'
 import styled from 'styled-components'
 
-const TEXTS = [
-	'Automated Strategies',
-	'Passive Yield',
-	'Diversified Exposure',
-]
+const TEXTS = ['Automated Strategies', 'Passive Yield', 'Diversified Exposure']
 
 const HeroText = () => {
 	const [index, setIndex] = React.useState(0)
