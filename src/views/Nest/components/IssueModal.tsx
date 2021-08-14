@@ -143,7 +143,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
 				{
-					'Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned.'
+					'Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap. Slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned.'
 				}
 				<br />
 				<br />
