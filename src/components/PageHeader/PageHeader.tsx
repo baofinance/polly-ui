@@ -68,15 +68,29 @@ const StyledIcon = styled.div`
 
 const StyledTitle = styled.h1`
 	font-family: 'Rubik', sans-serif;
-	color: ${(props) => props.theme.color.blue[400]};
-	font-size: 64px;
-	font-weight: 700;
-	margin-top: 20px;
-	padding: 0;
+	font-size: 4rem !important;
+	letter-spacing: -0.2rem;
 	text-align: center;
+	font-weight: 700 !important;
+	letter-spacing: 2px;
+	color: #f35626;
+	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: hue 10s infinite linear;
 
 	@media (max-width: 414px) {
-		font-size: 32px;
+		font-size: 2rem !important;
+	}
+
+	@keyframes hue {
+		from {
+			-webkit-filter: hue-rotate(0deg);
+		}
+		to {
+			-webkit-filter: hue-rotate(-360deg);
+		}
 	}
 `
 

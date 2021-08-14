@@ -22,12 +22,12 @@ const Farms: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
-						<HeroHeader>FARMS</HeroHeader>
-						<Spacer size="lg" />
-						<Container>
-							<Balances />
-						</Container>
 						<Route exact path={path}>
+							<HeroHeader>FARMS</HeroHeader>
+							<Spacer size="lg" />
+							<Container>
+								<Balances />
+							</Container>
 							<FarmCards />
 						</Route>
 						<Route path={`${path}/:farmId`}>

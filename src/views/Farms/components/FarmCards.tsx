@@ -160,7 +160,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
 	const poolActive = true // startTime * 1000 - Date.now() <= 0
 	const nestMint = 'Mint ' + farm.tokenSymbol
-	const destination = farm.refUrl
+
 	return (
 		<StyledCardWrapper>
 			<Card>
