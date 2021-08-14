@@ -1,6 +1,7 @@
+import { lighten } from 'polished'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 interface IconButtonProps {
 	children?: React.ReactNode
@@ -26,17 +27,34 @@ interface StyledButtonProps {
 	disabled?: boolean
 }
 
+const AnimateGradient = keyframes`
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}`
+
 const StyledButton = styled.button<StyledButtonProps>`
 	align-items: center;
-	background-color: ${(props) => props.theme.color.grey[200]};
-	border: 0;
+	background-color: #3c32f5;
+	background-image: linear-gradient(
+		to right,
+		#220f68 0%,
+		#3c32f5 51%,
+		#220f68 100%
+	);
+	background-size: 200% 200%;
+	border: 1px solid ${(props) => props.theme.color.grey[500]};
 	border-radius: 28px;
-	box-shadow: 6px 6px 12px ${(props) => props.theme.color.grey[300]},
-		-12px -12px 24px ${(props) => props.theme.color.grey[100]}aa;
-	color: ${(props) =>
-		!props.disabled
-			? props.theme.color.primary.main
-			: props.theme.color.grey[400]};
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	border: 0;
+	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	cursor: pointer;
 	display: flex;
 	font-weight: 700;
@@ -49,14 +67,35 @@ const StyledButton = styled.button<StyledButtonProps>`
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	text-transform: uppercase;
 	width: 56px;
-	&:hover {
-		background-color: ${(props) => props.theme.color.grey[100]};
+
+	:hover {
+		transform: scale(1);
+	}
+
+	&:hover:before {
+		transform: scale(1.2);
+	}
+
+	&:hover,
+	&:focus {
+		background-position: right center;
+		transform: translate(1px, 1px);
+		-webkit-animation: ${AnimateGradient} 3s ease-in-out infinite;
+		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
+		animation: ${AnimateGradient} 3s ease-in-out infinite;
+		border-color: ${lighten(0.025, '#090130')};
+		color: ${(props) => props.theme.color.grey[100]};
+		cursor: ${(props) =>
+			props.disabled ? 'not-allowed' : 'pointer'} !important;
+		box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+			rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+			rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	}
 `
 
 const StyledLink = styled(Link)`
 	align-items: center;
-	color: inherit;
+	color: white;
 	display: flex;
 	flex: 1;
 	height: 56px;
