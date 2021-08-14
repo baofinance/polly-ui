@@ -37,7 +37,7 @@ const TitleSubText = styled.div`
 	color: white;
 	font-family: 'Rubik', sans-serif;
 	font-weight: 600;
-	font-size: 12px;
+	font-size: 16px;
 	line-height: 0.5rem;
 	letter-spacing: 0.03rem;
 `

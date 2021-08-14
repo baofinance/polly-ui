@@ -82,7 +82,7 @@ export const MobileListTitle = styled.span`
 export const MobileListDesc = styled.div`
   @media (max-width: 760px) {
     font-size: 0.9rem;
-    font-weight: 100;
+    font-weight: 4000;
   }
 `
 

@@ -29,7 +29,7 @@ const StyledResponsiveWrapper = styled.div`
 	justify-content: flex-end;
 	position: relative;
 	width: 100%;
-	max-width: 50%;
+	max-width: 512px;
 	@media (max-width: 411px) {
 		flex: 1;
 		position: absolute;
