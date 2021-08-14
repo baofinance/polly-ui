@@ -23,12 +23,12 @@ export const getWethPriceAddress = (bao) => {
 	return bao && bao.wethPriceAddress
 }
 
-export const getBaoPriceAddress = (bao) => {
-	return bao && bao.baoPriceAddress
+export const getPollyPriceAddress = (bao) => {
+	return bao && bao.pollyPriceAddress
 }
 
-export const getBaoAddress = (bao) => {
-	return bao && bao.baoAddress
+export const getPollyAddress = (bao) => {
+	return bao && bao.pollyAddress
 }
 
 export const getWethContract = (bao) => {
@@ -39,16 +39,16 @@ export const getWethPriceContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.wethPrice
 }
 
-export const getBaoPriceContract = (bao) => {
-	return bao && bao.contracts && bao.contracts.baoPrice
+export const getPollyPriceContract = (bao) => {
+	return bao && bao.contracts && bao.contracts.pollyPrice
 }
 
 export const getMasterChefContract = (bao) => {
 	return bao && bao.contracts && bao.contracts.masterChef
 }
 
-export const getBaoContract = (bao) => {
-	return bao && bao.contracts && bao.contracts.bao
+export const getPollyContract = (bao) => {
+	return bao && bao.contracts && bao.contracts.polly
 }
 
 export const gettBaoStakingContract = (bao) => {
@@ -127,8 +127,8 @@ export const getFarms = (bao) => {
 					tokenDecimals,
 					tokenSymbol,
 					tokenContract,
-					earnToken: 'BAO',
-					earnTokenAddress: bao.contracts.bao.options.address,
+					earnToken: 'PLYTST',
+					earnTokenAddress: bao.contracts.polly.options.address,
 					icon,
 					refUrl,
 					poolType,
@@ -150,8 +150,8 @@ export const getEarned = async (masterChefContract, pid, account) => {
 	return masterChefContract.methods.pendingReward(pid, account).call()
 }
 
-export const getLockedEarned = async (baoContract, account) => {
-	return baoContract.methods.lockOf(account).call()
+export const getLockedEarned = async (pollyContract, account) => {
+	return pollyContract.methods.lockOf(account).call()
 }
 
 export const getTotalLPWethValue = async (
@@ -256,16 +256,18 @@ export const getWethPrice = async (bao) => {
 	return new BigNumber(amount)
 }
 
-export const getBaoPrice = async (bao) => {
-	const addr = '0xdcf3aC78f37098222C53C79974faaC5ce1aaF707'
-	const amount = await bao.contracts.baoPrice.methods
-		.consult(addr.toString(), 1)
-		.call()
-	return new BigNumber(amount)
+export const getPollyPrice = async (bao) => {
+  // FIXME: re-assess once price oracle is deployed, or use baoswap rates
+  return new BigNumber(0)
+  // const addr = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+  // const amount = await bao.contracts.baoPrice.methods
+  //   .consult(addr.toString(), 1)
+  //   .call()
+  // return new BigNumber(amount)
 }
 
-export const getBaoSupply = async (bao) => {
-	return new BigNumber(await bao.contracts.bao.methods.totalSupply().call())
+export const getPollySupply = async (bao) => {
+	return new BigNumber(await bao.contracts.polly.methods.totalSupply().call())
 }
 
 export const gettBaoSupply = async (bao) => {

@@ -9,7 +9,7 @@ import {
 } from './constants.js'
 
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
-import BaoAbi from './abi/bao.json'
+import PollyAbi from './abi/polly.json'
 import MasterChefAbi from './abi/masterchef.json'
 import ERC20Abi from './abi/erc20.json'
 import WETHAbi from './abi/weth.json'
@@ -28,7 +28,7 @@ export class Contracts {
 		this.defaultGas = options.defaultGas
 		this.defaultGasPrice = options.defaultGasPrice
 
-		this.bao = new this.web3.eth.Contract(BaoAbi)
+		this.polly = new this.web3.eth.Contract(PollyAbi)
 		this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
 		this.recipe = new this.web3.eth.Contract(RecipeAbi)
 		this.weth = new this.web3.eth.Contract(WETHAbi)
@@ -67,7 +67,7 @@ export class Contracts {
 				)
 		}
 
-		setProvider(this.bao, contractAddresses.bao[networkId])
+		setProvider(this.polly, contractAddresses.polly[networkId])
 		setProvider(this.masterChef, contractAddresses.masterChef[networkId])
 		setProvider(this.recipe, contractAddresses.recipe[networkId])
 		setProvider(this.weth, contractAddresses.weth[networkId])
@@ -87,7 +87,7 @@ export class Contracts {
 	}
 
 	setDefaultAccount(account) {
-		this.bao.options.from = account
+		this.polly.options.from = account
 		this.masterChef.options.from = account
 		this.recipe.options.from = account
 	}

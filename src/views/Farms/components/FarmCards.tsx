@@ -34,7 +34,7 @@ const FarmCards: React.FC = () => {
 	const { account } = useWallet()
 	const stakedValue = useAllStakedValue()
 
-	const baoIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'BAO')
+	const baoIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'POLLY')
 
 	const baoPrice =
 		baoIndex >= 0 && stakedValue[baoIndex]
@@ -165,7 +165,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	const destination = farm.refUrl
 	return (
 		<StyledCardWrapper>
-			{farm.tokenSymbol === 'nDEFI' && <StyledCardAccent />}
 			<Card>
 				<CardContent>
 					<StyledContent>
@@ -191,7 +190,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							)}
 						</Button>
 						<Spacer />
-						<Button text={nestMint} to={'/nests/4'}></Button>
+						<Button text={nestMint} to={'/nests/1'}></Button>
 						<StyledInsight>
 							<span>APY</span>
 							<span>
@@ -201,7 +200,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 											.toNumber()
 											.toLocaleString('en-US')
 											.slice(0, -1)}%`
-									: '*/}Loading ...
+									: '*/}
+								Loading ...
 							</span>
 							{/* <span>
                 {farm.tokenAmount
@@ -322,7 +322,7 @@ const StyledInsight = styled.div`
 	justify-content: space-between;
 	box-sizing: border-box;
 	border-radius: 8px;
-	background: #2f3349;
+	background: rgba(256, 256, 256, 0.1);
 	color: ${(props) => props.theme.color.grey[100]};
 	width: 100%;
 	margin-top: 12px;

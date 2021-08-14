@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import useBao from '../../../hooks/useBao'
-import { getBaoAddress } from '../../../bao/utils'
+import { getPollyAddress } from '../../../bao/utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import Button from '../../Button'
 import CardIcon from '../../CardIcon'
@@ -25,7 +25,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	}, [onDismiss, reset])
 
 	const bao = useBao()
-	const baoBalance = useTokenBalance(getBaoAddress(bao))
+	const baoBalance = useTokenBalance(getPollyAddress(bao))
 
 	return (
 		<Modal>

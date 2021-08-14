@@ -63,7 +63,7 @@ const Farm: React.FC = () => {
 		<>
 			<PageHeader
 				icon={icon}
-				subtitle={`Deposit ${lpTokenName}  Tokens and earn BAO`}
+				subtitle={`Deposit ${lpTokenName}  Tokens and earn POLLY`}
 				title={name}
 			/>
 			<StyledFarm>
@@ -84,7 +84,7 @@ const Farm: React.FC = () => {
 				<Spacer size="lg" />
 				<StyledInfo>
 					⭐️ Every time you stake and unstake LP tokens, the contract will
-					automagically harvest BAO rewards for you!
+					automagically harvest POLLY rewards for you!
 				</StyledInfo>
 				<Spacer size="lg" />
 			</StyledFarm>

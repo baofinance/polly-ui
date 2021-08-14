@@ -13,6 +13,7 @@ import Farm from '../Farm'
 import FarmCards from './components/FarmCards'
 import Container from '../../components/Container'
 import Balances from './components/Balances'
+import { HeroHeader } from 'views/Home/components/styles'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -23,22 +24,10 @@ const Farms: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
-						<PageHeader
-							icon={pollyBanner}
-							title="PollyChef is Ready"
-							subtitle="Stake your Nest or Sushiswap LP tokens to earn POLLY!"
-						/>
-						<StyledInfo>
-							Be sure to read{' '}
-							<a href="https://docs.bao.finance">docs.bao.finance</a> before
-							using the pools so you are familiar with protocol risks and fees!
-						</StyledInfo>
-						<Spacer size="md" />
-						<StyledInfo>
-							Please note this is the MATIC franchise of Bao, Polly. For mainnet,
-							visit <a href="https://bao.finance">bao.finance</a>{' '}
-						</StyledInfo>
-						<Spacer size="md" />
+						<HeroHeader>
+							FARMS
+						</HeroHeader>
+						<Spacer size="lg" />
 						<Container>
 							<Balances />
 						</Container>

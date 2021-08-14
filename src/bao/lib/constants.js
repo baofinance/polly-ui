@@ -23,6 +23,7 @@ export const INTEGERS = {
 }
 
 export const addressMap = {
+	PLYTST: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22',
 	uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -40,11 +41,11 @@ export const addressMap = {
 }
 
 export const contractAddresses = {
-	bao: {
-		137: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a', //set to sushi for now
+	polly: {
+		137: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22', //set POLLY TEST
 	},
 	masterChef: {
-		137: '0x80C7DD17B01855a6D2347444a0FCC36136a314de', //sushi masterchef address, change
+		137: '0xd22d8fDA9a4363DdCE088AB8a103E299a2c9a6BD', //set to MASTER FARMER TEST
 	},
 	weth: {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -79,92 +80,92 @@ export const supportedPools = [
 	{
 		pid: 0,
 		lpAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenDecimals: 18,
 		name: 'DeFi Nest',
 		symbol: 'nDEFI',
 		tokenSymbol: 'nDEFI',
 		icon: '/bao.png',
-		refUrl: 'http://localhost:3000/nests/4',
+		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 1,
+		pid: 0,
 		lpAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenDecimals: 18,
-		name: 'Stable Nest',
-		symbol: 'nSTBL',
-		tokenSymbol: 'nSTBL',
+		name: 'DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
 		icon: '/bao.png',
-		refUrl: '',
+		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 2,
+		pid: 0,
 		lpAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenDecimals: 18,
-		name: 'Infrastructure Nest',
-		symbol: 'nINFRA',
-		tokenSymbol: 'nINFRA',
+		name: 'DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
 		icon: '/bao.png',
-		refUrl: '',
+		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 3,
+		pid: 0,
 		lpAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenDecimals: 18,
-		name: 'Dex Nest',
-		symbol: 'nDEX',
-		tokenSymbol: 'nDEX',
+		name: 'DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
 		icon: '/bao.png',
-		refUrl: '',
+		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 4,
+		pid: 0,
 		lpAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenDecimals: 18,
-		name: 'Stable Nest',
-		symbol: 'nSTBL',
-		tokenSymbol: 'nSTBL',
+		name: 'DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
 		icon: '/bao.png',
-		refUrl: '',
+		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 5,
+		pid: 0,
 		lpAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenAddresses: {
-			137: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19',
+			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 		},
 		tokenDecimals: 18,
-		name: 'Infrastructure Nest',
-		symbol: 'nINFRA',
-		tokenSymbol: 'nINFRA',
+		name: 'DeFi Nest',
+		symbol: 'nDEFI',
+		tokenSymbol: 'nDEFI',
 		icon: '/bao.png',
-		refUrl: '',
+		refUrl: 'http://localhost:3000/nests/1',
 	},
 ]
 

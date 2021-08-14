@@ -75,7 +75,7 @@ const NestCard: React.FC<NestCardProps> = ({ nest }) => {
 	const indexActive = true // startTime * 1000 - Date.now() <= 0
 	return (
 		<StyledCardWrapper>
-			{nest.tokenSymbol === 'BAO' && <StyledCardAccent />}
+			{nest.tokenSymbol === 'POLLY' && <StyledCardAccent />}
 			<Card>
 				<CardContent>
 					<StyledContent>

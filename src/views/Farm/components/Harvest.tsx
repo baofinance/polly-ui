@@ -38,21 +38,18 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
 							<img src={baoIcon} height={50} alt="" />
 						</CardIcon>
 						<Value value={getBalanceNumber(earnings)} />
-						<Label text="BAOcx Earned" />
+						<Label text="POLLY Earned" />
 					</StyledCardHeader>
 					<Spacer />
 					<StyledCardHeader>
 						<Value value={getBalanceNumber(locks)} />
-						<Label text="Locked BAOcx" />
+						<Label text="Locked POLLY" />
 						<Spacer />
 					</StyledCardHeader>
-					<Label text={userInfo} />
-					<Spacer />
-					<Label text={userSubInfo} />
 					<StyledCardActions>
 						<Button
 							disabled={!earnings.toNumber() || pendingTx}
-							text={pendingTx ? 'Collecting BAO' : 'Harvest'}
+							text={pendingTx ? 'Collecting POLLY' : 'Harvest'}
 							onClick={async () => {
 								setPendingTx(true)
 								await onReward()
