@@ -1,9 +1,7 @@
 import { useCallback } from 'react'
-
-import useBao from './useBao'
 import { useWallet } from 'use-wallet'
-
-import { harvest, getMasterChefContract } from '../bao/utils'
+import { getMasterChefContract, harvest } from '../bao/utils'
+import useBao from './useBao'
 
 const useReward = (pid: number) => {
   const { account } = useWallet()

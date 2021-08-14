@@ -1,9 +1,7 @@
 import { useCallback } from 'react'
-
-import useBao from './useBao'
 import { useWallet } from 'use-wallet'
-
-import { nestRedeem, getNestContract } from '../bao/utils'
+import { getNestContract, nestRedeem } from '../bao/utils'
+import useBao from './useBao'
 
 const useNestRedeem = (nid: number) => {
   const { account } = useWallet()

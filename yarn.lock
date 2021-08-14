@@ -16144,7 +16144,7 @@ url@^0.11.0:
 
 use-wallet@^0.8.0:
   version "0.8.1"
-  resolved "https://registry.yarnpkg.com/use-wallet/-/use-wallet-0.8.1.tgz#2532b02c9a44bdb65c4a5be4f653f0957954c820"
+  resolved "https://registry.yarnpkg.comhooks/use-wallet/-hooks/use-wallet-0.8.1.tgz#2532b02c9a44bdb65c4a5be4f653f0957954c820"
   integrity sha512-V0Y6oMnLXWBhl8+DYdouf3VZtjKJppLEBRpdQP95bGQn0s70ODWJQmqYmB1E7zWy04YYPkBofLQbMVzPyArGAA==
   dependencies:
     "@aragon/provided-connector" "^6.0.7"
@@ -16162,7 +16162,7 @@ use-wallet@^0.8.0:
 
 use@^3.1.0:
   version "3.1.1"
-  resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
+  resolved "https://registry.yarnpkg.comhooks/use/-hooks/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
 
 utf-8-validate@^5.0.2:

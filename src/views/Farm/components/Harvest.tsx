@@ -1,20 +1,20 @@
+import baoIcon from 'assets/img/bao.png'
+import Button from 'components/Button'
+import Card from 'components/Card'
+import CardContent from 'components/CardContent'
+import CardIcon from 'components/CardIcon'
+import Label from 'components/Label'
+import Spacer from 'components/Spacer'
+import Value from 'components/Value'
+import useBao from 'hooks/useBao'
+import useEarnings from 'hooks/useEarnings'
+import useLockedEarnings from 'hooks/useLockedEarnings'
+import useReward from 'hooks/useReward'
+import useSubValues from 'hooks/useSubValues'
+import useValues from 'hooks/useValues'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import baoIcon from '../../../assets/img/bao.png'
-import Button from '../../../components/Button'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Label from '../../../components/Label'
-import Spacer from '../../../components/Spacer'
-import Value from '../../../components/Value'
-import useBao from '../../../hooks/useBao'
-import useEarnings from '../../../hooks/useEarnings'
-import useLockedEarnings from '../../../hooks/useLockedEarnings'
-import useReward from '../../../hooks/useReward'
-import useSubValues from '../../../hooks/useSubValues'
-import useValues from '../../../hooks/useValues'
-import { getBalanceNumber } from '../../../utils/formatBalance'
+import { getBalanceNumber } from 'utils/formatBalance'
 
 interface HarvestProps {
 	pid: number
@@ -38,21 +38,18 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
 							<img src={baoIcon} height={50} alt="" />
 						</CardIcon>
 						<Value value={getBalanceNumber(earnings)} />
-						<Label text="BAOcx Earned" />
+						<Label text="POLLY Earned" />
 					</StyledCardHeader>
 					<Spacer />
 					<StyledCardHeader>
 						<Value value={getBalanceNumber(locks)} />
-						<Label text="Locked BAOcx" />
+						<Label text="Locked POLLY" />
 						<Spacer />
 					</StyledCardHeader>
-					<Label text={userInfo} />
-					<Spacer />
-					<Label text={userSubInfo} />
 					<StyledCardActions>
 						<Button
 							disabled={!earnings.toNumber() || pendingTx}
-							text={pendingTx ? 'Collecting BAO' : 'Harvest'}
+							text={pendingTx ? 'Collecting POLLY' : 'Harvest'}
 							onClick={async () => {
 								setPendingTx(true)
 								await onReward()

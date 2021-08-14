@@ -1,16 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
+import Button from 'components/Button'
+import Modal, { ModalProps } from 'components/Modal'
+import ModalActions from 'components/ModalActions'
+import ModalContent from 'components/ModalContent'
+import ModalTitle from 'components/ModalTitle'
+import TokenInput from 'components/TokenInput'
+import useAllowance from 'hooks/useAllowance'
+import useApprove from 'hooks/useApprove'
+import useTokenBalance from 'hooks/useTokenBalance'
+import React, { useCallback, useMemo, useState } from 'react'
+import { getFullDisplayBalance } from 'utils/formatBalance'
 import { Contract } from 'web3-eth-contract'
-import Button from '../../../components/Button'
-import Modal, { ModalProps } from '../../../components/Modal'
-import ModalActions from '../../../components/ModalActions'
-import ModalTitle from '../../../components/ModalTitle'
-import ModalContent from '../../../components/ModalContent'
-import TokenInput from '../../../components/TokenInput'
-import { getFullDisplayBalance } from '../../../utils/formatBalance'
-import useAllowance from '../../../hooks/useAllowance'
-import useApprove from '../../../hooks/useApprove'
-import useTokenBalance from '../../../hooks/useTokenBalance'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
@@ -47,8 +47,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			if (inputAmount.length === 0) setVal('')
 			if (
 				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
-				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
-			) return
+				(inputAmount.slice(-1) === '.' &&
+					inputAmount.slice(0, inputAmount.length - 1).includes('.'))
+			)
+				return
 			setVal(inputAmount)
 		},
 		[setVal],

@@ -1,14 +1,14 @@
+import pollyLogo from 'assets/img/logo.svg'
 import React from 'react'
+import Tilt from 'react-parallax-tilt'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import baoLogo from '../../assets/img/logo-slimstroke.svg'
-import Tilt from 'react-parallax-tilt'
 
 const Logo: React.FC = () => {
 	return (
 		<StyledLogo to="/">
 			<Tilt>
-			<img src={baoLogo} height="50" />
+				<img src={pollyLogo} height="50" />
 			</Tilt>
 			<StyledText>
 				<TitleText>

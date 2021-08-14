@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useWallet } from 'use-wallet'
 import Web3 from 'web3'
 import { provider } from 'web3-core'
-import { useWallet } from 'use-wallet'
 // import debounce from 'debounce'
 
 const useBlock = () => {

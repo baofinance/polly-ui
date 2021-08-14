@@ -1,41 +1,27 @@
+import AAVE from 'assets/img/assets/AAVE.png'
+import ALCX from 'assets/img/assets/ALCX.png'
+import ALPHA from 'assets/img/assets/ALPHA.png'
+import BAL from 'assets/img/assets/BAL.png'
+import BAO from 'assets/img/assets/BAO.png'
+import COMP from 'assets/img/assets/COMP.png'
+import CREAM from 'assets/img/assets/CREAM.png'
+import CRV from 'assets/img/assets/CRV.png'
+import CVX from 'assets/img/assets/CVX.png'
+import DAI from 'assets/img/assets/DAI.png'
+import FRAX from 'assets/img/assets/FRAX.png'
+import GRT from 'assets/img/assets/GRT.png'
+import LINK from 'assets/img/assets/LINK.png'
+import MATIC from 'assets/img/assets/MATIC.png'
+import MKR from 'assets/img/assets/MKR.png'
+import SNX from 'assets/img/assets/SNX.png'
+import SUSHI from 'assets/img/assets/SUSHI.png'
+import UMA from 'assets/img/assets/UMA.png'
+import UNI from 'assets/img/assets/UNI.png'
+import USDC from 'assets/img/assets/USDC.png'
+import USDT from 'assets/img/assets/USDT.png'
+import WETH from 'assets/img/assets/WETH.png'
+import YFI from 'assets/img/assets/YFI.png'
 import styled from 'styled-components'
-
-// Token Asset Images
-import SUSHI from '../../../assets/img/assets/SUSHI.png'
-import WETH from '../../../assets/img/assets/WETH.png'
-import LINK from '../../../assets/img/assets/LINK.png'
-import GRT from '../../../assets/img/assets/GRT.png'
-import USDT from '../../../assets/img/assets/USDT.png'
-import DAI from '../../../assets/img/assets/DAI.png'
-import AAVE from '../../../assets/img/assets/AAVE.png'
-import ALCX from '../../../assets/img/assets/ALCX.png'
-import ALPHA from '../../../assets/img/assets/ALPHA.png'
-import ASX from '../../../assets/img/assets/ASX.png'
-import BAL from '../../../assets/img/assets/BAL.png'
-import BAND from '../../../assets/img/assets/BAND.png'
-import BAO from '../../../assets/img/assets/BAO.png'
-import COMP from '../../../assets/img/assets/COMP.png'
-import CREAM from '../../../assets/img/assets/CREAM.png'
-import CRV from '../../../assets/img/assets/CRV.png'
-import CVX from '../../../assets/img/assets/CVX.png'
-import EWT from '../../../assets/img/assets/EWT.png'
-import FRAX from '../../../assets/img/assets/FRAX.png'
-import HEGIC from '../../../assets/img/assets/HEGIC.png'
-import MATIC from '../../../assets/img/assets/MATIC.png'
-import MKR from '../../../assets/img/assets/MKR.png'
-import MUSE from '../../../assets/img/assets/MUSE.png'
-import NFTX from '../../../assets/img/assets/NFTX.png'
-import OHM from '../../../assets/img/assets/OHM.png'
-import RARI from '../../../assets/img/assets/RARI.png'
-import REN from '../../../assets/img/assets/REN.png'
-import SNX from '../../../assets/img/assets/SNX.png'
-import SUSD from '../../../assets/img/assets/SUSD.png'
-import UBT from '../../../assets/img/assets/UBT.png'
-import UMA from '../../../assets/img/assets/UMA.png'
-import UNI from '../../../assets/img/assets/UNI.png'
-import USDC from '../../../assets/img/assets/USDC.png'
-import UST from '../../../assets/img/assets/UST.png'
-import YFI from '../../../assets/img/assets/YFI.png'
 
 export const BubbleOverlayText = styled.div`
   z-index: 9999;
@@ -260,7 +246,7 @@ export const StyledSectionTitle = styled.h2`
 `
 
 export const StyledCardWrapper = styled.div`
-	display: flex;
+  display: flex;
 
   @media (max-width: 414px) {
     flex-direction: column;
@@ -272,11 +258,11 @@ export const StyledCardContainer = styled.div`
 `
 
 export const StyledCardContent = styled.div`
-	color: white;
-	padding: 30px;
-	background: rgba(0, 0, 0, 0.4);
-	border-radius: 12px;
-	height: 550px;
+  color: white;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  height: 550px;
   width: 100%;
 
   @media (max-width: 414px) {
@@ -294,9 +280,9 @@ export const StyledCardParralax = styled.div`
 `
 
 export const StyledCardTitle = styled.p`
-	font-size: 2rem;
-	font-weight: 600;
-	margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
   text-align: center;
 
   @media (max-width: 414px) {
@@ -307,21 +293,21 @@ export const StyledCardTitle = styled.p`
 `
 
 export const StyledCardIcon = styled.img`
-	margin: 30px auto;
+  margin: 30px auto;
   display: block;
-	height: 80px;
-	width: 80px;
+  height: 80px;
+  width: 80px;
 
-	@media (max-width: 414px) {
+  @media (max-width: 414px) {
     display: block;
-		margin: 15px auto;
-		height: 50px;
-		width: 50px;
-	}
+    margin: 15px auto;
+    height: 50px;
+    width: 50px;
+  }
 `
 
 export const StyledCardText = styled.p`
-	font-size: 1.25rem;
+  font-size: 1.25rem;
   text-align: center;
 
   @media (max-width: 414px) {

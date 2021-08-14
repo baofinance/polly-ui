@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
+import { TimeseriesData } from 'components/Graphs/AreaGraph/AreaGraph'
+import { Nest } from 'contexts/Nests'
 import _ from 'lodash'
-import { Nest } from '../contexts/Nests'
-import { TimeseriesData } from '../components/Graphs/AreaGraph/AreaGraph'
-import GraphClient from '../utils/graph'
+import { useCallback, useEffect, useState } from 'react'
+import GraphClient from 'utils/graph'
 import { addressMap } from '../bao/lib/constants'
 
 const useGraphPriceHistory = (nest: Nest) => {
@@ -12,10 +12,10 @@ const useGraphPriceHistory = (nest: Nest) => {
     const data: any = await GraphClient.getPriceHistory(addressMap.WETH)
     const formattedData: Array<TimeseriesData> = []
 
-    _.each(data.tokens[0].dayData, dayData => {
+    _.each(data.tokens[0].dayData, (dayData) => {
       formattedData.push({
         date: new Date(dayData.date * 1000).toISOString(),
-        close: parseFloat(dayData.priceUSD)
+        close: parseFloat(dayData.priceUSD),
       })
     })
 

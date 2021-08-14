@@ -1,18 +1,17 @@
+import Button from 'components/Button'
+import Container from 'components/Container'
+import Page from 'components/Page'
+import Spacer from 'components/Spacer'
+import WalletProviderModal from 'components/WalletProviderModal'
+import useModal from 'hooks/useModal'
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import pollyBanner from '../../assets/img/polly.svg'
-import Button from '../../components/Button'
-import Page from '../../components/Page'
-import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
-import WalletProviderModal from '../../components/WalletProviderModal'
-import useModal from '../../hooks/useModal'
+import { HeroHeader } from 'views/Home/components/styles'
 import Farm from '../Farm'
-import FarmCards from './components/FarmCards'
-import Container from '../../components/Container'
 import Balances from './components/Balances'
+import FarmCards from './components/FarmCards'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -23,26 +22,12 @@ const Farms: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
-						<PageHeader
-							icon={pollyBanner}
-							title="PollyChef is Ready"
-							subtitle="Stake your Nest or Sushiswap LP tokens to earn POLLY!"
-						/>
-						<StyledInfo>
-							Be sure to read{' '}
-							<a href="https://docs.bao.finance">docs.bao.finance</a> before
-							using the pools so you are familiar with protocol risks and fees!
-						</StyledInfo>
-						<Spacer size="md" />
-						<StyledInfo>
-							Please note this is the MATIC franchise of Bao, Polly. For mainnet,
-							visit <a href="https://bao.finance">bao.finance</a>{' '}
-						</StyledInfo>
-						<Spacer size="md" />
-						<Container>
-							<Balances />
-						</Container>
 						<Route exact path={path}>
+							<HeroHeader>FARMS</HeroHeader>
+							<Spacer size="lg" />
+							<Container>
+								<Balances />
+							</Container>
 							<FarmCards />
 						</Route>
 						<Route path={`${path}/:farmId`}>

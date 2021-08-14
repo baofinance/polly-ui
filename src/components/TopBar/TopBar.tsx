@@ -1,11 +1,9 @@
+import MenuIcon from 'components/icons/MenuIcon'
 import React from 'react'
 import styled from 'styled-components'
-
 import Container from '../Container'
 import Logo from '../Logo'
-
 import AccountButton from './components/AccountButton'
-import MenuIcon from 'components/icons/MenuIcon'
 import Nav from './components/Nav'
 
 interface TopBarProps {

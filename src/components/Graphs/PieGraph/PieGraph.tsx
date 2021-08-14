@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import Pie, { PieArcDatum, ProvidedProps } from '@visx/shape/lib/shapes/Pie'
 import { Group } from '@visx/group'
+import Pie, { PieArcDatum, ProvidedProps } from '@visx/shape/lib/shapes/Pie'
+import { NestComponent } from 'contexts/Nests/types'
+import _ from 'lodash'
+import React, { useState } from 'react'
 import { animated, interpolate, useTransition } from 'react-spring'
-import { NestComponent } from '../../../contexts/Nests/types'
-import { getBalanceNumber, getDisplayBalance } from '../../../utils/formatBalance'
-import _ from 'lodash';
+import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
 
 interface AssetAllocationAmount {
 	label: string
@@ -23,23 +23,38 @@ export type PieProps = {
 }
 
 export default function PieGraph({
-  width,
-  height,
-  composition,
-  margin = defaultMargin,
-  animate = true,
+	width,
+	height,
+	composition,
+	margin = defaultMargin,
+	animate = true,
 }: PieProps) {
-	const [selectedAssetAmount, setSelectedAssetAmount] = useState<string | null>(null)
+	const [selectedAssetAmount, setSelectedAssetAmount] = useState<string | null>(
+		null,
+	)
 
-	const assetsBalance: AssetAllocationAmount[] = composition.map(component => ({
-		label: `
+	const assetsBalance: AssetAllocationAmount[] = composition.map(
+		(component) => ({
+			label: `
 			${component.percentage}%
-			${getDisplayBalance(component.balance, component.balanceDecimals)} ${component.symbol}
-			${component.price ? `$${getDisplayBalance(component.price.times(getBalanceNumber(component.balance, component.balanceDecimals)), 0)}` : ''}
+			${getDisplayBalance(component.balance, component.balanceDecimals)} ${
+				component.symbol
+			}
+			${
+				component.price
+					? `$${getDisplayBalance(
+							component.price.times(
+								getBalanceNumber(component.balance, component.balanceDecimals),
+							),
+							0,
+					  )}`
+					: ''
+			}
 		`,
-		frequency: component.percentage,
-		color: component.color
-	}))
+			frequency: component.percentage,
+			color: component.color,
+		}),
+	)
 
 	const frequency = (d: AssetAllocationAmount) => d.frequency
 
@@ -57,14 +72,16 @@ export default function PieGraph({
 				<Pie
 					data={
 						selectedAssetAmount
-							? assetsBalance.filter(({ label }) => label === selectedAssetAmount)
+							? assetsBalance.filter(
+									({ label }) => label === selectedAssetAmount,
+							  )
 							: assetsBalance
 					}
 					pieValue={frequency}
 					pieSortValues={() => -1}
 					outerRadius={radius}
 				>
-					{pie => (
+					{(pie) => (
 						<AnimatedPie<AssetAllocationAmount>
 							{...pie}
 							animate={animate}
@@ -72,7 +89,9 @@ export default function PieGraph({
 							onClickDatum={({ data: { label } }) =>
 								animate &&
 								setSelectedAssetAmount(
-									selectedAssetAmount && selectedAssetAmount === label ? null : label,
+									selectedAssetAmount && selectedAssetAmount === label
+										? null
+										: label,
 								)
 							}
 							getColor={({ data: { color } }) => color}
@@ -126,17 +145,19 @@ function AnimatedPie<Datum>({
 		const [centroidX, centroidY] = path.centroid(arc)
 		const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.5
 
-		let index = 0;
+		let index = 0
 		return (
 			<g key={key}>
 				<animated.path
 					// compute interpolated path d attribute from intermediate angle values
-					d={interpolate([props.startAngle, props.endAngle], (startAngle, endAngle) =>
-						path({
-							...arc,
-							startAngle,
-							endAngle,
-						}),
+					d={interpolate(
+						[props.startAngle, props.endAngle],
+						(startAngle, endAngle) =>
+							path({
+								...arc,
+								startAngle,
+								endAngle,
+							}),
 					)}
 					fill={getColor(arc)}
 					onClick={() => onClickDatum(arc)}
@@ -144,25 +165,28 @@ function AnimatedPie<Datum>({
 				/>
 				{hasSpaceForLabel && (
 					<animated.g style={{ opacity: props.opacity }}>
-						{_.map(_.filter(getKey(arc).split('\n'), line => line.length > 0), line => {
-							return (
-								<>
-									<text
-										fill="white"
-										x={centroidX}
-										y={centroidY + (index++ * 15)}
-										dy=".33em"
-										fontSize={12}
-										fontWeight='bold'
-										textAnchor="middle"
-										pointerEvents="none"
-									>
-										{line}
-									</text>
-									<br />
-								</>
-							)
-						})}
+						{_.map(
+							_.filter(getKey(arc).split('\n'), (line) => line.length > 0),
+							(line) => {
+								return (
+									<>
+										<text
+											fill="white"
+											x={centroidX}
+											y={centroidY + index++ * 15}
+											dy=".33em"
+											fontSize={12}
+											fontWeight="bold"
+											textAnchor="middle"
+											pointerEvents="none"
+										>
+											{line}
+										</text>
+										<br />
+									</>
+								)
+							},
+						)}
 					</animated.g>
 				)}
 			</g>

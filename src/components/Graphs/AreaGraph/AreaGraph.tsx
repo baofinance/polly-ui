@@ -1,15 +1,15 @@
-import React, { useMemo, useCallback } from 'react'
-import BigNumber from 'bignumber.js'
-import { Line, Bar, LinePath, AreaClosed } from '@visx/shape'
-import appleStock from '@visx/mock-data/lib/mocks/appleStock'
-import { scaleTime, scaleLinear } from '@visx/scale'
-import { withTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip'
-import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip'
 import { localPoint } from '@visx/event'
 import { LinearGradient } from '@visx/gradient'
-import { min, max, extent, bisector } from 'd3-array'
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import appleStock from '@visx/mock-data/lib/mocks/appleStock'
+import { scaleLinear, scaleTime } from '@visx/scale'
+import { AreaClosed, Bar, Line, LinePath } from '@visx/shape'
+import { defaultStyles, TooltipWithBounds, withTooltip } from '@visx/tooltip'
+import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip'
 import { curveMonotoneX } from '@visx/visx'
+import BigNumber from 'bignumber.js'
+import { bisector, extent, max, min } from 'd3-array'
+import React, { useCallback, useMemo } from 'react'
+import { getDisplayBalance } from 'utils/formatBalance'
 
 export type TimeseriesData = {
 	close: number
@@ -40,7 +40,9 @@ const formatDate = (date: any) => {
 // accessors
 const getDate = (d: TimeseriesData) => new Date(d.date)
 const getValue = (d: TimeseriesData) => d.close
-const bisectDate = bisector<TimeseriesData, Date>((d: any) => new Date(d.date)).left
+const bisectDate = bisector<TimeseriesData, Date>(
+	(d: any) => new Date(d.date),
+).left
 
 export type AreaProps = {
 	width: number
@@ -99,7 +101,11 @@ export default withTooltip<AreaProps, TooltipData>(
 
 		// tooltip handler
 		const handleTooltip = useCallback(
-			(event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>) => {
+			(
+				event:
+					| React.TouchEvent<SVGRectElement>
+					| React.MouseEvent<SVGRectElement>,
+			) => {
 				const { x } = localPoint(event) || { x: 0 }
 				const x0 = dateScale.invert(x)
 				const index = bisectDate(timeSeries, x0, 1)
@@ -107,7 +113,11 @@ export default withTooltip<AreaProps, TooltipData>(
 				const d1 = timeSeries[index]
 				let d = d0
 				if (d1 && getDate(d1)) {
-					d = x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0
+					d =
+						x0.valueOf() - getDate(d0).valueOf() >
+						getDate(d1).valueOf() - x0.valueOf()
+							? d1
+							: d0
 				}
 				showTooltip({
 					tooltipData: d,
@@ -146,14 +156,14 @@ export default withTooltip<AreaProps, TooltipData>(
 						stroke="url(#line-gradient)"
 						strokeWidth={2}
 						data={timeSeries}
-						x={d => dateScale(getDate(d)) ?? 0}
-						y={d => valueScale(getValue(d)) ?? 0}
+						x={(d) => dateScale(getDate(d)) ?? 0}
+						y={(d) => valueScale(getValue(d)) ?? 0}
 						curve={curveMonotoneX}
 					/>
 					<AreaClosed<TimeseriesData>
 						data={timeSeries}
-						x={d => dateScale(getDate(d)) ?? 0}
-						y={d => valueScale(getValue(d)) ?? 0}
+						x={(d) => dateScale(getDate(d)) ?? 0}
+						y={(d) => valueScale(getValue(d)) ?? 0}
 						yScale={valueScale}
 						strokeWidth={1}
 						fill="url(#area-under-curve-gradient)"

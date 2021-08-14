@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import debounce from 'debounce'
-import { fetchCalcToNest } from '../../bao/utils'
 
 export interface OutputProps {
 	endAdornment?: React.ReactNode
@@ -38,7 +36,7 @@ const NestOutput: React.FC<OutputProps> = ({
 
 const StyledOutputWrapper = styled.div`
 	align-items: center;
-	background-color: ${props => props.theme.color.darkGrey[100]};
+	background-color: ${(props) => props.theme.color.darkGrey[100]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	display: flex;
 	height: 72px;

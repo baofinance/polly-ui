@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../../Button'
-import Card from '../../Card'
+import WalletModalCard from '../../WalletModalCard'
 import CardContent from '../../CardContent'
 import CardIcon from '../../CardIcon'
 import CardTitle from '../../CardTitle'
@@ -13,14 +13,14 @@ interface WalletCardProps {
 }
 
 const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => (
-	<Card>
+	<WalletModalCard>
 		<CardContent>
 			<CardIcon>{icon}</CardIcon>
 			<CardTitle text={title} />
 			<Spacer />
 			<Button onClick={onConnect} text="Connect" />
 		</CardContent>
-	</Card>
+	</WalletModalCard>
 )
 
 export default WalletCard

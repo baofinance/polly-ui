@@ -1,7 +1,7 @@
 import { BigNumber } from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-import { getBaoPrice, getWethPrice } from '../bao/utils'
+import { getPollyPrice, getWethPrice } from '../bao/utils'
 import useBao from './useBao'
 import useLockedEarnings from './useLockedEarnings'
 
@@ -21,7 +21,7 @@ const useValues = () => {
       const wethPriceFun = getWethPrice(bao).then((response) => {
         setWethPrices(new BigNumber(1))
 
-        const baoPriceFun = getBaoPrice(bao).then((response) => {
+        const baoPriceFun = getPollyPrice(bao).then((response) => {
           setBaoPrices(response)
           console.log('baovalues')
           console.log(response)
@@ -37,7 +37,7 @@ const useValues = () => {
           console.log(annualPrice + ' annual')
           const wethText = userValue.toFormat(2)
           const usrText1 =
-            'Your Locked BAOcx is worth approximately $' + wethText + ''
+            'Your Locked POLLY is worth approximately $' + wethText + ''
           setUsrText(usrText1)
           console.log(usrText)
         })

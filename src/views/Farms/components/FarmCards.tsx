@@ -1,27 +1,25 @@
+import { getEarned, getMasterChefContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
+import Button from 'components/Button'
+import Card from 'components/Card'
+import CardContent from 'components/CardContent'
+import CardIcon from 'components/CardIcon'
+import Loader from 'components/Loader'
+import Spacer from 'components/Spacer'
+import { Farm } from 'contexts/Farms'
+import { PoolType } from 'contexts/Farms/types'
+import useAllStakedValue, { StakedValue } from 'hooks/useAllStakedValue'
+import useBao from 'hooks/useBao'
+import useFarms from 'hooks/useFarms'
 import React, { useEffect, useState } from 'react'
-import Countdown from 'react-countdown'
 import type { CountdownRenderProps } from 'react-countdown'
+import Countdown from 'react-countdown'
+import { TabPanel, Tabs } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 import styled, { keyframes } from 'styled-components'
 import { useWallet } from 'use-wallet'
-import Button from '../../../components/Button'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Loader from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
-import { Farm } from '../../../contexts/Farms'
-import useAllStakedValue, {
-	StakedValue,
-} from '../../../hooks/useAllStakedValue'
-import useFarms from '../../../hooks/useFarms'
-import useBao from '../../../hooks/useBao'
-import { getEarned, getMasterChefContract } from '../../../bao/utils'
-import { bnToDec } from '../../../utils'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
+import { bnToDec } from 'utils'
 import './tab-styles.css'
-import { PoolType } from '../../../contexts/Farms/types'
 
 interface FarmWithStakedValue extends Farm, StakedValue {
 	apy: BigNumber
@@ -34,7 +32,7 @@ const FarmCards: React.FC = () => {
 	const { account } = useWallet()
 	const stakedValue = useAllStakedValue()
 
-	const baoIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'BAO')
+	const baoIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'POLLY')
 
 	const baoPrice =
 		baoIndex >= 0 && stakedValue[baoIndex]
@@ -162,10 +160,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
 	const poolActive = true // startTime * 1000 - Date.now() <= 0
 	const nestMint = 'Mint ' + farm.tokenSymbol
-	const destination = farm.refUrl
+
 	return (
 		<StyledCardWrapper>
-			{farm.tokenSymbol === 'nDEFI' && <StyledCardAccent />}
 			<Card>
 				<CardContent>
 					<StyledContent>
@@ -191,7 +188,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							)}
 						</Button>
 						<Spacer />
-						<Button text={nestMint} to={'/nests/4'}></Button>
+						<Button text={nestMint} to={'/nests/1'}></Button>
 						<StyledInsight>
 							<span>APY</span>
 							<span>
@@ -201,7 +198,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 											.toNumber()
 											.toLocaleString('en-US')
 											.slice(0, -1)}%`
-									: '*/}Loading ...
+									: '*/}
+								Loading ...
 							</span>
 							{/* <span>
                 {farm.tokenAmount
@@ -322,7 +320,7 @@ const StyledInsight = styled.div`
 	justify-content: space-between;
 	box-sizing: border-box;
 	border-radius: 8px;
-	background: #2f3349;
+	background: rgba(256, 256, 256, 0.1);
 	color: ${(props) => props.theme.color.grey[100]};
 	width: 100%;
 	margin-top: 12px;

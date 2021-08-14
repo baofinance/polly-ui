@@ -43,7 +43,8 @@ const StyledResponsiveWrapper = styled.div`
 
 const StyledModal = styled.div`
 	padding: 0 20px;
-	background: ${(props) => props.theme.color.darkGrey[200]};
+	background: radial-gradient(circle at center top, #202231, #161522) 0 0 /
+    cover fixed;
 	border: 1px solid ${(props) => props.theme.color.darkGrey[200]};
 	border-radius: 12px;
 	display: flex;

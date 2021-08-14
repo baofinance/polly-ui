@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Card: React.FC = ({ children }) => <StyledCard>{children}</StyledCard>
+const WalletModalCard: React.FC = ({ children }) => <StyledCard>{children}</StyledCard>
 
 const StyledCard = styled.div`
 	background: rgba(0, 0, 0, 0.4);
@@ -13,4 +13,4 @@ const StyledCard = styled.div`
 	flex-direction: column;
 `
 
-export default Card
+export default WalletModalCard

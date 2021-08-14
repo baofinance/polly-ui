@@ -6,10 +6,7 @@ import ERC20ABI from '../bao/lib/abi/erc20.json'
 
 export const getContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
-  return new web3.eth.Contract(
-    ERC20ABI as unknown as AbiItem,
-    address,
-  )
+  return new web3.eth.Contract(ERC20ABI as unknown as AbiItem, address)
 }
 
 export const getAllowance = async (
