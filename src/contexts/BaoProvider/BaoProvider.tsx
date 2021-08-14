@@ -1,8 +1,6 @@
+import { Bao } from 'bao'
 import React, { createContext, useEffect, useState } from 'react'
-
 import { useWallet } from 'use-wallet'
-
-import { Bao } from '../../bao'
 
 export interface BaoContext {
 	bao?: typeof Bao

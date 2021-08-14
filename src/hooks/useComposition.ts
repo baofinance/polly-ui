@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
-import { Nest, NestComponent } from '../contexts/Nests/types'
-import { useWallet } from 'use-wallet'
-import { getBalance } from '../utils/erc20'
-import { provider } from 'web3-core'
 import BigNumber from 'bignumber.js'
+import { Nest, NestComponent } from 'contexts/Nests/types'
 import _ from 'lodash'
-import { getBalanceNumber } from '../utils/formatBalance'
-import GraphClient from '../utils/graph'
-import useBao from './useBao'
+import { useEffect, useState } from 'react'
+import { useWallet } from 'use-wallet'
+import { getBalance } from 'utils/erc20'
+import { getBalanceNumber } from 'utils/formatBalance'
+import GraphClient from 'utils/graph'
+import { provider } from 'web3-core'
 import { getWethPriceLink } from '../bao/utils'
+import useBao from './useBao'
 
 const useComposition = (nest: Nest) => {
   const { ethereum }: { ethereum: provider } = useWallet()
@@ -38,7 +38,7 @@ const useComposition = (nest: Nest) => {
 
             if (!graphData) return
 
-            const imageUrl = require(`../assets/img/assets/${_getImageURL(
+            const imageUrl = require(`assets/img/assets/${_getImageURL(
               graphData.symbol,
             )}.png`)
 

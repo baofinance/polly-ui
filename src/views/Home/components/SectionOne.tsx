@@ -1,9 +1,9 @@
 import React from 'react'
 import {
 	BubbleOverlayText,
-	HeroText,
 	HeroHeader,
 	HeroSubHeader,
+	HeroText,
 } from './styles'
 
 const SectionOne: React.FC = () => (

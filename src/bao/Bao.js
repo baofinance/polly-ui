@@ -1,9 +1,9 @@
-import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
-import { Contracts } from './lib/contracts.js'
+import Web3 from 'web3'
 import { Account } from './lib/accounts.js'
-import { EVM } from './lib/evm.js'
 import { contractAddresses } from './lib/constants'
+import { Contracts } from './lib/contracts.js'
+import { EVM } from './lib/evm.js'
 
 export class Bao {
 	constructor(provider, networkId, testing, options) {

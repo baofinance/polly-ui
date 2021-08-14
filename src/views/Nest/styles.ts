@@ -1,7 +1,6 @@
-import styled from 'styled-components'
-import { lighten } from 'polished'
-import Collapse from 'react-bootstrap/Collapse'
 import { Badge, Col, Row, Table } from 'react-bootstrap'
+import Collapse from 'react-bootstrap/Collapse'
+import styled from 'styled-components'
 
 export const NestBox = styled.div`
   width: 80%;
@@ -139,14 +138,14 @@ export const StatsRow = styled(Row)`
 `
 
 export const StatCard = styled.div`
-background: rgba(0, 0, 0, 0.4);
-width: 90%;
+  background: rgba(0, 0, 0, 0.4);
+  width: 90%;
   margin: 0 auto;
   padding: 15px;
   border-radius: 12px;
   font-weight: bold;
   text-align: center;
-  color: ${props => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.grey[100]};
 `
 
 export const StyledBadge = styled(Badge)`
@@ -204,7 +203,7 @@ export const NestSubHeader = styled.h1`
 `
 
 export const NestText = styled.div`
-background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
   color: ${(props) => props.theme.color.grey[100]};
   text-align: left;
   width: 80%;

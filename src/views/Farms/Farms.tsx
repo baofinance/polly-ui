@@ -1,19 +1,17 @@
+import Button from 'components/Button'
+import Container from 'components/Container'
+import Page from 'components/Page'
+import Spacer from 'components/Spacer'
+import WalletProviderModal from 'components/WalletProviderModal'
+import useModal from 'hooks/useModal'
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import pollyBanner from '../../assets/img/polly.svg'
-import Button from '../../components/Button'
-import Page from '../../components/Page'
-import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
-import WalletProviderModal from '../../components/WalletProviderModal'
-import useModal from '../../hooks/useModal'
-import Farm from '../Farm'
-import FarmCards from './components/FarmCards'
-import Container from '../../components/Container'
-import Balances from './components/Balances'
 import { HeroHeader } from 'views/Home/components/styles'
+import Farm from '../Farm'
+import Balances from './components/Balances'
+import FarmCards from './components/FarmCards'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -24,9 +22,7 @@ const Farms: React.FC = () => {
 			<Page>
 				{account ? (
 					<>
-						<HeroHeader>
-							FARMS
-						</HeroHeader>
+						<HeroHeader>FARMS</HeroHeader>
 						<Spacer size="lg" />
 						<Container>
 							<Balances />

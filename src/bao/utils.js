@@ -8,13 +8,6 @@ BigNumber.config({
 	DECIMAL_PLACES: 80,
 })
 
-const GAS_LIMIT = {
-	STAKING: {
-		DEFAULT: 200000,
-		SNX: 850000,
-	},
-}
-
 export const getMasterChefAddress = (bao) => {
 	return bao && bao.masterChefAddress
 }
@@ -257,13 +250,13 @@ export const getWethPrice = async (bao) => {
 }
 
 export const getPollyPrice = async (bao) => {
-  // FIXME: re-assess once price oracle is deployed, or use baoswap rates
-  return new BigNumber(0)
-  // const addr = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-  // const amount = await bao.contracts.baoPrice.methods
-  //   .consult(addr.toString(), 1)
-  //   .call()
-  // return new BigNumber(amount)
+	// FIXME: re-assess once price oracle is deployed, or use baoswap rates
+	return new BigNumber(0)
+	// const addr = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+	// const amount = await bao.contracts.baoPrice.methods
+	//   .consult(addr.toString(), 1)
+	//   .call()
+	// return new BigNumber(amount)
 }
 
 export const getPollySupply = async (bao) => {

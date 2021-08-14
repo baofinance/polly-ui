@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const ListLabelCol = styled.span`
   font-family: 'Rubik', sans-serif;

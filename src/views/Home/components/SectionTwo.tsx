@@ -1,21 +1,18 @@
+import dao from 'assets/img/icons/dao.svg'
+import diversify from 'assets/img/icons/diversify.svg'
+import yieldIcon from 'assets/img/icons/yield.svg'
 import React from 'react'
-import { Surface, Spacer, Container } from 'react-neu'
+import { Spacer } from 'react-neu'
 import Tilt from 'react-parallax-tilt'
-import styled from 'styled-components'
-
-import diversify from '../../../assets/img/icons/diversify.svg'
-import yieldIcon from '../../../assets/img/icons/yield.svg'
-import dao from '../../../assets/img/icons/dao.svg'
-
 import {
-	StyledCardWrapper,
+	HeroSubHeader,
 	StyledCardContainer,
 	StyledCardContent,
 	StyledCardIcon,
-	StyledCardTitle,
-	StyledCardText,
 	StyledCardParralax,
-	HeroSubHeader,
+	StyledCardText,
+	StyledCardTitle,
+	StyledCardWrapper,
 } from './styles'
 
 const SectionTwo: React.FC = () => (

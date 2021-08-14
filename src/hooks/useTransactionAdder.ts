@@ -1,5 +1,5 @@
+import { Context } from 'contexts/Transactions'
 import { useContext } from 'react'
-import { Context } from '../contexts/Transactions'
 
 const useTransactionAdder = () => {
   const { onAddTransaction } = useContext(Context)

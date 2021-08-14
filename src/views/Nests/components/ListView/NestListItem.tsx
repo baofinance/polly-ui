@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { Nest } from '../../../../contexts/Nests'
-import { SpinnerLoader } from '../../../../components/Loader'
+import nestIcon from 'assets/img/egg.png'
+import Button from 'components/Button'
+import { SpinnerLoader } from 'components/Loader'
+import { Nest } from 'contexts/Nests'
+import useComposition from 'hooks/useComposition'
+import useNestRate from 'hooks/useNestRate'
+import React from 'react'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
-import Button from '../../../../components/Button'
+import 'react-tabs/style/react-tabs.css'
+import { useWallet } from 'use-wallet'
+import { getDisplayBalance } from 'utils/formatBalance'
+import '../tab-styles.css'
 import {
 	AssetImage,
 	AssetImageContainer,
-	NestImage,
-	ListCol,
 	ColumnText,
+	ListCol,
 	ListItemContainer,
+	MobileListChange,
+	MobileListDesc,
 	MobileListItemContainer,
 	MobileListItemWrapper,
+	MobileListPrice,
 	MobileListText,
 	MobileListTitle,
-	MobileListDesc,
-	MobileListPrice,
-	MobileListChange,
 	MobileNestLink,
+	NestImage,
 } from './styles'
-import { getDisplayBalance } from '../../../../utils/formatBalance'
-import { useWallet } from 'use-wallet'
-import useComposition from '../../../../hooks/useComposition'
-import useNestRate from '../../../../hooks/useNestRate'
-
-import 'react-tabs/style/react-tabs.css'
-import '../tab-styles.css'
-
-import nestIcon from '../../../../assets/img/egg.png'
 
 interface NestWithIssuedTokens extends Nest {}
 
@@ -85,50 +83,46 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 					<ColumnText>+10%</ColumnText>
 				</ListCol>
 				<ListCol width={'17.5%'} align={'right'}>
-					<div style={{height:'50px'}}>
-					<Button
-						width={'90%'}
-						disabled={!indexActive}
-						text={indexActive ? 'Select' : undefined}
-						to={`/nests/${nest.nid}`}
-					/>
+					<div style={{ height: '50px' }}>
+						<Button
+							width={'90%'}
+							disabled={!indexActive}
+							text={indexActive ? 'Select' : undefined}
+							to={`/nests/${nest.nid}`}
+						/>
 					</div>
 				</ListCol>
 			</ListItemContainer>
 
 			{/* Mobile List */}
 
-			<MobileNestLink
-			 exact
-			 activeClassName="active"
-			 to={`/nests/${nest.nid}`}
-			 >
-			<MobileListItemWrapper>
-				<MobileListItemContainer>
-					<NestImage src={nestIcon} alt={nest.nestToken} />
-					<MobileListText>
-						<MobileListTitle>{nest.nestToken}</MobileListTitle>
-						<MobileListDesc>
-							Here is some text for the description area of every nest on the
-							mobile layout.
-						</MobileListDesc>
-					</MobileListText>
-					<MobileListPrice>
-						{' '}
-						<span>
-							$
-							{usdPerIndex ? (
-								getDisplayBalance(usdPerIndex, 0)
-							) : (
-								<SpinnerLoader />
-							)}
-						</span>
-						<MobileListChange>
-							<MobileListDesc>+10%</MobileListDesc>
-						</MobileListChange>
-					</MobileListPrice>
-				</MobileListItemContainer>
-			</MobileListItemWrapper>
+			<MobileNestLink exact activeClassName="active" to={`/nests/${nest.nid}`}>
+				<MobileListItemWrapper>
+					<MobileListItemContainer>
+						<NestImage src={nestIcon} alt={nest.nestToken} />
+						<MobileListText>
+							<MobileListTitle>{nest.nestToken}</MobileListTitle>
+							<MobileListDesc>
+								Here is some text for the description area of every nest on the
+								mobile layout.
+							</MobileListDesc>
+						</MobileListText>
+						<MobileListPrice>
+							{' '}
+							<span>
+								$
+								{usdPerIndex ? (
+									getDisplayBalance(usdPerIndex, 0)
+								) : (
+									<SpinnerLoader />
+								)}
+							</span>
+							<MobileListChange>
+								<MobileListDesc>+10%</MobileListDesc>
+							</MobileListChange>
+						</MobileListPrice>
+					</MobileListItemContainer>
+				</MobileListItemWrapper>
 			</MobileNestLink>
 		</>
 	)

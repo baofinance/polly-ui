@@ -1,15 +1,14 @@
+import Loader from 'components/Loader'
+import { Nest } from 'contexts/Nests'
+import { IndexType } from 'contexts/Nests/types'
+import useNests from 'hooks/useNests'
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import { IndexType } from '../../../../contexts/Nests/types'
-import { Nest } from '../../../../contexts/Nests'
+import 'react-tabs/style/react-tabs.css'
+import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
+import '../tab-styles.css'
 import NestListItem from './NestListItem'
 import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
-import Loader from '../../../../components/Loader'
-import { useWallet } from 'use-wallet'
-import useNests from '../../../../hooks/useNests'
-
-import 'react-tabs/style/react-tabs.css'
-import '../tab-styles.css'
 
 interface NestWithIssuedTokens extends Nest {}
 
@@ -33,10 +32,18 @@ const NestList: React.FC = () => {
 	return (
 		<NestListContainer>
 			<ListLabelContainer>
-				<ListLabelCol width={'17.5%'} align={'left'}>Nest Name</ListLabelCol>
-				<ListLabelCol width={'45%'} align={'center'}>Underlying Assets</ListLabelCol>
-				<ListLabelCol width={'10%'} align={'center'}>Current Price</ListLabelCol>
-				<ListLabelCol width={'10%'} align={'center'}>24H Change</ListLabelCol>
+				<ListLabelCol width={'17.5%'} align={'left'}>
+					Nest Name
+				</ListLabelCol>
+				<ListLabelCol width={'45%'} align={'center'}>
+					Underlying Assets
+				</ListLabelCol>
+				<ListLabelCol width={'10%'} align={'center'}>
+					Current Price
+				</ListLabelCol>
+				<ListLabelCol width={'10%'} align={'center'}>
+					24H Change
+				</ListLabelCol>
 				<ListLabelCol width={'17.5%'} align={'center'}></ListLabelCol>
 			</ListLabelContainer>
 			{indexes[IndexType.TEST].length ? (

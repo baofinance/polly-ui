@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useReducer } from 'react'
-
 import Context from './context'
 import reducer, {
+	addTransaction,
 	initialState,
 	setTransactions,
-	addTransaction,
 } from './reducer'
 import { Transaction, TransactionsMap } from './types'
 

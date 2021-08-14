@@ -1,5 +1,5 @@
-import React from 'react'
 import pollyIcon from 'assets/img/logo.svg'
+import React from 'react'
 
 interface PollyIconProps {
 	size?: number

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
-
 import { IconProps } from '../Icon'
 
 const RemoveIcon: React.FC<IconProps> = ({ color, size = 18 }) => {

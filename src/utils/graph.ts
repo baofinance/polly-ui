@@ -1,7 +1,7 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import BigNumber from 'bignumber.js'
-import { getBalanceNumber } from './formatBalance'
 import _ from 'lodash'
+import { getBalanceNumber } from './formatBalance'
 
 const SUSHI_SUBGRAPH_URLS = {
   matic: 'https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange',
@@ -41,7 +41,9 @@ const _getPriceHistoryQuery = (tokenAddress: string) =>
 const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
   `
   {
-    tokens(where: {id_in:["${tokenAddresses.map(symbol => symbol.toLowerCase()).join('","')}"]}) {
+    tokens(where: {id_in:["${tokenAddresses
+      .map((symbol) => symbol.toLowerCase())
+      .join('","')}"]}) {
       id
       name
       symbol
@@ -60,7 +62,7 @@ const _getPriceFromPair = (tokenAddress: string) =>
     token(id:"${tokenAddress}"){
       ${_.map(
         ['basePairs', 'quotePairs'],
-        prefix => `
+        (prefix) => `
       ${prefix} {
         token0 {
           symbol
@@ -85,7 +87,7 @@ const _querySubgraph = (query: string, network = 'matic') => {
         query: gql(query),
       })
       .then(({ data }) => resolve(data))
-      .catch(err => reject(err))
+      .catch((err) => reject(err))
   })
 }
 

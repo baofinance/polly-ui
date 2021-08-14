@@ -1,12 +1,23 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import BigNumber from 'bignumber.js'
-import _ from 'lodash'
-import { provider } from 'web3-core'
-import Spacer from '../../components/Spacer'
-import Button from '../../components/Button'
-import IssueModal from './components/IssueModal'
-import RedeemModal from './components/RedeemModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ParentSize } from '@visx/responsive'
+// will replace with nest icons once they're designed
+import nestIcon from 'assets/img/egg.png'
+import BigNumber from 'bignumber.js'
+import Button from 'components/Button'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
+import PieGraph from 'components/Graphs/PieGraph'
+import { SpinnerLoader } from 'components/Loader'
+import Spacer from 'components/Spacer'
+import useBao from 'hooks/useBao'
+import useComposition from 'hooks/useComposition'
+import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
+import useModal from 'hooks/useModal'
+import useNest from 'hooks/useNest'
+import useNestRate from 'hooks/useNestRate'
+import useNestRedeem from 'hooks/useNestRedeem'
+import useTokenBalance from 'hooks/useTokenBalance'
+import _ from 'lodash'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
 	Badge,
 	Button as BootButton,
@@ -15,47 +26,35 @@ import {
 	Row,
 	Tooltip,
 } from 'react-bootstrap'
-import { SpinnerLoader } from '../../components/Loader'
-import PieGraph from '../../components/Graphs/PieGraph'
-import { ParentSize } from '@visx/responsive'
-import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import { getDisplayBalance } from '../../utils/formatBalance'
-import { getContract } from '../../utils/erc20'
-import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
-import useComposition from '../../hooks/useComposition'
-import useNestRate from '../../hooks/useNestRate'
-import useNest from '../../hooks/useNest'
-import useTokenBalance from '../../hooks/useTokenBalance'
-import useNestRedeem from '../../hooks/useNestRedeem'
-import { useWallet } from 'use-wallet'
-import useBao from '../../hooks/useBao'
-import useModal from '../../hooks/useModal'
 import { useParams } from 'react-router-dom'
+import { useWallet } from 'use-wallet'
+import { getContract } from 'utils/erc20'
+import { getDisplayBalance } from 'utils/formatBalance'
+import { provider } from 'web3-core'
+import IssueModal from './components/IssueModal'
+import { Progress } from './components/Progress'
+import RedeemModal from './components/RedeemModal'
 import {
-	NestBox,
-	NestCornerButton,
-	NestBoxHeader,
-	NestText,
-	NestHeader,
-	NestSubHeader,
-	NestList,
+	GraphContainer,
 	Icon,
-	NestBoxBreak,
-	NestButtons,
-	StyledBadge,
 	NestAnalytics,
 	NestAnalyticsContainer,
-	GraphContainer,
+	NestBox,
+	NestBoxBreak,
+	NestBoxHeader,
+	NestButtons,
+	NestCornerButton,
+	NestHeader,
+	NestList,
+	NestSubHeader,
+	NestText,
 	PieGraphRow,
-	StyledTable,
 	PrefButtons,
-	StatsRow,
 	StatCard,
+	StatsRow,
+	StyledBadge,
+	StyledTable,
 } from './styles'
-import { Progress } from './components/Progress'
-
-// will replace with nest icons once they're designed
-import nestIcon from '../../assets/img/egg.png'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()

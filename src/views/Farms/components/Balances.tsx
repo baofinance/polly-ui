@@ -1,26 +1,26 @@
-import BigNumber from 'bignumber.js'
-import React, { useEffect, useState, Fragment } from 'react'
-import CountUp from 'react-countup'
-import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import Label from '../../../components/Label'
-import Spacer from '../../../components/Spacer'
-import Value from '../../../components/Value'
-import PollyIcon from 'components/PollyIcon'
-import useAllEarnings from '../../../hooks/useAllEarnings'
-import useAllStakedValue from '../../../hooks/useAllStakedValue'
-import useFarms from '../../../hooks/useFarms'
-import useTokenBalance from '../../../hooks/useTokenBalance'
-import useBao from '../../../hooks/useBao'
 import {
+	getMasterChefContract,
 	getPollyAddress,
 	getPollySupply,
 	getReferrals,
-	getMasterChefContract,
-} from '../../../bao/utils'
-import { getBalanceNumber } from '../../../utils/formatBalance'
+} from 'bao/utils'
+import BigNumber from 'bignumber.js'
+import Card from 'components/Card'
+import CardContent from 'components/CardContent'
+import Label from 'components/Label'
+import PollyIcon from 'components/PollyIcon'
+import Spacer from 'components/Spacer'
+import Value from 'components/Value'
+import useAllEarnings from 'hooks/useAllEarnings'
+import useAllStakedValue from 'hooks/useAllStakedValue'
+import useBao from 'hooks/useBao'
+import useFarms from 'hooks/useFarms'
+import useTokenBalance from 'hooks/useTokenBalance'
+import React, { Fragment, useEffect, useState } from 'react'
+import CountUp from 'react-countup'
+import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
+import { getBalanceNumber } from 'utils/formatBalance'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)

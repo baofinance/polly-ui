@@ -1,11 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled from 'styled-components'
-
-import NestInput, { InputProps } from '../NestInput'
-import NestOutput from '../NestOutput'
 import { MaxButton } from '../Button'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { InputProps } from '../NestInput'
+import NestOutput from '../NestOutput'
 
 interface NestTokenOutputProps extends InputProps {
 	symbol: string
@@ -21,7 +19,7 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 	onChange,
 	value,
 	_outputToken,
-	addInput
+	addInput,
 }) => {
 	return (
 		<StyledTokenInput>
@@ -35,10 +33,10 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 				endAdornment={
 					<>
 						<MaxButton onClick={() => addInput(1)}>
-							<FontAwesomeIcon icon='arrow-up' />
+							<FontAwesomeIcon icon="arrow-up" />
 						</MaxButton>
 						<MaxButton onClick={() => addInput(-1)}>
-							<FontAwesomeIcon icon='arrow-down' />
+							<FontAwesomeIcon icon="arrow-down" />
 						</MaxButton>
 						<StyledTokenAdornmentWrapper>
 							<StyledTokenSymbol>{symbol}</StyledTokenSymbol>

@@ -78,7 +78,7 @@ const StyledTitle = styled.h1`
 	@media (max-width: 414px) {
 		font-size: 32px;
 	}
-	`
+`
 
 const StyledSubtitle = styled.h3`
 	color: ${(props) => props.theme.color.grey[100]};

@@ -1,6 +1,6 @@
+import { darken } from 'polished'
 import React from 'react'
 import styled from 'styled-components'
-import { darken } from 'polished'
 
 interface CardIconProps {
 	children?: React.ReactNode

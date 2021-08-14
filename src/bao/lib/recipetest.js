@@ -1,13 +1,8 @@
 const Web3 = require('web3')
 const BigNumber = require('bignumber.js')
-const { ethers } = require('ethers')
 
 const recipeAbi = require('./abi/recipe.json')
-
-// constants
-
 const rpcUrl = 'https://rpc-mainnet.maticvigil.com'
-const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl)
 const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl))
 
 const contracts = {
