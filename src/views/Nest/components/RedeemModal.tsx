@@ -100,23 +100,23 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 						text={`Approve ${nestName}`}
 					/>
 				) : ( */}
-					<Button
-						disabled={
-							pendingTx ||
-							val.slice(-1) === '.' ||
-							isNaN(parseFloat(val)) ||
-							parseFloat(val) === 0 ||
-							parseFloat(val) < 0 ||
-							parseFloat(val) > max.div(10 ** 18).toNumber()
-						}
-						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
-						onClick={async () => {
-							setPendingTx(true)
-							await onConfirm(val)
-							setPendingTx(false)
-							onDismiss()
-						}}
-					/>
+				<Button
+					disabled={
+						pendingTx ||
+						val.slice(-1) === '.' ||
+						isNaN(parseFloat(val)) ||
+						parseFloat(val) === 0 ||
+						parseFloat(val) < 0 ||
+						parseFloat(val) > max.div(10 ** 18).toNumber()
+					}
+					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+					onClick={async () => {
+						setPendingTx(true)
+						await onConfirm(val)
+						setPendingTx(false)
+						onDismiss()
+					}}
+				/>
 				{/* })} */}
 			</ModalActions>
 			<ModalContent>
