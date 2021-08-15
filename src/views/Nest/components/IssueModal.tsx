@@ -1,24 +1,24 @@
-import BigNumber from 'bignumber.js'
-import React, { useCallback, useState } from 'react'
-import Button from '../../../components/Button'
-import Modal, { ModalProps } from '../../../components/Modal'
-import ModalActions from '../../../components/ModalActions'
-import ModalContent from '../../../components/ModalContent'
-import ModalTitle from '../../../components/ModalTitle'
-import NestTokenOutput from '../../../components/NestTokenOutput'
-import NestTokenInput from '../../../components/NestTokenInput'
-import { SpinnerLoader } from '../../../components/Loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useBao from '../../../hooks/useBao'
-import useNestIssue from '../../../hooks/useNestIssue'
-import useInputAllowance from '../../../hooks/useInputAllowance'
-import useInputApprove from '../../../hooks/useInputApprove'
-import useTokenBalance from '../../../hooks/useTokenBalance'
-import useNestRate from '../../../hooks/useNestRate'
-import { fetchCalcToNest, getRecipeContract } from '../../../bao/utils'
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import { addressMap } from 'bao/lib/constants'
+import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
+import BigNumber from 'bignumber.js'
+import Button from 'components/Button'
+import { SpinnerLoader } from 'components/Loader'
+import Modal, { ModalProps } from 'components/Modal'
+import ModalActions from 'components/ModalActions'
+import ModalContent from 'components/ModalContent'
+import ModalTitle from 'components/ModalTitle'
+import NestTokenInput from 'components/NestTokenInput'
+import NestTokenOutput from 'components/NestTokenOutput'
+import useBao from 'hooks/useBao'
+import useInputAllowance from 'hooks/useInputAllowance'
+import useInputApprove from 'hooks/useInputApprove'
+import useNestIssue from 'hooks/useNestIssue'
+import useNestRate from 'hooks/useNestRate'
+import useTokenBalance from 'hooks/useTokenBalance'
+import React, { useCallback, useState } from 'react'
+import { getDisplayBalance } from 'utils/formatBalance'
 import { Contract } from 'web3-eth-contract'
-import { addressMap } from '../../../bao/lib/constants'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -76,8 +76,10 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			if (
 				isNaN(parseFloat(inputAmount)) ||
 				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
-				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
-			) return
+				(inputAmount.slice(-1) === '.' &&
+					inputAmount.slice(0, inputAmount.length - 1).includes('.'))
+			)
+				return
 
 			setNestAmount(inputAmount)
 			updateInput(inputAmount)
@@ -107,8 +109,10 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			if (
 				isNaN(parseFloat(inputAmount)) ||
 				(inputAmount.slice(-1) !== '.' && !/(\d*\.)?\d+$/.test(inputAmount)) ||
-				inputAmount.slice(-1) === '.' && inputAmount.slice(0, inputAmount.length - 1).includes('.')
-			) return
+				(inputAmount.slice(-1) === '.' &&
+					inputAmount.slice(0, inputAmount.length - 1).includes('.'))
+			)
+				return
 
 			setWethNeeded(inputAmount)
 			updateInput(inputAmount)
@@ -139,7 +143,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
 				{
-					'Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap, beacuse of that slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned.'
+					'Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap. Slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned.'
 				}
 				<br />
 				<br />
@@ -154,7 +158,11 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				<b>
 					1 {nestName} ={' '}
 					<>
-						{`${wethPerIndex && getDisplayBalance(wethPerIndex, 0) || <SpinnerLoader />} `}
+						{`${
+							(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+								<SpinnerLoader />
+							)
+						} `}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} />
 					</>
 				</b>
@@ -165,7 +173,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				symbol={nestName}
 				_outputToken={_outputToken}
 				addInput={(n: number) => {
-					const result = new BigNumber(nestAmount === '' ? 0 : nestAmount).plus(n)
+					const result = new BigNumber(nestAmount === '' ? 0 : nestAmount).plus(
+						n,
+					)
 					if (result.toNumber() >= 0) {
 						setNestAmount(result.toString())
 						handleOutputChange(result.toString())

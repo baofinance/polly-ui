@@ -1,6 +1,6 @@
+import BigNumber from 'bignumber.js'
 import React from 'react'
 import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
 import NestInput, { InputProps } from '../NestInput'
 
 interface NestTokenInputProps extends InputProps {

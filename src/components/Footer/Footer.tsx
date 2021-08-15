@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import Nav from './components/Nav'
 
 const Footer: React.FC = () => (
@@ -26,7 +25,7 @@ const StyledFooterInner = styled.div`
 	width: 100%;
 
 	@media (max-width: 414px) {
-	  }
+	}
 `
 
 export default Footer

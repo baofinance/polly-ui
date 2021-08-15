@@ -1,10 +1,11 @@
+import pollyIcon from 'assets/img/logo.svg'
+import { getPollyAddress } from 'bao/utils'
+import useBao from 'hooks/useBao'
+import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import useTokenBalance from '../../../hooks/useTokenBalance'
-import useBao from '../../../hooks/useBao'
-import { getBaoAddress } from '../../../bao/utils'
-import { getBalanceNumber } from '../../../utils/formatBalance'
+import { getBalanceNumber } from 'utils/formatBalance'
 import Button from '../../Button'
 import CardIcon from '../../CardIcon'
 import Label from '../../Label'
@@ -14,7 +15,6 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
-import pollyIcon from 'assets/img/logo.svg'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()
@@ -25,7 +25,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	}, [onDismiss, reset])
 
 	const bao = useBao()
-	const baoBalance = useTokenBalance(getBaoAddress(bao))
+	const baoBalance = useTokenBalance(getPollyAddress(bao))
 
 	return (
 		<Modal>

@@ -1,12 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import { BigNumber } from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-
-import { getStaked, getMasterChefContract } from '../bao/utils'
+import { getMasterChefContract, getStaked } from '../bao/utils'
 import useBao from './useBao'
 import useBlock from './useBlock'
-import { ethers } from 'ethers'
 
 const useStakedBalance = (pid: number) => {
   const [balance, setBalance] = useState(new BigNumber(0))

@@ -1,5 +1,5 @@
-import { Contract } from 'web3-eth-contract'
 import BigNumber from 'bignumber.js'
+import { Contract } from 'web3-eth-contract'
 
 export enum IndexType {
   PORTFOLIO = 'portfolio',

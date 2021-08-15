@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
-import { provider } from 'web3-core'
-
 import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-
-import { getLockedEarned, getBaoContract } from '../bao/utils'
+import { provider } from 'web3-core'
+import { getLockedEarned, getPollyContract } from '../bao/utils'
 import useBao from './useBao'
 import useBlock from './useBlock'
 
@@ -13,7 +11,7 @@ const useLockedEarnings = () => {
   const { account, ethereum }: { account: string; ethereum: provider } =
     useWallet()
   const bao = useBao()
-  const baoContract = getBaoContract(bao)
+  const baoContract = getPollyContract(bao)
   const block = useBlock()
 
   const fetchBalance = useCallback(async () => {

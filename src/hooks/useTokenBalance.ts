@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
+import { getBalance } from 'utils/erc20'
 import { provider } from 'web3-core'
-
-import { getBalance } from '../utils/erc20'
 
 const useTokenBalance = (tokenAddress: string) => {
   const [balance, setBalance] = useState(new BigNumber(0))

@@ -1,9 +1,9 @@
-import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
-import { Contracts } from './lib/contracts.js'
+import Web3 from 'web3'
 import { Account } from './lib/accounts.js'
-import { EVM } from './lib/evm.js'
 import { contractAddresses } from './lib/constants'
+import { Contracts } from './lib/contracts.js'
+import { EVM } from './lib/evm.js'
 
 export class Bao {
 	constructor(provider, networkId, testing, options) {
@@ -36,7 +36,7 @@ export class Bao {
 			this.web3.eth.defaultAccount = options.defaultAccount
 		}
 		this.contracts = new Contracts(realProvider, networkId, this.web3, options)
-		this.baoAddress = contractAddresses.bao[137]
+		this.pollyAddress = contractAddresses.polly[137]
 		this.masterChefAddress = contractAddresses.masterChef[137]
 		this.recipe = contractAddresses.recipe[137]
 		this.wethAddress = contractAddresses.weth[137]

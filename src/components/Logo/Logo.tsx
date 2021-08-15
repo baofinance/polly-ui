@@ -1,14 +1,14 @@
+import pollyLogo from 'assets/img/logo.svg'
 import React from 'react'
+import Tilt from 'react-parallax-tilt'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import baoLogo from '../../assets/img/logo-slimstroke.svg'
-import Tilt from 'react-parallax-tilt'
 
 const Logo: React.FC = () => {
 	return (
 		<StyledLogo to="/">
 			<Tilt>
-			<img src={baoLogo} height="50" />
+				<img src={pollyLogo} height="50" />
 			</Tilt>
 			<StyledText>
 				<TitleText>
@@ -37,7 +37,7 @@ const TitleSubText = styled.div`
 	color: white;
 	font-family: 'Rubik', sans-serif;
 	font-weight: 600;
-	font-size: 12px;
+	font-size: 16px;
 	line-height: 0.5rem;
 	letter-spacing: 0.03rem;
 `

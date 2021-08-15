@@ -1,8 +1,7 @@
+import { lighten } from 'polished'
 import React, { useContext, useMemo } from 'react'
-import styled, { ThemeContext, keyframes } from 'styled-components'
-
 import { Link } from 'react-router-dom'
-import { darken, lighten } from 'polished'
+import styled, { keyframes, ThemeContext } from 'styled-components'
 
 interface ButtonProps {
 	children?: React.ReactNode

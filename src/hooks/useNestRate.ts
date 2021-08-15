@@ -1,7 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
-import useBao from './useBao'
-import { fetchCalcToNest, getRecipeContract, getWethPriceLink } from '../bao/utils'
 import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
+import {
+  fetchCalcToNest,
+  getRecipeContract,
+  getWethPriceLink,
+} from '../bao/utils'
+import useBao from './useBao'
 
 const useNestRate = (nestAddress: string) => {
   const bao = useBao()
@@ -16,7 +20,7 @@ const useNestRate = (nestAddress: string) => {
 
     const [wethPerNest, _wethPrice]: any = await Promise.all([
       fetchCalcToNest(recipeContract, nestAddress, 1),
-      getWethPriceLink(bao)
+      getWethPriceLink(bao),
     ])
 
     setWethPerIndex(wethPerNest)

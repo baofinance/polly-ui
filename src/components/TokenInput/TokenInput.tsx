@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import Input, { InputProps } from '../Input'
 import { MaxButton } from '../Button'
+import Input, { InputProps } from '../Input'
+
 
 interface TokenInputProps extends InputProps {
 	max: number | string

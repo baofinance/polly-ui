@@ -1,6 +1,6 @@
+import BigNumber from 'bignumber.js'
 import React from 'react'
 import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
 import { MaxButton } from '../Button'
 
 export interface InputProps {
@@ -50,7 +50,7 @@ const NestInput: React.FC<InputProps> = ({
 						}}
 					>
 						MAX
-          </MaxButton>
+					</MaxButton>
 				</>
 			)}
 			{!!endAdornment && endAdornment}
@@ -60,7 +60,7 @@ const NestInput: React.FC<InputProps> = ({
 
 const StyledInputWrapper = styled.div`
 	align-items: center;
-	background-color: ${props => props.theme.color.darkGrey[100]};
+	background-color: ${(props) => props.theme.color.darkGrey[100]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	display: flex;
 	height: 72px;

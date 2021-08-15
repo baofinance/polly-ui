@@ -1,24 +1,19 @@
-import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
-import Countdown from 'react-countdown'
-import type { CountdownRenderProps } from 'react-countdown'
+import Button from 'components/Button'
+import Card from 'components/Card'
+import CardContent from 'components/CardContent'
+import CardIcon from 'components/CardIcon'
+import Loader from 'components/Loader'
+import Spacer from 'components/Spacer'
+import { Nest } from 'contexts/Nests'
+import { IndexType } from 'contexts/Nests/types'
+import useBao from 'hooks/useBao'
+import useNests from 'hooks/useNests'
+import React from 'react'
+import { TabPanel, Tabs } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 import styled, { keyframes } from 'styled-components'
 import { useWallet } from 'use-wallet'
-import Button from '../../../components/Button'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Loader from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
-import { Nest } from '../../../contexts/Nests'
-import useNests from '../../../hooks/useNests'
-import useBao from '../../../hooks/useBao'
-import { getRecipeContract } from '../../../bao/utils'
-import { bnToDec } from '../../../utils'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
 import './tab-styles.css'
-import { IndexType } from '../../../contexts/Nests/types'
 
 interface NestWithIssuedTokens extends Nest {}
 
@@ -75,7 +70,7 @@ const NestCard: React.FC<NestCardProps> = ({ nest }) => {
 	const indexActive = true // startTime * 1000 - Date.now() <= 0
 	return (
 		<StyledCardWrapper>
-			{nest.tokenSymbol === 'BAO' && <StyledCardAccent />}
+			{nest.tokenSymbol === 'POLLY' && <StyledCardAccent />}
 			<Card>
 				<CardContent>
 					<StyledContent>

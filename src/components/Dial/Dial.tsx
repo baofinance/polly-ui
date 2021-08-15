@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar'
 import styled, { ThemeContext } from 'styled-components'
-
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 interface DialProps {
 	children?: React.ReactNode

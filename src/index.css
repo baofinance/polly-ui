@@ -1,6 +1,7 @@
 body {
-  background: rgb(32,34,49);
-  background: radial-gradient(circle at center top, #202231, #161522) 0 0 / cover fixed;
+  background: rgb(32, 34, 49);
+  background: radial-gradient(circle at center top, #202231, #161522) 0 0 /
+    cover fixed;
   margin: 0;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;

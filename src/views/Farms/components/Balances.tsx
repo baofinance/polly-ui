@@ -1,26 +1,26 @@
+import {
+	getMasterChefContract,
+	getPollyAddress,
+	getPollySupply,
+	getReferrals,
+} from 'bao/utils'
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState, Fragment } from 'react'
+import Card from 'components/Card'
+import CardContent from 'components/CardContent'
+import Label from 'components/Label'
+import PollyIcon from 'components/PollyIcon'
+import Spacer from 'components/Spacer'
+import Value from 'components/Value'
+import useAllEarnings from 'hooks/useAllEarnings'
+import useAllStakedValue from 'hooks/useAllStakedValue'
+import useBao from 'hooks/useBao'
+import useFarms from 'hooks/useFarms'
+import useTokenBalance from 'hooks/useTokenBalance'
+import React, { Fragment, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import Label from '../../../components/Label'
-import Spacer from '../../../components/Spacer'
-import Value from '../../../components/Value'
-import BaoIcon from '../../../components/BaoIcon'
-import useAllEarnings from '../../../hooks/useAllEarnings'
-import useAllStakedValue from '../../../hooks/useAllStakedValue'
-import useFarms from '../../../hooks/useFarms'
-import useTokenBalance from '../../../hooks/useTokenBalance'
-import useBao from '../../../hooks/useBao'
-import {
-	getBaoAddress,
-	getBaoSupply,
-	getReferrals,
-	getMasterChefContract,
-} from '../../../bao/utils'
-import { getBalanceNumber } from '../../../utils/formatBalance'
+import { getBalanceNumber } from 'utils/formatBalance'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)
@@ -79,13 +79,13 @@ const Balances: React.FC = () => {
 	const [totalReferrals, setTotalReferrals] = useState<string>()
 	const [refLink, setRefLink] = useState<string>()
 	const bao = useBao()
-	const pollyBalance = useTokenBalance(getBaoAddress(bao))
+	const pollyBalance = useTokenBalance(getPollyAddress(bao))
 	const masterChefContract = getMasterChefContract(bao)
 	const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 
 	useEffect(() => {
 		async function fetchTotalSupply() {
-			const supply = await getBaoSupply(bao)
+			const supply = await getPollySupply(bao)
 			setTotalSupply(supply)
 		}
 		if (bao) {
@@ -120,7 +120,7 @@ const Balances: React.FC = () => {
 					<CardContent>
 						<StyledBalances>
 							<StyledBalance>
-								<BaoIcon />
+								<PollyIcon />
 								<Spacer />
 								<div style={{ flex: 1 }}>
 									<Label text="Your POLLY Balance" />

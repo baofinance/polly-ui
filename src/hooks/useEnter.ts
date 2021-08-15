@@ -1,9 +1,7 @@
 import { useCallback } from 'react'
-
-import useBao from './useBao'
 import { useWallet } from 'use-wallet'
-
 import { enter, gettBaoStakingContract } from '../bao/utils'
+import useBao from './useBao'
 
 const useEnter = () => {
   const { account } = useWallet()
