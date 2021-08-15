@@ -30,6 +30,7 @@ import useNestRedeem from '../../hooks/useNestRedeem'
 import { useWallet } from 'use-wallet'
 import useBao from '../../hooks/useBao'
 import useModal from '../../hooks/useModal'
+import useNav from '../../hooks/useNav'
 import { useParams } from 'react-router-dom'
 import {
 	NestBox,
@@ -59,16 +60,18 @@ import nestIcon from '../../assets/img/egg.png'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
-	const nest = useNest(nestId)
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name } = nest
-	const composition = useComposition(nest)
-	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
-	const priceHistory = useGraphPriceHistory(nest)
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
 	const [analyticsOpen, setAnalyticsOpen] = useState(true)
 	const [priceHistoryTimeFrame, setPriceHistoryTimeFrame] = useState('M')
 	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
+
+	const nest = useNest(nestId)
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name } = nest
+	const composition = useComposition(nest)
+	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
+	const priceHistory = useGraphPriceHistory(nest)
+	const nav = useNav(composition, supply)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -240,7 +243,9 @@ const Nest: React.FC = () => {
 								NAV
 							</span>
 							<Spacer size={'sm'} />
-							<StyledBadge>-</StyledBadge>
+							<StyledBadge>
+								{(nav && `$${getDisplayBalance(nav, 0)}`) || <SpinnerLoader />}
+							</StyledBadge>
 						</StatCard>
 					</Col>
 					<Col>
