@@ -50,12 +50,6 @@ const App: React.FC = () => {
 					<Route path="/" exact>
 						<Home />
 					</Route>
-					<Route path="/Nests">
-						<Nests />
-					</Route>
-					<Route path="/Farms">
-						<Farms />
-					</Route>
 				</Switch>
 			</Router>
 		</Providers>
@@ -72,13 +66,6 @@ const Providers: React.FC = ({ children }) => {
 				}}
 			>
 				<BaoProvider>
-					<NestsProvider>
-						<TransactionProvider>
-							<FarmsProvider>
-								<ModalsProvider>{children}</ModalsProvider>
-							</FarmsProvider>
-						</TransactionProvider>
-					</NestsProvider>
 				</BaoProvider>
 			</UseWalletProvider>
 		</ThemeProvider>
