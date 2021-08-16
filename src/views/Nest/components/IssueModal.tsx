@@ -149,7 +149,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				<br />
 				<b>
 					Your wETH Balance:{' '}
-					{`$${wethBalance && getDisplayBalance(wethBalance)}` || (
+					{(wethBalance && `$${getDisplayBalance(wethBalance)}`) || (
 						<SpinnerLoader />
 					)}
 					<FontAwesomeIcon icon={['fab', 'ethereum']} />
@@ -158,11 +158,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				<b>
 					1 {nestName} ={' '}
 					<>
-						{`${
-							(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
-								<SpinnerLoader />
-							)
-						} `}
+						{(wethPerIndex && `$${getDisplayBalance(wethPerIndex, 0)}`) || (
+							<SpinnerLoader />
+						)}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} />
 					</>
 				</b>

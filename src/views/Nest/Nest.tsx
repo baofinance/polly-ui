@@ -1,73 +1,71 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ParentSize } from '@visx/responsive'
-// will replace with nest icons once they're designed
-import nestIcon from 'assets/img/egg.png'
-import BigNumber from 'bignumber.js'
-import Button from 'components/Button'
-import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
-import PieGraph from 'components/Graphs/PieGraph'
-import { SpinnerLoader } from 'components/Loader'
-import Spacer from 'components/Spacer'
-import useBao from 'hooks/useBao'
-import useComposition from 'hooks/useComposition'
-import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
-import useModal from 'hooks/useModal'
-import useNest from 'hooks/useNest'
-import useNestRate from 'hooks/useNestRate'
-import useNestRedeem from 'hooks/useNestRedeem'
-import useTokenBalance from 'hooks/useTokenBalance'
-import _ from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
-import {
-	Badge,
-	Button as BootButton,
-	Col,
-	OverlayTrigger,
-	Row,
-	Tooltip,
-} from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
-import { useWallet } from 'use-wallet'
-import { getContract } from 'utils/erc20'
-import { getDisplayBalance } from 'utils/formatBalance'
+import BigNumber from 'bignumber.js'
+import _ from 'lodash'
 import { provider } from 'web3-core'
+import Spacer from '../../components/Spacer'
+import Button from '../../components/Button'
 import IssueModal from './components/IssueModal'
-import { Progress } from './components/Progress'
 import RedeemModal from './components/RedeemModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
+import Tooltipped from '../../components/Tooltipped'
+import { SpinnerLoader } from '../../components/Loader'
+import PieGraph from '../../components/Graphs/PieGraph'
+import { ParentSize } from '@visx/responsive'
+import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
+import { getDisplayBalance } from '../../utils/formatBalance'
+import { getContract } from '../../utils/erc20'
+import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
+import useComposition from '../../hooks/useComposition'
+import useNestRate from '../../hooks/useNestRate'
+import useNest from '../../hooks/useNest'
+import useTokenBalance from '../../hooks/useTokenBalance'
+import useNestRedeem from '../../hooks/useNestRedeem'
+import { useWallet } from 'use-wallet'
+import useBao from '../../hooks/useBao'
+import useModal from '../../hooks/useModal'
+import useNav from '../../hooks/useNav'
+import { useParams } from 'react-router-dom'
 import {
-	GraphContainer,
+	NestBox,
+	NestCornerButton,
+	NestBoxHeader,
+	NestText,
+	NestHeader,
+	NestSubHeader,
+	NestList,
 	Icon,
+	NestBoxBreak,
+	NestButtons,
+	StyledBadge,
 	NestAnalytics,
 	NestAnalyticsContainer,
-	NestBox,
-	NestBoxBreak,
-	NestBoxHeader,
-	NestButtons,
-	NestCornerButton,
-	NestHeader,
-	NestList,
-	NestSubHeader,
-	NestText,
+	GraphContainer,
 	PieGraphRow,
-	PrefButtons,
-	StatCard,
-	StatsRow,
-	StyledBadge,
 	StyledTable,
+	PrefButtons,
+	StatsRow,
+	StatCard,
 } from './styles'
+import { Progress } from './components/Progress'
+
+// will replace with nest icons once they're designed
+import nestIcon from '../../assets/img/egg.png'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
-	const nest = useNest(nestId)
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name } = nest
-	const composition = useComposition(nest)
-	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
-	const priceHistory = useGraphPriceHistory(nest)
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
 	const [analyticsOpen, setAnalyticsOpen] = useState(true)
 	const [priceHistoryTimeFrame, setPriceHistoryTimeFrame] = useState('M')
 	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
+
+	const nest = useNest(nestId)
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name } = nest
+	const composition = useComposition(nest)
+	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
+	const priceHistory = useGraphPriceHistory(nest)
+	const nav = useNav(composition, supply)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -159,14 +157,7 @@ const Nest: React.FC = () => {
 	return (
 		<>
 			<NestBox>
-				<OverlayTrigger
-					overlay={
-						<Tooltip id={Math.random().toString()}>
-							{analyticsOpen ? 'Hide' : 'View'} Analytics
-						</Tooltip>
-					}
-					placement="bottom"
-				>
+				<Tooltipped content={`${analyticsOpen ? 'Hide' : 'View'} Analytics`}>
 					<NestCornerButton
 						onClick={() => setAnalyticsOpen(!analyticsOpen)}
 						aria-controls="analytics-collapse"
@@ -174,20 +165,15 @@ const Nest: React.FC = () => {
 					>
 						<FontAwesomeIcon icon="chart-line" />
 					</NestCornerButton>
-				</OverlayTrigger>
-				<OverlayTrigger
-					overlay={
-						<Tooltip id={Math.random().toString()}>View Contract</Tooltip>
-					}
-					placement="bottom"
-				>
+				</Tooltipped>
+				<Tooltipped content="View Contract">
 					<NestCornerButton
 						href={`https://polygonscan.com/address/${nestTokenAddress}`}
 						target="_blank"
 					>
 						<FontAwesomeIcon icon="file-contract" />
 					</NestCornerButton>
-				</OverlayTrigger>
+				</Tooltipped>
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					<p>{name}</p>
@@ -234,23 +220,34 @@ const Nest: React.FC = () => {
 					<Col>
 						<StatCard>
 							<span>
-								<FontAwesomeIcon icon="times-circle" />
+								<FontAwesomeIcon icon="money-bill-wave" />
 								<br />
 								NAV
 							</span>
 							<Spacer size={'sm'} />
-							<StyledBadge>-</StyledBadge>
+							<StyledBadge>
+								{(nav && `$${getDisplayBalance(nav, 0)}`) || <SpinnerLoader />}
+							</StyledBadge>
 						</StatCard>
 					</Col>
 					<Col>
 						<StatCard>
 							<span>
-								<FontAwesomeIcon icon="times-circle" />
+								<FontAwesomeIcon icon="angle-double-up" />
+								<FontAwesomeIcon icon="angle-double-down" />
 								<br />
-								Premium
+								Premium{' '}
+								<Tooltipped content="Difference between NAV and Index price on exchanges" />
 							</span>
 							<Spacer size={'sm'} />
-							<StyledBadge>-</StyledBadge>
+							<StyledBadge>
+								{(nav &&
+									usdPerIndex &&
+									`${getDisplayBalance(
+										nav.minus(usdPerIndex).div(nav).times(100),
+										0,
+									)}%`) || <SpinnerLoader />}
+							</StyledBadge>
 						</StatCard>
 					</Col>
 				</StatsRow>
@@ -278,6 +275,7 @@ const Nest: React.FC = () => {
 									variant="outline-primary"
 									onClick={() => setPriceHistoryTimeFrame(timeFrame)}
 									active={priceHistoryTimeFrame === timeFrame}
+									key={timeFrame}
 								>
 									{timeFrame}
 								</BootButton>
