@@ -29,7 +29,7 @@ const StyledResponsiveWrapper = styled.div`
 	justify-content: flex-end;
 	position: relative;
 	width: 100%;
-	max-width: 512px;
+	max-width: 40%;
 	@media (max-width: 411px) {
 		flex: 1;
 		position: absolute;
@@ -44,7 +44,7 @@ const StyledResponsiveWrapper = styled.div`
 const StyledModal = styled.div`
 	padding: 0 20px;
 	background: radial-gradient(circle at center top, #202231, #161522) 0 0 /
-    cover fixed;
+		cover fixed;
 	border: 1px solid ${(props) => props.theme.color.darkGrey[200]};
 	border-radius: 12px;
 	display: flex;
