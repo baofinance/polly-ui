@@ -5,7 +5,6 @@ import { Nest } from 'contexts/Nests'
 import useComposition from 'hooks/useComposition'
 import useNestRate from 'hooks/useNestRate'
 import React from 'react'
-import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import 'react-tabs/style/react-tabs.css'
 import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/formatBalance'
@@ -26,6 +25,7 @@ import {
 	MobileNestLink,
 	NestImage,
 } from './styles'
+import Tooltipped from '../../../../components/Tooltipped'
 
 interface NestWithIssuedTokens extends Nest {}
 
@@ -33,7 +33,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 	const { account } = useWallet()
 	const { nestTokenAddress } = nest
 	const composition = useComposition(nest)
-	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
+	const { usdPerIndex } = useNestRate(nestTokenAddress)
 
 	const indexActive = true // startTime * 1000 - Date.now() <= 0
 
@@ -51,17 +51,9 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						{composition ? (
 							composition.map((component: any) => {
 								return (
-									<OverlayTrigger
-										placement="bottom"
-										overlay={
-											<Tooltip id={component.symbol}>
-												{component.symbol}
-											</Tooltip>
-										}
-										key={component.symbol}
-									>
+									<Tooltipped content={component.symbol} key={component.symbol}>
 										<AssetImage src={component.imageUrl} />
-									</OverlayTrigger>
+									</Tooltipped>
 								)
 							})
 						) : (

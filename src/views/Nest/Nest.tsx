@@ -7,14 +7,8 @@ import Button from '../../components/Button'
 import IssueModal from './components/IssueModal'
 import RedeemModal from './components/RedeemModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-	Badge,
-	Button as BootButton,
-	Col,
-	OverlayTrigger,
-	Row,
-	Tooltip,
-} from 'react-bootstrap'
+import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
+import Tooltipped from '../../components/Tooltipped'
 import { SpinnerLoader } from '../../components/Loader'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
@@ -163,14 +157,7 @@ const Nest: React.FC = () => {
 	return (
 		<>
 			<NestBox>
-				<OverlayTrigger
-					overlay={
-						<Tooltip id={Math.random().toString()}>
-							{analyticsOpen ? 'Hide' : 'View'} Analytics
-						</Tooltip>
-					}
-					placement="bottom"
-				>
+				<Tooltipped content={`${analyticsOpen ? 'Hide' : 'View'} Analytics`}>
 					<NestCornerButton
 						onClick={() => setAnalyticsOpen(!analyticsOpen)}
 						aria-controls="analytics-collapse"
@@ -178,20 +165,15 @@ const Nest: React.FC = () => {
 					>
 						<FontAwesomeIcon icon="chart-line" />
 					</NestCornerButton>
-				</OverlayTrigger>
-				<OverlayTrigger
-					overlay={
-						<Tooltip id={Math.random().toString()}>View Contract</Tooltip>
-					}
-					placement="bottom"
-				>
+				</Tooltipped>
+				<Tooltipped content="View Contract">
 					<NestCornerButton
 						href={`https://polygonscan.com/address/${nestTokenAddress}`}
 						target="_blank"
 					>
 						<FontAwesomeIcon icon="file-contract" />
 					</NestCornerButton>
-				</OverlayTrigger>
+				</Tooltipped>
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
 					<p>{name}</p>
@@ -238,7 +220,7 @@ const Nest: React.FC = () => {
 					<Col>
 						<StatCard>
 							<span>
-								<FontAwesomeIcon icon="times-circle" />
+								<FontAwesomeIcon icon="money-bill-wave" />
 								<br />
 								NAV
 							</span>
@@ -251,12 +233,21 @@ const Nest: React.FC = () => {
 					<Col>
 						<StatCard>
 							<span>
-								<FontAwesomeIcon icon="times-circle" />
+								<FontAwesomeIcon icon="angle-double-up" />
+								<FontAwesomeIcon icon="angle-double-down" />
 								<br />
-								Premium
+								Premium{' '}
+								<Tooltipped content="Difference between NAV and Index price on exchanges" />
 							</span>
 							<Spacer size={'sm'} />
-							<StyledBadge>-</StyledBadge>
+							<StyledBadge>
+								{(nav &&
+									usdPerIndex &&
+									`${getDisplayBalance(
+										nav.minus(usdPerIndex).div(nav).times(100),
+										0,
+									)}%`) || <SpinnerLoader />}
+							</StyledBadge>
 						</StatCard>
 					</Col>
 				</StatsRow>
