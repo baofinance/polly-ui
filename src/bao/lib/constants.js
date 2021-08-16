@@ -173,23 +173,6 @@ export const supportedNests = [
 	{
 		nid: 1,
 		nestAddress: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		outputToken: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		symbol: 'nDEFI',
-		name: 'Polygon DeFi Nest Test',
-		description: 'Polygon DeFi Ecosystem Test Nest',
-		pieColors: {
-			SUSHI: '#DB5FA9',
-			GRT: '#353993',
-			LINK: '#2A5AD9',
-			WETH: '#d05555',
-		},
-	},
-	{
-		nid: 2,
-		nestAddress: {
 			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
