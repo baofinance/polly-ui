@@ -275,6 +275,7 @@ const Nest: React.FC = () => {
 									variant="outline-primary"
 									onClick={() => setPriceHistoryTimeFrame(timeFrame)}
 									active={priceHistoryTimeFrame === timeFrame}
+									key={timeFrame}
 								>
 									{timeFrame}
 								</BootButton>
