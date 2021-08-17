@@ -9,6 +9,7 @@ import RedeemModal from './components/RedeemModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
 import Tooltipped from '../../components/Tooltipped'
+import { StyledTitle } from '../../components/PageHeader/PageHeader'
 import { SpinnerLoader } from '../../components/Loader'
 import PieGraph from '../../components/Graphs/PieGraph'
 import { ParentSize } from '@visx/responsive'
@@ -176,7 +177,7 @@ const Nest: React.FC = () => {
 				</Tooltipped>
 				<NestBoxHeader>
 					<Icon src={nestIcon} alt={nestToken} />
-					<p>{name}</p>
+					<StyledTitle>{name}</StyledTitle>
 					<StyledBadge>
 						1 {nestToken} ={' '}
 						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (

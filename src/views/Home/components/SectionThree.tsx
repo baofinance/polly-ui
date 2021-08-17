@@ -56,6 +56,7 @@ const SectionThree: React.FC = () => {
 						variant="outline-primary"
 						onClick={() => setActiveNest(nest)}
 						active={activeNest === nest}
+						key={nest.symbol}
 					>
 						{nest.symbol}
 					</Button>

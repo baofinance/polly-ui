@@ -66,30 +66,26 @@ const StyledIcon = styled.div`
 	text-align: center;
 `
 
-const StyledTitle = styled.h1`
+export const StyledTitle = styled.h1`
 	font-family: 'Rubik', sans-serif;
 	font-size: 4rem !important;
 	letter-spacing: -0.2rem;
 	text-align: center;
 	font-weight: 700 !important;
-	letter-spacing: 2px;
 	color: #f35626;
-	background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-	background-clip: text;
+	background: linear-gradient(to left, #6B9AEF 25%, #53C7E4 50%, #4ba9e3 75%, #6B9AEF 100%);
+	background-size: 200% auto;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	animation: hue 10s infinite linear;
+	animation: bounce 25s ease-in-out infinite alternate;
 
 	@media (max-width: 414px) {
 		font-size: 2rem !important;
 	}
 
-	@keyframes hue {
-		from {
-			-webkit-filter: hue-rotate(0deg);
-		}
+	@keyframes bounce {
 		to {
-			-webkit-filter: hue-rotate(-360deg);
+			background-position: 300%;
 		}
 	}
 `
