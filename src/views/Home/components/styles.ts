@@ -35,10 +35,12 @@ export const HeroHeader = styled.h6`
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
-  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  color: #f35626;
+  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: hue 10s infinite linear;
+  animation: bounce 10s ease-in-out infinite alternate;
   margin-top: 0.5em;
 
   @media (max-width: 414px) {
@@ -46,12 +48,9 @@ export const HeroHeader = styled.h6`
     line-height: 3.35rem;
   }
 
-  @keyframes hue {
-    from {
-      -webkit-filter: hue-rotate(0deg);
-    }
+  @keyframes bounce {
     to {
-      -webkit-filter: hue-rotate(-360deg);
+      background-position: 200%;
     }
   }
 `
@@ -62,24 +61,20 @@ export const HeroSubHeader = styled.h6`
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
-  letter-spacing: 2px;
   color: #f35626;
-  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
-  background-clip: text;
+  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: hue 10s infinite linear;
+  animation: bounce 10s ease-in-out infinite alternate;
 
   @media (max-width: 414px) {
     font-size: 2rem !important;
   }
 
-  @keyframes hue {
-    from {
-      -webkit-filter: hue-rotate(0deg);
-    }
+  @keyframes bounce {
     to {
-      -webkit-filter: hue-rotate(-360deg);
+      background-position: 200%;
     }
   }
 `
