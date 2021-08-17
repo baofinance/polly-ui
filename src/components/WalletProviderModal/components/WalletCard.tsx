@@ -30,7 +30,16 @@ const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => {
 				<CardIcon>{icon}</CardIcon>
 				<CardTitle text={title} />
 				<Spacer />
-				<Button onClick={onConnect} text={buttonText} />
+				<Button
+					onClick={onConnect}
+					text={
+						buttonText || (
+							<span>
+								<FontAwesomeIcon icon="wifi" /> Wrong Network
+							</span>
+						)
+					}
+				/>
 			</CardContent>
 		</WalletModalCard>
 	)
@@ -63,12 +72,6 @@ const _getButtonText = async (ethereum: any, status: string): Promise<any> => {
 				})
 			}
 		}
-
-		return (
-			<span>
-				<FontAwesomeIcon icon="wifi" /> Wrong Network
-			</span>
-		)
 	} else {
 		return status === 'connecting' ? 'Connecting...' : 'Connect'
 	}

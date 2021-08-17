@@ -1,6 +1,7 @@
 import { Bao } from 'bao'
 import React, { createContext, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
+import Web3 from 'web3'
 
 export interface BaoContext {
 	bao?: typeof Bao
@@ -14,11 +15,13 @@ declare global {
 	interface Window {
 		baosauce: any
 		bao: any
+		ethereum?: any
 	}
 }
 
 const BaoProvider: React.FC = ({ children }) => {
-	const { ethereum }: { ethereum: any } = useWallet()
+	const wallet = useWallet()
+	const { ethereum, connect }: any = wallet
 	const [bao, setBao] = useState<any>()
 
 	if (ethereum) ethereum.on('chainChanged', () => window.location.reload())
@@ -26,6 +29,15 @@ const BaoProvider: React.FC = ({ children }) => {
 	window.bao = bao
 
 	useEffect(() => {
+		const { ethereum: windowEth } = window
+		if (windowEth && !ethereum) {
+			// Check if user has connected to the webpage before
+			const mmWeb3 = new Web3(windowEth)
+			mmWeb3.eth.getAccounts().then((accounts: string[]) => {
+				if (accounts.length > 0) connect('injected')
+			})
+		}
+
 		if (ethereum) {
 			const chainId = Number(ethereum.chainId)
 			const baoLib = new Bao(ethereum, chainId, false, {
