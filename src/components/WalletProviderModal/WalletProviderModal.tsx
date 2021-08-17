@@ -11,10 +11,10 @@ import Spacer from '../Spacer'
 import WalletCard from './components/WalletCard'
 
 const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
-	const { account, connect } = useWallet()
+	const { account, ethereum, connect }: any = useWallet()
 
 	useEffect(() => {
-		if (account) {
+		if (account && ethereum.chainId === '0x89') {
 			onDismiss()
 		}
 	}, [account, onDismiss])

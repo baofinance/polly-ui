@@ -12,12 +12,12 @@ import NestList from './components/ListView/NestList'
 
 const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
-	const { account } = useWallet()
+	const { account, ethereum }: any = useWallet()
 	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
 	return (
 		<Switch>
 			<Page>
-				{account ? (
+				{account && ethereum.chainId === '0x89' ? (
 					<>
 						<Route exact path={path}>
 							<PageHeader icon={pollyNests} title="Build Your Nest" />

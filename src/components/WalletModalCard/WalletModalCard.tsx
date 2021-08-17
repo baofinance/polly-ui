@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const WalletModalCard: React.FC = ({ children }) => <StyledCard>{children}</StyledCard>
+const WalletModalCard: React.FC = ({ children }) => (
+	<StyledCard>{children}</StyledCard>
+)
 
 const StyledCard = styled.div`
 	background: rgba(0, 0, 0, 0.4);

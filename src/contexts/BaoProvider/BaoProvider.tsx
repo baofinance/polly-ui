@@ -21,12 +21,13 @@ const BaoProvider: React.FC = ({ children }) => {
 	const { ethereum }: { ethereum: any } = useWallet()
 	const [bao, setBao] = useState<any>()
 
+	if (ethereum) ethereum.on('chainChanged', () => window.location.reload())
+
 	window.bao = bao
 
 	useEffect(() => {
 		if (ethereum) {
 			const chainId = Number(ethereum.chainId)
-			console.log(chainId)
 			const baoLib = new Bao(ethereum, chainId, false, {
 				defaultAccount: ethereum.selectedAddress,
 				defaultConfirmations: 1,
@@ -37,7 +38,6 @@ const BaoProvider: React.FC = ({ children }) => {
 				accounts: [],
 				ethereumNodeTimeout: 10000,
 			})
-			console.log(baoLib)
 			setBao(baoLib)
 			window.baosauce = baoLib
 		}

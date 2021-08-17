@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../Button'
 import WalletModalCard from '../../WalletModalCard'
 import CardContent from '../../CardContent'
@@ -14,35 +14,64 @@ interface WalletCardProps {
 	title: string
 }
 
-const WalletCard: React.FC<WalletCardProps> = ({
-	icon,
-	onConnect,
-	title,
-}) => {
-	const wallet = useWallet()
-	const status = useMemo(() => wallet.status, [wallet, wallet.account])
+const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => {
+	const wallet: any = useWallet()
+
+	const [buttonText, setButtonText] = useState<any>()
+	useEffect(() => {
+		_getButtonText(wallet.ethereum, wallet.status).then((res: any) =>
+			setButtonText(res),
+		)
+	}, [wallet])
 
 	return (
 		<WalletModalCard>
 			<CardContent>
 				<CardIcon>{icon}</CardIcon>
-				<CardTitle text={title}/>
-				<Spacer/>
-				<Button onClick={onConnect} text={_buttonText(status)}/>
+				<CardTitle text={title} />
+				<Spacer />
+				<Button onClick={onConnect} text={buttonText} />
 			</CardContent>
 		</WalletModalCard>
 	)
 }
 
-const _buttonText = (status: string): any =>
-	status === 'error'
-		? (
+const _getButtonText = async (ethereum: any, status: string): Promise<any> => {
+	if (ethereum && ethereum.chainId !== '0x89') {
+		try {
+			await ethereum.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: '0x89' }],
+			})
+		} catch (error) {
+			if (error.code === 4902) {
+				await ethereum.request({
+					method: 'wallet_addEthereumChain',
+					params: [
+						{
+							chainId: '0x89',
+							rpcUrls: ['https://rpc-mainnet.maticvigil.com'],
+							blockExplorerUrls: ['https://explorer-mainnet.maticvigil.com'],
+							chainName: 'Matic Mainnet',
+							nativeCurrency: {
+								name: 'MATIC',
+								symbol: 'MATIC',
+								decimals: 18,
+							},
+						},
+					],
+				})
+			}
+		}
+
+		return (
 			<span>
-				<FontAwesomeIcon icon='wifi' /> Wrong Network
+				<FontAwesomeIcon icon="wifi" /> Wrong Network
 			</span>
 		)
-		: status === 'connecting'
-			? 'Connecting...'
-			: 'Connect'
+	} else {
+		return status === 'connecting' ? 'Connecting...' : 'Connect'
+	}
+}
 
 export default WalletCard
