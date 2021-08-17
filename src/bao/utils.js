@@ -196,41 +196,29 @@ export const approve = async (lpContract, masterChefContract, account) => {
 		.send({ from: account })
 }
 
-export const stake = async (masterChefContract, pid, amount, account, ref) => {
-	return masterChefContract.methods
-		.deposit(pid, ethers.utils.parseUnits(amount, 18), ref)
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
+export const stake = async (masterChefContract, pid, amount, account, ref) =>
+	new Promise((resolve) =>
+		masterChefContract.methods
+			.deposit(pid, ethers.utils.parseUnits(amount, 18), ref)
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
-export const unstake = async (
-	masterChefContract,
-	pid,
-	amount,
-	account,
-	ref,
-) => {
-	return masterChefContract.methods
-		.withdraw(pid, ethers.utils.parseUnits(amount, 18), ref)
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
+export const unstake = async (masterChefContract, pid, amount, account, ref) =>
+	new Promise((resolve) =>
+		masterChefContract.methods
+			.withdraw(pid, ethers.utils.parseUnits(amount, 18), ref)
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
-export const harvest = async (masterChefContract, pid, account) => {
-	return masterChefContract.methods
-		.claimReward(pid)
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
+export const harvest = async (masterChefContract, pid, account) =>
+	new Promise((resolve) =>
+		masterChefContract.methods
+			.claimReward(pid)
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
 export const getStaked = async (masterChefContract, pid, account) => {
 	try {
@@ -287,42 +275,32 @@ export function getRefUrl() {
 export const redeem = async (masterChefContract, account) => {
 	let now = new Date().getTime() / 1000
 	if (now >= 1597172400) {
-		return masterChefContract.methods
-			.exit()
-			.send({ from: account })
-			.on('transactionHash', (tx) => {
-				console.log(tx)
-				return tx.transactionHash
-			})
+		return new Promise((resolve) =>
+			masterChefContract.methods
+				.exit()
+				.send({ from: account })
+				.on('receipt', (tx) => resolve(tx.transactionHash)),
+		)
 	} else {
 		alert('pool not active')
 	}
 }
 
-export const enter = async (contract, amount, account) => {
-	return contract?.methods
-		.enter(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
+export const enter = async (contract, amount, account) =>
+	new Promise((resolve) =>
+		contract?.methods
+			.enter(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
-export const leave = async (contract, amount, account) => {
-	return contract.methods
-		.leave(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
-
-//functions from PieDAO
-
-let amount = '1.00000000'
-let ethNeededSingleEntry = { val: 0, label: '-' }
+export const leave = async (contract, amount, account) =>
+	new Promise((resolve) =>
+		contract.methods
+			.leave(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
 export const fetchCalcToNest = async (
 	recipeContract,
@@ -337,15 +315,6 @@ export const fetchCalcToNest = async (
 	return new BigNumber(amountEthNecessary).div(new BigNumber(10).pow(18))
 }
 
-export const fetchNestQuote = async (event, nestAddress) => {
-	ethNeededSingleEntry.label = '-'
-	try {
-		ethNeededSingleEntry = await fetchCalcToNest(nestAddress, amount)
-	} catch (e) {
-		console.error(e)
-	}
-}
-
 export const nestIssue = async (
 	recipeContract,
 	_outputToken,
@@ -353,33 +322,26 @@ export const nestIssue = async (
 	_maxInput,
 	_data,
 	account,
-) => {
-	return recipeContract.methods
-		.bake(
-			_inputToken,
-			_outputToken,
-			new BigNumber(_maxInput).times(10 ** 18).toString(),
-			_data,
-		)
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-}
+) =>
+	new Promise((resolve) =>
+		recipeContract.methods
+			.bake(
+				_inputToken,
+				_outputToken,
+				new BigNumber(_maxInput).times(10 ** 18).toString(),
+				_data,
+			)
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
-export const nestRedeem = async (nestContract, amount, account) => {
-	nestContract.methods
-		.exitPool(new BigNumber(amount).times(10 ** 18).toString())
-		.send({ from: account })
-		.on('transactionHash', (tx) => {
-			console.log(tx)
-			return tx.transactionHash
-		})
-		.on('error', (err, receipt) => {
-			console.log(err, receipt)
-		})
-}
+export const nestRedeem = async (nestContract, amount, account) =>
+	new Promise((resolve) =>
+		nestContract.methods
+			.exitPool(new BigNumber(amount).times(10 ** 18).toString())
+			.send({ from: account })
+			.on('receipt', (tx) => resolve(tx.transactionHash)),
+	)
 
 export const getWethPriceLink = async (bao) => {
 	const priceOracle = getWethPriceContract(bao)
