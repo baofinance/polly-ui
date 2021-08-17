@@ -129,17 +129,13 @@ const StyledButton = styled.button<StyledButtonProps>`
 	padding: 0.7rem 1.7rem;
 	align-items: center;
 	background-color: #3c32f5;
-	background-image: linear-gradient(
-		to right,
-		#220f68 0%,
-		#3c32f5 51%,
-		#220f68 100%
-	);
+	background-image: linear-gradient(to right,
+	#2E1D5B 0%,
+	#3c32f5 51%,
+	#220f68 100%);
 	background-size: 200% 200%;
 	border: 1px solid ${(props) => props.theme.color.grey[500]};
 	border-radius: 10px;
-	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
 	font-size: ${(props) => props.fontSize}px;
@@ -163,6 +159,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 		width: 100%;
 		padding: 0.85rem 0.85rem;
 	}
+
 	:hover {
 		transform: scale(1);
 	}
@@ -182,9 +179,6 @@ const StyledButton = styled.button<StyledButtonProps>`
 		color: ${(props) => props.theme.color.grey[100]};
 		cursor: ${(props) =>
 			props.disabled ? 'not-allowed' : 'pointer'} !important;
-		box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-			rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-			rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	}
 `
 
