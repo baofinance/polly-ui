@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import pollyIcon from 'assets/img/logo.svg'
 import { getPollyAddress } from 'bao/utils'
 import useBao from 'hooks/useBao'
@@ -29,6 +30,9 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
 	return (
 		<Modal>
+			<CloseButton onClick={onDismiss}>
+				<FontAwesomeIcon icon="window-close" />
+			</CloseButton>
 			<ModalTitle text="My Account" />
 			<ModalContent>
 				<Spacer />
@@ -51,18 +55,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 				<Button
 					href={`https://polygonscan.com/address/${account}`}
 					text="View on Polygonscan"
-					variant="secondary"
 				/>
 				<Spacer />
-				<Button
-					onClick={handleSignOutClick}
-					text="Sign out"
-					variant="secondary"
-				/>
+				<Button onClick={handleSignOutClick} text="Sign out" />
 			</ModalContent>
-			<ModalActions>
-				<Button onClick={onDismiss} text="Cancel" />
-			</ModalActions>
 		</Modal>
 	)
 }
@@ -79,6 +75,19 @@ const StyledBalanceWrapper = styled.div`
 	flex: 1;
 	flex-direction: column;
 	margin-bottom: ${(props) => props.theme.spacing[4]}px;
+`
+
+export const CloseButton = styled.a`
+	float: right;
+	top: 15px;
+	right: 25px;
+	font-size: 24px;
+	position: absolute;
+	color: ${(props) => props.theme.color.grey[100]};
+
+	&:hover {
+		cursor: pointer;
+	}
 `
 
 export default AccountModal

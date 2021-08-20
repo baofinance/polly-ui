@@ -89,13 +89,9 @@ const Farm: React.FC = () => {
 					automagically harvest POLLY rewards for you!
 				</StyledInfo>
 				<Spacer size="lg" />
-				<StyledLink
-					exact
-					activeClassName="active"
-					to={{ pathname: '/farms' }}
-				>
+				<StyledLink exact activeClassName="active" to={{ pathname: '/farms' }}>
 					<HeroSubHeader>
-						<FontAwesomeIcon icon="arrow-left" /> Return to Farms
+						<FontAwesomeIcon icon="arrow-left" size="xs" /> Return to Farms
 					</HeroSubHeader>
 				</StyledLink>
 			</StyledFarm>

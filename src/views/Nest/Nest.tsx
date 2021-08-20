@@ -1,57 +1,55 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ParentSize } from '@visx/responsive'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
-import { provider } from 'web3-core'
-import Spacer from '../../components/Spacer'
-import Button from '../../components/Button'
-import IssueModal from './components/IssueModal'
-import RedeemModal from './components/RedeemModal'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
-import Tooltipped from '../../components/Tooltipped'
-import { StyledTitle } from '../../components/PageHeader/PageHeader'
-import { SpinnerLoader } from '../../components/Loader'
-import PieGraph from '../../components/Graphs/PieGraph'
-import { ParentSize } from '@visx/responsive'
-import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import { getDisplayBalance } from '../../utils/formatBalance'
-import { getContract } from '../../utils/erc20'
-import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
-import useComposition from '../../hooks/useComposition'
-import useNestRate from '../../hooks/useNestRate'
-import useNest from '../../hooks/useNest'
-import useTokenBalance from '../../hooks/useTokenBalance'
-import useNestRedeem from '../../hooks/useNestRedeem'
+import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
+import { provider } from 'web3-core'
+import Button from '../../components/Button'
+import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
+import PieGraph from '../../components/Graphs/PieGraph'
+import { SpinnerLoader } from '../../components/Loader'
+import Spacer from '../../components/Spacer'
+import Tooltipped from '../../components/Tooltipped'
 import useBao from '../../hooks/useBao'
+import useComposition from '../../hooks/useComposition'
+import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
 import useModal from '../../hooks/useModal'
 import useNav from '../../hooks/useNav'
-import { useParams } from 'react-router-dom'
+import useNest from '../../hooks/useNest'
+import useNestRate from '../../hooks/useNestRate'
+import useNestRedeem from '../../hooks/useNestRedeem'
+import useTokenBalance from '../../hooks/useTokenBalance'
+import { getContract } from '../../utils/erc20'
+import { getDisplayBalance } from '../../utils/formatBalance'
+import IssueModal from './components/IssueModal'
+import NavModal from './components/NavModal'
+import { Progress } from './components/Progress'
+import RedeemModal from './components/RedeemModal'
 import {
-	NestBox,
-	NestCornerButton,
-	NestBoxHeader,
-	NestText,
-	NestHeader,
-	NestSubHeader,
-	NestList,
+	GraphContainer,
 	Icon,
-	NestBoxBreak,
-	NestButtons,
-	StyledBadge,
 	NestAnalytics,
 	NestAnalyticsContainer,
-	GraphContainer,
+	NestBox,
+	NestBoxBreak,
+	NestBoxHeader,
+	NestButtons,
+	NestCornerButton,
+	NestHeader,
+	NestList,
+	NestSubHeader,
+	NestText,
 	PieGraphRow,
-	StyledTable,
 	PrefButtons,
-	StatsRow,
+	QuestionIcon,
 	StatCard,
+	StatsRow,
+	StyledBadge,
+	StyledTable,
 } from './styles'
-import { Progress } from './components/Progress'
-
-// will replace with nest icons once they're designed
-import nestIcon from '../../assets/img/egg.png'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
@@ -62,7 +60,8 @@ const Nest: React.FC = () => {
 	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
 
 	const nest = useNest(nestId)
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name } = nest
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
+		nest
 	const composition = useComposition(nest)
 	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
@@ -123,6 +122,8 @@ const Nest: React.FC = () => {
 	const _inputToken = inputTokenContract.options.address
 	const _outputToken = outputTokenContract.options.address
 
+	const [onNavModal] = useModal(<NavModal />)
+
 	const [onPresentDeposit] = useModal(
 		<IssueModal
 			nestName={nestToken}
@@ -176,8 +177,8 @@ const Nest: React.FC = () => {
 					</NestCornerButton>
 				</Tooltipped>
 				<NestBoxHeader>
-					<Icon src={nestIcon} alt={nestToken} />
-					<StyledTitle>{name}</StyledTitle>
+					<Icon src={icon} alt={nestToken} />
+					<br />
 					<StyledBadge>
 						1 {nestToken} ={' '}
 						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
@@ -190,7 +191,6 @@ const Nest: React.FC = () => {
 					</StyledBadge>
 					<br />
 				</NestBoxHeader>
-				<NestBoxBreak margin={10} />
 				<StatsRow lg={4}>
 					<Col>
 						<StatCard>
@@ -223,8 +223,9 @@ const Nest: React.FC = () => {
 							<span>
 								<FontAwesomeIcon icon="money-bill-wave" />
 								<br />
-								NAV
+								NAV &nbsp;
 							</span>
+							<QuestionIcon icon="question-circle" onClick={onNavModal} />
 							<Spacer size={'sm'} />
 							<StyledBadge>
 								{(nav && `$${getDisplayBalance(nav, 0)}`) || <SpinnerLoader />}
@@ -277,6 +278,7 @@ const Nest: React.FC = () => {
 									onClick={() => setPriceHistoryTimeFrame(timeFrame)}
 									active={priceHistoryTimeFrame === timeFrame}
 									key={timeFrame}
+									style={{ marginTop: '0px' }}
 								>
 									{timeFrame}
 								</BootButton>
@@ -330,6 +332,7 @@ const Nest: React.FC = () => {
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(false)}
 								active={!allocationDisplayType}
+								style={{ marginTop: '0px' }}
 							>
 								<FontAwesomeIcon icon="table" />
 							</BootButton>
@@ -337,6 +340,7 @@ const Nest: React.FC = () => {
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(true)}
 								active={allocationDisplayType}
+								style={{ marginTop: '0px' }}
 							>
 								<FontAwesomeIcon icon="chart-pie" />
 							</BootButton>

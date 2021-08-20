@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { darken } from 'polished'
 import { Badge, Col, Row, Table } from 'react-bootstrap'
 import Collapse from 'react-bootstrap/Collapse'
 import styled from 'styled-components'
@@ -14,12 +16,10 @@ export const NestBox = styled.div`
   }
 `
 
-export const NestBoxHeader = styled.h1`
+export const NestBoxHeader = styled.div`
   font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.grey[100]};
-  margin-bottom: 25px;
-  margin-top: 25px;
-  margin-right: 25px;
+  margin: auto;
   font-size: 32px;
 
   p {
@@ -155,10 +155,10 @@ export const StyledBadge = styled(Badge)`
 `
 
 export const Icon = styled.img`
-  margin-left: 70px;
+  margin-left: 75px;
   display: inline;
-  height: 80px;
-  margin-bottom: 10px;
+  height: 200px;
+  margin-bottom: 25px;
 `
 
 export const NestButtons = styled.div`
@@ -214,4 +214,15 @@ export const NestText = styled.div`
 
 export const NestList = styled.ul`
   margin-left: 25px;
+`
+
+export const QuestionIcon = styled(FontAwesomeIcon)`
+  color: ${(props) => darken(0.2, props.theme.color.grey[100])};
+
+  &:hover,
+  &:focus {
+    color: ${(props) => props.theme.color.grey[100]};
+    animation: 200ms;
+    cursor: pointer;
+  }
 `

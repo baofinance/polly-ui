@@ -169,7 +169,7 @@ export const supportedPools = [
 	},
 ]
 
-export const supportedNests = [
+export const supportedNests = [ 
 	{
 		nid: 1,
 		nestAddress: {
@@ -178,7 +178,8 @@ export const supportedNests = [
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 		outputToken: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
 		symbol: 'nDEFI',
-		name: 'Scarlet Macaw',
+		name: 'nDEFI',
+		icon: '/ndefi.svg',
 		description: '~',
 		pieColors: {
 			SUSHI: '#DB5FA9',
@@ -198,6 +199,7 @@ export const supportedNests = [
 			WMATIC: '#8247E5',
 			UMA: '#FF494A',
 			ALPHA: '#27B2FE',
+			BAL: '#FFFFFF',
 		},
 	},
 ]

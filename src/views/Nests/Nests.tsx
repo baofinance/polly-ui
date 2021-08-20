@@ -20,7 +20,11 @@ const Nests: React.FC = () => {
 				{account && ethereum.chainId === '0x89' ? (
 					<>
 						<Route exact path={path}>
-							<PageHeader icon={pollyNests} title="Build Your Nest" />
+							<PageHeader
+								icon={pollyNests}
+								title="Build Your Nest"
+								subtitle="Maximize returns and gain balanced exposure to some of the best crypto assets on Polygon!"
+							/>
 							<NestList />
 						</Route>
 						<Route path={`${path}/:nestId`}>

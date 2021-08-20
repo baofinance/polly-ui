@@ -17,6 +17,7 @@ import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback, useState } from 'react'
+import styled from 'styled-components'
 import { getDisplayBalance } from 'utils/formatBalance'
 import { Contract } from 'web3-eth-contract'
 
@@ -140,10 +141,13 @@ const IssueModal: React.FC<IssueModalProps> = ({
 
 	return (
 		<Modal>
+			<CloseButton onClick={onDismiss}>
+				<FontAwesomeIcon icon="window-close" />
+			</CloseButton>
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
 				{
-					'Use WETH to mint your nest! Polly buys the underlying assets for you from Sushiswap. Slippage might apply. Minting transactions send 5% more WETH to avoid unexpected errors, any unused WETH is returned.'
+					'Polly uses your wETH to buy the underlying assets for you from Sushiswap. Minting transactions send 5% more wETH to avoid unexpected errors like slippage, any unused WETH is returned.'
 				}
 				<br />
 				<br />
@@ -224,5 +228,18 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		</Modal>
 	)
 }
+
+export const CloseButton = styled.a`
+	float: right;
+	top: 15px;
+	right: 25px;
+	font-size: 24px;
+	position: absolute;
+	color: ${(props) => props.theme.color.grey[100]};
+
+	&:hover {
+		cursor: pointer;
+	}
+`
 
 export default IssueModal

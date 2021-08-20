@@ -1,4 +1,3 @@
-import nestIcon from 'assets/img/egg.png'
 import Button from 'components/Button'
 import { SpinnerLoader } from 'components/Loader'
 import { Nest } from 'contexts/Nests'
@@ -8,6 +7,7 @@ import React from 'react'
 import 'react-tabs/style/react-tabs.css'
 import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/formatBalance'
+import Tooltipped from '../../../../components/Tooltipped'
 import '../tab-styles.css'
 import {
 	AssetImage,
@@ -25,7 +25,6 @@ import {
 	MobileNestLink,
 	NestImage,
 } from './styles'
-import Tooltipped from '../../../../components/Tooltipped'
 
 interface NestWithIssuedTokens extends Nest {}
 
@@ -42,7 +41,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 			<ListItemContainer>
 				<ListCol width={'17.5%'} align={'left'}>
 					<ColumnText>
-						<NestImage src={nestIcon} alt={nest.nestToken} />
+						<NestImage src={nest.icon} alt={nest.nestToken} />
 						{nest.nestToken}
 					</ColumnText>
 				</ListCol>
@@ -91,7 +90,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 			<MobileNestLink exact activeClassName="active" to={`/nests/${nest.nid}`}>
 				<MobileListItemWrapper>
 					<MobileListItemContainer>
-						<NestImage src={nestIcon} alt={nest.nestToken} />
+						<NestImage src={nest.icon} alt={nest.nestToken} />
 						<MobileListText>
 							<MobileListTitle>{nest.nestToken}</MobileListTitle>
 							<MobileListDesc>

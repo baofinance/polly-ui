@@ -1,6 +1,8 @@
+import pollyNests from 'assets/img/polly-nests.png'
 import Button from 'components/Button'
 import Container from 'components/Container'
 import Page from 'components/Page'
+import PageHeader from 'components/PageHeader'
 import Spacer from 'components/Spacer'
 import WalletProviderModal from 'components/WalletProviderModal'
 import useModal from 'hooks/useModal'
@@ -8,7 +10,6 @@ import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import { HeroHeader } from 'views/Home/components/styles'
 import Farm from '../Farm'
 import Balances from './components/Balances'
 import FarmCards from './components/FarmCards'
@@ -23,7 +24,11 @@ const Farms: React.FC = () => {
 				{account && ethereum.chainId === '0x89' ? (
 					<>
 						<Route exact path={path}>
-							<HeroHeader>FARMS</HeroHeader>
+							<PageHeader
+								icon={pollyNests}
+								title="Polly Farms"
+								subtitle="Earn POLLY tokens by staking Sushiswap LP Tokens!"
+							/>
 							<Spacer size="lg" />
 							<Container>
 								<Balances />

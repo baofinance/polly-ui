@@ -42,10 +42,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
 						Forum
 					</StyledExternalLink>
 					<StyledExternalLink href="https://docs.bao.finance" target="_blank">
-						About
-					</StyledExternalLink>
-					<StyledExternalLink href="https://docs.bao.finance" target="_blank">
-						FAQ
+						Docs
 					</StyledExternalLink>
 				</StyledMobileMenu>
 			</StyledMobileMenuWrapper>

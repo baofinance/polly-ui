@@ -42,10 +42,7 @@ const Nav: React.FC = () => {
 				Forum
 			</StyledAbsoluteLink>
 			<StyledAbsoluteLink href="https://docs.bao.finance" target="_blank">
-				About
-			</StyledAbsoluteLink>
-			<StyledAbsoluteLink href="https://docs.bao.finance" target="_blank">
-				FAQ
+				Docs
 			</StyledAbsoluteLink>
 		</StyledNav>
 	)

@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BigNumber from 'bignumber.js'
 import Button from 'components/Button'
 import Modal, { ModalProps } from 'components/Modal'
@@ -9,6 +10,7 @@ import useAllowance from 'hooks/useAllowance'
 import useApprove from 'hooks/useApprove'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback, useMemo, useState } from 'react'
+import styled from 'styled-components'
 import { getFullDisplayBalance } from 'utils/formatBalance'
 import { Contract } from 'web3-eth-contract'
 
@@ -84,6 +86,9 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
 	return (
 		<Modal>
+			<CloseButton onClick={onDismiss}>
+				<FontAwesomeIcon icon="window-close" />
+			</CloseButton>
 			<ModalTitle text={`Redeem ${nestName}`} />
 			<TokenInput
 				onSelectMax={handleSelectMax}
@@ -123,11 +128,24 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 			</ModalActions>
 			<ModalContent>
 				{
-					'Remember the longer you stay in a pool the lower your fee. Read the docs for details, but most users will want to stay in a pool 5 days or longer.'
+					'Currently Polly only supports multi-asset withdrawals. When redeeming your nest tokens you will receive the underlying assets.'
 				}
 			</ModalContent>
 		</Modal>
 	)
 }
+
+export const CloseButton = styled.a`
+	float: right;
+	top: 15px;
+	right: 25px;
+	font-size: 24px;
+	position: absolute;
+	color: ${(props) => props.theme.color.grey[100]};
+
+	&:hover {
+		cursor: pointer;
+	}
+`
 
 export default WithdrawModal

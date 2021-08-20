@@ -61,7 +61,7 @@ export const HeroSubHeader = styled.h6`
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
-  color: #f35626;
+  color: #1fa6e0;
   background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
