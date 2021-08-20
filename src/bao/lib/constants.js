@@ -169,7 +169,7 @@ export const supportedPools = [
 	},
 ]
 
-export const supportedNests = [ 
+export const supportedNests = [
 	{
 		nid: 1,
 		nestAddress: {
