@@ -272,7 +272,12 @@ const Nest: React.FC = () => {
 						width="20%"
 					/>
 					<Spacer />
-					<Button disabled={true} text="Swap" width="20%" />
+					<Button
+						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619`}
+						target="_blank"
+						text="Swap on Sushi"
+						width="20%"
+					/>
 				</NestButtons>
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>

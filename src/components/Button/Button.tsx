@@ -14,6 +14,7 @@ interface ButtonProps {
 	variant?: 'default' | 'secondary' | 'tertiary'
 	inline?: boolean
 	width?: string
+	target?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
 	variant,
 	inline,
 	width,
+	target,
 }) => {
 	const { color, spacing } = useContext(ThemeContext)
 
@@ -94,6 +96,7 @@ const Button: React.FC<ButtonProps> = ({
 				size={buttonSize}
 				inline={inline}
 				width={width}
+				target={target}
 			>
 				{children}
 				{ButtonChild}
@@ -111,6 +114,7 @@ interface StyledButtonProps {
 	size: number
 	inline: boolean
 	width: string
+	target?: string
 }
 
 const AnimateGradient = keyframes`
@@ -125,7 +129,9 @@ const AnimateGradient = keyframes`
 	}
 }`
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
+	target: attrs.target || '',
+}))<StyledButtonProps>`
 	padding: 0.7rem 1.7rem;
 	align-items: center;
 	background-color: #3c32f5;
