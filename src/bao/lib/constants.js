@@ -199,7 +199,7 @@ export const supportedNests = [
 			WMATIC: '#8247E5',
 			UMA: '#FF494A',
 			ALPHA: '#27B2FE',
-			BAL: '#FFFFFF',
+			BAL: '#b9b9b9',
 		},
 	},
 ]
