@@ -107,9 +107,11 @@ const getPriceFromPair = async (
   network = 'matic',
 ) => {
   const data: any = await _querySubgraph(
-    _getPriceFromPair(tokenAddress),
+    _getPriceFromPair(tokenAddress.toLowerCase()),
     network,
   )
+  if (!data.token) return
+
   const ethPrice = getBalanceNumber(wethPrice, 0)
   const quotePair: any = _.find(
     data.token.basePairs.concat(data.token.quotePairs),
@@ -120,7 +122,6 @@ const getPriceFromPair = async (
       )
     },
   )
-
   if (!quotePair) return
 
   const wethPerToken = quotePair.token0.symbol.toLowerCase().includes('eth')

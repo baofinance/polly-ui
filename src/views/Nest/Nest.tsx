@@ -22,6 +22,7 @@ import useNest from '../../hooks/useNest'
 import useNestRate from '../../hooks/useNestRate'
 import useNestRedeem from '../../hooks/useNestRedeem'
 import useTokenBalance from '../../hooks/useTokenBalance'
+import usePairPrice from '../../hooks/usePairPrice'
 import { getContract } from '../../utils/erc20'
 import { getDisplayBalance } from '../../utils/formatBalance'
 import IssueModal from './components/IssueModal'
@@ -66,6 +67,7 @@ const Nest: React.FC = () => {
 	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
 	const nav = useNav(composition, supply)
+	const sushiPairPrice = usePairPrice(nest)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -239,14 +241,21 @@ const Nest: React.FC = () => {
 								<FontAwesomeIcon icon="angle-double-down" />
 								<br />
 								Premium{' '}
-								<Tooltipped content="Difference between NAV and Index price on exchanges" />
+								{sushiPairPrice && (
+									<Tooltipped
+										content={`Difference between ${nestToken} price on SushiSwap ($${getDisplayBalance(
+											sushiPairPrice,
+											0,
+										)}) and NAV price`}
+									/>
+								)}
 							</span>
 							<Spacer size={'sm'} />
 							<StyledBadge>
 								{(nav &&
-									usdPerIndex &&
+									sushiPairPrice &&
 									`${getDisplayBalance(
-										nav.minus(usdPerIndex).div(nav).times(100),
+										sushiPairPrice.minus(nav).div(sushiPairPrice).times(100),
 										0,
 									)}%`) || <SpinnerLoader />}
 							</StyledBadge>
