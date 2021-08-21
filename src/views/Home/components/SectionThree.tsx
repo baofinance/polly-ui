@@ -19,13 +19,24 @@ const SectionThree: React.FC = () => {
 	const activeToken = useMemo(() => {
 		return _.find(
 			priceData,
-			(d: any) => d.id === addressMap.WETH  // activeNest.nestAddress[137]
+			(d: any) => d.id === addressMap.WETH, // activeNest.nestAddress[137]
 		)
+	}, [activeNest])
+
+	const indexPriceChange24h = useMemo(() => {
+		if (!(activeNest && activeToken.dayData)) return
+
+		const { dayData } = activeToken
+		console.log(dayData)
+		return new BigNumber(dayData[dayData.length - 1].close)
+			.minus(dayData[dayData.length - 2].close)
+			.div(dayData[dayData.length - 1].close)
+			.times(100)
 	}, [activeNest])
 
 	useEffect(() => {
 		GraphClient.getPriceHistoryMultiple(
-			supportedNests.map(nest => addressMap.WETH) // nest.nestAddress[137]
+			supportedNests.map(() => addressMap.WETH), // nest.nestAddress[137]
 		).then((res: any) => {
 			// Clean price data from subgraph
 			const tokens = _.cloneDeep(res.tokens).map((token: any) => {
@@ -42,41 +53,56 @@ const SectionThree: React.FC = () => {
 			dayData.map((data: any) => ({
 				date: new Date(data.date * 1000).toISOString(),
 				close: parseFloat(data.priceUSD),
-			}))
+			})),
 		)
 
 	return (
 		<SectionThreeContainer>
 			<PrefButtons style={{ width: '100%' }}>
-				<NestBoxHeader style={{ float: 'left' }}>
-					{(activeNest && activeNest.symbol) || <SpinnerLoader />}
-				</NestBoxHeader>
-				{supportedNests.map(nest => (
+				<NestBoxHeader style={{ float: 'left' }}>Index Price</NestBoxHeader>
+				{supportedNests.map((nest) => (
 					<Button
 						variant="outline-primary"
 						onClick={() => setActiveNest(nest)}
 						active={activeNest === nest}
 						key={nest.symbol}
+						style={{ margin: '5px 10px' }}
 					>
 						{nest.symbol}
 					</Button>
 				))}
 				<NestBoxHeader style={{ float: 'right' }}>
-					{
-						(activeNest && `$${getDisplayBalance(
-							new BigNumber(
-								activeToken.dayData[activeToken.dayData.length - 1].close
-							),
-							0
-						)}`) || <SpinnerLoader />
-					}
+					{indexPriceChange24h ? (
+						<>
+							$
+							{activeToken.dayData &&
+								getDisplayBalance(
+									new BigNumber(
+										activeToken.dayData[activeToken.dayData.length - 1].close,
+									),
+									0,
+								)}
+							<span
+								className="smalltext"
+								style={{
+									color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+								}}
+							>
+								{activeToken.dayData &&
+									getDisplayBalance(indexPriceChange24h, 0)}
+								{'%'}
+							</span>
+						</>
+					) : (
+						<SpinnerLoader />
+					)}
 				</NestBoxHeader>
 			</PrefButtons>
 			<Spacer />
 			{activeNest && (
 				<StyledGraphContainer>
 					<ParentSize>
-						{parent => (
+						{(parent) => (
 							<AreaGraph
 								width={parent.width}
 								height={parent.height}
