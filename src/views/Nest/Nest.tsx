@@ -372,12 +372,7 @@ const Nest: React.FC = () => {
 								<tbody>
 									{(composition &&
 										maxAllocationPercentage &&
-										_.orderBy(
-											composition,
-											(component) =>
-												parseFloat(component.percentage.toString()),
-											'desc',
-										).map((component) => (
+										composition.map((component) => (
 											<tr key={component.symbol}>
 												<td>
 													<img

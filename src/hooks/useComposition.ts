@@ -97,7 +97,13 @@ const useComposition = (nest: Nest) => {
               .toFixed(2)
         })
 
-        setComposition(res)
+        setComposition(
+          _.orderBy(
+            res,
+            (component) => parseFloat(component.percentage),
+            'desc',
+          ),
+        )
       })
   }, [nest])
 
