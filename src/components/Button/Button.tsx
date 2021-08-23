@@ -9,12 +9,13 @@ interface ButtonProps {
 	href?: string
 	onClick?: () => void
 	size?: 'sm' | 'md' | 'lg'
-	text?: string
+	text?: any
 	to?: string
 	variant?: 'default' | 'secondary' | 'tertiary'
 	inline?: boolean
 	width?: string
 	target?: string
+	border?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 	inline,
 	width,
 	target,
+	border,
 }) => {
 	const { color, spacing } = useContext(ThemeContext)
 
@@ -84,24 +86,25 @@ const Button: React.FC<ButtonProps> = ({
 		}
 	}, [href, text, to])
 
+	const ButtonComp = !border
+		? StyledButton
+		: StyledBorderButton
 	return (
-		<>
-			<StyledButton
-				boxShadow={boxShadow}
-				color={buttonColor}
-				disabled={disabled}
-				fontSize={fontSize}
-				onClick={onClick}
-				padding={buttonPadding}
-				size={buttonSize}
-				inline={inline}
-				width={width}
-				target={target}
-			>
-				{children}
-				{ButtonChild}
-			</StyledButton>
-		</>
+		<ButtonComp
+			boxShadow={boxShadow}
+			color={buttonColor}
+			disabled={disabled}
+			fontSize={fontSize}
+			onClick={onClick}
+			padding={buttonPadding}
+			size={buttonSize}
+			inline={inline}
+			width={width}
+			target={target}
+		>
+			{children}
+			{ButtonChild}
+		</ButtonComp>
 	)
 }
 
@@ -241,5 +244,23 @@ export const MaxButton = styled.a`
 		cursor: pointer;
 	}
 `
+
+export const StyledBorderButton = styled(StyledButton)`
+	background:
+		linear-gradient(#1B1B29, #1B1B29) padding-box,
+		linear-gradient(135deg, #42439d, #53C7E4) border-box;
+	border-radius: 15px;
+	border: 1.75px solid transparent;
+	padding: 15px;
+
+	&:hover,
+	&:focus,
+	&:active {
+		background:
+			linear-gradient(225deg, #242436, #1B1B29) padding-box,
+			linear-gradient(157.5deg, #5455c9, #53C7E4) border-box;
+		border: 1.75px solid transparent;
+	}
+`;
 
 export default Button
