@@ -10,7 +10,7 @@ const Logo: React.FC = () => {
 			<img src={pollyLogo} height="36" style={{ verticalAlign: 'middle' }} />
 			<StyledText>
 				<TitleText>
-					<Tooltipped content="A Bao Finance Franchise">
+					<Tooltipped content="by Bao.Finance">
 						<span>Polly</span>
 					</Tooltipped>
 				</TitleText>

@@ -2,17 +2,19 @@ import React from 'react'
 import {
 	BubbleOverlayText,
 	HeroHeader,
+	HeroHeaderGradient,
 	HeroText,
 } from './styles'
 
 const SectionOne: React.FC = () => (
 	<>
-		<BubbleOverlayText>
-			<HeroHeader>Polly Finance</HeroHeader>
-			<HeroText>
-				Diversify your DeFi portfoilio & earn passive yield in just a few clicks
-			</HeroText>
-		</BubbleOverlayText>
+		<HeroHeader>
+			Build Your <HeroHeaderGradient>Nest</HeroHeaderGradient>
+		</HeroHeader>
+		<HeroText>
+			Diversify your crypto portfoilio & earn passive yield in just a few
+			clicks!
+		</HeroText>
 	</>
 )
 

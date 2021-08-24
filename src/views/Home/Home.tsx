@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 
 	return (
 		<Page>
-			<Container>
+			<Container style={{width: '80%'}}>
 				<SectionOne />
 				<Spacer size="lg" />
 				<HomeAnalytics />

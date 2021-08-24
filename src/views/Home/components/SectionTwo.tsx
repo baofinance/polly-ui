@@ -24,7 +24,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Diversify your exposure to <InfoSubHeader>DeFi</InfoSubHeader>.
+					Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>
 				</InfoHeader>
 				<InfoText>
 					Polly Finance is home to some of the most diverse indexes on
@@ -38,7 +38,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Mint <InfoSubHeader>Nests</InfoSubHeader>, earn Passive Yield.
+					Mint <InfoSubHeader>Nests</InfoSubHeader>, Earn Passive Yield
 				</InfoHeader>
 				<InfoText>
 					Nests are designed to be truly set-and-forget, maximizing your
@@ -62,7 +62,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>.
+					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>
 				</InfoHeader>
 				<InfoText>
 					Polly's strategies and asset manager are governed, maintained,

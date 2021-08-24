@@ -27,23 +27,26 @@ import { Col } from 'react-bootstrap'
 export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 7rem !important;
-  line-height: 6.7rem;
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
-  color: #f35626;
-  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: bounce 10s ease-in-out infinite alternate;
+  color: white;
   margin-top: 0.5em;
 
   @media (max-width: 414px) {
     font-size: 3.5rem !important;
     line-height: 3.35rem;
   }
+`
 
+export const HeroHeaderGradient = styled(HeroHeader)`
+  display: inline-block;
+  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bounce 10s ease-in-out infinite alternate;
+  
   @keyframes bounce {
     to {
       background-position: 200%;
@@ -328,10 +331,12 @@ export const InfoImage = styled.img`
 
 export const InfoImageCol = styled(Col)`
   margin-bottom: 5em;
+  width: 35%;
 `
 
 export const InfoCol = styled(InfoImageCol)`
   display: table;
+  width: 65%;
 `
 
 export const InfoContainer = styled.div`
