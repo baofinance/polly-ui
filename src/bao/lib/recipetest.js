@@ -6,7 +6,7 @@ const rpcUrl = 'https://rpc-mainnet.maticvigil.com'
 const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl))
 
 const contracts = {
-	recipe: '0xd683Cb11005EfC90A1c3995251821a20c7860f7A',
+	recipe: '0x5fF842438b4B1865f146Fcbb4d81331BFe7Dc856',
 	nest: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
 }
 const amount = new BigNumber(1).times(new BigNumber(10).pow(18)).toFixed(0)
