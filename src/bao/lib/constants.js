@@ -23,7 +23,7 @@ export const INTEGERS = {
 }
 
 export const addressMap = {
-	PLYTST: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22',
+	PLYTST: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22', //replace with polly address
 	uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -37,7 +37,7 @@ export const addressMap = {
 	SNX: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
 	CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
 	MATIC: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-	TESTINDEX: '0xCFDfc852e6D73903cDC0d5d859E561FA46b15C19', //Test index consisting of amDAI & WMATIC
+	nDEFI: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6', //Test index consisting of amDAI & WMATIC
 }
 
 export const contractAddresses = {
@@ -51,7 +51,7 @@ export const contractAddresses = {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 	},
 	recipe: {
-		137: '0xd683Cb11005EfC90A1c3995251821a20c7860f7A',
+		137: '0x5fF842438b4B1865f146Fcbb4d81331BFe7Dc856',
 	},
 	wethPrice: {
 		137: '0xF9680D99D6C9589e2a93a78A04A279e509205945',
