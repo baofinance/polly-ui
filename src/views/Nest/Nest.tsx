@@ -275,7 +275,7 @@ const Nest: React.FC = () => {
 					<Button
 						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619`}
 						target="_blank"
-						text="Swap on Sushi"
+						text="Swap"
 						width="20%"
 					/>
 				</NestButtons>
