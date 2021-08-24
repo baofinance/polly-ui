@@ -1,7 +1,7 @@
 import MenuIcon from 'components/icons/MenuIcon'
 import React from 'react'
 import styled from 'styled-components'
-import Container from '../Container'
+import { Container } from 'react-bootstrap'
 import Logo from '../Logo'
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
@@ -13,22 +13,20 @@ interface TopBarProps {
 const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 	return (
 		<StyledTopBar>
-			<Container size="lg">
-				<StyledTopBarInner>
-					<StyledLogoWrapper>
-						<Logo />
-					</StyledLogoWrapper>
-					<StyledNavWrapper>
-						<Nav />
-					</StyledNavWrapper>
-					<StyledAccountButtonWrapper>
-						<AccountButton />
-						<StyledMenuButton onClick={onPresentMobileMenu}>
-							<MenuIcon />
-						</StyledMenuButton>
-					</StyledAccountButtonWrapper>
-				</StyledTopBarInner>
-			</Container>
+			<StyledTopBarInner>
+				<StyledLogoWrapper>
+					<Logo />
+				</StyledLogoWrapper>
+				<StyledNavWrapper>
+					<Nav />
+				</StyledNavWrapper>
+				<StyledAccountButtonWrapper>
+					<AccountButton />
+					<StyledMenuButton onClick={onPresentMobileMenu}>
+						<MenuIcon />
+					</StyledMenuButton>
+				</StyledAccountButtonWrapper>
+			</StyledTopBarInner>
 		</StyledTopBar>
 	)
 }
@@ -39,7 +37,9 @@ const StyledLogoWrapper = styled.div`
 		width: auto;
 	}
 `
-const StyledTopBar = styled.div``
+const StyledTopBar = styled(Container)`
+	margin: auto;
+`
 
 const StyledNavWrapper = styled.div`
 	display: flex;
@@ -51,6 +51,7 @@ const StyledNavWrapper = styled.div`
 `
 
 const StyledTopBarInner = styled.div`
+	margin: auto;
 	align-items: center;
 	display: flex;
 	height: ${(props) => props.theme.topBarSize}px;

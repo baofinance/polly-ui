@@ -138,7 +138,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	padding: 0.7rem 1.7rem;
 	align-items: center;
 	background-color: #3c32f5;
-	background-image: linear-gradient(to right,
+	background-image: linear-gradient(135deg,
 	#2E1D5B 0%,
 	#3c32f5 51%,
 	#220f68 100%);
@@ -180,7 +180,6 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	&:hover,
 	&:focus {
 		background-position: right center;
-		transform: translate(1px, 1px);
 		-webkit-animation: ${AnimateGradient} 3s ease-in-out infinite;
 		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
 		animation: ${AnimateGradient} 3s ease-in-out infinite;

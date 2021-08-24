@@ -55,8 +55,7 @@ const StyledPageHeader = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-bottom: ${(props) => props.theme.spacing[6]}px;
-	margin: 0 auto;
-	margin-top: 72px;
+	margin: 72px auto 0;
 `
 
 const StyledIcon = styled.div`

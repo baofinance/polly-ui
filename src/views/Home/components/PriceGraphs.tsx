@@ -12,7 +12,7 @@ import { SpinnerLoader } from '../../../components/Loader'
 import Spacer from '../../../components/Spacer'
 import styled from 'styled-components'
 
-const SectionThree: React.FC = () => {
+const PriceGraphs: React.FC = () => {
 	const [priceData, setPriceData] = useState<any | undefined>()
 	const [activeNest, setActiveNest] = useState<any | undefined>()
 
@@ -27,7 +27,6 @@ const SectionThree: React.FC = () => {
 		if (!(activeNest && activeToken.dayData)) return
 
 		const { dayData } = activeToken
-		console.log(dayData)
 		return new BigNumber(dayData[dayData.length - 1].close)
 			.minus(dayData[dayData.length - 2].close)
 			.div(dayData[dayData.length - 1].close)
@@ -57,7 +56,7 @@ const SectionThree: React.FC = () => {
 		)
 
 	return (
-		<SectionThreeContainer>
+		<PriceGraphContainer>
 			<PrefButtons style={{ width: '100%' }}>
 				<NestBoxHeader style={{ float: 'left' }}>Index Price</NestBoxHeader>
 				{supportedNests.map((nest) => (
@@ -113,18 +112,18 @@ const SectionThree: React.FC = () => {
 					</ParentSize>
 				</StyledGraphContainer>
 			)}
-		</SectionThreeContainer>
+		</PriceGraphContainer>
 	)
 }
 
-const SectionThreeContainer = styled.div`
+const PriceGraphContainer = styled.div`
 	width: 80%;
 	margin: 0 auto;
 `
 
 const StyledGraphContainer = styled(GraphContainer)`
 	width: 100%;
-	margin: 0 auto;
+	margin: 2.5em auto 0;
 `
 
-export default SectionThree
+export default PriceGraphs

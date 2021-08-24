@@ -1,19 +1,18 @@
 import pollyLogo from 'assets/img/logo.svg'
 import React from 'react'
-import Tilt from 'react-parallax-tilt'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import Tooltipped from '../Tooltipped'
 
 const Logo: React.FC = () => {
 	return (
 		<StyledLogo to="/">
-			<Tilt>
-				<img src={pollyLogo} height="50" />
-			</Tilt>
+			<img src={pollyLogo} height="36" style={{ verticalAlign: 'middle' }} />
 			<StyledText>
 				<TitleText>
-					Polly Finance
-					<TitleSubText>by Bao</TitleSubText>
+					<Tooltipped content="A Bao Finance Franchise">
+						<span>Polly</span>
+					</Tooltipped>
 				</TitleText>
 			</StyledText>
 		</StyledLogo>
@@ -23,12 +22,10 @@ const Logo: React.FC = () => {
 const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-family: 'Rubik', sans-serif;
-	font-weight: 600;
-	font-size: 24px;
+	font-size: 36px;
 	letter-spacing: 0.03rem;
-	margin-top: -1rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
 const TitleSubText = styled.div`
