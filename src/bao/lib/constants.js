@@ -37,7 +37,9 @@ export const addressMap = {
 	SNX: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
 	CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
 	MATIC: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-	nDEFI: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6', //Test index consisting of amDAI & WMATIC
+	nDEFI: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6', //Test index consisting of amDAI & WMATIC,
+	BAO: '0xc81278a52ad0e1485b7c3cdf79079220ddd68b7d',
+	DEAD: '0x000000000000000000000000000000000000dead'
 }
 
 export const contractAddresses = {
