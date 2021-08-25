@@ -41,12 +41,18 @@ export const HeroHeader = styled.h6`
 
 export const HeroHeaderGradient = styled(HeroHeader)`
   display: inline-block;
-  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background: linear-gradient(
+    to left,
+    #6b9aef 25%,
+    #65c48c 50%,
+    #1fa6e0 75%,
+    #6b9aef 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: bounce 10s ease-in-out infinite alternate;
-  
+
   @keyframes bounce {
     to {
       background-position: 200%;
@@ -61,7 +67,13 @@ export const HeroSubHeader = styled.h6`
   text-align: center;
   font-weight: 700 !important;
   color: #1fa6e0;
-  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background: linear-gradient(
+    to left,
+    #6b9aef 25%,
+    #65c48c 50%,
+    #1fa6e0 75%,
+    #6b9aef 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -356,12 +368,18 @@ export const InfoHeader = styled.h2`
 
 export const InfoSubHeader = styled(InfoHeader)`
   display: inline-block;
-  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background: linear-gradient(
+    to left,
+    #6b9aef 25%,
+    #65c48c 50%,
+    #1fa6e0 75%,
+    #6b9aef 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: bounce 10s ease-in-out infinite alternate;
-  
+
   @keyframes bounce {
     to {
       background-position: 200%;

@@ -38,19 +38,19 @@ a:focus {
 }
 
 .tooltip.bs-tooltip-left > .tooltip-arrow::before {
-  background-color: rgba(0, 0, 0, 0.4);
+  border-left-color: rgba(0, 0, 0, 0.4);
 }
 
 .tooltip.bs-tooltip-right > .tooltip-arrow::before {
-  background-color: rgba(0, 0, 0, 0.4);
+  border-right-color: rgba(0, 0, 0, 0.4);
 }
 
 .tooltip.bs-tooltip-top > .tooltip-arrow::before {
-  background-color: rgba(0, 0, 0, 0.4);
+  border-top-color: rgba(0, 0, 0, 0.4);
 }
 
 .tooltip.bs-tooltip-bottom > .tooltip-arrow::before {
-  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom-color: rgba(0, 0, 0, 0.4);
 }
 
 ::selection {

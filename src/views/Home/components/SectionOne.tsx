@@ -9,7 +9,7 @@ import {
 const SectionOne: React.FC = () => (
 	<>
 		<HeroHeader>
-			Build Your <HeroHeaderGradient>Nest</HeroHeaderGradient>
+			<HeroHeaderGradient>Build Your Nest</HeroHeaderGradient>
 		</HeroHeader>
 		<HeroText>
 			Diversify your crypto portfoilio & earn passive yield in just a few

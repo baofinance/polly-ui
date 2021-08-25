@@ -1,36 +1,52 @@
-import dao from 'assets/img/icons/dao.svg'
-import diversify from 'assets/img/icons/diversify.svg'
-import yieldIcon from 'assets/img/icons/yield.svg'
 import React from 'react'
 import {
 	InfoHeader,
 	InfoText,
-	InfoImage,
 	InfoContainer,
 	InfoCol,
 	InfoSubHeader,
-    InfoImageContainer,
-    InfoImageCol,
+	InfoImageContainer,
+	InfoImageCol,
 } from './styles'
-import { Col, Row } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
+import Lottie from 'react-lottie'
+import passiveYield from '../../../assets/img/lottie/passive-yield.json'
+import finAnalysis from '../../../assets/img/lottie/finanalysis.json'
+import daoLottie from '../../../assets/img/lottie/dao.json'
 
 const SectionTwo: React.FC = () => (
 	<Row lg={2}>
 		<InfoImageCol>
 			<InfoImageContainer>
-				<InfoImage src={diversify} />
+				<Lottie
+					options={{
+						loop: true,
+						autoplay: true,
+						animationData: finAnalysis,
+						rendererSettings: {
+							preserveAspectRatio: 'xMidYMid slice',
+						},
+					}}
+					style={{
+						background: 'rgba(0, 0, 0, 0.4)',
+						borderRadius: '25%',
+						padding: '20px',
+					}}
+					width={256}
+					height={256}
+				/>
 			</InfoImageContainer>
 		</InfoImageCol>
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>
+					Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>.
 				</InfoHeader>
 				<InfoText>
-					Polly Finance is home to some of the most diverse indexes on
-					Polygon, all managed autonomously. With Polly Nests, you can
-					easily get balanced exposure to some of the best crypto assets on
-					the Polygon Network.
+					Polly Finance is home to some of the most diverse indexes on Polygon,
+					all managed autonomously. With Polly Nests, you can easily get
+					balanced exposure to some of the best crypto assets on the Polygon
+					Network.
 				</InfoText>
 			</InfoContainer>
 		</InfoCol>
@@ -38,36 +54,63 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Mint <InfoSubHeader>Nests</InfoSubHeader>, Earn Passive Yield
+					Mint <InfoSubHeader>Nests</InfoSubHeader>, Earn Passive Yield.
 				</InfoHeader>
 				<InfoText>
-					Nests are designed to be truly set-and-forget, maximizing your
-					returns at a a fraction of the cost and effort. Our automated
-					strategies utilize staking, lending, and yield farming- No
-					management or constant monitoring necessary!
+					Nests are designed to be truly set-and-forget, maximizing your returns
+					at a a fraction of the cost and effort. Our automated strategies
+					utilize staking, lending, and yield farming- No management or constant
+					monitoring necessary!
 				</InfoText>
 			</InfoContainer>
 		</InfoCol>
 		<InfoImageCol>
 			<InfoImageContainer>
-				<InfoImage src={yieldIcon} />
+				<Lottie
+					options={{
+						loop: true,
+						autoplay: true,
+						animationData: passiveYield,
+						rendererSettings: {
+							preserveAspectRatio: 'xMidYMid slice',
+						},
+					}}
+					width={256}
+					height={256}
+				/>
 			</InfoImageContainer>
 		</InfoImageCol>
 
 		<InfoImageCol>
 			<InfoImageContainer>
-				<InfoImage src={dao} />
+				<Lottie
+					options={{
+						loop: true,
+						autoplay: true,
+						animationData: daoLottie,
+						rendererSettings: {
+							preserveAspectRatio: 'xMidYMid slice',
+						},
+					}}
+					style={{
+						background: 'rgba(0, 0, 0, 0.4)',
+						borderRadius: '25%',
+						padding: '20px',
+					}}
+					width={256}
+					height={256}
+				/>
 			</InfoImageContainer>
 		</InfoImageCol>
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>
+					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>.
 				</InfoHeader>
 				<InfoText>
-					Polly's strategies and asset manager are governed, maintained,
-					and upgraded by Polly DAO. Additionally, metagovernance enables
-					POLLY holders to vote in other protocol’s governance decisions.
+					Polly's strategies and asset manager are governed, maintained, and
+					upgraded by Polly DAO. Additionally, metagovernance enables POLLY
+					holders to vote in other protocol’s governance decisions.
 				</InfoText>
 			</InfoContainer>
 		</InfoCol>

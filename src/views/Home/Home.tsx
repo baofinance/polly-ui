@@ -18,16 +18,15 @@ const Home: React.FC = () => {
 
 	return (
 		<Page>
-			<Container style={{width: '80%'}}>
+			<Container>
 				<SectionOne />
 				<Spacer size="lg" />
 				<HomeAnalytics />
 				<Spacer size="lg" />
+				<SectionTwo />
 				<BubbleWrap>
 					<BubbleContainer ref={bubbleRef} />
 				</BubbleWrap>
-				<Spacer size="lg" />
-				<SectionTwo />
 				<PriceGraphs />
 			</Container>
 		</Page>
