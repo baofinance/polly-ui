@@ -9,7 +9,7 @@ import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import Button from '../../components/Button'
 import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import PieGraph from '../../components/Graphs/PieGraph'
+import DonutGraph from '../../components/Graphs/PieGraph'
 import { SpinnerLoader } from '../../components/Loader'
 import Spacer from '../../components/Spacer'
 import Tooltipped from '../../components/Tooltipped'
@@ -408,7 +408,7 @@ const Nest: React.FC = () => {
 										{composition && (
 											<ParentSize>
 												{(parent) => (
-													<PieGraph
+													<DonutGraph
 														width={parent.width}
 														height={parent.height}
 														composition={composition}
