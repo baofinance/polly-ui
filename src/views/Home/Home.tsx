@@ -20,13 +20,12 @@ const Home: React.FC = () => {
 		<Page>
 			<Container>
 				<SectionOne />
-				<Spacer size="lg" />
 				<HomeAnalytics />
-				<Spacer size="lg" />
-				<SectionTwo />
 				<BubbleWrap>
 					<BubbleContainer ref={bubbleRef} />
 				</BubbleWrap>
+				<SectionTwo />
+				<Spacer size="lg" />
 				<PriceGraphs />
 			</Container>
 		</Page>

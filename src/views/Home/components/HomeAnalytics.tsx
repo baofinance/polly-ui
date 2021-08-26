@@ -8,18 +8,22 @@ const HomeAnalytics: React.FC = () => {
 	const homeAnalytics = useHomeAnalytics()
 	return (
 		<AnalyticsContainer lg={4}>
-			{homeAnalytics ? homeAnalytics.map(_analytic => (
-				<Analytic>
-					<span>
-						<h2>{_analytic.data}</h2>
-						{_analytic.title}
-					</span>
-				</Analytic>
-			)) : (
-				<div style={{
-					width: '100%',
-					margin: 'auto'
-				}}>
+			{homeAnalytics ? (
+				homeAnalytics.map((_analytic) => (
+					<Analytic key={Math.random().toString()}>
+						<span>
+							<h2>{_analytic.data}</h2>
+							{_analytic.title}
+						</span>
+					</Analytic>
+				))
+			) : (
+				<div
+					style={{
+						width: '100%',
+						margin: 'auto',
+					}}
+				>
 					<SpinnerLoader block={true} />
 				</div>
 			)}
@@ -28,11 +32,17 @@ const HomeAnalytics: React.FC = () => {
 }
 
 const AnalyticsContainer = styled(Row)`
-	width: 100%;
 	height: 128px;
 	border-radius: 15px;
-	background-color: rgba(0, 0, 0, 0.4);
-	margin: 2.5em 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
+	z-index: 10;
+	position: absolute;
+	width: 60%;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 2em;
+	backdrop-filter: blur(5px);
 `
 
 const Analytic = styled(Col)`
@@ -45,9 +55,9 @@ const Analytic = styled(Col)`
 	justify-content: center;
 
 	span > h2 {
-		font-family: "Rubik", sans-serif;
+		font-family: 'Rubik', sans-serif;
 	}
-	
+
 	&:last-child {
 		border-right: none;
 	}
