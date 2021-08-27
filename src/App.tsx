@@ -11,6 +11,7 @@ import { UseWalletProvider } from 'use-wallet'
 import MobileMenu from './components/MobileMenu'
 import TopBar from './components/TopBar'
 import BaoProvider from './contexts/BaoProvider'
+import MulticallProvider from './contexts/Multicall'
 import FarmsProvider from './contexts/Farms'
 import ModalsProvider from './contexts/Modals'
 import NestsProvider from './contexts/Nests'
@@ -72,13 +73,15 @@ const Providers: React.FC = ({ children }) => {
 				}}
 			>
 				<BaoProvider>
-					<NestsProvider>
-						<TransactionProvider>
-							<FarmsProvider>
-								<ModalsProvider>{children}</ModalsProvider>
-							</FarmsProvider>
-						</TransactionProvider>
-					</NestsProvider>
+					<MulticallProvider>
+						<NestsProvider>
+							<TransactionProvider>
+								<FarmsProvider>
+									<ModalsProvider>{children}</ModalsProvider>
+								</FarmsProvider>
+							</TransactionProvider>
+						</NestsProvider>
+					</MulticallProvider>
 				</BaoProvider>
 			</UseWalletProvider>
 		</ThemeProvider>
