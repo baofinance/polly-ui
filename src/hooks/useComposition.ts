@@ -69,34 +69,47 @@ const useComposition = (nest: Nest) => {
                 component.toLowerCase(),
               )
 
-              const _multicallContext = MultiCall.createCallContext([
+              const mcContracts = [
                 {
                   ref: 'specialContract',
                   contract: specialContract,
                   calls: [
                     {
-                      ref: 'symbol',
-                      method: 'symbol'
+                      method: 'symbol',
                     },
                     {
-                      ref: 'decimals',
-                      method: 'decimals'
-                    }
-                  ]
-                }
-              ])
-              const { specialContract: results } =
-                MultiCall.parseCallResults(await multicall.call(_multicallContext))
+                      method: 'decimals',
+                    },
+                  ],
+                },
+              ]
+              if (
+                Object.keys(SPECIAL_TOKEN_ADDRESSES).includes(
+                  component.toLowerCase(),
+                )
+              )
+                mcContracts.push({
+                  ref: 'creamContract',
+                  contract: getCreamContract(ethereum, component),
+                  calls: [
+                    {
+                      method: 'exchangeRateCurrent',
+                    },
+                  ],
+                })
+              const _multicallContext = MultiCall.createCallContext(mcContracts)
+              const { specialContract: results, creamContract: creamResults } =
+                MultiCall.parseCallResults(
+                  await multicall.call(_multicallContext),
+                )
               specialSymbol = results[0].values[0]
               specialDecimals = results[1].values[0]
 
               // Special corrections for the price of lending assets etc.
               if (_getStrategy(specialSymbol) === 'CREAM') {
-                const creamContract = getCreamContract(ethereum, component)
-                const exchangeRate = await creamContract.methods
-                  .exchangeRateCurrent()
-                  .call()
-
+                const exchangeRate = new BigNumber(
+                  creamResults[0].values[0].hex,
+                )
                 const underlying = getBalanceNumber(
                   new BigNumber(exchangeRate).times(componentBalance),
                   18,
@@ -105,7 +118,10 @@ const useComposition = (nest: Nest) => {
                   new BigNumber(
                     getBalanceNumber(new BigNumber(underlying).plus(1)),
                   ).div(
-                    getBalanceNumber(new BigNumber(componentBalance), specialDecimals),
+                    getBalanceNumber(
+                      new BigNumber(componentBalance),
+                      specialDecimals,
+                    ),
                   ),
                 )
               }
