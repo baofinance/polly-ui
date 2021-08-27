@@ -11,7 +11,9 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
     let totalUSD = new BigNumber(0)
     composition
       .map((component) =>
-        component.price.times(component.balance.div(10 ** component.decimals)),
+        component.price.times(
+          component.balance.div(10 ** component.balanceDecimals),
+        ),
       )
       .forEach((usdVal) => (totalUSD = totalUSD.plus(usdVal)))
     setNav(totalUSD.div(supply.div(10 ** 18)))
