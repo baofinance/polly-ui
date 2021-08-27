@@ -1,29 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import baoLogo from 'assets/img/bao-logo.png'
+import { Row, Col } from 'react-bootstrap'
 
 const Nav: React.FC = () => {
 	return (
 		<StyledNav>
 			<StyledLink target="_blank" href="https://discord.gg/BW3P62vJXT">
-				Discord
+				<FontAwesomeIcon icon={['fab', 'discord']} />
 			</StyledLink>
 			<StyledLink target="_blank" href="https://twitter.com/thebaoman">
-				Twitter
+				<FontAwesomeIcon icon={['fab', 'twitter']} />
 			</StyledLink>
 			<StyledLink target="_blank" href="https://thebaoman.medium.com/">
-				Medium
+				<FontAwesomeIcon icon={['fab', 'medium']} />
 			</StyledLink>
 			<StyledLink target="_blank" href="https://gov.bao.finance/">
-				Forum
+				<FontAwesomeIcon icon="comments" />
 			</StyledLink>
 			<StyledLink target="_blank" href="https://snapshot.page/#/baovotes.eth">
-				Vote
+				<FontAwesomeIcon icon="bolt" />
 			</StyledLink>
 			<StyledLink target="_blank" href="https://docs.bao.finance/">
-				Documentation
+				<FontAwesomeIcon icon="book" />
 			</StyledLink>
 			<StyledLink target="_blank" href="https://github.com/baofinance">
-				Github
+				<FontAwesomeIcon icon={['fab', 'github']} />
 			</StyledLink>
 		</StyledNav>
 	)
@@ -32,6 +35,8 @@ const Nav: React.FC = () => {
 const StyledNav = styled.nav`
 	align-items: center;
 	display: flex;
+	font-size: 24px;
+	margin-bottom: 25px;
 
 	@media (max-width: 414px) {
 		flex-direction: column;

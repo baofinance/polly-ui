@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Nav from './components/Nav'
+import Branding from './components/Branding'
 
 const Footer: React.FC = () => (
 	<StyledFooter>
 		<StyledFooterInner>
 			<Nav />
+			<Branding />
 		</StyledFooterInner>
 	</StyledFooter>
 )

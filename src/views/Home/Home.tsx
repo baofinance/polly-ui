@@ -25,8 +25,8 @@ const Home: React.FC = () => {
 					<BubbleContainer ref={bubbleRef} />
 				</BubbleWrap>
 				<SectionTwo />
-				<Spacer size="lg" />
-				<PriceGraphs />
+				{/* <Spacer size="lg" />
+				<PriceGraphs /> */}
 			</Container>
 		</Page>
 	)
