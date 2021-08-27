@@ -1,38 +1,51 @@
 import React from 'react'
 import styled from 'styled-components'
 import baoLogo from 'assets/img/bao-logo.png'
+import { Link } from 'react-router-dom'
 
 const Branding: React.FC = () => {
 	return (
-		<ByBao>
-			<p>
-				<img src={baoLogo} height="25" /> By
-				<FooterLink target="_blank" href="https://bao.finance">
-				Bao.Finance
-				</FooterLink>
-			</p>
-		</ByBao>
+		<StyledLogo to="https://bao.finance">
+			<StyledText>
+				<TitleText>
+						<span>by Bao.Finance</span>
+				</TitleText>
+			</StyledText>
+		</StyledLogo>
 	)
 }
 
-const ByBao = styled.div`
-	display: flex;
-	position: absolute;
-	float: right;
-	right: 0;
-	display: flex;
-	font-size: 1rem;
-	margin-bottom: 25px;
+const TitleText = styled.div`
+	width: fit-content;
+	white-space: nowrap;
+	color: ${(props) => props.theme.color.grey[100]};
+	font-family: 'Kaushan Script', sans-serif;
+	font-size: 24px;
+	letter-spacing: 0.03rem;
+	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
 
-const FooterLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
-    padding-right: ${(props) => props.theme.spacing[3]}px;
-	padding-left: ${(props) => props.theme.spacing[1]}px;
+const StyledLogo = styled(Link)`
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	min-height: 60px;
+	min-width: 60px;
+	padding: 0;
 	text-decoration: none;
+    margin-bottom: 25px;
+`
 
-	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+const StyledText = styled.span`
+	color: ${(props) => props.theme.color.grey[600]};
+	font-family: 'Rubik', sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	margin-left: ${(props) => props.theme.spacing[2]}px;
+	@media (max-width: 400px) {
+		display: none;
 	}
 `
 
