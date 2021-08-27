@@ -65,7 +65,7 @@ const useHomeAnalytics = () => {
         data: '-'
       },
       {
-        title: 'Cumulative Market Cap (Nests)',
+        title: 'Total Value of Nests',
         data: `$${getDisplayBalance(totalNestUsd, 0)}`
       },
       {

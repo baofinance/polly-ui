@@ -38,7 +38,7 @@ const AnalyticsContainer = styled(Row)`
 	margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
 	z-index: 10;
 	position: absolute;
-	width: 60%;
+	width: 80%;
 	left: 50%;
 	transform: translateX(-50%);
 	padding: 2em;

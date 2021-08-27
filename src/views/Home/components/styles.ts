@@ -343,12 +343,12 @@ export const InfoImage = styled.img`
 
 export const InfoImageCol = styled(Col)`
   margin-bottom: 5em;
-  width: 35%;
+  width: 30%;
 `
 
 export const InfoCol = styled(InfoImageCol)`
   display: table;
-  width: 65%;
+  width: 70%;
 `
 
 export const InfoContainer = styled.div`

@@ -9,31 +9,22 @@ import {
 	InfoImageCol,
 } from './styles'
 import { Row } from 'react-bootstrap'
-import Lottie from 'react-lottie'
-import passiveYield from '../../../assets/img/lottie/passive-yield.json'
-import finAnalysis from '../../../assets/img/lottie/finanalysis.json'
-import daoLottie from '../../../assets/img/lottie/dao.json'
+import diversify from 'assets/img/diversify.svg'
+import passiveYield from 'assets/img/passive-yield.svg'
+import dao from 'assets/img/dao.svg'
 
 const SectionTwo: React.FC = () => (
-	<Row lg={2}>
+	<Row lg={2} style={{ width: '80%', margin: 'auto' }}>
 		<InfoImageCol>
 			<InfoImageContainer>
-				<Lottie
-					options={{
-						loop: true,
-						autoplay: true,
-						animationData: finAnalysis,
-						rendererSettings: {
-							preserveAspectRatio: 'xMidYMid slice',
-						},
-					}}
+				<img
+					src={diversify}
 					style={{
-						background: 'rgba(0, 0, 0, 0.4)',
-						borderRadius: '25%',
-						padding: '20px',
+						maxWidth: '100%',
+						height: 'auto',
+						marginInline: 'auto',
+						marginBottom: '0',
 					}}
-					width={256}
-					height={256}
 				/>
 			</InfoImageContainer>
 		</InfoImageCol>
@@ -54,7 +45,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Mint <InfoSubHeader>Nests</InfoSubHeader>, Earn Passive Yield.
+					Earn Passive <InfoSubHeader>Yield</InfoSubHeader>.
 				</InfoHeader>
 				<InfoText>
 					Nests are designed to be truly set-and-forget, maximizing your returns
@@ -66,39 +57,28 @@ const SectionTwo: React.FC = () => (
 		</InfoCol>
 		<InfoImageCol>
 			<InfoImageContainer>
-				<Lottie
-					options={{
-						loop: true,
-						autoplay: true,
-						animationData: passiveYield,
-						rendererSettings: {
-							preserveAspectRatio: 'xMidYMid slice',
-						},
+			<img
+					src={passiveYield}
+					style={{
+						maxWidth: '100%',
+						height: 'auto',
+						marginInline: 'auto',
+						marginBottom: '0',
 					}}
-					width={256}
-					height={256}
 				/>
 			</InfoImageContainer>
 		</InfoImageCol>
 
 		<InfoImageCol>
 			<InfoImageContainer>
-				<Lottie
-					options={{
-						loop: true,
-						autoplay: true,
-						animationData: daoLottie,
-						rendererSettings: {
-							preserveAspectRatio: 'xMidYMid slice',
-						},
-					}}
+			<img
+					src={dao}
 					style={{
-						background: 'rgba(0, 0, 0, 0.4)',
-						borderRadius: '25%',
-						padding: '20px',
+						maxWidth: '100%',
+						height: 'auto',
+						marginInline: 'auto',
+						marginBottom: '0',
 					}}
-					width={256}
-					height={256}
 				/>
 			</InfoImageContainer>
 		</InfoImageCol>
