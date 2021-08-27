@@ -44,12 +44,28 @@ const StyledText = styled.div`
 	color: ${(props) => props.theme.color.grey[400]};
 `
 
-export const SpinnerLoader = () => (
-	<Spinner
-		animation="border"
-		size="sm"
-		style={{ color: `${(props: any) => props.theme.color.grey[100]}` }}
-	/>
-)
+interface SpinnerProps {
+	block?: boolean
+}
+
+export const SpinnerLoader: React.FC<SpinnerProps> = ({ block }) => {
+	let style: any = {
+		color: `${(props: any) => props.theme.color.grey[100]}`,
+	}
+	if (block)
+		style = {
+			...style,
+			display: 'block',
+			margin: 'auto'
+		}
+
+	return (
+		<Spinner
+			animation="border"
+			size="sm"
+			style={style}
+		/>
+	)
+}
 
 export default Loader

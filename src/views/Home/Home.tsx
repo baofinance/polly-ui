@@ -4,8 +4,9 @@ import React, { useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import Bubbles, { bubbleSpecs } from './components/Bubbles'
 import SectionOne from './components/SectionOne'
-import SectionThree from './components/SectionThree'
+import PriceGraphs from './components/PriceGraphs'
 import SectionTwo from './components/SectionTwo'
+import HomeAnalytics from './components/HomeAnalytics'
 import { BubbleContainer, BubbleWrap } from './components/styles'
 
 const Home: React.FC = () => {
@@ -19,14 +20,13 @@ const Home: React.FC = () => {
 		<Page>
 			<Container>
 				<SectionOne />
-				<Spacer size="lg" />
+				<HomeAnalytics />
 				<BubbleWrap>
 					<BubbleContainer ref={bubbleRef} />
 				</BubbleWrap>
-				<Spacer size="lg" />
 				<SectionTwo />
-				<Spacer size="lg" />
-				<SectionThree />
+				{/* <Spacer size="lg" />
+				<PriceGraphs /> */}
 			</Container>
 		</Page>
 	)

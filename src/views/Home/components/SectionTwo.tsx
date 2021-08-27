@@ -1,24 +1,104 @@
-import dao from 'assets/img/icons/dao.svg'
-import diversify from 'assets/img/icons/diversify.svg'
-import yieldIcon from 'assets/img/icons/yield.svg'
 import React from 'react'
-import { Spacer } from 'react-neu'
-import Tilt from 'react-parallax-tilt'
 import {
-	HeroSubHeader,
-	StyledCardContainer,
-	StyledCardContent,
-	StyledCardIcon,
-	StyledCardParralax,
-	StyledCardText,
-	StyledCardTitle,
-	StyledCardWrapper,
+	InfoHeader,
+	InfoText,
+	InfoContainer,
+	InfoCol,
+	InfoSubHeader,
+	InfoImageContainer,
+	InfoImageCol,
 } from './styles'
+import { Row } from 'react-bootstrap'
+import diversify from 'assets/img/diversify.svg'
+import passiveYield from 'assets/img/passive-yield.svg'
+import dao from 'assets/img/dao.svg'
 
 const SectionTwo: React.FC = () => (
-	<>
-		<HeroSubHeader>BUILD YOUR NEST</HeroSubHeader>
-		<StyledCardWrapper>
+	<Row lg={2} style={{ width: '80%', margin: 'auto' }}>
+		<InfoImageCol>
+			<InfoImageContainer>
+				<img
+					src={diversify}
+					style={{
+						maxWidth: '100%',
+						height: 'auto',
+						marginInline: 'auto',
+						margin: '0 2em',
+					}}
+				/>
+			</InfoImageContainer>
+		</InfoImageCol>
+		<InfoCol>
+			<InfoContainer>
+				<InfoHeader>
+					Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>.
+				</InfoHeader>
+				<InfoText>
+					Polly Finance is home to some of the most diverse indexes on Polygon,
+					all managed autonomously. With Polly Nests, you can easily get
+					balanced exposure to some of the best crypto assets on the Polygon
+					Network.
+				</InfoText>
+			</InfoContainer>
+		</InfoCol>
+
+		<InfoCol>
+			<InfoContainer>
+				<InfoHeader>
+					Earn Passive <InfoSubHeader>Yield</InfoSubHeader>.
+				</InfoHeader>
+				<InfoText>
+					Nests are designed to be truly set-and-forget, maximizing your returns
+					at a a fraction of the cost and effort. Our automated strategies
+					utilize staking, lending, and yield farming- No management or constant
+					monitoring necessary!
+				</InfoText>
+			</InfoContainer>
+		</InfoCol>
+		<InfoImageCol>
+			<InfoImageContainer>
+				<img
+					src={passiveYield}
+					style={{
+						maxWidth: '100%',
+						height: 'auto',
+						marginInline: 'auto',
+						margin: '0 2em',
+					}}
+				/>
+			</InfoImageContainer>
+		</InfoImageCol>
+
+		<InfoImageCol>
+			<InfoImageContainer>
+				<img
+					src={dao}
+					style={{
+						maxWidth: '100%',
+						height: 'auto',
+						marginInline: 'auto',
+						margin: '0 2em',
+					}}
+				/>
+			</InfoImageContainer>
+		</InfoImageCol>
+		<InfoCol>
+			<InfoContainer>
+				<InfoHeader>
+					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>.
+				</InfoHeader>
+				<InfoText>
+					Polly's strategies and asset manager are governed, maintained, and
+					upgraded by Polly DAO. Additionally, metagovernance enables POLLY
+					holders to vote in other protocol’s governance decisions.
+				</InfoText>
+			</InfoContainer>
+		</InfoCol>
+	</Row>
+)
+
+/*
+<StyledCardWrapper>
 			<StyledCardContainer>
 				<Tilt
 					perspective={100000}
@@ -81,7 +161,6 @@ const SectionTwo: React.FC = () => (
 				</Tilt>
 			</StyledCardContainer>
 		</StyledCardWrapper>
-	</>
-)
+ */
 
 export default SectionTwo

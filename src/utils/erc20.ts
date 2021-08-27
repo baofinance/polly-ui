@@ -3,10 +3,16 @@ import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
 import { AbiItem } from 'web3-utils'
 import ERC20ABI from '../bao/lib/abi/erc20.json'
+import CreamABI from '../bao/lib/abi/creamLending.json'
 
 export const getContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   return new web3.eth.Contract(ERC20ABI as unknown as AbiItem, address)
+}
+
+export const getCreamContract = (provider: provider, address: string) => {
+  const web3 = new Web3(provider)
+  return new web3.eth.Contract(CreamABI as unknown as AbiItem, address)
 }
 
 export const getAllowance = async (

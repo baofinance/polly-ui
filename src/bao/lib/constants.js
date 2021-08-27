@@ -23,7 +23,7 @@ export const INTEGERS = {
 }
 
 export const addressMap = {
-	PLYTST: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22', //replace with polly
+	PLYTST: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22', //replace with polly address
 	uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -37,15 +37,17 @@ export const addressMap = {
 	SNX: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
 	CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
 	MATIC: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-	nDEFI: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6', //nDEFI Nest
+	nDEFI: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6', //Test index consisting of amDAI & WMATIC,
+	BAO: '0xc81278a52ad0e1485b7c3cdf79079220ddd68b7d',
+	DEAD: '0x000000000000000000000000000000000000dead',
 }
 
 export const contractAddresses = {
 	polly: {
-		137: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22', //set POLLY TEST
+		137: '0x4C392822D4bE8494B798cEA17B43d48B2308109C',
 	},
 	masterChef: {
-		137: '0xd22d8fDA9a4363DdCE088AB8a103E299a2c9a6BD', //set to MASTER FARMER TEST
+		137: '0x850161bF73944a8359Bd995976a34Bb9fe30d398',
 	},
 	weth: {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -80,91 +82,46 @@ export const supportedPools = [
 	{
 		pid: 0,
 		lpAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+			137: '0x8fcce357adbe07acff7e28ec4926ea5cb3ea2cba',
 		},
 		tokenAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
 		},
 		tokenDecimals: 18,
 		name: 'DeFi Nest',
 		symbol: 'nDEFI',
 		tokenSymbol: 'nDEFI',
-		icon: '/bao.png',
+		icon: '/ndefi.svg',
 		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 0,
+		pid: 1,
 		lpAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+			137: '0x8fcce357adbe07acff7e28ec4926ea5cb3ea2cba',
 		},
 		tokenAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
 		},
 		tokenDecimals: 18,
 		name: 'DeFi Nest',
 		symbol: 'nDEFI',
 		tokenSymbol: 'nDEFI',
-		icon: '/bao.png',
+		icon: '/ndefi.svg',
 		refUrl: 'http://localhost:3000/nests/1',
 	},
 	{
-		pid: 0,
+		pid: 2,
 		lpAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+			137: '0x8fcce357adbe07acff7e28ec4926ea5cb3ea2cba',
 		},
 		tokenAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
+			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
 		},
 		tokenDecimals: 18,
 		name: 'DeFi Nest',
 		symbol: 'nDEFI',
 		tokenSymbol: 'nDEFI',
-		icon: '/bao.png',
-		refUrl: 'http://localhost:3000/nests/1',
-	},
-	{
-		pid: 0,
-		lpAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		tokenAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		tokenDecimals: 18,
-		name: 'DeFi Nest',
-		symbol: 'nDEFI',
-		tokenSymbol: 'nDEFI',
-		icon: '/bao.png',
-		refUrl: 'http://localhost:3000/nests/1',
-	},
-	{
-		pid: 0,
-		lpAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		tokenAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		tokenDecimals: 18,
-		name: 'DeFi Nest',
-		symbol: 'nDEFI',
-		tokenSymbol: 'nDEFI',
-		icon: '/bao.png',
-		refUrl: 'http://localhost:3000/nests/1',
-	},
-	{
-		pid: 0,
-		lpAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		tokenAddresses: {
-			137: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6',
-		},
-		tokenDecimals: 18,
-		name: 'DeFi Nest',
-		symbol: 'nDEFI',
-		tokenSymbol: 'nDEFI',
-		icon: '/bao.png',
+		icon: '/ndefi.svg',
 		refUrl: 'http://localhost:3000/nests/1',
 	},
 ]
@@ -173,10 +130,10 @@ export const supportedNests = [
 	{
 		nid: 1,
 		nestAddress: {
-			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
+			137: '0xEDaF280EF69bcE2D3F0D94A857Bd6Cba9376c93e',
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		outputToken: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
+		outputToken: '0xEDaF280EF69bcE2D3F0D94A857Bd6Cba9376c93e',
 		symbol: 'nDEFI',
 		name: 'nDEFI',
 		icon: '/ndefi.svg',

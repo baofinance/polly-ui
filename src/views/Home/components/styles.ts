@@ -22,31 +22,36 @@ import USDT from 'assets/img/assets/USDT.png'
 import WETH from 'assets/img/assets/WETH.png'
 import YFI from 'assets/img/assets/YFI.png'
 import styled from 'styled-components'
-
-export const BubbleOverlayText = styled.div`
-  z-index: 9999;
-  text-align: left;
-`
+import { Col } from 'react-bootstrap'
 
 export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 7rem !important;
-  line-height: 6.7rem;
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
-  color: #f35626;
-  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: bounce 10s ease-in-out infinite alternate;
+  color: white;
   margin-top: 0.5em;
 
   @media (max-width: 414px) {
     font-size: 3.5rem !important;
     line-height: 3.35rem;
   }
+`
+
+export const HeroHeaderGradient = styled(HeroHeader)`
+  display: inline-block;
+  background: linear-gradient(
+    to left,
+    #6b9aef 25%,
+    #65c48c 50%,
+    #1fa6e0 75%,
+    #6b9aef 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bounce 10s ease-in-out infinite alternate;
 
   @keyframes bounce {
     to {
@@ -62,7 +67,13 @@ export const HeroSubHeader = styled.h6`
   text-align: center;
   font-weight: 700 !important;
   color: #1fa6e0;
-  background: linear-gradient(to left, #6B9AEF 25%, #65c48c 50%, #1fa6e0 75%, #6B9AEF 100%);
+  background: linear-gradient(
+    to left,
+    #6b9aef 25%,
+    #65c48c 50%,
+    #1fa6e0 75%,
+    #6b9aef 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -226,6 +237,11 @@ export const BubbleContainer = styled.div`
   }
 `
 
+export const BubbleOverlayText = styled.div`
+  z-index: 9999;
+  text-align: left;
+`
+
 export const StyledSectionContainer = styled.div`
   display: flex;
   @media (max-width: 414px) {
@@ -308,4 +324,70 @@ export const StyledCardText = styled.p`
   @media (max-width: 414px) {
     font-size: 1rem;
   }
+`
+
+export const InfoImageContainer = styled.div`
+  display: flex;
+  margin: auto;
+  height: 100%;
+`
+
+export const InfoImage = styled.img`
+  width: 256px;
+  display: block;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 75px;
+  border-radius: 25%;
+`
+
+export const InfoImageCol = styled(Col)`
+  margin-bottom: 5em;
+  width: 30%;
+`
+
+export const InfoCol = styled(InfoImageCol)`
+  display: table;
+  width: 70%;
+`
+
+export const InfoContainer = styled.div`
+  margin: auto;
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+`
+
+export const InfoHeader = styled.h2`
+  font-family: 'Rubik', sans-serif;
+  font-size: 4rem !important;
+  letter-spacing: -0.2rem;
+  font-weight: 700;
+`
+
+export const InfoSubHeader = styled(InfoHeader)`
+  display: inline-block;
+  background: linear-gradient(
+    to left,
+    #6b9aef 25%,
+    #65c48c 50%,
+    #1fa6e0 75%,
+    #6b9aef 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bounce 10s ease-in-out infinite alternate;
+
+  @keyframes bounce {
+    to {
+      background-position: 200%;
+    }
+  }
+`
+
+export const InfoText = styled.p`
+  color: #bbb;
+  font-size: 18px;
 `

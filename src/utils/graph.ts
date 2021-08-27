@@ -112,7 +112,6 @@ const getPriceFromPair = async (
   )
   if (!data.token) return
 
-  const ethPrice = getBalanceNumber(wethPrice, 0)
   const quotePair: any = _.find(
     data.token.basePairs.concat(data.token.quotePairs),
     (pair: any) => {
@@ -128,7 +127,7 @@ const getPriceFromPair = async (
     ? quotePair.token0Price
     : quotePair.token1Price
 
-  return new BigNumber(ethPrice).times(wethPerToken)
+  return wethPrice.times(wethPerToken)
 }
 
 const getPrice = async (tokenAddress: string, network = 'matic') => {

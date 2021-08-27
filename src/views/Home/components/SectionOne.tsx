@@ -2,25 +2,19 @@ import React from 'react'
 import {
 	BubbleOverlayText,
 	HeroHeader,
-	HeroSubHeader,
+	HeroHeaderGradient,
 	HeroText,
 } from './styles'
 
 const SectionOne: React.FC = () => (
 	<>
-		<BubbleOverlayText>
-			<HeroHeader>
-				DIVERSE YIELD
-				<br />
-				BEARING INDEXES
-			</HeroHeader>
-			<HeroSubHeader>ON POLYGON</HeroSubHeader>
-			<HeroText>
-				Polly simplifies decentralized finance for users of all experience
-				levels. Easily diversify your portfolio while maximizing your returns,
-				thanks to our advanced yield bearing startegies.
-			</HeroText>
-		</BubbleOverlayText>
+		<HeroHeader>
+			<HeroHeaderGradient>Build Your Nest</HeroHeaderGradient>
+		</HeroHeader>
+		<HeroText>
+			Diversify your crypto portfoilio & earn passive yield in just a few
+			clicks!
+		</HeroText>
 	</>
 )
 

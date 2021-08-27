@@ -1,18 +1,14 @@
-import pollyLogo from 'assets/img/logo.svg'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Tooltipped from '../Tooltipped'
+import baoLogo from 'assets/img/bao-logo.png'
+import { Link } from 'react-router-dom'
 
-const Logo: React.FC = () => {
+const Branding: React.FC = () => {
 	return (
-		<StyledLogo to="/">
-			<img src={pollyLogo} height="36" style={{ verticalAlign: 'middle' }} />
+		<StyledLogo to="https://bao.finance">
 			<StyledText>
 				<TitleText>
-					<Tooltipped content="by Bao.Finance">
-						<span>Polly</span>
-					</Tooltipped>
+						<span>by Bao.Finance</span>
 				</TitleText>
 			</StyledText>
 		</StyledLogo>
@@ -23,8 +19,8 @@ const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
 	color: ${(props) => props.theme.color.grey[100]};
-	font-family: 'Rubik', sans-serif;
-	font-size: 36px;
+	font-family: 'Kaushan Script', sans-serif;
+	font-size: 24px;
 	letter-spacing: 0.03rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
@@ -38,6 +34,7 @@ const StyledLogo = styled(Link)`
 	min-width: 60px;
 	padding: 0;
 	text-decoration: none;
+    margin-bottom: 25px;
 `
 
 const StyledText = styled.span`
@@ -52,4 +49,4 @@ const StyledText = styled.span`
 	}
 `
 
-export default Logo
+export default Branding

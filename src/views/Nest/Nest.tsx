@@ -9,7 +9,7 @@ import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import Button from '../../components/Button'
 import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import PieGraph from '../../components/Graphs/PieGraph'
+import DonutGraph from '../../components/Graphs/PieGraph'
 import { SpinnerLoader } from '../../components/Loader'
 import Spacer from '../../components/Spacer'
 import Tooltipped from '../../components/Tooltipped'
@@ -275,7 +275,7 @@ const Nest: React.FC = () => {
 					<Button
 						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619`}
 						target="_blank"
-						text="Swap on Sushi"
+						text="Swap"
 						width="20%"
 					/>
 				</NestButtons>
@@ -395,7 +395,7 @@ const Nest: React.FC = () => {
 												</td>
 												<td>${getDisplayBalance(component.price, 0)}</td>
 												<td>
-													<StyledBadge>None</StyledBadge>
+													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>
 											</tr>
 										))) || <SpinnerLoader />}
@@ -408,7 +408,7 @@ const Nest: React.FC = () => {
 										{composition && (
 											<ParentSize>
 												{(parent) => (
-													<PieGraph
+													<DonutGraph
 														width={parent.width}
 														height={parent.height}
 														composition={composition}
@@ -443,161 +443,114 @@ const Nest: React.FC = () => {
 				<NestText>
 					<NestHeader>Description</NestHeader>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-						imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a
-						feugiat dolor sem in lorem. Donec blandit diam arcu, quis ultricies
-						urna volutpat a. Donec ac tortor volutpat, ullamcorper diam at,
-						gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa.
-						Etiam at molestie risus, nec pellentesque lorem. Sed libero nunc,
-						viverra mollis aliquet semper, pulvinar ac ante. Proin pellentesque,
-						nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla
-						sapien a lorem. Nulla nunc lectus, sollicitudin at scelerisque non,
-						tincidunt eu velit. Sed nec risus nulla.
+						The Polly DeFi Index is divided into key DeFi sectors, which are
+						given a weighting reflecting their maturity and share of the overall
+						market. Within those sectors, each project is weighted on the TVL
+						divided by Fully Diluted Valuation (FDV).
 					</p>
 
 					<NestHeader>Objective</NestHeader>
 					<p>
-						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget
-						suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis.
-						Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus
-						sed erat vitae metus elementum finibus. Sed blandit molestie
-						consequat. Orci varius natoque penatibus et magnis dis parturient
-						montes, nascetur ridiculus mus. In vel elit ac urna commodo
-						pulvinar. Nullam ultricies pretium tempor. Pellentesque sit amet
-						erat gravida, aliquam sem sed, venenatis est.
+						To generate revenue a defi project needs value deposited into their
+						contracts. This makes Total Value Locked (TVL) a key metric for
+						evaluating a project's ability to generate revenue. Projects with a
+						high TVL are also likely to gain more traction in the market through
+						the network effects the existing capital provides - capital attracts
+						more capital. A good example of this is with Yearn Finance. Yearn
+						was able to generate massive amounts of revenue as a result of the
+						large amount of capital they attracted. This gave them the resources
+						to further develop and innovate their products in a positive
+						feedback loop. Yearn’s success has led to many projects such as
+						Alchemix and Abracadabra using their products and liquidity as a
+						base layer to build on.
+					</p>
+					<p>
+						nDEFI is composed of the strongest components in the DeFi ecosystem,
+						striving to provide core coverage of the key building blocks for the
+						future of finance. With nDEFI you’ll have exposure to
+						infrastructure, lending markets, decentralized exchanges,
+						synthetics, and yield aggregators. The unique weighting formula
+						allows the index to invest in projects gaining traction earlier and
+						with a greater weighting than market cap weighted indexes.
+					</p>
+					<p>
+						The Polly DeFi Index will provide the crypto industry's first
+						automated value investing, decentralized index fund. When you add
+						the prospect of the underlying assets being put to work to earn
+						yield, it’s easy to see why Polly’s nests make for a cozy place to
+						hold your capital.
 					</p>
 
 					<NestHeader>Criteria</NestHeader>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-						imperdiet, nibh ac dictum tristique, tortor tellus commodo lacus, a
-						feugiat dolor sem in lorem. Donec blandit diam arcu, quis ultricies
-						urna volutpat a. Donec ac tortor volutpat, ullamcorper diam at,
-						gravida neque. Aenean bibendum fermentum diam. Aenean id elit massa.
-						Etiam at molestie risus, nec pellentesque lorem. Sed libero nunc,
-						viverra mollis aliquet semper, pulvinar ac ante. Proin pellentesque,
-						nisl id malesuada semper, ligula nunc lacinia mi, ac tincidunt nulla
-						sapien a lorem. Nulla nunc lectus, sollicitudin at scelerisque non,
-						tincidunt eu velit.
+						For a project to be included in the Polly Defi Index, it must fit
+						the below criteria in order to reduce the risk of the index and fit
+						the desires of the community.
 					</p>
-					<NestSubHeader>Descriptive Characteristics</NestSubHeader>
+					<NestSubHeader>Characteristics</NestSubHeader>
 					<NestList>
+						<li>Be a DeFi project available on the Ethereum blockchain.</li>
+						<li>Listed on DefiLlama</li>
 						<li>
-							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
-							est.
+							Have at least 7.5% of the total supply in circulation and have a
+							predictable token emission over the next 5 years.
 						</li>
 						<li>
-							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
-							tempor.
+							The protocols will be selected by TVL based on DeFiLlama’s
+							website.
 						</li>
 						<li>
-							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
-							lacus, a feugiat dolor sem in lorem.
+							The protocol must be running for 3 months before qualifying to be
+							included in the index
 						</li>
 						<li>
-							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
-							velit.
+							In the event of a safety incident, the team must have addressed
+							the problem responsibly and promptly, providing users of the
+							protocol a reliable solution and document a detailed, transparent
+							breakdown of the incident.
 						</li>
-					</NestList>
-					<NestSubHeader>Supply Characteristics</NestSubHeader>
-					<NestList>
-						<li>
-							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
-							est.
-						</li>
-						<li>
-							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
-							tempor.
-						</li>
-						<li>
-							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
-							lacus, a feugiat dolor sem in lorem.
-						</li>
-						<li>
-							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
-							velit.
-						</li>
-					</NestList>
-					<NestSubHeader>Traction Characteristics</NestSubHeader>
-					<NestList>
-						<li>
-							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
-							est.
-						</li>
-						<li>
-							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
-							tempor.
-						</li>
-						<li>
-							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
-							lacus, a feugiat dolor sem in lorem.
-						</li>
-						<li>
-							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
-							velit.
-						</li>
-					</NestList>
-					<NestSubHeader>Safety Characteristics</NestSubHeader>
-					<NestList>
-						<li>
-							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
-							est.
-						</li>
-						<li>
-							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
-							tempor.
-						</li>
-						<li>
-							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
-							lacus, a feugiat dolor sem in lorem.
-						</li>
-						<li>
-							Nulla nunc lectus, sollicitudin at scelerisque non, tincidunt eu
-							velit.
-						</li>
-					</NestList>
-
-					<NestHeader>Calculations</NestHeader>
-					<p>Etiam vel augue a velit eleifend commodo:</p>
-					<NestList>
-						<li>
-							Pellentesque sit amet erat gravida, aliquam sem sed, venenatis
-							est.
-						</li>
-						<li>
-							In vel elit ac urna commodo pulvinar. Nullam ultricies pretium
-							tempor.
-						</li>
-						<li>
-							Donec imperdiet, nibh ac dictum tristique, tortor tellus commodo
-							lacus, a feugiat dolor sem in lorem.
-						</li>
+						<li>Be Ethereum focused</li>
+						<li>Must be sufficiently decentralised</li>
 					</NestList>
 
 					<NestHeader>Strategy</NestHeader>
 					<p>
-						Etiam vel augue a velit eleifend commodo. In malesuada nunc eget
-						suscipit volutpat. Cras fermentum ullamcorper enim ut facilisis.
-						Donec id felis lobortis, aliquet magna non, cursus tellus. Vivamus
-						sed erat vitae metus elementum finibus. Sed blandit molestie
-						consequat. Orci varius natoque penatibus et magnis dis parturient
-						montes, nascetur ridiculus mus. In vel elit ac urna commodo
-						pulvinar. Nullam ultricies pretium tempor. Pellentesque sit amet
-						erat gravida, aliquam sem sed, venenatis est.
+						It is possible for the underlying tokens to follow strategies that
+						will earn yield, maximising value for nest holders, who benefit from
+						this productivity without having to perform any actions themselves.
+						These strategies will be changed over time to take advantage of new
+						opportunities or to maximise the yield earned. Strategies already
+						available include lending and staking, with more advanced strategies
+						planned to be developed in the future.
 					</p>
 
 					<NestHeader>Management</NestHeader>
+					<p>The Index is maintained quarterly in two phases.</p>
+
 					<p>
-						Pellentesque et neque iaculis, iaculis leo vitae, tincidunt lorem.
-						Donec euismod sed elit faucibus porta. Vestibulum elit leo, interdum
-						et feugiat nec, vehicula feugiat ipsum. Nunc sodales eros in
-						tincidunt feugiat. In vel sapien leo. Vestibulum erat enim, varius
-						quis nulla luctus, varius rhoncus nisl. Phasellus placerat sagittis
-						ultricies. Phasellus in sollicitudin magna, ultricies volutpat
-						tortor. Nulla egestas nulla ac pulvinar rhoncus. Maecenas vitae
-						ultricies ipsum. Nunc ut erat iaculis, lacinia nisi at, sodales
-						nunc. Proin ultricies suscipit egestas. Duis malesuada ut ante eget
-						feugiat. Maecenas eget faucibus nisl.
+						<strong>Determination Phase</strong>
+					</p>
+					<p>
+						The determination phase takes place during the final 2 weeks of the
+						quarter. During this phase the changes needed for the next
+						reconstitution are determined.
+					</p>
+					<p>
+						The TVL and FDV of each project are recorded, including new projects
+						that qualify for the index and meet the criteria.
+					</p>
+					<p>
+						Proposed changes will be published on the governance forum for 1
+						week then a governance vote will run for the community to approve
+						changes.
+					</p>
+					<p>
+						<strong>Reconstitution Phase</strong>
+					</p>
+					<p>
+						In the two weeks following a successful vote, the index components
+						will be adjusted as per the instructions published during the final
+						2 weeks of the quarter.
 					</p>
 				</NestText>
 			</NestBox>

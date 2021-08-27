@@ -23,7 +23,6 @@ const Nests: React.FC = () => {
 							<PageHeader
 								icon={pollyNests}
 								title="Build Your Nest"
-								subtitle="Maximize returns and gain balanced exposure to some of the best crypto assets on Polygon!"
 							/>
 							<NestList />
 						</Route>

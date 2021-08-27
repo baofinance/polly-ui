@@ -14,7 +14,7 @@ interface AssetAllocationAmount {
 
 const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 }
 
-export type PieProps = {
+export type DonutProps = {
 	width: number
 	height: number
 	composition: Array<NestComponent>
@@ -22,13 +22,13 @@ export type PieProps = {
 	animate?: boolean
 }
 
-export default function PieGraph({
+export default function DonutGraph({
 	width,
 	height,
 	composition,
 	margin = defaultMargin,
 	animate = true,
-}: PieProps) {
+}: DonutProps) {
 	const [selectedAssetAmount, setSelectedAssetAmount] = useState<string | null>(
 		null,
 	)
@@ -80,6 +80,7 @@ export default function PieGraph({
 					pieValue={frequency}
 					pieSortValues={() => -1}
 					outerRadius={radius}
+					innerRadius={radius - 100}
 				>
 					{(pie) => (
 						<AnimatedPie<AssetAllocationAmount>
@@ -173,7 +174,7 @@ function AnimatedPie<Datum>({
 										<text
 											fill="white"
 											x={centroidX}
-											y={centroidY + index++ * 15}
+											y={centroidY + index++ * 12}
 											dy=".33em"
 											fontSize={12}
 											fontWeight="bold"

@@ -1,3 +1,3 @@
-import PieGraph from './PieGraph'
+import DonutGraph from './DonutGraph'
 
-export default PieGraph
+export default DonutGraph
