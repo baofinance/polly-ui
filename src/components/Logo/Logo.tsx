@@ -10,8 +10,9 @@ const Logo: React.FC = () => {
 			<img src={pollyLogo} height="36" style={{ verticalAlign: 'middle' }} />
 			<StyledText>
 				<TitleText>
-					Polly
-					<TitleSubText>by Bao Finance</TitleSubText>
+					<Tooltipped content="by Bao.Finance">
+						<span>Polly</span>
+					</Tooltipped>
 				</TitleText>
 			</StyledText>
 		</StyledLogo>
@@ -23,22 +24,9 @@ const TitleText = styled.div`
 	white-space: nowrap;
 	color: ${(props) => props.theme.color.grey[100]};
 	font-family: 'Rubik', sans-serif;
-	font-size: 24px;
+	font-size: 36px;
 	letter-spacing: 0.03rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
-	margin-bottom: 50%;
-	transform: translateY(50%);
-	float: top;
-`
-const TitleSubText = styled.div`
-	width: fit-content;
-	white-space: nowrap;
-	color: white;
-	font-family: 'Rubik', sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	line-height: 0.5rem;
-	letter-spacing: 0.03rem;
 `
 
 const StyledLogo = styled(Link)`
