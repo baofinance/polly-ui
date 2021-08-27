@@ -1,14 +1,16 @@
 import BigNumber from 'bignumber.js'
+import { provider } from 'web3-core'
 import { Nest, NestComponent } from 'contexts/Nests/types'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
+import useBao from './useBao'
+import useMulticall from './useMulticall'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
 import { getBalanceNumber } from 'utils/formatBalance'
-import GraphClient from 'utils/graph'
-import { provider } from 'web3-core'
 import { getWethPriceLink } from '../bao/utils'
-import useBao from './useBao'
+import GraphClient from 'utils/graph'
+import MultiCall from 'utils/multicall'
 import { addressMap } from '../bao/lib/constants'
 
 const useComposition = (nest: Nest) => {
@@ -17,6 +19,7 @@ const useComposition = (nest: Nest) => {
     Array<NestComponent> | undefined
   >()
   const bao = useBao()
+  const multicall = useMulticall()
 
   useEffect(() => {
     if (!nest || !nest.nestContract) return
@@ -65,15 +68,30 @@ const useComposition = (nest: Nest) => {
                 ethereum,
                 component.toLowerCase(),
               )
-              const [symbol, decimals] = await Promise.all([
-                specialContract.methods.symbol().call(),
-                specialContract.methods.decimals().call(),
+
+              const _multicallContext = MultiCall.createCallContext([
+                {
+                  ref: 'specialContract',
+                  contract: specialContract,
+                  calls: [
+                    {
+                      ref: 'symbol',
+                      method: 'symbol'
+                    },
+                    {
+                      ref: 'decimals',
+                      method: 'decimals'
+                    }
+                  ]
+                }
               ])
-              specialSymbol = symbol
-              specialDecimals = decimals
+              const { specialContract: results } =
+                MultiCall.parseCallResults(await multicall.call(_multicallContext))
+              specialSymbol = results[0].values[0]
+              specialDecimals = results[1].values[0]
 
               // Special corrections for the price of lending assets etc.
-              if (_getStrategy(symbol) === 'CREAM') {
+              if (_getStrategy(specialSymbol) === 'CREAM') {
                 const creamContract = getCreamContract(ethereum, component)
                 const exchangeRate = await creamContract.methods
                   .exchangeRateCurrent()
@@ -87,7 +105,7 @@ const useComposition = (nest: Nest) => {
                   new BigNumber(
                     getBalanceNumber(new BigNumber(underlying).plus(1)),
                   ).div(
-                    getBalanceNumber(new BigNumber(componentBalance), decimals),
+                    getBalanceNumber(new BigNumber(componentBalance), specialDecimals),
                   ),
                 )
               }
