@@ -395,7 +395,7 @@ const Nest: React.FC = () => {
 												</td>
 												<td>${getDisplayBalance(component.price, 0)}</td>
 												<td>
-													<StyledBadge>None</StyledBadge>
+													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>
 											</tr>
 										))) || <SpinnerLoader />}

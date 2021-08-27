@@ -15,28 +15,30 @@ import experipieAbi from '../bao/lib/abi/experipie.json'
  * for nests & polly token.
  */
 const useHomeAnalytics = () => {
-  const [analytics, setAnalytics] = useState<Array<{
-    title: string,
-    data: any
-  }> | undefined>()
+  const [analytics, setAnalytics] = useState<
+    | Array<{
+        title: string
+        data: any
+      }>
+    | undefined
+  >()
 
   // Read only web3 instance
   const web3 = new Web3(
-    new Web3.providers.HttpProvider('https://rpc-mainnet.maticvigil.com')
+    new Web3.providers.HttpProvider('https://rpc-mainnet.maticvigil.com'),
   )
 
   const fetchAnalytics = useCallback(async () => {
     const totalNestUsdMap: Array<{
-      price: BigNumber,
+      price: BigNumber
       supply: number
     }> = []
     const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
     for (const nest of supportedNests) {
-      const nestAddress: any =
-        nest.nestAddress[137] || nest.nestAddress
+      const nestAddress: any = nest.nestAddress[137] || nest.nestAddress
       const nestContract = new web3.eth.Contract(
         experipieAbi as AbiItem[],
-        nestAddress
+        nestAddress,
       )
       const [decimals, supply] = await Promise.all([
         nestContract.methods.decimals().call(),
@@ -44,42 +46,41 @@ const useHomeAnalytics = () => {
       ])
 
       totalNestUsdMap.push({
-        price: await GraphUtil.getPriceFromPair(
-          ethPrice,
-          nestAddress
-        ),
-        supply: getBalanceNumber(new BigNumber(supply), decimals)
+        price: (await GraphUtil.getPriceFromPair(ethPrice, nestAddress)) || new BigNumber(0),
+        supply: getBalanceNumber(new BigNumber(supply), decimals),
       })
     }
     const totalNestUsd = new BigNumber(
       _.sum(
-        totalNestUsdMap.map(data =>
-          data.price.times(data.supply).toNumber()
-        )
-      )
+        totalNestUsdMap.map((data) => data.price.times(data.supply).toNumber()),
+      ),
     )
 
     setAnalytics([
       {
         title: 'Polly Supply',
-        data: '-'
+        data: '-',
       },
       {
         title: 'Total Value of Nests',
-        data: `$${getDisplayBalance(totalNestUsd, 0)}`
+        data: `$${getDisplayBalance(totalNestUsd, 0)}`,
       },
       {
         title: 'Farms TVL',
-        data: '-'
+        data: '-',
       },
       {
         title: 'BAO Burned 🔥',
         data: getDisplayBalance(
           new BigNumber(
-            await getBalance(web3.currentProvider, addressMap.BAO, addressMap.DEAD)
-          )
-        )
-      }
+            await getBalance(
+              web3.currentProvider,
+              addressMap.BAO,
+              addressMap.DEAD,
+            ),
+          ),
+        ),
+      },
     ])
   }, [])
 
