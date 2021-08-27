@@ -73,14 +73,7 @@ const useComposition = (nest: Nest) => {
                 {
                   ref: 'specialContract',
                   contract: specialContract,
-                  calls: [
-                    {
-                      method: 'symbol',
-                    },
-                    {
-                      method: 'decimals',
-                    },
-                  ],
+                  calls: [{ method: 'symbol' }, { method: 'decimals' }],
                 },
               ]
               if (
@@ -91,11 +84,7 @@ const useComposition = (nest: Nest) => {
                 mcContracts.push({
                   ref: 'creamContract',
                   contract: getCreamContract(ethereum, component),
-                  calls: [
-                    {
-                      method: 'exchangeRateCurrent',
-                    },
-                  ],
+                  calls: [{ method: 'exchangeRateCurrent' }],
                 })
               const _multicallContext = MultiCall.createCallContext(mcContracts)
               const { specialContract: results, creamContract: creamResults } =

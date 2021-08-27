@@ -3,10 +3,15 @@ import Web3 from 'web3'
 import _ from 'lodash'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
-import { addressMap, supportedNests } from '../bao/lib/constants'
+import {
+  addressMap,
+  supportedNests,
+} from '../bao/lib/constants'
 import GraphUtil from '../utils/graph'
 import { getBalance } from 'utils/erc20'
 import { getBalanceNumber, getDisplayBalance } from '../utils/formatBalance'
+import MultiCall from '../utils/multicall'
+import { Multicall as MC } from 'ethereum-multicall'
 
 import experipieAbi from '../bao/lib/abi/experipie.json'
 
@@ -27,6 +32,7 @@ const useHomeAnalytics = () => {
   const web3 = new Web3(
     new Web3.providers.HttpProvider('https://rpc-mainnet.maticvigil.com'),
   )
+  const multicall = new MC({ web3Instance: web3, tryAggregate: true })
 
   const fetchAnalytics = useCallback(async () => {
     const totalNestUsdMap: Array<{
@@ -35,19 +41,34 @@ const useHomeAnalytics = () => {
     }> = []
     const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
     for (const nest of supportedNests) {
-      const nestAddress: any = nest.nestAddress[137] || nest.nestAddress
+      const nestAddress: any =
+        nest.nestAddress ||
+        (nest.nestAddress && nest.nestAddress[137]) ||
+        nest.outputToken
       const nestContract = new web3.eth.Contract(
         experipieAbi as AbiItem[],
         nestAddress,
       )
-      const [decimals, supply] = await Promise.all([
-        nestContract.methods.decimals().call(),
-        nestContract.methods.totalSupply().call(),
-      ])
+      const { nestContract: nestResults } = MultiCall.parseCallResults(
+        await multicall.call(
+          MultiCall.createCallContext([
+            {
+              ref: 'nestContract',
+              contract: nestContract,
+              calls: [{ method: 'decimals' }, { method: 'totalSupply' }],
+            },
+          ]),
+        ),
+      )
 
       totalNestUsdMap.push({
-        price: (await GraphUtil.getPriceFromPair(ethPrice, nestAddress)) || new BigNumber(0),
-        supply: getBalanceNumber(new BigNumber(supply), decimals),
+        price:
+          (await GraphUtil.getPriceFromPair(ethPrice, nestAddress)) ||
+          new BigNumber(0),
+        supply: getBalanceNumber(
+          new BigNumber(nestResults[1].values[0].hex),
+          nestResults[0].values[0],
+        ),
       })
     }
     const totalNestUsd = new BigNumber(
