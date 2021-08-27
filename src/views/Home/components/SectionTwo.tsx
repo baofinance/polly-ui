@@ -23,7 +23,7 @@ const SectionTwo: React.FC = () => (
 						maxWidth: '100%',
 						height: 'auto',
 						marginInline: 'auto',
-						marginBottom: '0',
+						margin: '0 2em',
 					}}
 				/>
 			</InfoImageContainer>
@@ -57,13 +57,13 @@ const SectionTwo: React.FC = () => (
 		</InfoCol>
 		<InfoImageCol>
 			<InfoImageContainer>
-			<img
+				<img
 					src={passiveYield}
 					style={{
 						maxWidth: '100%',
 						height: 'auto',
 						marginInline: 'auto',
-						marginBottom: '0',
+						margin: '0 2em',
 					}}
 				/>
 			</InfoImageContainer>
@@ -71,13 +71,13 @@ const SectionTwo: React.FC = () => (
 
 		<InfoImageCol>
 			<InfoImageContainer>
-			<img
+				<img
 					src={dao}
 					style={{
 						maxWidth: '100%',
 						height: 'auto',
 						marginInline: 'auto',
-						marginBottom: '0',
+						margin: '0 2em',
 					}}
 				/>
 			</InfoImageContainer>
