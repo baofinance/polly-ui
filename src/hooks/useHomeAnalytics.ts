@@ -37,11 +37,8 @@ const useHomeAnalytics = () => {
   const multicall = new MC({ web3Instance: web3, tryAggregate: true })
 
   const fetchAnalytics = useCallback(async () => {
-    const totalNestUsdMap: Array<{
-      price: BigNumber
-      supply: number
-    }> = []
     const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
+    const multicallContext = []
     for (const nest of supportedNests) {
       const nestAddress: any =
         nest.nestAddress ||
@@ -51,33 +48,27 @@ const useHomeAnalytics = () => {
         experipieAbi as AbiItem[],
         nestAddress,
       )
-      const { nestContract: nestResults } = MultiCall.parseCallResults(
-        await multicall.call(
-          MultiCall.createCallContext([
-            {
-              ref: 'nestContract',
-              contract: nestContract,
-              calls: [{ method: 'decimals' }, { method: 'totalSupply' }],
-            },
-          ]),
-        ),
-      )
-
-      totalNestUsdMap.push({
-        price:
-          (await GraphUtil.getPriceFromPair(ethPrice, nestAddress)) ||
-          new BigNumber(0),
-        supply: getBalanceNumber(
-          new BigNumber(nestResults[1].values[0].hex),
-          nestResults[0].values[0],
-        ),
+      multicallContext.push({
+        ref: nestAddress,
+        contract: nestContract,
+        calls: [{ method: 'decimals' }, { method: 'totalSupply' }],
       })
     }
-    const totalNestUsd = new BigNumber(
-      _.sum(
-        totalNestUsdMap.map((data) => data.price.times(data.supply).toNumber()),
-      ),
+
+    const results = MultiCall.parseCallResults(
+      await multicall.call(MultiCall.createCallContext(multicallContext)),
     )
+    let totalNestUsd = new BigNumber(0)
+    for (const nestAddress of Object.keys(results)) {
+      const _price =
+        (await GraphUtil.getPriceFromPair(ethPrice, nestAddress)) ||
+        new BigNumber(0)
+      const _supply = getBalanceNumber(
+        new BigNumber(results[nestAddress][1].values[0].hex),
+        results[nestAddress][0].values[0],
+      )
+      totalNestUsd = totalNestUsd.plus(_price.times(_supply).toNumber())
+    }
 
     const pollyContract = new web3.eth.Contract(
       pollyAbi as AbiItem[],
