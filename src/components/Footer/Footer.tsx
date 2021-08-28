@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import Nav from './components/Nav'
 import Branding from './components/Branding'
-import baoLogo from 'assets/img/bao-logo.png'
 
 const Footer: React.FC = () => (
 	<StyledFooter>
@@ -20,8 +19,9 @@ const Footer: React.FC = () => (
 )
 
 const StyledFooter = styled.footer`
-	margin: auto;
-	margin-bottom: 50px;
+	margin: 50px auto auto;
+	height: 100px;
+	bottom: 0;
 `
 const StyledFooterInner = styled.div`
 	margin: auto;
@@ -31,6 +31,7 @@ const StyledFooterInner = styled.div`
 	justify-content: space-between;
 	max-width: ${(props) => props.theme.siteWidth}px;
 	width: 100%;
+	margin-bottom: -2em;
 
 	@media (max-width: 414px) {
 		flex-direction: column;

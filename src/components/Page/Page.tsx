@@ -17,13 +17,13 @@ const StyledPage = styled.div`
 	background-repeat: no-repeat;
 	top: 0;
 	left: 0;
+	min-height: calc(100vh - ${(props) => props.theme.topBarSize}px);
 `
 
 const StyledMain = styled.div`
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	min-height: calc(100vh - ${(props) => props.theme.topBarSize * 2}px);
 `
 
 export default Page

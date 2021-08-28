@@ -1,21 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import pollyIcon from 'assets/img/logo.svg'
+import wethIcon from 'assets/img/assets/WETH.png'
 import { getPollyAddress } from 'bao/utils'
 import useBao from 'hooks/useBao'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
 import Button from '../../Button'
 import CardIcon from '../../CardIcon'
 import Label from '../../Label'
 import Modal, { ModalProps } from '../../Modal'
-import ModalActions from '../../ModalActions'
 import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
+import { Col, Row } from 'react-bootstrap'
+import { addressMap } from '../../../bao/lib/constants'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()
@@ -27,6 +29,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
 	const bao = useBao()
 	const baoBalance = useTokenBalance(getPollyAddress(bao))
+	const wethBalance = useTokenBalance(addressMap.WETH)
 
 	return (
 		<Modal>
@@ -37,19 +40,34 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 			<ModalContent>
 				<Spacer />
 
-				<div style={{ display: 'flex' }}>
-					<StyledBalanceWrapper>
-						<CardIcon>
-							<span>
-								<img src={pollyIcon} height={50} />
-							</span>
-						</CardIcon>
-						<StyledBalance>
-							<Value value={getBalanceNumber(baoBalance)} />
-							<Label text="POLLY Balance" />
-						</StyledBalance>
-					</StyledBalanceWrapper>
-				</div>
+				<Row lg={2}>
+					<Col>
+						<StyledBalanceWrapper>
+							<CardIcon>
+								<span>
+									<img src={wethIcon} height={50} />
+								</span>
+							</CardIcon>
+							<StyledBalance>
+								<Value value={getDisplayBalance(wethBalance)} />
+								<Label text="WETH Balance" />
+							</StyledBalance>
+						</StyledBalanceWrapper>
+					</Col>
+					<Col>
+						<StyledBalanceWrapper>
+							<CardIcon>
+								<span>
+									<img src={pollyIcon} height={50} />
+								</span>
+							</CardIcon>
+							<StyledBalance>
+								<Value value={getDisplayBalance(baoBalance)} />
+								<Label text="POLLY Balance" />
+							</StyledBalance>
+						</StyledBalanceWrapper>
+					</Col>
+				</Row>
 
 				<Spacer />
 				<Button

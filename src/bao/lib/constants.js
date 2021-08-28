@@ -23,7 +23,6 @@ export const INTEGERS = {
 }
 
 export const addressMap = {
-	PLYTST: '0x943dfE7DD00bA2fc9931Bc29A7361cE2a10d7d22', //replace with polly address
 	uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
 	WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -37,7 +36,6 @@ export const addressMap = {
 	SNX: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
 	CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
 	MATIC: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
-	nDEFI: '0x092737fd2AF3c233E6ace3153028006bBC6E6Ec6', //Test index consisting of amDAI & WMATIC,
 	BAO: '0xc81278a52ad0e1485b7c3cdf79079220ddd68b7d',
 	DEAD: '0x000000000000000000000000000000000000dead',
 }

@@ -7,13 +7,18 @@ import { darken } from 'polished'
 interface TooltippedProps {
 	content: string
 	children?: JSX.Element
+	placement?: any
 }
 
-const Tooltipped: React.FC<TooltippedProps> = ({ children, content }) => (
+const Tooltipped: React.FC<TooltippedProps> = ({
+	children,
+	content,
+	placement,
+}) => (
 	<>
 		<OverlayTrigger
 			overlay={<Tooltip id={Math.random().toString()}>{content}</Tooltip>}
-			placement="bottom"
+			placement={placement || 'bottom'}
 		>
 			{children || (
 				<span>

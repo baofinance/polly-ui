@@ -71,7 +71,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 					</ColumnText>
 				</ListCol>
 				<ListCol width={'10%'} align={'center'}>
-					<ColumnText>+10%</ColumnText>
+					<ColumnText>~</ColumnText>
 				</ListCol>
 				<ListCol width={'17.5%'} align={'right'}>
 					<div style={{ height: '50px' }}>
@@ -109,7 +109,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 								)}
 							</span>
 							<MobileListChange>
-								<MobileListDesc>+10%</MobileListDesc>
+								<MobileListDesc>~</MobileListDesc>
 							</MobileListChange>
 						</MobileListPrice>
 					</MobileListItemContainer>
