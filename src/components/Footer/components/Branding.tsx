@@ -4,10 +4,13 @@ import baoLogo from '../../../assets/img/bao-logo.png'
 
 const Branding: React.FC = () => {
 	return (
-		<StyledLogo href="https://bao.finance">
-			<TitleText>by Bao.Finance</TitleText>
-			<BaoLogo />
-		</StyledLogo>
+		<StyledLink target="_blank" href="https://bao.finance">
+			<StyledText>
+				<TitleText>
+						<span>by Bao.Finance</span>
+				</TitleText>
+			</StyledText>
+		</StyledLink>
 	)
 }
 
@@ -21,7 +24,7 @@ const TitleText = styled.div`
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
 
-const StyledLogo = styled.a`
+const StyledLink = styled.a`
 	align-items: center;
 	display: flex;
 	justify-content: center;
@@ -29,14 +32,22 @@ const StyledLogo = styled.a`
 	min-width: 60px;
 	padding: 0;
 	text-decoration: none;
-	margin: 0 0 25px;
+
+	&:hover {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
 `
 
-const BaoLogo = styled.img.attrs(() => ({
-	src: baoLogo,
-}))`
-	margin-left: 10px;
-	height: 24px;
+const StyledText = styled.span`
+	color: ${(props) => props.theme.color.grey[600]};
+	font-family: 'Rubik', sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	margin-left: ${(props) => props.theme.spacing[2]}px;
+	@media (max-width: 400px) {
+		display: none;
+	}
 `
 
 export default Branding

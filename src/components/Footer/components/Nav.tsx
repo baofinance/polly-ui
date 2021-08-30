@@ -49,7 +49,6 @@ const StyledNav = styled.nav`
 	align-items: center;
 	display: flex;
 	font-size: 24px;
-	margin-bottom: 25px;
 
 	@media (max-width: 414px) {
 		flex-direction: column;

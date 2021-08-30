@@ -52,7 +52,7 @@ export const contractAddresses = {
 		137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
 	},
 	recipe: {
-		137: '0x5fF842438b4B1865f146Fcbb4d81331BFe7Dc856',
+		137: '0x2E62EE5005c4069e82d37479f42D1a7Aa2C1B8ba',
 	},
 	wethPrice: {
 		137: '0xF9680D99D6C9589e2a93a78A04A279e509205945',

@@ -38,23 +38,23 @@ a:focus {
 }
 
 .tooltip > .tooltip-inner {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #181524;
 }
 
 .tooltip.bs-tooltip-left > .tooltip-arrow::before {
-  border-left-color: rgba(0, 0, 0, 0.4);
+  border-left-color: #181524;
 }
 
 .tooltip.bs-tooltip-right > .tooltip-arrow::before {
-  border-right-color: rgba(0, 0, 0, 0.4);
+  border-right-color: #181524;
 }
 
 .tooltip.bs-tooltip-top > .tooltip-arrow::before {
-  border-top-color: rgba(0, 0, 0, 0.4);
+  border-top-color: #181524;
 }
 
 .tooltip.bs-tooltip-bottom > .tooltip-arrow::before {
-  border-bottom-color: rgba(0, 0, 0, 0.4);
+  border-bottom-color: #181524;
 }
 
 ::selection {
