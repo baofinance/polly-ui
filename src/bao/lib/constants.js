@@ -37,6 +37,7 @@ export const addressMap = {
 	CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
 	MATIC: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
 	BAO: '0xc81278a52ad0e1485b7c3cdf79079220ddd68b7d',
+	nDEFI: '0x28cc94cf01a8f29668368687e409d7e3dac17bfe',
 	DEAD: '0x000000000000000000000000000000000000dead',
 }
 
@@ -128,10 +129,10 @@ export const supportedNests = [
 	{
 		nid: 1,
 		nestAddress: {
-			137: '0xEDaF280EF69bcE2D3F0D94A857Bd6Cba9376c93e',
+			137: '0x28cc94cf01a8f29668368687e409d7e3dac17bfe',
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		outputToken: '0xEDaF280EF69bcE2D3F0D94A857Bd6Cba9376c93e',
+		outputToken: '0x28cc94cf01a8f29668368687e409d7e3dac17bfe',
 		symbol: 'nDEFI',
 		name: 'nDEFI',
 		icon: '/ndefi.svg',
