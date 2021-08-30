@@ -130,10 +130,10 @@ export const supportedNests = [
 	{
 		nid: 1,
 		nestAddress: {
-			137: '0xEDaF280EF69bcE2D3F0D94A857Bd6Cba9376c93e',
+			137: '0x28cC94Cf01A8f29668368687e409d7E3DAC17bFE',
 		},
 		inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-		outputToken: '0xEDaF280EF69bcE2D3F0D94A857Bd6Cba9376c93e',
+		outputToken: '0x28cC94Cf01A8f29668368687e409d7E3DAC17bFE',
 		symbol: 'nDEFI',
 		name: 'nDEFI',
 		icon: '/ndefi.svg',
