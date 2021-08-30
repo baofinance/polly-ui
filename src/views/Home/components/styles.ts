@@ -134,6 +134,7 @@ export const BubbleContainer = styled.div`
     background-repeat: no-repeat;
     background-size: 100px 100px;
     background-position: center center;
+    z-index: -999;
   }
 
   .logo1 {
