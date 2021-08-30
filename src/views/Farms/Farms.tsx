@@ -26,8 +26,8 @@ const Farms: React.FC = () => {
 						<Route exact path={path}>
 							<PageHeader
 								icon={pollyNests}
-								title="Polly Farms"
-								subtitle="Earn POLLY tokens by staking Sushiswap LP Tokens!"
+								title="Farms"
+								subtitle="Earn POLLY by staking Sushiswap LP and Nest Tokens!"
 							/>
 							<Spacer size="lg" />
 							<Container>
@@ -58,18 +58,5 @@ const Farms: React.FC = () => {
 		</Switch>
 	)
 }
-
-const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-size: 16px;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-
-	> b {
-		color: ${(props) => props.theme.color.grey[100]};
-	}
-`
 
 export default Farms

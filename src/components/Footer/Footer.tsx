@@ -20,6 +20,7 @@ const Footer: React.FC = () => (
 )
 
 const StyledFooter = styled.footer`
+	margin-top: 25px;
 	margin: auto;
 	padding: 25px;
 `
