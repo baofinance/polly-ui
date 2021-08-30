@@ -27,17 +27,17 @@ const NavModal: React.FC<NavModalProps> = ({ onDismiss }) => {
 					<b>NAV</b>
 				</p>
 				<p style={{ textAlign: 'left' }}>
-					The net asset value (NAV) of a Pie represents the market value of each
-					share’s portion of the Pie's underlying assets. The NAV is determined
-					by adding up the value of all assets in the Pie and then dividing that
-					value by the number of outstanding shares in the Pie.
+					The net asset value (NAV) of a Nest represents the market value of each
+					share’s portion of the Nest's underlying assets. The NAV is determined
+					by adding up the value of all assets in the Nest and then dividing that
+					value by the number of outstanding shares in the Nest.
 				</p>
 
 				<p style={{ textAlign: 'left', fontSize: '24px' }}>
 					<b>Price</b>
 				</p>
 				<p style={{ textAlign: 'left' }}>
-					The Pie's market price is the price at which shares in the Pies can be
+					The Nest's market price is the price at which shares in the Nests can be
 					bought or sold on the exchanges. The market price can fluctuate
 					throughout the day as buyers and sellers interact with one another and
 					trade. For this reason, at times the price can differ from the NAV,
