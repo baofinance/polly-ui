@@ -11,12 +11,12 @@ const Nav: React.FC = () => {
 					<FontAwesomeIcon icon={['fab', 'discord']} />
 				</StyledLink>
 			</Tooltipped>
-			<Tooltipped content="Twitter (BaoMan)" placement="top">
+			<Tooltipped content="Twitter" placement="top">
 				<StyledLink target="_blank" href="https://twitter.com/thebaoman">
 					<FontAwesomeIcon icon={['fab', 'twitter']} />
 				</StyledLink>
 			</Tooltipped>
-			<Tooltipped content="Medium (BaoMan)" placement="top">
+			<Tooltipped content="Medium" placement="top">
 				<StyledLink target="_blank" href="https://thebaoman.medium.com/">
 					<FontAwesomeIcon icon={['fab', 'medium']} />
 				</StyledLink>
