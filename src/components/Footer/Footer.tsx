@@ -6,13 +6,9 @@ import Branding from './components/Branding'
 const Footer: React.FC = () => (
 	<StyledFooter>
 		<StyledFooterInner>
-			<StyledLogoWrapper></StyledLogoWrapper>
 			<StyledNavWrapper>
 				<Nav />
 			</StyledNavWrapper>
-			<StyledBrandingWrapper>
-				{/* <img src={baoLogo} height="36" style={{ verticalAlign: 'middle', marginBottom: '25px' }} /> */}
-			</StyledBrandingWrapper>
 		</StyledFooterInner>
 		<Branding />
 	</StyledFooter>
@@ -31,7 +27,7 @@ const StyledFooterInner = styled.div`
 	justify-content: space-between;
 	max-width: ${(props) => props.theme.siteWidth}px;
 	width: 100%;
-	margin-bottom: -2em;
+	margin-bottom: -1em;
 
 	@media (max-width: 414px) {
 		flex-direction: column;
