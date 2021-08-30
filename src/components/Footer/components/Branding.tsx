@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom'
 
 const Branding: React.FC = () => {
 	return (
-		<StyledLogo to="https://bao.finance">
+		<StyledLink target="_blank" href="https://bao.finance">
 			<StyledText>
 				<TitleText>
 						<span>by Bao.Finance</span>
 				</TitleText>
 			</StyledText>
-		</StyledLogo>
+		</StyledLink>
 	)
 }
 
@@ -25,7 +25,7 @@ const TitleText = styled.div`
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
 
-const StyledLogo = styled(Link)`
+const StyledLink = styled.a`
 	align-items: center;
 	display: flex;
 	justify-content: center;
@@ -34,7 +34,10 @@ const StyledLogo = styled(Link)`
 	min-width: 60px;
 	padding: 0;
 	text-decoration: none;
-    margin-bottom: 25px;
+
+	&:hover {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
 `
 
 const StyledText = styled.span`
