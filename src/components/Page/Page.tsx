@@ -4,20 +4,30 @@ import styled from 'styled-components'
 import Footer from '../Footer'
 
 const Page: React.FC = ({ children }) => (
-	<StyledPage>
-		<StyledMain>{children}</StyledMain>
-		<Footer />
-	</StyledPage>
+	<StyledPageContainer>
+		<StyledPageWrapper>
+			<StyledMain>{children}</StyledMain>
+			<Footer />
+		</StyledPageWrapper>
+	</StyledPageContainer>
 )
 
-const StyledPage = styled.div`
-	content: '';
+const StyledPageContainer = styled.div`
+	display: table;
+	position: absolute;
+	top: ${(props) => props.theme.topBarSize}px;
+	left: 0;
+	height: calc(100vh - ${(props) => props.theme.topBarSize}px);
+	width: 100%;
+`
+
+const StyledPageWrapper = styled.div`
+	display: table-cell;
+	vertical-align: middle;
+	min-height: calc(100vh - ${(props) => props.theme.topBarSize}px);
 	background-image: url(${overlay});
 	background-size: cover;
 	background-repeat: no-repeat;
-	top: 0;
-	left: 0;
-	min-height: calc(100vh - ${(props) => props.theme.topBarSize}px);
 `
 
 const StyledMain = styled.div`
