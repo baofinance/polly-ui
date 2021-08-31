@@ -40,7 +40,6 @@ const AnalyticsContainer = styled(Row)`
 
 	@media (min-width: 414px) {
 		margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
-		z-index: 10;
 		position: absolute;
 		width: 80%;
 		left: 50%;
