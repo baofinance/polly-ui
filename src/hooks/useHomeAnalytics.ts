@@ -1,21 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
 import Web3 from 'web3'
-import _ from 'lodash'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
 import {
   addressMap,
-  contractAddresses,
   supportedNests,
 } from '../bao/lib/constants'
 import GraphUtil from '../utils/graph'
-import { getBalance } from 'utils/erc20'
 import { getBalanceNumber, getDisplayBalance } from '../utils/formatBalance'
 import MultiCall from '../utils/multicall'
 import { Multicall as MC } from 'ethereum-multicall'
 
 import experipieAbi from '../bao/lib/abi/experipie.json'
-import pollyAbi from '../bao/lib/abi/polly.json'
 
 /**
  * Home analytics hook, temporary until we've got a subgraph deployed
@@ -70,11 +66,7 @@ const useHomeAnalytics = () => {
       totalNestUsd = totalNestUsd.plus(_price.times(_supply).toNumber())
     }
 
-    const pollyContract = new web3.eth.Contract(
-      pollyAbi as AbiItem[],
-      contractAddresses.polly[137],
-    )
-    const pollySupply = await pollyContract.methods.totalSupply().call()
+    const pollySupply = await GraphUtil.getPollySupply()
 
     setAnalytics([
       {
@@ -90,14 +82,10 @@ const useHomeAnalytics = () => {
         data: '-',
       },
       {
-        title: 'BAO Burned 🔥',
+        title: 'Polly Burned 🔥',
         data: getDisplayBalance(
           new BigNumber(
-            await getBalance(
-              web3.currentProvider,
-              addressMap.BAO,
-              addressMap.DEAD,
-            ),
+            (await GraphUtil.getPollyBurned()).burnedTokens
           ),
         ),
       },
