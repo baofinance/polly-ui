@@ -26,7 +26,7 @@ import { Col } from 'react-bootstrap'
 
 export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
-  font-size: 7rem !important;
+  font-size: 7rem;
   letter-spacing: -0.2rem;
   text-align: center;
   font-weight: 700 !important;
@@ -109,10 +109,6 @@ export const BubbleWrap = styled.div`
   overflow: hidden;
 
   @media (max-width: 414px) {
-    font-size: 1rem !important;
-  }
-
-  @media (min-width: 2160px) {
     display: none;
   }
 `
