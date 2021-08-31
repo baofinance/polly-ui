@@ -25,7 +25,7 @@ const useHomeAnalytics = () => {
 
   // Read only web3 instance
   const web3 = new Web3(
-    new Web3.providers.HttpProvider('https://rpc-mainnet.maticvigil.com'),
+    new Web3.providers.HttpProvider('https://polygon-rpc.com'),
   )
   const multicall = new MC({ web3Instance: web3, tryAggregate: true })
 

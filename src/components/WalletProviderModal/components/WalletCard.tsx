@@ -59,7 +59,7 @@ const _getButtonText = async (ethereum: any, status: string): Promise<any> => {
 					params: [
 						{
 							chainId: '0x89',
-							rpcUrls: ['https://rpc-mainnet.maticvigil.com'],
+							rpcUrls: ['https://polygon-rpc.com'],
 							blockExplorerUrls: ['https://explorer-mainnet.maticvigil.com'],
 							chainName: 'Matic Mainnet',
 							nativeCurrency: {
