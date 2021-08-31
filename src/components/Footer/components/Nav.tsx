@@ -49,10 +49,6 @@ const StyledNav = styled.nav`
 	align-items: center;
 	display: flex;
 	font-size: 24px;
-
-	@media (max-width: 414px) {
-		flex-direction: column;
-	}
 `
 
 const StyledLink = styled.a`
@@ -63,6 +59,11 @@ const StyledLink = styled.a`
 
 	&:hover {
 		color: ${(props) => props.theme.color.blue[400]};
+	}
+
+	@media (max-width: 414px) {
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 `
 

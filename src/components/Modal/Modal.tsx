@@ -29,22 +29,25 @@ const StyledResponsiveWrapper = styled.div`
 	justify-content: flex-end;
 	position: relative;
 	width: 100%;
-	max-width: 40%;
-	@media (max-width: 411px) {
+
+	@media (min-width: 414px) {
+		max-width: 40%;
+	}
+
+	@media (max-width: 414px) {
 		flex: 1;
-		position: absolute;
-		top: 100%;
+		top: 90%;
 		right: 0;
 		left: 0;
 		max-height: 100vh;
 		animation: ${mobileKeyframes} 0.3s forwards ease-out;
+		max-width: 90%;
 	}
 `
 
 const StyledModal = styled.div`
 	padding: 0 20px;
-	background: radial-gradient(circle at center top, #202231, #161522) 0 0 /
-		cover fixed;
+	background: radial-gradient(circle at center top, #202231, #161522);
 	border: 1px solid ${(props) => props.theme.color.darkGrey[200]};
 	border-radius: 12px;
 	display: flex;
@@ -53,7 +56,5 @@ const StyledModal = styled.div`
 	width: 100%;
 	min-height: 0;
 `
-
-const StyledModalContent = styled.div``
 
 export default Modal

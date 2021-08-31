@@ -107,8 +107,8 @@ export const supportedPools = [
 		symbol: 'CVX-ETH SLP',
 		tokenSymbol: 'CVX',
 		icon: '/CVX.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4257EA7637c355F81616050CbB6a9b709fd72683',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4257EA7637c355F81616050CbB6a9b709fd72683',
 	},
 	{
 		pid: 2,
@@ -123,8 +123,8 @@ export const supportedPools = [
 		symbol: 'ALPHA-ETH SLP',
 		tokenSymbol: 'ALPHA',
 		icon: '/ALPHA.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3AE490db48d74B1bC626400135d4616377D0109f',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3AE490db48d74B1bC626400135d4616377D0109f',
 	},
 	{
 		pid: 3,
@@ -139,8 +139,8 @@ export const supportedPools = [
 		symbol: 'UNI-ETH SLP',
 		tokenSymbol: 'UNI',
 		icon: '/UNI.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xb33eaad8d922b1083446dc23f610c2567fb5180f',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xb33eaad8d922b1083446dc23f610c2567fb5180f',
 	},
 	{
 		pid: 4,
@@ -155,8 +155,8 @@ export const supportedPools = [
 		symbol: 'SUSHI-ETH SLP',
 		tokenSymbol: 'SUSHI',
 		icon: '/SUSHI.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
 	},
 	{
 		pid: 5,
@@ -171,8 +171,8 @@ export const supportedPools = [
 		symbol: 'CRV-ETH SLP',
 		tokenSymbol: 'CRV',
 		icon: '/CRV.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x172370d5cd63279efa6d502dab29171933a610af',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x172370d5cd63279efa6d502dab29171933a610af',
 	},
 	{
 		pid: 6,
@@ -187,8 +187,8 @@ export const supportedPools = [
 		symbol: 'BAL-ETH SLP',
 		tokenSymbol: 'BAL',
 		icon: '/BAL.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3',
 	},
 	{
 		pid: 7,
@@ -203,8 +203,8 @@ export const supportedPools = [
 		symbol: 'COMP-ETH SLP',
 		tokenSymbol: 'COMP',
 		icon: '/COMP.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x8505b9d2254a7ae468c0e9dd10ccea3a837aef5c',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x8505b9d2254a7ae468c0e9dd10ccea3a837aef5c',
 	},
 	{
 		pid: 8,
@@ -219,8 +219,8 @@ export const supportedPools = [
 		symbol: 'MKR-ETH SLP',
 		tokenSymbol: 'MKR',
 		icon: '/MKR.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x6f7C932e7684666C9fd1d44527765433e01fF61d',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x6f7C932e7684666C9fd1d44527765433e01fF61d',
 	},
 	{
 		pid: 9,
@@ -235,8 +235,8 @@ export const supportedPools = [
 		symbol: 'ALCX-ETH SLP',
 		tokenSymbol: 'ALCX',
 		icon: '/ALCX.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x95c300e7740D2A88a44124B424bFC1cB2F9c3b89',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x95c300e7740D2A88a44124B424bFC1cB2F9c3b89',
 	},
 	{
 		pid: 10,
@@ -251,8 +251,8 @@ export const supportedPools = [
 		symbol: 'LINK-ETH SLP',
 		tokenSymbol: 'LINK',
 		icon: '/LINK.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
 	},
 	{
 		pid: 11,
@@ -267,8 +267,8 @@ export const supportedPools = [
 		symbol: 'SNX-ETH SLP',
 		tokenSymbol: 'SNX',
 		icon: '/SNX.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x50b728d8d964fd00c2d0aad81718b71311fef68a',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x50b728d8d964fd00c2d0aad81718b71311fef68a',
 	},
 	{
 		pid: 12,
@@ -283,8 +283,8 @@ export const supportedPools = [
 		symbol: 'UMA-ETH SLP',
 		tokenSymbol: 'UMA',
 		icon: '/UMA.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3066818837c5e6ed6601bd5a91b0762877a6b731',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3066818837c5e6ed6601bd5a91b0762877a6b731',
 	},
 	{
 		pid: 13,
@@ -299,8 +299,8 @@ export const supportedPools = [
 		symbol: 'BAO-ETH SLP',
 		tokenSymbol: 'BAO',
 		icon: '/BAO.png',
-		refUrl: 
-		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xc81278a52AD0e1485B7C3cDF79079220Ddd68b7D',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xc81278a52AD0e1485B7C3cDF79079220Ddd68b7D',
 	},
 ]
 

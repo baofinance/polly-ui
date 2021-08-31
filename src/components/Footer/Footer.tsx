@@ -28,37 +28,12 @@ const StyledFooterInner = styled.div`
 	max-width: ${(props) => props.theme.siteWidth}px;
 	width: 100%;
 	margin-bottom: -1em;
-
-	@media (max-width: 414px) {
-		flex-direction: column;
-	}
 `
 
 const StyledNavWrapper = styled.div`
 	display: flex;
 	flex: 1;
 	justify-content: center;
-	@media (max-width: 768px) {
-		display: none;
-	}
-`
-
-const StyledBrandingWrapper = styled.div`
-	align-items: center;
-	display: flex;
-	justify-content: flex-end;
-	width: 200px;
-	@media (max-width: 400px) {
-		justify-content: center;
-		width: auto;
-	}
-`
-
-const StyledLogoWrapper = styled.div`
-	width: 200px;
-	@media (max-width: 768px) {
-		width: auto;
-	}
 `
 
 export default Footer
