@@ -24,7 +24,7 @@ import useNestRedeem from '../../hooks/useNestRedeem'
 import useTokenBalance from '../../hooks/useTokenBalance'
 import usePairPrice from '../../hooks/usePairPrice'
 import { getContract } from '../../utils/erc20'
-import { getDisplayBalance } from '../../utils/formatBalance'
+import { decimate, getDisplayBalance } from '../../utils/formatBalance'
 import IssueModal from './components/IssueModal'
 import NavModal from './components/NavModal'
 import { Progress } from './components/Progress'
@@ -64,7 +64,7 @@ const Nest: React.FC = () => {
 	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
 		nest
 	const composition = useComposition(nest)
-	const { wethPerIndex, usdPerIndex } = useNestRate(nestTokenAddress)
+	const { wethPrice } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
 	const nav = useNav(composition, supply)
 	const sushiPairPrice = usePairPrice(nest)
@@ -113,10 +113,10 @@ const Nest: React.FC = () => {
 	const marketCap = useMemo(() => {
 		return (
 			supply &&
-			usdPerIndex &&
-			`$${getDisplayBalance(supply.div(10 ** 18).times(usdPerIndex), 0)}`
+			sushiPairPrice &&
+			`$${getDisplayBalance(decimate(supply).times(sushiPairPrice), 0)}`
 		)
-	}, [supply, usdPerIndex])
+	}, [supply, sushiPairPrice])
 
 	const tokenBalance = useTokenBalance(nestContract.options.address)
 	const bao = useBao()
@@ -183,11 +183,11 @@ const Nest: React.FC = () => {
 					<br />
 					<StyledBadge>
 						1 {nestToken} ={' '}
-						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+						{(wethPrice && sushiPairPrice && getDisplayBalance(sushiPairPrice.div(wethPrice), 0)) || (
 							<SpinnerLoader />
 						)}{' '}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
-						{(usdPerIndex && getDisplayBalance(usdPerIndex, 0)) || (
+						{(sushiPairPrice && getDisplayBalance(sushiPairPrice, 0)) || (
 							<SpinnerLoader />
 						)}
 					</StyledBadge>
