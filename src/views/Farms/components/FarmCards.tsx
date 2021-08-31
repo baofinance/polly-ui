@@ -159,7 +159,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	}, [bao, lpTokenAddress, account, setHarvestable])
 
 	const poolActive = true // startTime * 1000 - Date.now() <= 0
-	const nestMint = 'Mint ' + farm.tokenSymbol
+	const nestMint = 'Get ' + farm.tokenSymbol
+	const destination = farm.refUrl
 
 	return (
 		<StyledCardWrapper>
@@ -189,7 +190,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							)}
 						</Button>
 						<Spacer />
-						<Button text={nestMint} to={'/nests/1'}></Button>
+						<Button text={nestMint} href={destination}></Button>
 						<StyledInsight>
 							<span>APY</span>
 							<span>

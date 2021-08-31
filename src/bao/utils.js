@@ -120,7 +120,7 @@ export const getFarms = (bao) => {
 					tokenDecimals,
 					tokenSymbol,
 					tokenContract,
-					earnToken: 'PLYTST',
+					earnToken: 'POLLY',
 					earnTokenAddress: bao.contracts.polly.options.address,
 					icon,
 					refUrl,

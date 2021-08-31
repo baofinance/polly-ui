@@ -81,47 +81,226 @@ export const supportedPools = [
 	{
 		pid: 0,
 		lpAddresses: {
-			137: '0x8fcce357adbe07acff7e28ec4926ea5cb3ea2cba',
+			137: '0xdfa3ddd1807db8e4b4851d2e5421374e433a2983',
 		},
 		tokenAddresses: {
-			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
+			137: '0xda537104d6a5edd53c6fbba9a898708e465260b6',
 		},
 		tokenDecimals: 18,
-		name: 'DeFi Nest',
-		symbol: 'nDEFI',
-		tokenSymbol: 'nDEFI',
-		icon: '/ndefi.svg',
-		refUrl: 'http://localhost:3000/nests/1',
+		name: 'Yearn Love Birds',
+		symbol: 'YFI-ETH SLP',
+		tokenSymbol: 'YFI',
+		icon: '/YFI.png',
+		refUrl:
+			'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xda537104d6a5edd53c6fbba9a898708e465260b6',
 	},
 	{
 		pid: 1,
 		lpAddresses: {
-			137: '0x8fcce357adbe07acff7e28ec4926ea5cb3ea2cba',
+			137: '0xce5b8977f5021f1ef1232b1d4a0cfd03e8bcba9b',
 		},
 		tokenAddresses: {
-			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
+			137: '0x4257EA7637c355F81616050CbB6a9b709fd72683',
 		},
 		tokenDecimals: 18,
-		name: 'DeFi Nest',
-		symbol: 'nDEFI',
-		tokenSymbol: 'nDEFI',
-		icon: '/ndefi.svg',
-		refUrl: 'http://localhost:3000/nests/1',
+		name: 'Convex Cockatiel',
+		symbol: 'CVX-ETH SLP',
+		tokenSymbol: 'CVX',
+		icon: '/CVX.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4257EA7637c355F81616050CbB6a9b709fd72683',
 	},
 	{
 		pid: 2,
 		lpAddresses: {
-			137: '0x8fcce357adbe07acff7e28ec4926ea5cb3ea2cba',
+			137: '0x5e5c517ec55d6393d91d6a1379e5ae393a01a423',
 		},
 		tokenAddresses: {
-			137: '0x6f46E4c5D0D5fb4B562C46804B5Bd30d58e3578a',
+			137: '0x3AE490db48d74B1bC626400135d4616377D0109f',
 		},
 		tokenDecimals: 18,
-		name: 'DeFi Nest',
-		symbol: 'nDEFI',
-		tokenSymbol: 'nDEFI',
-		icon: '/ndefi.svg',
-		refUrl: 'http://localhost:3000/nests/1',
+		name: 'Alpha Blue-Cheeked Amazon',
+		symbol: 'ALPHA-ETH SLP',
+		tokenSymbol: 'ALPHA',
+		icon: '/ALPHA.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3AE490db48d74B1bC626400135d4616377D0109f',
+	},
+	{
+		pid: 3,
+		lpAddresses: {
+			137: '0xc56060af39152c614fa67e169c0dd1809a886e4f',
+		},
+		tokenAddresses: {
+			137: '0xb33eaad8d922b1083446dc23f610c2567fb5180f',
+		},
+		tokenDecimals: 18,
+		name: 'Uni Galah',
+		symbol: 'UNI-ETH SLP',
+		tokenSymbol: 'UNI',
+		icon: '/UNI.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xb33eaad8d922b1083446dc23f610c2567fb5180f',
+	},
+	{
+		pid: 4,
+		lpAddresses: {
+			137: '0xb5846453b67d0b4b4ce655930cf6e4129f4416d7',
+		},
+		tokenAddresses: {
+			137: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+		},
+		tokenDecimals: 18,
+		name: 'Salmon Sushi Cockatoo',
+		symbol: 'SUSHI-ETH SLP',
+		tokenSymbol: 'SUSHI',
+		icon: '/SUSHI.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
+	},
+	{
+		pid: 5,
+		lpAddresses: {
+			137: '0x396e655c309676caf0acf4607a868e0cded876db',
+		},
+		tokenAddresses: {
+			137: '0x172370d5cd63279efa6d502dab29171933a610af',
+		},
+		tokenDecimals: 18,
+		name: 'Curve Collared Iory',
+		symbol: 'CRV-ETH SLP',
+		tokenSymbol: 'CRV',
+		icon: '/CRV.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x172370d5cd63279efa6d502dab29171933a610af',
+	},
+	{
+		pid: 6,
+		lpAddresses: {
+			137: '0xc67136e235785727a0d3b5cfd08325327b81d373',
+		},
+		tokenAddresses: {
+			137: '0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3',
+		},
+		tokenDecimals: 18,
+		name: 'Balancer Broad-Billed Parrot',
+		symbol: 'BAL-ETH SLP',
+		tokenSymbol: 'BAL',
+		icon: '/BAL.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3',
+	},
+	{
+		pid: 7,
+		lpAddresses: {
+			137: '0x9021a31062a1d9c9c35d632ed54a9d923e46809f',
+		},
+		tokenAddresses: {
+			137: '0x8505b9d2254a7ae468c0e9dd10ccea3a837aef5c',
+		},
+		tokenDecimals: 18,
+		name: 'Compy-Faced Lovebird',
+		symbol: 'COMP-ETH SLP',
+		tokenSymbol: 'COMP',
+		icon: '/COMP.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x8505b9d2254a7ae468c0e9dd10ccea3a837aef5c',
+	},
+	{
+		pid: 8,
+		lpAddresses: {
+			137: '0xbf61e1d82bd440cb9da11d325c046f029a663890',
+		},
+		tokenAddresses: {
+			137: '0x6f7C932e7684666C9fd1d44527765433e01fF61d',
+		},
+		tokenDecimals: 18,
+		name: 'Make or Beak',
+		symbol: 'MKR-ETH SLP',
+		tokenSymbol: 'MKR',
+		icon: '/MKR.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x6f7C932e7684666C9fd1d44527765433e01fF61d',
+	},
+	{
+		pid: 9,
+		lpAddresses: {
+			137: '0x14dbe3e6814fd532ef87e4be9b4192c018752823',
+		},
+		tokenAddresses: {
+			137: '0x95c300e7740D2A88a44124B424bFC1cB2F9c3b89',
+		},
+		tokenDecimals: 18,
+		name: 'Sulphur Winged Alchemix',
+		symbol: 'ALCX-ETH SLP',
+		tokenSymbol: 'ALCX',
+		icon: '/ALCX.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x95c300e7740D2A88a44124B424bFC1cB2F9c3b89',
+	},
+	{
+		pid: 10,
+		lpAddresses: {
+			137: '0x74d23f21f780ca26b47db16b0504f2e3832b9321',
+		},
+		tokenAddresses: {
+			137: '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
+		},
+		tokenDecimals: 18,
+		name: 'Link-Bellied Macaw',
+		symbol: 'LINK-ETH SLP',
+		tokenSymbol: 'LINK',
+		icon: '/LINK.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
+	},
+	{
+		pid: 11,
+		lpAddresses: {
+			137: '0x116ff0d1caa91a6b94276b3471f33dbeb52073e7',
+		},
+		tokenAddresses: {
+			137: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
+		},
+		tokenDecimals: 18,
+		name: `SpiNX's Macaw`,
+		symbol: 'SNX-ETH SLP',
+		tokenSymbol: 'SNX',
+		icon: '/SNX.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x50b728d8d964fd00c2d0aad81718b71311fef68a',
+	},
+	{
+		pid: 12,
+		lpAddresses: {
+			137: '0x6be10c5c7178af8c49997d07d6a5444c15e58170',
+		},
+		tokenAddresses: {
+			137: '0x3066818837c5e6ed6601bd5a91b0762877a6b731',
+		},
+		tokenDecimals: 18,
+		name: `Cardinal Umary`,
+		symbol: 'UMA-ETH SLP',
+		tokenSymbol: 'UMA',
+		icon: '/UMA.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3066818837c5e6ed6601bd5a91b0762877a6b731',
+	},
+	{
+		pid: 13,
+		lpAddresses: {
+			137: '0x2481cbe674fb72cf8cd3031ff4747078d168c9b3',
+		},
+		tokenAddresses: {
+			137: '0xc81278a52AD0e1485B7C3cDF79079220Ddd68b7D',
+		},
+		tokenDecimals: 18,
+		name: `Baolamons Cockatoo`,
+		symbol: 'BAO-ETH SLP',
+		tokenSymbol: 'BAO',
+		icon: '/BAO.png',
+		refUrl: 
+		'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xc81278a52AD0e1485B7C3cDF79079220Ddd68b7D',
 	},
 ]
 
