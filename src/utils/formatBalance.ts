@@ -17,3 +17,15 @@ export const getDisplayBalance = (balance: BigNumber, decimals = 18) => {
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
 }
+
+export const decimate = (n: any, decimals?: any): BigNumber =>
+  new BigNumber(n)
+    .div(
+      new BigNumber(10).pow(new BigNumber(decimals || 18))
+    )
+
+export const exponentiate = (n: any, decimals?: any): BigNumber =>
+  new BigNumber(n)
+    .times(
+      new BigNumber(10).pow(new BigNumber(decimals || 18))
+    )

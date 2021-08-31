@@ -1,7 +1,6 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
-import { getBalanceNumber } from './formatBalance'
 
 const SUSHI_SUBGRAPH_URLS = {
   matic: 'https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange',
@@ -14,6 +13,10 @@ const clients = {
     uri: SUSHI_SUBGRAPH_URLS.matic,
     cache: new InMemoryCache(),
   }),
+  maticPollyBurn: new ApolloClient({
+    uri: 'https://api.thegraph.com/subgraphs/name/clabby/polly-burn',
+    cache: new InMemoryCache(),
+  }),
   mainnet: new ApolloClient({
     uri: SUSHI_SUBGRAPH_URLS.mainnet,
     cache: new InMemoryCache(),
@@ -23,64 +26,8 @@ const clients = {
 const _getClient = (network: string) =>
   network.toLowerCase() === 'matic' ? clients.matic : clients.mainnet
 
-const _getPriceHistoryQuery = (tokenAddress: string) =>
-  `
-  {
-    tokens(where: {id:"${tokenAddress}"}) {
-      id
-      symbol
-      name
-      dayData(orderBy:date, orderDirection:desc) {
-        date
-        priceUSD
-      }
-    }
-  }
-  `
-
-const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
-  `
-  {
-    tokens(where: {id_in:["${tokenAddresses
-      .map((symbol) => symbol.toLowerCase())
-      .join('","')}"]}) {
-      id
-      name
-      symbol
-      decimals
-      dayData(orderBy:date, orderDirection:desc) {
-        date
-        priceUSD
-      }
-    }
-  }
-  `
-
-const _getPriceFromPair = (tokenAddress: string) =>
-  `
-  {
-    token(id:"${tokenAddress}"){
-      ${_.map(
-        ['basePairs', 'quotePairs'],
-        (prefix) => `
-      ${prefix} {
-        token0 {
-          symbol
-        },
-        token1 {
-          symbol
-        }
-        token0Price,
-        token1Price
-      }
-      `,
-      )}
-    }
-  }
-  `
-
-const _querySubgraph = (query: string, network = 'matic') => {
-  const client = _getClient(network)
+const _querySubgraph = (query: string, network = 'matic', _client?: ApolloClient<any>) => {
+  const client = _client || _getClient(network)
   return new Promise((resolve, reject) => {
     client
       .query({
@@ -135,9 +82,104 @@ const getPrice = async (tokenAddress: string, network = 'matic') => {
   return data.tokens[0] && new BigNumber(data.tokens[0].dayData[0].priceUSD)
 }
 
+const getPollyBurned = async () => {
+  const data: any = await _querySubgraph(
+    _getPollyBurnQuery(),
+    'matic',
+    clients.maticPollyBurn,
+  )
+  return data.burn
+}
+
+const getPollySupply = async () => {
+  const data: any = await _querySubgraph(
+    _getPollySupplyQuery(),
+    'matic',
+    clients.maticPollyBurn,
+  )
+  return data.tokenStats.supply
+}
+
+const _getPriceHistoryQuery = (tokenAddress: string) =>
+  `
+  {
+    tokens(where: {id:"${tokenAddress}"}) {
+      id
+      symbol
+      name
+      dayData(orderBy:date, orderDirection:desc) {
+        date
+        priceUSD
+      }
+    }
+  }
+  `
+
+const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
+  `
+  {
+    tokens(where: {id_in:["${tokenAddresses
+    .map((symbol) => symbol.toLowerCase())
+    .join('","')}"]}) {
+      id
+      name
+      symbol
+      decimals
+      dayData(orderBy:date, orderDirection:desc) {
+        date
+        priceUSD
+      }
+    }
+  }
+  `
+
+const _getPriceFromPair = (tokenAddress: string) =>
+  `
+  {
+    token(id:"${tokenAddress}"){
+      ${_.map(
+    ['basePairs', 'quotePairs'],
+    (prefix) => `
+      ${prefix} {
+        token0 {
+          symbol
+        },
+        token1 {
+          symbol
+        }
+        token0Price,
+        token1Price
+      }
+      `,
+  )}
+    }
+  }
+  `
+
+const _getPollyBurnQuery = () =>
+  `
+  {
+    burn(id:"0"){
+      burnedTokens,
+      eventCount,
+    }
+  }
+  `
+
+const _getPollySupplyQuery = () =>
+  `
+  {
+    tokenStats(id:"0"){
+      supply
+    }
+  }
+  `
+
 export default {
   getPriceHistory,
   getPriceHistoryMultiple,
   getPriceFromPair,
   getPrice,
+  getPollyBurned,
+  getPollySupply,
 }
