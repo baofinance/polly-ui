@@ -90,7 +90,7 @@ const useHomeAnalytics = () => {
         data: '-',
       },
       {
-        title: 'BAO Burned 🔥',
+        title: 'POLLY Burned 🔥',
         data: getDisplayBalance(
           new BigNumber(
             await getBalance(

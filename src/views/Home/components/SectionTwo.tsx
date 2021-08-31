@@ -31,7 +31,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>.
+					Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>
 				</InfoHeader>
 				<InfoText>
 					Polly Finance is home to some of the most diverse indexes on Polygon,
@@ -45,7 +45,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Earn Passive <InfoSubHeader>Yield</InfoSubHeader>.
+					Earn Passive <InfoSubHeader>Yield</InfoSubHeader>
 				</InfoHeader>
 				<InfoText>
 					Nests are designed to be truly set-and-forget, maximizing your returns
@@ -85,7 +85,7 @@ const SectionTwo: React.FC = () => (
 		<InfoCol>
 			<InfoContainer>
 				<InfoHeader>
-					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>.
+					Meet <InfoSubHeader>Polly DAO</InfoSubHeader>
 				</InfoHeader>
 				<InfoText>
 					Polly's strategies and asset manager are governed, maintained, and

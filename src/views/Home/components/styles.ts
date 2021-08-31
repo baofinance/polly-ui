@@ -22,7 +22,7 @@ import USDT from 'assets/img/assets/USDT.png'
 import WETH from 'assets/img/assets/WETH.png'
 import YFI from 'assets/img/assets/YFI.png'
 import styled from 'styled-components'
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 
 export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
@@ -323,24 +323,15 @@ export const StyledCardText = styled.p`
   }
 `
 
+export const InfoImageCol = styled(Col)`
+  margin-bottom: 5em;
+  width: 30%;
+`
+
 export const InfoImageContainer = styled.div`
   display: flex;
   margin: auto;
   height: 100%;
-`
-
-export const InfoImage = styled.img`
-  width: 256px;
-  display: block;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 75px;
-  border-radius: 25%;
-`
-
-export const InfoImageCol = styled(Col)`
-  margin-bottom: 5em;
-  width: 30%;
 `
 
 export const InfoCol = styled(InfoImageCol)`
@@ -358,9 +349,13 @@ export const InfoContainer = styled.div`
 
 export const InfoHeader = styled.h2`
   font-family: 'Rubik', sans-serif;
-  font-size: 4rem !important;
+  font-size: 4rem;
   letter-spacing: -0.2rem;
   font-weight: 700;
+
+  @media ( max-width: 414px ) {
+    font-size: 2rem !important;
+  }
 `
 
 export const InfoSubHeader = styled(InfoHeader)`
