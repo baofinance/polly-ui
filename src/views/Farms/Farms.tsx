@@ -63,6 +63,14 @@ const Farms: React.FC = () => {
 									</StyledLink>{' '}
 									to familiarize yourself with fees and penalties.
 								</StyledInfo>
+								<Spacer />
+								<StyledInfo>
+									❗️ APYs for single-sided pools are not yet accurate.
+								</StyledInfo>
+								<StyledInfo>
+									❗️ APYs are affected by a 7-day average price of POLLY which
+									has not yet stabilized.
+								</StyledInfo>
 								<Spacer size="md" />
 							</Container>
 							<FarmCards />

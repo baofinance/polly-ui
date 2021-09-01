@@ -7,6 +7,7 @@ import ModalTitle from 'components/ModalTitle'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/formatBalance'
+import styled from 'styled-components'
 
 interface DepositModalProps extends ModalProps {
 	max: BigNumber
@@ -41,6 +42,18 @@ const DepositModal: React.FC<DepositModalProps> = ({
 	return (
 		<Modal>
 			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
+			<StyledInfo>
+				❗️ Remember a 0.75% fee will be added to the treasury when depositing.
+				75% of POLLY rewards will be locked and vested for 6 years. For more
+				information, please{' '}
+				<StyledExternalLink
+					href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
+					target="blank"
+				>
+					{' '}
+					read the docs.
+				</StyledExternalLink>
+			</StyledInfo>
 			<TokenInput
 				value={val}
 				onSelectMax={handleSelectMax}
@@ -69,5 +82,30 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		</Modal>
 	)
 }
+
+const StyledInfo = styled.h3`
+	color: #bbb;
+	font-size: 16px;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+`
+
+const StyledExternalLink = styled.a`
+	color: white;
+	font-weight: 700;
+	text-decoration: none;
+	&:hover {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+	&.active {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+	@media (max-width: 400px) {
+		padding-left: ${(props) => props.theme.spacing[2]}px;
+		padding-right: ${(props) => props.theme.spacing[2]}px;
+	}
+`
 
 export default DepositModal

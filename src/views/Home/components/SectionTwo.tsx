@@ -29,9 +29,9 @@ const SectionTwo: React.FC = () => (
 						Diversify Your <InfoSubHeader>Exposure</InfoSubHeader>
 					</InfoHeader>
 					<InfoText>
-						Polly Finance is home to some of the most diverse indexes on
+						Polly Finance is home to some of the most diverse baskets on
 						Polygon, all managed autonomously. With Polly Nests, you can easily
-						get balanced exposure to some of the best crypto assets on the
+						get balanced exposure to some of the best digital assets on the
 						Polygon Network.
 					</InfoText>
 				</InfoContainer>
