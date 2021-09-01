@@ -1,8 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { darken } from 'polished'
-import { Badge, Col, Row, Table } from 'react-bootstrap'
+import { Alert, Badge, Col, Row, Table } from 'react-bootstrap'
 import Collapse from 'react-bootstrap/Collapse'
 import styled from 'styled-components'
+
+export const StyledAlert = styled(Alert)`
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  color: ${(props) => props.theme.color.grey[100]};
+  margin: 20px auto;
+  width: 80%;
+  
+  > * {
+    vertical-align: middle;
+  }
+`
 
 export const NestBox = styled.div`
   width: 80%;

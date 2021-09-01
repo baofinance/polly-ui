@@ -50,6 +50,7 @@ import {
 	StatsRow,
 	StyledBadge,
 	StyledTable,
+	StyledAlert,
 } from './styles'
 
 const Nest: React.FC = () => {
@@ -101,12 +102,10 @@ const Nest: React.FC = () => {
 	const indexPriceChange24h = useMemo(() => {
 		return (
 			priceHistory &&
-			new BigNumber(
-				((priceHistory[priceHistory.length - 1].close -
-					priceHistory[priceHistory.length - 2].close) /
-					priceHistory[priceHistory.length - 1].close) *
-					100,
-			)
+			new BigNumber(priceHistory[priceHistory.length - 1].close)
+				.minus(priceHistory[priceHistory.length - 2].close)
+				.div(priceHistory[priceHistory.length - 1].close)
+				.times(100)
 		)
 	}, [priceHistory])
 
@@ -193,6 +192,29 @@ const Nest: React.FC = () => {
 					</StyledBadge>
 					<br />
 				</NestBoxHeader>
+				{nest && nest.nid === 1 && (
+					<StyledAlert>
+						<h4><FontAwesomeIcon icon="exclamation-circle" /><br />Notice</h4>
+						<p style={{ margin: 0 }}>
+							During the first phase of this rollout, there will be heavy one sided buy{' '}
+							pressure in each of the bridged underlying asset's liquidity pools on{' '}
+							Sushi as a result of people minting their nDEFI tokens.
+							<Spacer size="md" />
+							<b>
+								Until more liquidity for nDEFI's underlying assets{' '}
+								is bridged to{' '}
+								🍣<a href="https://sushi.com" target="_blank">SushiSwap</a>{' '}
+								on Polygon and arbitrage bots recognize these pairs,{' '}
+								price information for some tokens may slightly{' '}
+								skew from that of robust oracles. This slippage affects the NAV price as well.
+							</b>
+							<Spacer size="md" />
+							Have any of nDEFI's underlying assets laying around on another chain?{' '}
+							Bridge the tokens to Polygon and stake them in our <a href="/farms">Farms</a>{' '}
+							to receive POLLY rewards!
+						</p>
+					</StyledAlert>
+				)}
 				<StatsRow lg={4}>
 					<Col>
 						<StatCard>
@@ -375,10 +397,12 @@ const Nest: React.FC = () => {
 										composition.map((component) => (
 											<tr key={component.symbol}>
 												<td>
-													<img
-														src={component.imageUrl}
-														style={{ height: '32px' }}
-													/>
+													<Tooltipped content={component.symbol}>
+														<img
+															src={component.imageUrl}
+															style={{ height: '32px' }}
+														/>
+													</Tooltipped>
 												</td>
 												<td>
 													<Progress
