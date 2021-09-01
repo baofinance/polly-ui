@@ -354,10 +354,5 @@ export const getWethPriceLink = async (bao) => {
 	return new BigNumber(latestRound.answer).div(10 ** decimals)
 }
 
-export const getUserInfo = async (masterChefContract, pid, account) => {
-	try {
-		return await masterChefContract.methods
-			.userInfo(pid, account)
-			.call()
-	} catch { }
-}
+export const getUserInfo = async (masterChefContract, pid, account) =>
+	await masterChefContract.methods.userInfo(pid, account).call()
