@@ -45,6 +45,7 @@ const StyledPageHeader = styled.div`
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
+	padding-bottom: ${(props) => props.theme.spacing[6]}px;
 	margin: 56px auto 0;
 `
 
