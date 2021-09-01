@@ -17,7 +17,7 @@ export const ListLabelCol = styled.span`
 `
 
 export const ListLabelContainer = styled.div`
-  padding: 25px;
+  padding: 1rem;
 
   @media (max-width: 576px) {
     display: none;
@@ -27,7 +27,7 @@ export const ListLabelContainer = styled.div`
 export const ListItemContainer = styled.div`
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
-  padding: 25px;
+  padding: 1.5rem;
   display: block;
   margin-bottom: 10px;
 
