@@ -68,7 +68,7 @@ const Button: React.FC<ButtonProps> = ({
 			boxShadow = `6px 6px 12px ${color.grey[600]},
         -12px -12px 24px -2px ${color.grey[500]};`
 			buttonPadding = spacing[4]
-			buttonSize = 56
+			buttonSize = 50
 			fontSize = 16
 	}
 
@@ -195,7 +195,7 @@ const StyledLink = styled(Link)`
 	color: inherit;
 	display: flex;
 	flex: 1;
-	height: 56px;
+	height: 50px;
 	justify-content: center;
 	margin: 0 ${(props) => -props.theme.spacing[4]}px;
 	padding: 0 ${(props) => props.theme.spacing[4]}px;
