@@ -71,11 +71,6 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 					}}
 				/>
 			</ModalActions>
-			<ModalContent>
-				{
-					''
-				}
-			</ModalContent>
 		</Modal>
 	)
 }

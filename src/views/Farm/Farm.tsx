@@ -90,7 +90,7 @@ const Farm: React.FC = () => {
 				</StyledInfo>
 				<Spacer />
 				<StyledInfo>
-					❗️ <span style={{ fontWeight: 600, color: 'red' }}>Attention:</span>{' '}
+					❗️ <span style={{ fontWeight: 600, color: '#ff3333' }}>Attention:</span>{' '}
 					Please familiarize yourself with the fee structure before using
 					PollyChef. Deposits are subject to a 0.75% fee. Withdrawal slashing
 					fee of 0.1% - 50 % will be incurred when exiting a farm, depending on
@@ -144,7 +144,7 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledInfo = styled.h3`
-	color: #bbb;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 16px;
 	font-weight: 400;
 	margin: 0;
@@ -155,7 +155,7 @@ const StyledInfo = styled.h3`
 `
 
 const StyledLink = styled(NavLink)`
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 	padding-left: ${(props) => props.theme.spacing[3]}px;
 	padding-right: ${(props) => props.theme.spacing[3]}px;
@@ -173,7 +173,7 @@ const StyledLink = styled(NavLink)`
 `
 
 const StyledExternalLink = styled.a`
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 	text-decoration: none;
 	&:hover {

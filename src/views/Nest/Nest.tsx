@@ -51,6 +51,7 @@ import {
 	StyledBadge,
 	StyledTable,
 	StyledAlert,
+	StyledExternalLink,
 } from './styles'
 
 const Nest: React.FC = () => {
@@ -182,7 +183,9 @@ const Nest: React.FC = () => {
 					<br />
 					<StyledBadge>
 						1 {nestToken} ={' '}
-						{(wethPrice && sushiPairPrice && getDisplayBalance(sushiPairPrice.div(wethPrice), 0)) || (
+						{(wethPrice &&
+							sushiPairPrice &&
+							getDisplayBalance(sushiPairPrice.div(wethPrice), 0)) || (
 							<SpinnerLoader />
 						)}{' '}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
@@ -194,24 +197,31 @@ const Nest: React.FC = () => {
 				</NestBoxHeader>
 				{nest && nest.nid === 1 && (
 					<StyledAlert>
-						<h4><FontAwesomeIcon icon="exclamation-circle" /><br />Notice</h4>
+						<h4 style={{ color: 'white' }}>
+							<FontAwesomeIcon icon="exclamation-circle" /> {' '} Notice
+						</h4>
 						<p style={{ margin: 0 }}>
-							During the first phase of this rollout, there will be heavy one sided buy{' '}
-							pressure in each of the bridged underlying asset's liquidity pools on{' '}
-							Sushi as a result of people minting their nDEFI tokens.
+							During the first phase of this rollout, there will be heavy one
+							sided buy pressure in each of the bridged underlying asset's
+							liquidity pools on Sushi as a result of people minting their nDEFI
+							tokens.
 							<Spacer size="md" />
-							<b>
-								Until more liquidity for nDEFI's underlying assets{' '}
-								is bridged to{' '}
-								🍣<a href="https://sushi.com" target="_blank">SushiSwap</a>{' '}
-								on Polygon and arbitrage bots recognize these pairs,{' '}
-								price information for some tokens may slightly{' '}
-								skew from that of robust oracles. This slippage affects the NAV price as well.
-							</b>
+								Until more liquidity for nDEFI's underlying assets is bridged to{' '}
+								🍣
+								<StyledExternalLink
+									href="https://app.sushi.com"
+									target="_blank"
+								>
+									SushiSwap
+								</StyledExternalLink>{' '}
+								on Polygon and arbitrage bots recognize these pairs, price
+								information for some tokens may slightly skew from that of
+								robust oracles. This slippage affects the NAV price as well.
 							<Spacer size="md" />
-							Have any of nDEFI's underlying assets laying around on another chain?{' '}
-							Bridge the tokens to Polygon and stake them in our <a href="/farms">Farms</a>{' '}
-							to receive POLLY rewards!
+							Have any of nDEFI's underlying assets laying around on another
+							chain? Bridge the tokens to Polygon and stake them in our{' '}
+							<StyledExternalLink href="/farms">farms</StyledExternalLink> to
+							receive POLLY rewards!
 						</p>
 					</StyledAlert>
 				)}

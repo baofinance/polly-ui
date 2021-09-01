@@ -86,7 +86,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 }
 
 const StyledInfo = styled.h3`
-	color: #bbb;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 16px;
 	font-weight: 400;
 	margin: 0;
@@ -95,7 +95,7 @@ const StyledInfo = styled.h3`
 `
 
 const StyledExternalLink = styled.a`
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 	text-decoration: none;
 	&:hover {

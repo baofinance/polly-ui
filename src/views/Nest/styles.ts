@@ -6,14 +6,31 @@ import styled from 'styled-components'
 
 export const StyledAlert = styled(Alert)`
   border: none;
+  border-radius: 12px;
   background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
   color: ${(props) => props.theme.color.grey[100]};
   margin: 20px auto;
   width: 80%;
-  
+
   > * {
     vertical-align: middle;
+  }
+`
+
+export const StyledExternalLink = styled.a`
+  color: ${(props) => props.theme.color.grey[100]};
+  font-weight: 700;
+  text-decoration: none;
+  &:hover {
+    color: ${(props) => props.theme.color.blue[400]};
+  }
+  &.active {
+    color: ${(props) => props.theme.color.blue[400]};
+  }
+  @media (max-width: 400px) {
+    padding-left: ${(props) => props.theme.spacing[2]}px;
+    padding-right: ${(props) => props.theme.spacing[2]}px;
   }
 `
 
@@ -105,7 +122,7 @@ export const StyledTable = styled(Table)`
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
-  color: white;
+  color: ${(props) => props.theme.color.grey[100]};
   border-color: transparent;
 
   th {
@@ -131,14 +148,14 @@ export const PrefButtons = styled.div`
     margin-left: 10px;
     margin-top: 25px;
     border: 1px solid rgba(256, 256, 256, 0.4);
-    color: white;
+    color: ${(props) => props.theme.color.grey[100]};
 
     &:hover,
     &.active,
     &:active,
     &:focus {
       border: 1px solid rgba(0, 0, 0, 0.4);
-      color: white;
+      color: ${(props) => props.theme.color.grey[100]};
       background-color: rgba(0, 0, 0, 0.4);
       box-shadow: none !important;
     }

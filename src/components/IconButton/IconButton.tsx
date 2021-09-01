@@ -95,7 +95,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 const StyledLink = styled(Link)`
 	align-items: center;
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	display: flex;
 	flex: 1;
 	height: 56px;

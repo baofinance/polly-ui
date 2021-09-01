@@ -99,7 +99,7 @@ const StyledMobileMenu = styled.div`
 
 const StyledLink = styled(NavLink)`
 	box-sizing: border-box;
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 18px;
 	font-weight: 700;
 	padding: ${(props) => props.theme.spacing[3]}px
@@ -117,7 +117,7 @@ const StyledLink = styled(NavLink)`
 
 const StyledExternalLink = styled.a`
 	box-sizing: border-box;
-	color: white;
+	color: ${(props) => props.theme.color.grey[100]};
 	font-size: 18px;
 	font-weight: 700;
 	padding: ${(props) => props.theme.spacing[3]}px

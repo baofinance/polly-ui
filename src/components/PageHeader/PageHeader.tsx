@@ -15,7 +15,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} alt="" height="200" />
+						<StyledImage src={icon}/>
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -27,7 +27,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} height="200" alt="" />
+						<StyledImage src={icon}/>
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -39,7 +39,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} height="200" alt="" />
+						<StyledImage src={icon}/>
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -63,6 +63,20 @@ const StyledIcon = styled.div`
 	height: 200px;
 	line-height: 120px;
 	text-align: center;
+
+	@media ( max-width: 576px ) {
+		font-size: 90px;
+		height: 150px;
+		line-height: 90px;
+		}
+`
+
+const StyledImage = styled.img`
+	height: 200px;
+
+	@media ( max-width: 576px ) {
+		height: 150px;
+	}
 `
 
 export const StyledTitle = styled.h1`

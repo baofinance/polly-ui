@@ -29,7 +29,7 @@ export const HeroHeader = styled.h6`
   font-size: 7rem;
   letter-spacing: -0.1rem;
   font-weight: 700 !important;
-  color: white;
+  color: ${(props) => props.theme.color.grey[100]};
   margin-top: 0.5em;
   text-align: center;
 
@@ -97,7 +97,7 @@ export const HeroSubHeader = styled.h6`
 
 export const HeroText = styled.p`
   font-size: 1.25rem;
-  color: white;
+  color: ${(props) => props.theme.color.grey[100]};
   font-weight: 400;
   opacity: 0.75;
   margin: auto;
@@ -275,7 +275,7 @@ export const StyledCardContainer = styled.div`
 `
 
 export const StyledCardContent = styled.div`
-  color: white;
+  color: ${(props) => props.theme.color.grey[100]};
   padding: 30px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
@@ -415,7 +415,7 @@ export const InfoSubHeader = styled(InfoHeader)`
 `
 
 export const InfoText = styled.p`
-  color: #bbb;
+  color: ${(props) => props.theme.color.grey[100]};
   font-size: 1.25rem;
 `
 

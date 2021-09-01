@@ -51,7 +51,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 								{account.slice(account.length - 4, account.length)}
 								<FontAwesomeIcon
 									icon="angle-double-right"
-									style={{ margin: '0 5px', color: '#bbb' }}
+									style={{ margin: '0 5px', color: '  color: ${(props) => props.theme.color.grey[100]};' }}
 								/>
 								{getDisplayBalance(wethBalance)}
 								<FontAwesomeIcon

@@ -29,24 +29,24 @@ const Farms: React.FC = () => {
 								title="Farms"
 								subtitle="Earn POLLY by staking Sushiswap LP and Nest Tokens!"
 							/>
-							<StyledInfo>
-								Be sure to read the{' '}
-								<StyledLink
-									href="https://docs.bao.finance/franchises/polly"
-									target="_blank"
-								>
-									docs
-								</StyledLink>{' '}
-								before using the pools so you are familiar with protocol risks
-								and fees!
-							</StyledInfo>
-							<Spacer size="md" />{' '}
 							<Container>
+								<StyledInfo>
+									Be sure to read the{' '}
+									<StyledExternalLink
+										href="https://docs.bao.finance/franchises/polly"
+										target="_blank"
+									>
+										docs
+									</StyledExternalLink>{' '}
+									before using the pools so you are familiar with protocol risks
+									and fees!
+								</StyledInfo>
+								<Spacer size="md" />{' '}
 								<Balances />
 								<Spacer size="md" />
 								<StyledInfo>
 									❗️{' '}
-									<span style={{ fontWeight: 600, color: 'red' }}>
+									<span style={{ fontWeight: 600, color: '#ff3333' }}>
 										Attention:
 									</span>{' '}
 									Please familiarize yourself with the fee structure before
@@ -54,13 +54,13 @@ const Farms: React.FC = () => {
 									Withdrawal slashing fee of 0.1% - 50 % will be incurred when
 									exiting a farm, depending on the length of time your LP was
 									staked. Please{' '}
-									<StyledLink
+									<StyledExternalLink
 										href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
 										target="blank"
 									>
 										{' '}
 										read the docs
-									</StyledLink>{' '}
+									</StyledExternalLink>{' '}
 									to familiarize yourself with fees and penalties.
 								</StyledInfo>
 								<Spacer />
@@ -100,15 +100,15 @@ const Farms: React.FC = () => {
 }
 
 const StyledInfo = styled.h3`
-	color: #bbb;
-	font-size: 16px;
+	color: ${(props) => props.theme.color.grey[100]};
+	font-size: 1rem;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
 `
 
-const StyledLink = styled.a`
-	color: white;
+const StyledExternalLink = styled.a`
+	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
 	text-decoration: none;
 	&:hover {
@@ -116,10 +116,6 @@ const StyledLink = styled.a`
 	}
 	&.active {
 		color: ${(props) => props.theme.color.blue[400]};
-	}
-	@media (max-width: 400px) {
-		padding-left: ${(props) => props.theme.spacing[2]}px;
-		padding-right: ${(props) => props.theme.spacing[2]}px;
 	}
 `
 
