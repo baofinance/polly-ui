@@ -28,10 +28,10 @@ export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 7rem;
   letter-spacing: -0.1rem;
-  text-align: center;
   font-weight: 700 !important;
   color: white;
   margin-top: 0.5em;
+  text-align: center;
 
   @media (max-width: 992px) {
     font-size: 5rem !important;
@@ -40,7 +40,8 @@ export const HeroHeader = styled.h6`
 
   @media (max-width: 576px) {
     font-size: 3.5rem !important;
-    line-height: 3.3rem;
+    line-height: 3.2rem;
+    text-align: left;
   }
 `
 
@@ -69,7 +70,6 @@ export const HeroSubHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 4rem !important;
   letter-spacing: -0.2rem;
-  text-align: center;
   font-weight: 700 !important;
   color: #1fa6e0;
   background: linear-gradient(
@@ -98,11 +98,15 @@ export const HeroSubHeader = styled.h6`
 export const HeroText = styled.p`
   font-size: 1.25rem;
   color: white;
-  text-align: center;
   font-weight: 400;
   opacity: 0.75;
-  width: 80%;
   margin: auto;
+  text-align: center;
+
+  @media (max-width: 576px) {
+    text-align: left;
+		font-size: 1.15rem;
+	}
 `
 
 export const BubbleWrap = styled.div`
@@ -374,17 +378,17 @@ export const InfoContainer = styled.div`
 
 export const InfoHeader = styled.h2`
   font-family: 'Rubik', sans-serif;
-  font-size: 4rem;
-  letter-spacing: -0.2rem;
+  font-size: 5rem;
+  letter-spacing: -0.1rem;
   font-weight: 700;
 
   @media (max-width: 992px) {
-    font-size: 3rem !important;
+    font-size: 4rem !important;
     letter-spacing: -0.1rem;
   }
 
   @media (max-width: 576px) {
-    font-size: 2.5rem !important;
+    font-size: 3rem !important;
     letter-spacing: -0.1rem;
   }
 `
@@ -422,6 +426,12 @@ export const InfoImage = styled.img`
   margin: 0 1em;
 
   @media (max-width: 992px) {
+    margin-inline: 0;
+    max-width: 70%;
+    margin: auto;
+  }
+
+  @media (max-width: 576px) {
     margin-inline: 0;
     max-width: 80%;
     margin: auto;

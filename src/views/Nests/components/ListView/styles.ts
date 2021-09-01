@@ -6,7 +6,6 @@ export const ListLabelCol = styled.span`
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
   color: ${(props) => props.theme.color.grey[100]};
-  opacity: 0.75;
   vertical-align: middle;
   font-weight: bold;
   padding: 0;
