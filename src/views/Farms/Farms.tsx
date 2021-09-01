@@ -7,7 +7,7 @@ import Spacer from 'components/Spacer'
 import WalletProviderModal from 'components/WalletProviderModal'
 import useModal from 'hooks/useModal'
 import React from 'react'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Route, Switch, useRouteMatch, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import Farm from '../Farm'
@@ -29,9 +29,41 @@ const Farms: React.FC = () => {
 								title="Farms"
 								subtitle="Earn POLLY by staking Sushiswap LP and Nest Tokens!"
 							/>
-							<Spacer size="lg" />
+							<StyledInfo>
+								Be sure to read the{' '}
+								<StyledLink
+									href="https://docs.bao.finance/franchises/polly"
+									target="_blank"
+								>
+									docs
+								</StyledLink>{' '}
+								before using the pools so you are familiar with protocol risks
+								and fees!
+							</StyledInfo>
+							<Spacer size="md" />{' '}
 							<Container>
 								<Balances />
+								<Spacer size="md" />
+								<StyledInfo>
+									❗️{' '}
+									<span style={{ fontWeight: 600, color: 'red' }}>
+										Attention:
+									</span>{' '}
+									Please familiarize yourself with the fee structure before
+									using PollyChef. Deposits are subject to a 0.75% fee.
+									Withdrawal slashing fee of 0.1% - 50 % will be incurred when
+									exiting a farm, depending on the length of time your LP was
+									staked. Please{' '}
+									<StyledLink
+										href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
+										target="blank"
+									>
+										{' '}
+										read the docs
+									</StyledLink>{' '}
+									to familiarize yourself with fees and penalties.
+								</StyledInfo>
+								<Spacer size="md" />
 							</Container>
 							<FarmCards />
 						</Route>
@@ -58,5 +90,29 @@ const Farms: React.FC = () => {
 		</Switch>
 	)
 }
+
+const StyledInfo = styled.h3`
+	color: #bbb;
+	font-size: 16px;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+`
+
+const StyledLink = styled.a`
+	color: white;
+	font-weight: 700;
+	text-decoration: none;
+	&:hover {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+	&.active {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+	@media (max-width: 400px) {
+		padding-left: ${(props) => props.theme.spacing[2]}px;
+		padding-right: ${(props) => props.theme.spacing[2]}px;
+	}
+`
 
 export default Farms

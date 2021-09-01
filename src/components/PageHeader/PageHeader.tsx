@@ -78,7 +78,7 @@ export const StyledTitle = styled.h1`
 	-webkit-text-fill-color: transparent;
 	animation: bounce 25s ease-in-out infinite alternate;
 
-	@media (max-width: 414px) {
+	@media (max-width: 576px) {
 		font-size: 2rem !important;
 	}
 

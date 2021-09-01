@@ -30,11 +30,11 @@ const StyledResponsiveWrapper = styled.div`
 	position: relative;
 	width: 100%;
 
-	@media (min-width: 414px) {
+	@media (min-width: 576px) {
 		max-width: 40%;
 	}
 
-	@media (max-width: 414px) {
+	@media (max-width: 576px) {
 		flex: 1;
 		top: 90%;
 		right: 0;

@@ -97,13 +97,13 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 }
 
 const StyledAccountButton = styled.div`
-	@media (max-width: 414px) {
+	@media (max-width: 576px) {
 		display: none;
 	}
 `
 
 const MobileAccountButton = styled.div`
-	@media (min-width: 414px) {
+	@media (min-width: 576px) {
 		display: none;
 	}
 `

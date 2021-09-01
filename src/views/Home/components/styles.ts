@@ -27,15 +27,20 @@ import { Col, Row } from 'react-bootstrap'
 export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 7rem;
-  letter-spacing: -0.2rem;
+  letter-spacing: -0.1rem;
   text-align: center;
   font-weight: 700 !important;
   color: white;
   margin-top: 0.5em;
 
-  @media (max-width: 414px) {
+  @media (max-width: 992px) {
+    font-size: 5rem !important;
+    line-height: 4.7rem;
+  }
+
+  @media (max-width: 576px) {
     font-size: 3.5rem !important;
-    line-height: 3.35rem;
+    line-height: 3.3rem;
   }
 `
 
@@ -79,7 +84,7 @@ export const HeroSubHeader = styled.h6`
   -webkit-text-fill-color: transparent;
   animation: bounce 10s ease-in-out infinite alternate;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     font-size: 2rem !important;
   }
 
@@ -97,8 +102,8 @@ export const HeroText = styled.p`
   font-weight: 400;
   opacity: 0.75;
 
-  @media (max-width: 414px) {
-    font-size: 1rem !important;
+  @media (max-width: 576px) {
+    font-size: 1.25rem !important;
   }
 `
 
@@ -108,7 +113,7 @@ export const BubbleWrap = styled.div`
   margin-right: calc(-100vw / 2 + 500px / 2);
   overflow: hidden;
 
-  @media (max-width: 414px) {
+  @media (max-width: 992px) {
     display: none;
   }
 `
@@ -116,7 +121,7 @@ export const BubbleWrap = styled.div`
 export const BubbleContainer = styled.div`
   position: relative;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     display: none;
   }
 
@@ -241,7 +246,7 @@ export const BubbleOverlayText = styled.div`
 
 export const StyledSectionContainer = styled.div`
   display: flex;
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     flex-direction: column;
   }
 `
@@ -256,7 +261,7 @@ export const StyledSectionTitle = styled.h2`
 export const StyledCardWrapper = styled.div`
   display: flex;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     flex-direction: column;
   }
 `
@@ -273,7 +278,7 @@ export const StyledCardContent = styled.div`
   height: 550px;
   width: 100%;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     padding: 10px;
     height: 250px;
   }
@@ -293,7 +298,7 @@ export const StyledCardTitle = styled.p`
   margin-bottom: 20px;
   text-align: center;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 5px;
@@ -306,7 +311,7 @@ export const StyledCardIcon = styled.img`
   height: 80px;
   width: 80px;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     display: block;
     margin: 15px auto;
     height: 50px;
@@ -318,14 +323,30 @@ export const StyledCardText = styled.p`
   font-size: 1.25rem;
   text-align: center;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     font-size: 1rem;
+  }
+`
+
+export const InfoWrapper = styled(Row)`
+  width: 80%;
+  margin: auto;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    width: 100%;
   }
 `
 
 export const InfoImageCol = styled(Col)`
   margin-bottom: 5em;
   width: 30%;
+
+  @media (max-width: 992px) {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 2em;
+  }
 `
 
 export const InfoImageContainer = styled.div`
@@ -337,6 +358,10 @@ export const InfoImageContainer = styled.div`
 export const InfoCol = styled(InfoImageCol)`
   display: table;
   width: 70%;
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
 `
 
 export const InfoContainer = styled.div`
@@ -353,8 +378,14 @@ export const InfoHeader = styled.h2`
   letter-spacing: -0.2rem;
   font-weight: 700;
 
-  @media ( max-width: 414px ) {
-    font-size: 2rem !important;
+  @media (max-width: 992px) {
+    font-size: 3rem !important;
+    letter-spacing: -0.1rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 2.5rem !important;
+    letter-spacing: -0.1rem;
   }
 `
 
@@ -381,5 +412,18 @@ export const InfoSubHeader = styled(InfoHeader)`
 
 export const InfoText = styled.p`
   color: #bbb;
-  font-size: 18px;
+  font-size: 1.5rem;
+`
+
+export const InfoImage = styled.img`
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  margin: 0 1em;
+
+  @media (max-width: 992px) {
+    margin-inline: 0;
+    max-width: 80%;
+    margin: auto;
+  }
 `

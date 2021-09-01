@@ -20,7 +20,7 @@ export const ListLabelCol = styled.span`
 export const ListLabelContainer = styled.div`
   padding: 25px;
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     display: none;
   }
 `
@@ -135,7 +135,7 @@ export const AssetImageContainer = styled.div`
   vertical-align: middle;
   color: ${(props) => props.theme.color.grey[100]};
 
-  @media (max-width: 414px) {
+  @media (max-width: 576px) {
     display: none;
   }
   }
