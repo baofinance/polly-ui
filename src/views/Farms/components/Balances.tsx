@@ -167,7 +167,7 @@ const Footnote = styled.div`
 `
 
 const FootnoteValue = styled.div`
-	font-family: 'Roboto Mono', monospace;
+	font-family: 'Poppins', sans-serif;
 	float: right;
 `
 
