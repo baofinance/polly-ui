@@ -69,7 +69,7 @@ const Providers: React.FC = ({ children }) => {
 			<UseWalletProvider
 				chainId={137}
 				connectors={{
-					walletconnect: { rpcUrl: 'https://rpc-mainnet.maticvigil.com/' },
+					walletconnect: { rpcUrl: 'https://polygon-rpc.com/' },
 				}}
 			>
 				<BaoProvider>

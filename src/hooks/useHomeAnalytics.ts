@@ -2,10 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
-import {
-  addressMap,
-  supportedNests,
-} from '../bao/lib/constants'
+import { addressMap, supportedNests } from '../bao/lib/constants'
 import GraphUtil from '../utils/graph'
 import { getBalanceNumber, getDisplayBalance } from '../utils/formatBalance'
 import MultiCall from '../utils/multicall'
@@ -28,7 +25,7 @@ const useHomeAnalytics = () => {
 
   // Read only web3 instance
   const web3 = new Web3(
-    new Web3.providers.HttpProvider('https://rpc-mainnet.maticvigil.com'),
+    new Web3.providers.HttpProvider('https://polygon-rpc.com'),
   )
   const multicall = new MC({ web3Instance: web3, tryAggregate: true })
 
@@ -37,7 +34,7 @@ const useHomeAnalytics = () => {
     const multicallContext = []
     for (const nest of supportedNests) {
       const nestAddress: any =
-        nest.nestAddress ||
+        (typeof nest.nestAddress === 'string' && nest.nestAddress) ||
         (nest.nestAddress && nest.nestAddress[137]) ||
         nest.outputToken
       const nestContract = new web3.eth.Contract(
@@ -84,9 +81,7 @@ const useHomeAnalytics = () => {
       {
         title: 'Polly Burned 🔥',
         data: getDisplayBalance(
-          new BigNumber(
-            (await GraphUtil.getPollyBurned()).burnedTokens
-          ),
+          new BigNumber((await GraphUtil.getPollyBurned()).burnedTokens),
         ),
       },
     ])
