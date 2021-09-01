@@ -353,3 +353,36 @@ export const getWethPriceLink = async (bao) => {
 
 	return new BigNumber(latestRound.answer).div(10 ** decimals)
 }
+
+export const getLastWithDrawBlock = async (masterChefContract, pid, account) => {
+	try {
+	  const { lastWithdrawBlock } = await masterChefContract.methods
+		.userInfo(pid, account)
+		.call()
+	  return new BigNumber(lastWithdrawBlock)
+	} catch {
+	  return new BigNumber(0)
+	}
+  }
+  
+  export const getFirstDepositBlock = async (masterChefContract, pid, account) => {
+	try {
+	  const { firstDepositBlock } = await masterChefContract.methods
+		.userInfo(pid, account)
+		.call()
+	  return new BigNumber(firstDepositBlock)
+	} catch {
+	  return new BigNumber(0)
+	}
+  }
+  
+  export const getLastDepositBlock = async (masterChefContract, pid, account) => {
+	try {
+	  const { lastDepositBlock } = await masterChefContract.methods
+		.userInfo(pid, account)
+		.call()
+	  return new BigNumber(lastDepositBlock)
+	} catch {
+	  return new BigNumber(null)
+	}
+  }

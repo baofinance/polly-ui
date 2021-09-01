@@ -59,6 +59,7 @@ const Stake: React.FC<StakeProps> = ({
 			max={stakedBalance}
 			onConfirm={onUnstake}
 			tokenName={tokenName}
+			pid={pid}
 		/>,
 	)
 
