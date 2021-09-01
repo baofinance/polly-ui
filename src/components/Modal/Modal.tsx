@@ -28,11 +28,6 @@ const StyledResponsiveWrapper = styled.div`
 	flex-direction: column;
 	justify-content: flex-end;
 	position: relative;
-	width: 100%;
-
-	@media (min-width: 576px) {
-		max-width: 40%;
-	}
 
 	@media (max-width: 576px) {
 		flex: 1;

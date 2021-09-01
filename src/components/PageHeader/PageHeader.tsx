@@ -79,7 +79,7 @@ export const StyledTitle = styled.h1`
 	animation: bounce 25s ease-in-out infinite alternate;
 
 	@media (max-width: 576px) {
-		font-size: 2rem !important;
+		font-size: 2.5rem !important;
 	}
 
 	@keyframes bounce {
