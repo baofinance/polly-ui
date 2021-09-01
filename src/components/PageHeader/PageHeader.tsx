@@ -14,9 +14,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 		return (
 			<Container size="sm">
 				<StyledPageHeader>
-					<StyledIcon>
-						<StyledImage src={icon}/>
-					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
 				</StyledPageHeader>
@@ -26,9 +23,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 		return (
 			<Container size="sm">
 				<StyledPageHeader>
-					<StyledIcon>
-						<StyledImage src={icon}/>
-					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
 				</StyledPageHeader>
@@ -38,9 +32,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 		return (
 			<Container size="sm">
 				<StyledPageHeader>
-					<StyledIcon>
-						<StyledImage src={icon}/>
-					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
 				</StyledPageHeader>
@@ -54,35 +45,13 @@ const StyledPageHeader = styled.div`
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	padding-bottom: ${(props) => props.theme.spacing[6]}px;
-	margin: 72px auto 0;
-`
-
-const StyledIcon = styled.div`
-	font-size: 120px;
-	height: 200px;
-	line-height: 120px;
-	text-align: center;
-
-	@media ( max-width: 576px ) {
-		font-size: 90px;
-		height: 150px;
-		line-height: 90px;
-		}
-`
-
-const StyledImage = styled.img`
-	height: 200px;
-
-	@media ( max-width: 576px ) {
-		height: 150px;
-	}
+	margin: 56px auto 0;
 `
 
 export const StyledTitle = styled.h1`
 	font-family: 'Rubik', sans-serif;
 	font-size: 4rem !important;
-	letter-spacing: -0.2rem;
+	letter-spacing: -0.1rem;
 	text-align: center;
 	font-weight: 700 !important;
 	color: #f35626;
