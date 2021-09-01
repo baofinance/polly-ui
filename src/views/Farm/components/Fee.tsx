@@ -74,30 +74,34 @@ const StyledExternalLink = styled.a`
 	&.active {
 		color: ${(props) => props.theme.color.blue[400]};
 	}
-	@media (max-width: 400px) {
-		padding-left: ${(props) => props.theme.spacing[2]}px;
-		padding-right: ${(props) => props.theme.spacing[2]}px;
-	}
 `
 
 const StyledDocsWarning = styled.span`
 	color: #bbb;
-	font-size: 16px;
+	font-size: 1rem;
 	margin: 1rem;
 	padding: 0.5rem;
 	text-align: center;
 	border-left: 3px solid ${(props) => props.theme.color.green};
 	width: 90%;
+
+	@media (max-width: 576px){
+		font-size: 0.75rem;
+	}
 `
 
 const Warning = styled.h3`
 	color: red;
-	font-size: 16px;
+	font-size: 1rem;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
 	text-align: center;
 	max-width: 750px;
+
+	@media (max-width: 576px){
+		font-size: 0.75rem;
+	}
 `
 
 export default Fee
