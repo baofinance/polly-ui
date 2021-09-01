@@ -134,7 +134,6 @@ export const BubbleContainer = styled.div`
     position: absolute;
     width: 100px;
     height: 100px;
-    border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 100px 100px;
     background-position: center center;
