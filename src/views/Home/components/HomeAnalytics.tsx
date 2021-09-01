@@ -46,14 +46,18 @@ const AnalyticsContainer = styled(Row)`
 
 	@media (max-width: 992px) {
 		flex-direction: column;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 50px;
-		margin-bottom: 50px;
+		margin: 50px auto;
 		position: relative;
 		width: auto;
 		min-height: 133px;
 		height: auto;
+	}
+
+	@media (min-width: 2160px) {
+		position: relative;
+		margin: 2.5em auto;
+		left: 0;
+		transform: none;
 	}
 `
 

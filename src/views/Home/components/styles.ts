@@ -116,6 +116,10 @@ export const BubbleWrap = styled.div`
   @media (max-width: 992px) {
     display: none;
   }
+
+  @media (min-width: 2160px) {
+    display: none;
+  }
 `
 
 export const BubbleContainer = styled.div`
