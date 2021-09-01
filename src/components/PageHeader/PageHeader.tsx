@@ -10,12 +10,12 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 	const titletext = title.toString()
-	if (titletext.toString() === 'BaoChef is Ready') {
+	if (titletext.toString() === 'PollyChef is Ready') {
 		return (
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} alt="" height="130" />
+						<img src={icon} alt="" height="200" />
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -27,7 +27,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} height="125" alt="" />
+						<img src={icon} height="200" alt="" />
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -39,7 +39,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledIcon>
-						<img src={icon} height="125" alt="" />
+						<img src={icon} height="200" alt="" />
 					</StyledIcon>
 					<StyledTitle>{title}</StyledTitle>
 					<StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -60,7 +60,7 @@ const StyledPageHeader = styled.div`
 
 const StyledIcon = styled.div`
 	font-size: 120px;
-	height: 120px;
+	height: 200px;
 	line-height: 120px;
 	text-align: center;
 `

@@ -552,7 +552,7 @@ const Nest: React.FC = () => {
 					<p>The Index is maintained quarterly in two phases.</p>
 
 					<p>
-						<strong>Determination Phase</strong>
+						<NestSubHeader>Determination Phase</NestSubHeader>
 					</p>
 					<p>
 						The determination phase takes place during the final 2 weeks of the
@@ -569,7 +569,7 @@ const Nest: React.FC = () => {
 						changes.
 					</p>
 					<p>
-						<strong>Reconstitution Phase</strong>
+						<NestSubHeader>Reconstitution Phase</NestSubHeader>
 					</p>
 					<p>
 						In the two weeks following a successful vote, the index components
