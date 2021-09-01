@@ -96,15 +96,13 @@ export const HeroSubHeader = styled.h6`
 `
 
 export const HeroText = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: white;
   text-align: center;
   font-weight: 400;
   opacity: 0.75;
-
-  @media (max-width: 576px) {
-    font-size: 1.25rem !important;
-  }
+  width: 80%;
+  margin: auto;
 `
 
 export const BubbleWrap = styled.div`
@@ -414,7 +412,7 @@ export const InfoSubHeader = styled(InfoHeader)`
 
 export const InfoText = styled.p`
   color: #bbb;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 `
 
 export const InfoImage = styled.img`
