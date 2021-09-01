@@ -49,12 +49,6 @@ const useComposition = (nest: Nest) => {
               graphData.symbol,
             )}.png`)
 
-            const componentBalance = await getBalance(
-              ethereum,
-              component,
-              nest.nestTokenAddress,
-            )
-
             let price = graphData.dayData[0].priceUSD
             if (price === '0')
               price = await GraphClient.getPriceFromPair(
@@ -62,7 +56,7 @@ const useComposition = (nest: Nest) => {
                 graphData.id,
               )
 
-            let specialSymbol, specialDecimals
+            let specialSymbol, specialDecimals, componentBalance
             if (component.toLowerCase() !== specialCaseToken) {
               const specialContract = getContract(
                 ethereum,
@@ -75,6 +69,11 @@ const useComposition = (nest: Nest) => {
                   contract: specialContract,
                   calls: [{ method: 'symbol' }, { method: 'decimals' }],
                 },
+                {
+                  ref: 'componentToken',
+                  contract: getContract(ethereum, component),
+                  calls: [{ method: 'balanceOf', params: [nest.nestTokenAddress] }]
+                }
               ]
               if (
                 Object.keys(SPECIAL_TOKEN_ADDRESSES).includes(
@@ -87,12 +86,17 @@ const useComposition = (nest: Nest) => {
                   calls: [{ method: 'exchangeRateCurrent' }],
                 })
               const _multicallContext = MultiCall.createCallContext(mcContracts)
-              const { specialContract: results, creamContract: creamResults } =
+              const {
+                specialContract: results,
+                componentToken: componentResults,
+                creamContract: creamResults
+              } =
                 MultiCall.parseCallResults(
                   await multicall.call(_multicallContext),
                 )
               specialSymbol = results[0].values[0]
               specialDecimals = results[1].values[0]
+              componentBalance = componentResults[0].values[0].hex
 
               // Special corrections for the price of lending assets etc.
               if (_getStrategy(specialSymbol) === 'CREAM') {
@@ -124,7 +128,13 @@ const useComposition = (nest: Nest) => {
               symbol: specialSymbol || graphData.symbol,
               percentage: undefined,
               color: nest.pieColors[graphData.symbol],
-              balance: new BigNumber(componentBalance),
+              balance: new BigNumber(
+                componentBalance || await getBalance(
+                  ethereum,
+                  component,
+                  nest.nestTokenAddress
+                )
+              ),
               balanceDecimals: specialDecimals || graphData.decimals,
               imageUrl,
               price: new BigNumber(price),
