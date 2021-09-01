@@ -1,36 +1,44 @@
 import { useCallback, useEffect, useState } from 'react'
-import Web3 from 'web3'
-import { provider } from 'web3-core'
+import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 import useBlock from './useBlock'
-import useFirstDepositBlock from './useFirstDepositBlock'
-import useLastDepositBlock from './useLastDepositBlock'
-import useLastWithdrawBlock from './useLastWithdrawBlock'
-import { getMasterChefContract } from 'bao/utils'
 import useBao from './useBao'
-import BigNumber from 'bignumber.js'
+import { getMasterChefContract, getUserInfo } from '../bao/utils'
 
 const useBlockDiff = (pid: number) => {
-  const {
-    account,
-    ethereum,
-  }: { account: string; ethereum: provider } = useWallet()
+  const { account, ethereum } = useWallet()
   const block = useBlock()
   const bao = useBao()
-  const masterChefContract = getMasterChefContract(bao)
-  const firstDepositBlock = useFirstDepositBlock(pid)
-  const lastWithdrawBlock = useLastWithdrawBlock(pid)
+  const [blockDiff, setBlockDiff] = useState<number | undefined>()
 
-  const blockDiff =
-    block -
-    new BigNumber(
-      firstDepositBlock >
-        lastWithdrawBlock
-        ? firstDepositBlock
-        : lastWithdrawBlock,
-    ).toNumber();
+  const fetchBlockDiff = useCallback(async () => {
+    if (!(account && ethereum && bao)) return
 
-  return blockDiff
+    const userInfo: any = await getUserInfo(
+      getMasterChefContract(bao),
+      pid,
+      account
+    )
+    const firstDepositBlock =
+      new BigNumber(userInfo.firstDepositBlock)
+    const lastWithdrawBlock =
+      new BigNumber(userInfo.lastWithdrawBlock)
+
+    const blockDiff =
+      block -
+      new BigNumber(
+        firstDepositBlock.gt(lastWithdrawBlock)
+          ? firstDepositBlock
+          : lastWithdrawBlock,
+      ).toNumber()
+    setBlockDiff(blockDiff)
+  }, [bao, ethereum, block])
+
+  useEffect(() => {
+    fetchBlockDiff()
+  }, [bao, ethereum, block])
+
+  return blockDiff > 0 && blockDiff
 }
 
 export default useBlockDiff

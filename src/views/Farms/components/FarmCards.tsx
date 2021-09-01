@@ -171,11 +171,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<CardIcon>
 							<img src={farm.icon} alt="" height="50" />
 						</CardIcon>
-						<StyledTitle>{farm.name}</StyledTitle>
-						<StyledDetails>
-							<StyledDetail>Deposit {farm.lpToken.toUpperCase()}</StyledDetail>
-							<StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-						</StyledDetails>
+						<div style={{height: '100px'}}>
+							<StyledTitle>{farm.name}</StyledTitle>
+							<StyledDetails>
+								<StyledDetail>Deposit {farm.lpToken.toUpperCase()}</StyledDetail>
+								<StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
+							</StyledDetails>
+						</div>
 						<Spacer />
 						<Button
 							disabled={!poolActive}
@@ -295,6 +297,7 @@ const StyledTitle = styled.h4`
 	font-weight: 700;
 	margin: ${(props) => props.theme.spacing[2]}px 0 0;
 	padding: 0;
+	text-align: center;
 `
 
 const StyledContent = styled.div`
