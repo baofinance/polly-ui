@@ -46,18 +46,6 @@ const DepositModal: React.FC<DepositModalProps> = ({
 	return (
 		<Modal>
 			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
-			<StyledInfo>
-				❗️ Remember a 0.75% fee will be added to the treasury when depositing.
-				75% of POLLY rewards will be locked and vested for 6 years. For more
-				information, please{' '}
-				<StyledExternalLink
-					href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
-					target="blank"
-				>
-					{' '}
-					read the docs.
-				</StyledExternalLink>
-			</StyledInfo>
 			<TokenInput
 				value={val}
 				onSelectMax={handleSelectMax}
@@ -80,9 +68,18 @@ const DepositModal: React.FC<DepositModalProps> = ({
 				/>
 			</ModalActions>
 			<ModalContent>
-				{
-					"Remember a 0.75% fee will be added to the treasury when depositing but you'll earn the APY to offset it."
-				}
+			<StyledInfo>
+				❗️ Remember a 0.75% fee will be added to the treasury when depositing.
+				75% of POLLY rewards will be locked and vested for 6 years. For more
+				information, please{' '}
+				<StyledExternalLink
+					href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
+					target="blank"
+				>
+					{' '}
+					read the docs.
+				</StyledExternalLink>
+			</StyledInfo>
 			</ModalContent>
 		</Modal>
 	)
@@ -94,7 +91,7 @@ const StyledInfo = styled.h3`
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
-	text-align: center;
+	text-align: left;
 `
 
 const StyledExternalLink = styled.a`
