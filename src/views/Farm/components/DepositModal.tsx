@@ -39,6 +39,10 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		setVal(fullBalance)
 	}, [fullBalance, setVal])
 
+	const handleSelectHalf = useCallback(() => {
+		setVal(new BigNumber(fullBalance).div(2).toString())
+	}, [fullBalance, setVal])
+
 	return (
 		<Modal>
 			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
@@ -57,6 +61,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 			<TokenInput
 				value={val}
 				onSelectMax={handleSelectMax}
+				onSelectHalf={handleSelectHalf}
 				onChange={handleChange}
 				max={fullBalance}
 				symbol={tokenName}

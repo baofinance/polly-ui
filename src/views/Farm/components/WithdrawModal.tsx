@@ -42,12 +42,17 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		setVal(fullBalance)
 	}, [fullBalance, setVal])
 
+	const handleSelectHalf = useCallback(() => {
+		setVal(new BigNumber(fullBalance).div(2).toString())
+	}, [fullBalance, setVal])
+
 	return (
 		<Modal>
 			<ModalTitle text={`Withdraw ${tokenName}`} />
 			<Fee pid={pid} />
 			<TokenInput
 				onSelectMax={handleSelectMax}
+				onSelectHalf={handleSelectHalf}
 				onChange={handleChange}
 				value={val}
 				max={fullBalance}
