@@ -1,23 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 import useFees from 'hooks/useFees'
-import useFirstDepositBlock from 'hooks/useFirstDepositBlock'
-import useLastWithdrawBlock from 'hooks/useLastWithdrawBlock'
-import useLastDepositBlock from 'hooks/useLastDepositBlock'
 import useBlockDiff from 'hooks/useBlockDiff'
+import { useUserFarmInfo } from '../../../hooks/useUserFarmInfo'
 import Tooltipped from 'components/Tooltipped'
+import { SpinnerLoader } from '../../../components/Loader'
 
 interface FeeProps {
 	pid: number
 }
 
 const Fee: React.FC<FeeProps> = ({ pid }) => {
-	const firstDepositBlock = useFirstDepositBlock(pid)
-	const lastWithdrawBlock = useLastWithdrawBlock(pid)
-	const lastDepositBlock = useLastDepositBlock(pid)
-	const fees = useFees(pid)
+	const userInfo = useUserFarmInfo(pid)
 	const blockDiff = useBlockDiff(pid)
-	const lastInteraction = new Date(
+	const fees = useFees(blockDiff)
+	const lastInteraction = blockDiff && new Date(
 		new Date().getTime() - 1000 * (blockDiff * 3),
 	).toLocaleString()
 
@@ -31,16 +28,26 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 				the timer for penalities and fees, this is pool based.
 			</p>
 
-			<p>Current Fee: {(fees * 100).toFixed(2)}%</p>
-			<p>Blocks passed: {blockDiff}</p>
 			<p>
-				Last interaction: {lastInteraction.toString()} {''}
+				Current Fee:{' '}
+				{fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />}
+			</p>
+			<p>Blocks passed: {blockDiff ? blockDiff : <SpinnerLoader />}</p>
+			<p>
+				Last interaction: {lastInteraction ? lastInteraction.toString() : <SpinnerLoader />} {''}
 				<Tooltipped
 					content="This date is an estimation, it grows more innaccurate as time passes due to block times being inconsistent. For best results please manually keep track of when you stake and unstake."
 					placement="right"
 				/>
 			</p>
-			<p>Last withdraw block: {lastWithdrawBlock}</p>
+			<p>
+				Last withdraw block:{' '}
+				{userInfo
+					? userInfo.lastWithdrawBlock === '0'
+						? 'Never Withdrawn'
+						: userInfo.lastWithdrawBlock
+					: <SpinnerLoader />}
+			</p>
 
 			<p>
 				Please{' '}
