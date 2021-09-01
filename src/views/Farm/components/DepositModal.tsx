@@ -107,10 +107,6 @@ const StyledExternalLink = styled.a`
 	&.active {
 		color: ${(props) => props.theme.color.blue[400]};
 	}
-	@media (max-width: 400px) {
-		padding-left: ${(props) => props.theme.spacing[2]}px;
-		padding-right: ${(props) => props.theme.spacing[2]}px;
-	}
 `
 
 export default DepositModal
