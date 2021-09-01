@@ -2,23 +2,15 @@ import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 import useBlock from './useBlock'
-import useBao from './useBao'
-import { getMasterChefContract, getUserInfo } from '../bao/utils'
 
-const useBlockDiff = (pid: number) => {
+const useBlockDiff = (userInfo: any) => {
   const { account, ethereum } = useWallet()
   const block = useBlock()
-  const bao = useBao()
   const [blockDiff, setBlockDiff] = useState<number | undefined>()
 
   const fetchBlockDiff = useCallback(async () => {
-    if (!(account && ethereum && bao)) return
+    if (!(account && ethereum && userInfo)) return
 
-    const userInfo: any = await getUserInfo(
-      getMasterChefContract(bao),
-      pid,
-      account
-    )
     const firstDepositBlock =
       new BigNumber(userInfo.firstDepositBlock)
     const lastWithdrawBlock =
@@ -32,11 +24,11 @@ const useBlockDiff = (pid: number) => {
           : lastWithdrawBlock,
       ).toNumber()
     setBlockDiff(blockDiff)
-  }, [bao, ethereum, block])
+  }, [ethereum, block, userInfo])
 
   useEffect(() => {
     fetchBlockDiff()
-  }, [bao, ethereum, block])
+  }, [ethereum, block, userInfo])
 
   return blockDiff > 0 && blockDiff
 }

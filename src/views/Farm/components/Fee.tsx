@@ -12,7 +12,7 @@ interface FeeProps {
 
 const Fee: React.FC<FeeProps> = ({ pid }) => {
 	const userInfo = useUserFarmInfo(pid)
-	const blockDiff = useBlockDiff(pid)
+	const blockDiff = useBlockDiff(userInfo)
 	const fees = useFees(blockDiff)
 	const lastInteraction = blockDiff && new Date(
 		new Date().getTime() - 1000 * (blockDiff * 3),
@@ -32,14 +32,14 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 				Current Fee:{' '}
 				{fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />}
 			</p>
-			<p>Blocks passed: {blockDiff ? blockDiff : <SpinnerLoader />}</p>
 			<p>
 				Last interaction: {lastInteraction ? lastInteraction.toString() : <SpinnerLoader />} {''}
 				<Tooltipped
-					content="This date is an estimation, it grows more innaccurate as time passes due to block times being inconsistent. For best results please manually keep track of when you stake and unstake."
+					content="This date is an estimation, it grows more innaccurate as time passes due to block times being inconsistent. Please use blocks as a metric in order to correctly determine your current withdraw fee."
 					placement="right"
 				/>
 			</p>
+			<p>Blocks passed: {blockDiff ? blockDiff : <SpinnerLoader />}</p>
 			<p>
 				Last withdraw block:{' '}
 				{userInfo
