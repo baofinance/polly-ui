@@ -20,9 +20,11 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 
 	return (
 		<StyledDocsWarning>
+			<p>
 			<Warning>
 				<b>❗BE AWARE OF WITHDRAWAL FEES❗</b>
 			</Warning>
+			</p>
 			<p>
 				<b>Disclaimer</b> - The first deposit activates and each withdraw resets
 				the timer for penalities and fees, this is pool based.
@@ -81,7 +83,7 @@ const StyledDocsWarning = styled.span`
 	font-size: 1rem;
 	margin: 1rem;
 	padding: 0.5rem;
-	text-align: center;
+	text-align: left;
 	border-left: 3px solid ${(props) => props.theme.color.green};
 	width: 90%;
 

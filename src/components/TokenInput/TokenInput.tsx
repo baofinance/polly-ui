@@ -40,7 +40,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
 	)
 }
 
-const StyledTokenInput = styled.div``
+const StyledTokenInput = styled.div`
+`
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;
@@ -57,6 +58,8 @@ const StyledMaxText = styled.div`
 	justify-content: flex-end;
 
 	@media (max-width: 576px){
+		justify-content: center;
+		text-align: center;
 		font-size: 0.75rem;
 	}
 `
