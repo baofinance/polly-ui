@@ -32,7 +32,7 @@ const Nav: React.FC = () => {
 				</StyledLink>
 			</Tooltipped>
 			<Tooltipped content="Documentation" placement="top">
-				<StyledLink target="_blank" href="https://docs.bao.finance/">
+				<StyledLink target="_blank" href="https://docs.bao.finance/franchises/polly-finance">
 					<FontAwesomeIcon icon="book" />
 				</StyledLink>
 			</Tooltipped>
