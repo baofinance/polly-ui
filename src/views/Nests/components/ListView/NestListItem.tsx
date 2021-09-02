@@ -45,7 +45,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						{nest.nestToken}
 					</ColumnText>
 				</ListCol>
-				<ListCol width={'35%'} align={'center'}>
+				<ListCol width={'37.5%'} align={'center'}>
 					<AssetImageContainer>
 						{composition ? (
 							composition.map((component: any) => {
@@ -73,7 +73,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 				<ListCol width={'15%'} align={'center'}>
 					<ColumnText>~</ColumnText>
 				</ListCol>
-				<ListCol width={'17.5%'} align={'right'}>
+				<ListCol width={'15%'} align={'right'}>
 					<div style={{ height: '50px' }}>
 						<Button
 							width={'90%'}

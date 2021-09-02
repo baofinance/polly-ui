@@ -35,7 +35,7 @@ const NestList: React.FC = () => {
 				<ListLabelCol width={'17.5%'} align={'left'}>
 					Nest Name
 				</ListLabelCol>
-				<ListLabelCol width={'35%'} align={'center'}>
+				<ListLabelCol width={'37.5%'} align={'center'}>
 					Underlying Assets
 				</ListLabelCol>
 				<ListLabelCol width={'15%'} align={'center'}>
@@ -44,7 +44,7 @@ const NestList: React.FC = () => {
 				<ListLabelCol width={'15%'} align={'center'}>
 					24H Change
 				</ListLabelCol>
-				<ListLabelCol width={'17.5%'} align={'center'}></ListLabelCol>
+				<ListLabelCol width={'15%'} align={'center'}></ListLabelCol>
 			</ListLabelContainer>
 			{indexes[IndexType.TEST].length ? (
 				indexes[IndexType.TEST].map((nest, i) => (
