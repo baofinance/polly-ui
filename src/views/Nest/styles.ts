@@ -92,7 +92,6 @@ export const CornerButtons = styled.a`
   @media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
     right: 10%;
   }
-
 `
 
 interface NestBreakProps {
@@ -151,9 +150,11 @@ export const GraphContainer = styled(Col)`
   }
 `
 export const PriceGraph = styled.div`
-@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
   display: none;
-}
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    display: none;
+  }
 `
 
 export const PieGraphRow = styled(Row)`
@@ -197,7 +198,6 @@ export const StyledTable = styled(Table)`
 `
 
 export const PrefButtons = styled.div`
-  width: 80%;
   margin: auto;
 
   > button {
