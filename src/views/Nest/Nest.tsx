@@ -198,7 +198,7 @@ const Nest: React.FC = () => {
 				{nest && nest.nid === 1 && (
 					<StyledAlert>
 						<h4 style={{ color: 'white' }}>
-							<FontAwesomeIcon icon="exclamation-circle" /> {' '} Notice
+							<FontAwesomeIcon icon="exclamation-circle" /> Notice
 						</h4>
 						<p style={{ margin: 0 }}>
 							During the first phase of this rollout, there will be heavy one
@@ -206,17 +206,14 @@ const Nest: React.FC = () => {
 							liquidity pools on Sushi as a result of people minting their nDEFI
 							tokens.
 							<Spacer size="md" />
-								Until more liquidity for nDEFI's underlying tokens is bridged to{' '}
-								🍣
-								<StyledExternalLink
-									href="https://app.sushi.com"
-									target="_blank"
-								>
-									SushiSwap
-								</StyledExternalLink>{' '}
-								on Polygon and arbitrage bots recognize these pairs, price
-								information for some tokens may slightly skew from that of
-								robust oracles. This slippage affects the NAV price as well.
+							Until more liquidity for nDEFI's underlying tokens is bridged to{' '}
+							🍣
+							<StyledExternalLink href="https://app.sushi.com" target="_blank">
+								SushiSwap
+							</StyledExternalLink>{' '}
+							on Polygon and arbitrage bots recognize these pairs, price
+							information for some tokens may slightly skew from that of robust
+							oracles. This slippage affects the NAV price as well.
 							<Spacer size="md" />
 							Have any of nDEFI's underlying tokens laying around on another
 							chain? Bridge the tokens to Polygon and stake them in our{' '}
@@ -370,10 +367,10 @@ const Nest: React.FC = () => {
 								}
 							</ParentSize>
 						</GraphContainer>
+						<NestBoxHeader style={{ float: 'left' }}>
+							Allocation Breakdown
+						</NestBoxHeader>
 						<PrefButtons>
-							<NestBoxHeader style={{ float: 'left' }}>
-								Allocation Breakdown
-							</NestBoxHeader>
 							<BootButton
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(false)}
@@ -509,16 +506,16 @@ const Nest: React.FC = () => {
 					</p>
 					<p>
 						The Polly DeFi Nest will provide the crypto industry's first
-						automated value investing, decentralized, tokenized portfolios. When you add
-						the prospect of the underlying tokens being put to work to earn
-						yield.
+						automated value investing, decentralized, tokenized portfolios. When
+						you add the prospect of the underlying tokens being put to work to
+						earn yield.
 					</p>
 
 					<NestHeader>Criteria</NestHeader>
 					<p>
-						For a project to be included in the Polly Defi Nest, it must fit
-						the below criteria in order to reduce the risk of the nest and fit
-						the desires of the community.
+						For a project to be included in the Polly Defi Nest, it must fit the
+						below criteria in order to reduce the risk of the nest and fit the
+						desires of the community.
 					</p>
 					<NestSubHeader>Characteristics</NestSubHeader>
 					<NestList>

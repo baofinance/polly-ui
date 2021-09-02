@@ -160,6 +160,10 @@ export const PrefButtons = styled.div`
       box-shadow: none !important;
     }
   }
+
+  @media ( max-width: 576px ) {
+    display: none;
+  }
 `
 
 export const StatsRow = styled(Row)`
@@ -240,6 +244,11 @@ export const NestText = styled.div`
   margin: auto;
   padding: 50px;
   border-radius: 12px;
+
+  @media ( max-width: 576px ) {
+    width: 100%;
+    padding: 25px;
+  }
 `
 
 export const NestList = styled.ul`
