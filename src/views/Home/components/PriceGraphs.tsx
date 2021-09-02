@@ -58,7 +58,7 @@ const PriceGraphs: React.FC = () => {
 	return (
 		<PriceGraphContainer>
 			<PrefButtons style={{ width: '100%' }}>
-				<NestBoxHeader style={{ float: 'left' }}>Index Price</NestBoxHeader>
+				<NestBoxHeader style={{ float: 'left' }}>Nest Price</NestBoxHeader>
 				{supportedNests.map((nest) => (
 					<Button
 						variant="outline-primary"

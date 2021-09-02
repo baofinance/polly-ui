@@ -202,11 +202,11 @@ const Nest: React.FC = () => {
 						</h4>
 						<p style={{ margin: 0 }}>
 							During the first phase of this rollout, there will be heavy one
-							sided buy pressure in each of the bridged underlying asset's
+							sided buy pressure in each of the bridged underlying tokens
 							liquidity pools on Sushi as a result of people minting their nDEFI
 							tokens.
 							<Spacer size="md" />
-								Until more liquidity for nDEFI's underlying assets is bridged to{' '}
+								Until more liquidity for nDEFI's underlying tokens is bridged to{' '}
 								🍣
 								<StyledExternalLink
 									href="https://app.sushi.com"
@@ -218,7 +218,7 @@ const Nest: React.FC = () => {
 								information for some tokens may slightly skew from that of
 								robust oracles. This slippage affects the NAV price as well.
 							<Spacer size="md" />
-							Have any of nDEFI's underlying assets laying around on another
+							Have any of nDEFI's underlying tokens laying around on another
 							chain? Bridge the tokens to Polygon and stake them in our{' '}
 							<StyledExternalLink href="/farms">farms</StyledExternalLink> to
 							receive POLLY rewards!
@@ -316,7 +316,7 @@ const Nest: React.FC = () => {
 						<NestBoxBreak />
 						<PrefButtons>
 							<NestBoxHeader style={{ float: 'left' }}>
-								Index Price
+								Nest Price
 							</NestBoxHeader>
 							{_.map(['W', 'M', 'Y'], (timeFrame) => (
 								<BootButton
@@ -395,7 +395,7 @@ const Nest: React.FC = () => {
 							<StyledTable bordered hover>
 								<thead>
 									<tr>
-										<th>Asset</th>
+										<th>Token</th>
 										<th>Allocation %</th>
 										<th>Price</th>
 										<th>Strategy</th>
@@ -477,7 +477,7 @@ const Nest: React.FC = () => {
 				<NestText>
 					<NestHeader>Description</NestHeader>
 					<p>
-						The Polly DeFi Index is divided into key DeFi sectors, which are
+						The Polly DeFi Nest is divided into key DeFi sectors, which are
 						given a weighting reflecting their maturity and share of the overall
 						market. Within those sectors, each project is weighted on the TVL
 						divided by Fully Diluted Valuation (FDV).
@@ -504,21 +504,20 @@ const Nest: React.FC = () => {
 						future of finance. With nDEFI you’ll have exposure to
 						infrastructure, lending markets, decentralized exchanges,
 						synthetics, and yield aggregators. The unique weighting formula
-						allows the index to invest in projects gaining traction earlier and
-						with a greater weighting than market cap weighted indexes.
+						allows the nest to invest in projects gaining traction earlier and
+						with a greater weighting than market cap weighted nests.
 					</p>
 					<p>
-						The Polly DeFi Index will provide the crypto industry's first
-						automated value investing, decentralized index fund. When you add
-						the prospect of the underlying assets being put to work to earn
-						yield, it’s easy to see why Polly’s nests make for a cozy place to
-						hold your capital.
+						The Polly DeFi Nest will provide the crypto industry's first
+						automated value investing, decentralized, tokenized portfolios. When you add
+						the prospect of the underlying tokens being put to work to earn
+						yield.
 					</p>
 
 					<NestHeader>Criteria</NestHeader>
 					<p>
-						For a project to be included in the Polly Defi Index, it must fit
-						the below criteria in order to reduce the risk of the index and fit
+						For a project to be included in the Polly Defi Nest, it must fit
+						the below criteria in order to reduce the risk of the nest and fit
 						the desires of the community.
 					</p>
 					<NestSubHeader>Characteristics</NestSubHeader>
@@ -535,7 +534,7 @@ const Nest: React.FC = () => {
 						</li>
 						<li>
 							The protocol must be running for 3 months before qualifying to be
-							included in the index
+							included in the nest.
 						</li>
 						<li>
 							In the event of a safety incident, the team must have addressed
@@ -543,23 +542,21 @@ const Nest: React.FC = () => {
 							protocol a reliable solution and document a detailed, transparent
 							breakdown of the incident.
 						</li>
-						<li>Be Ethereum focused</li>
+						<li>Be Ethereum-focused</li>
 						<li>Must be sufficiently decentralised</li>
 					</NestList>
 
 					<NestHeader>Strategy</NestHeader>
 					<p>
-						It is possible for the underlying tokens to follow strategies that
+						It is possible for the underlying tokens to utilize strategies that
 						will earn yield, maximising value for nest holders, who benefit from
 						this productivity without having to perform any actions themselves.
 						These strategies will be changed over time to take advantage of new
-						opportunities or to maximise the yield earned. Strategies already
-						available include lending and staking, with more advanced strategies
-						planned to be developed in the future.
+						opportunities or to maximise the yield earned.
 					</p>
 
 					<NestHeader>Management</NestHeader>
-					<p>The Index is maintained quarterly in two phases.</p>
+					<p>The Nest is maintained quarterly in two phases.</p>
 
 					<p>
 						<NestSubHeader>Determination Phase</NestSubHeader>
@@ -571,7 +568,7 @@ const Nest: React.FC = () => {
 					</p>
 					<p>
 						The TVL and FDV of each project are recorded, including new projects
-						that qualify for the index and meet the criteria.
+						that qualify for the nest and meet the criteria.
 					</p>
 					<p>
 						Proposed changes will be published on the governance forum for 1
@@ -582,7 +579,7 @@ const Nest: React.FC = () => {
 						<NestSubHeader>Reconstitution Phase</NestSubHeader>
 					</p>
 					<p>
-						In the two weeks following a successful vote, the index components
+						In the two weeks following a successful vote, the nest components
 						will be adjusted as per the instructions published during the final
 						2 weeks of the quarter.
 					</p>
