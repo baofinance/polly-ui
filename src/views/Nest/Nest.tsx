@@ -367,10 +367,10 @@ const Nest: React.FC = () => {
 								}
 							</ParentSize>
 						</GraphContainer>
-						<NestBoxHeader style={{ float: 'left' }}>
-							Allocation Breakdown
-						</NestBoxHeader>
 						<PrefButtons>
+							<NestBoxHeader style={{ float: 'left' }}>
+								Allocation Breakdown
+							</NestBoxHeader>
 							<BootButton
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(false)}
