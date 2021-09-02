@@ -430,7 +430,13 @@ const Nest: React.FC = () => {
 														assetColor={component.color}
 													/>
 												</td>
-												<td>${getDisplayBalance(component.price, 0)}</td>
+												<td>
+													$
+													{getDisplayBalance(
+														component.basePrice || component.price,
+														0,
+													)}
+												</td>
 												<td className="strategy">
 													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>

@@ -49,7 +49,7 @@ const useComposition = (nest: Nest) => {
               graphData.symbol,
             )}.png`)
 
-            let price = graphData.dayData[0].priceUSD
+            let price = graphData.dayData[0].priceUSD, basePrice
             if (price === '0')
               price = await GraphClient.getPriceFromPair(
                 wethPrice,
@@ -72,8 +72,10 @@ const useComposition = (nest: Nest) => {
                 {
                   ref: 'componentToken',
                   contract: getContract(ethereum, component),
-                  calls: [{ method: 'balanceOf', params: [nest.nestTokenAddress] }]
-                }
+                  calls: [
+                    { method: 'balanceOf', params: [nest.nestTokenAddress] },
+                  ],
+                },
               ]
               if (
                 Object.keys(SPECIAL_TOKEN_ADDRESSES).includes(
@@ -89,11 +91,10 @@ const useComposition = (nest: Nest) => {
               const {
                 specialContract: results,
                 componentToken: componentResults,
-                creamContract: creamResults
-              } =
-                MultiCall.parseCallResults(
-                  await multicall.call(_multicallContext),
-                )
+                creamContract: creamResults,
+              } = MultiCall.parseCallResults(
+                await multicall.call(_multicallContext),
+              )
               specialSymbol = results[0].values[0]
               specialDecimals = results[1].values[0]
               componentBalance = componentResults[0].values[0].hex
@@ -107,6 +108,7 @@ const useComposition = (nest: Nest) => {
                   new BigNumber(exchangeRate).times(componentBalance),
                   18,
                 )
+                basePrice = new BigNumber(price)
                 price = new BigNumber(price).times(
                   new BigNumber(
                     getBalanceNumber(new BigNumber(underlying).plus(1)),
@@ -129,15 +131,17 @@ const useComposition = (nest: Nest) => {
               percentage: undefined,
               color: nest.pieColors[graphData.symbol],
               balance: new BigNumber(
-                componentBalance || await getBalance(
-                  ethereum,
-                  component,
-                  nest.nestTokenAddress
-                )
+                componentBalance ||
+                  (await getBalance(
+                    ethereum,
+                    component,
+                    nest.nestTokenAddress,
+                  )),
               ),
               balanceDecimals: specialDecimals || graphData.decimals,
               imageUrl,
               price: new BigNumber(price),
+              basePrice,
               strategy: _getStrategy(specialSymbol || graphData.symbol),
             }
           }),
