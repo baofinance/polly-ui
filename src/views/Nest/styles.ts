@@ -150,6 +150,11 @@ export const GraphContainer = styled(Col)`
     height: 250px;
   }
 `
+export const PriceGraph = styled.div`
+@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  display: none;
+}
+`
 
 export const PieGraphRow = styled(Row)`
   height: 400px;

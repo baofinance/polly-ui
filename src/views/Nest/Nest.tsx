@@ -32,6 +32,7 @@ import RedeemModal from './components/RedeemModal'
 import {
 	GraphContainer,
 	Icon,
+	PriceGraph,
 	NestAnalytics,
 	NestAnalyticsContainer,
 	NestBox,
@@ -314,59 +315,64 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
-						<NestBoxHeader style={{ float: 'left' }}>Nest Price</NestBoxHeader>
-						<PrefButtons>
-							{_.map(['W', 'M', 'Y'], (timeFrame) => (
-								<BootButton
-									variant="outline-primary"
-									onClick={() => setPriceHistoryTimeFrame(timeFrame)}
-									active={priceHistoryTimeFrame === timeFrame}
-									key={timeFrame}
-									style={{ marginTop: '0px' }}
-								>
-									{timeFrame}
-								</BootButton>
-							))}
-						</PrefButtons>
-						<NestBoxHeader style={{ float: 'right' }}>
-							{indexPriceChange24h ? (
-								<>
-									$
-									{priceHistory &&
-										getDisplayBalance(
-											new BigNumber(
-												priceHistory[priceHistory.length - 1].close,
-											),
-											0,
-										)}
-									<span
-										className="smalltext"
-										style={{
-											color: indexPriceChange24h.gt(0) ? 'green' : 'red',
-										}}
+						<PriceGraph>
+							<NestBoxHeader style={{ float: 'left' }}>
+								Nest Price
+							</NestBoxHeader>
+							<PrefButtons>
+								{_.map(['W', 'M', 'Y'], (timeFrame) => (
+									<BootButton
+										variant="outline-primary"
+										onClick={() => setPriceHistoryTimeFrame(timeFrame)}
+										active={priceHistoryTimeFrame === timeFrame}
+										key={timeFrame}
+										style={{ marginTop: '0px' }}
 									>
-										{priceHistory && getDisplayBalance(indexPriceChange24h, 0)}
-										{'%'}
-									</span>
-								</>
-							) : (
-								<SpinnerLoader />
-							)}
-						</NestBoxHeader>
-						<GraphContainer>
-							<ParentSize>
-								{(parent) =>
-									priceHistory && (
-										<AreaGraph
-											width={parent.width}
-											height={parent.height}
-											timeseries={priceHistory}
-											timeframe={priceHistoryTimeFrame}
-										/>
-									)
-								}
-							</ParentSize>
-						</GraphContainer>
+										{timeFrame}
+									</BootButton>
+								))}
+							</PrefButtons>
+							<NestBoxHeader style={{ float: 'right' }}>
+								{indexPriceChange24h ? (
+									<>
+										$
+										{priceHistory &&
+											getDisplayBalance(
+												new BigNumber(
+													priceHistory[priceHistory.length - 1].close,
+												),
+												0,
+											)}
+										<span
+											className="smalltext"
+											style={{
+												color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+											}}
+										>
+											{priceHistory &&
+												getDisplayBalance(indexPriceChange24h, 0)}
+											{'%'}
+										</span>
+									</>
+								) : (
+									<SpinnerLoader />
+								)}
+							</NestBoxHeader>
+							<GraphContainer>
+								<ParentSize>
+									{(parent) =>
+										priceHistory && (
+											<AreaGraph
+												width={parent.width}
+												height={parent.height}
+												timeseries={priceHistory}
+												timeframe={priceHistoryTimeFrame}
+											/>
+										)
+									}
+								</ParentSize>
+							</GraphContainer>
+						</PriceGraph>
 						<PrefButtons>
 							<NestBoxHeader style={{ float: 'left' }}>
 								Allocation Breakdown
@@ -424,9 +430,7 @@ const Nest: React.FC = () => {
 														assetColor={component.color}
 													/>
 												</td>
-												<td>
-													${getDisplayBalance(component.price, 0)}
-												</td>
+												<td>${getDisplayBalance(component.price, 0)}</td>
 												<td className="strategy">
 													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>
