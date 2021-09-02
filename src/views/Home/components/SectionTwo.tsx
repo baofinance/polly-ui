@@ -31,8 +31,7 @@ const SectionTwo: React.FC = () => (
 					<InfoText>
 						Polly Finance is home to some of the most diverse baskets on
 						Polygon, all managed autonomously. With Polly Nests, you can easily
-						get balanced exposure to some of the best digital assets on the
-						Polygon Network.
+						get balanced exposure to digital assets on the Polygon Network.
 					</InfoText>
 				</InfoContainer>
 			</InfoCol>
@@ -46,9 +45,9 @@ const SectionTwo: React.FC = () => (
 					</InfoHeader>
 					<InfoText>
 						Nests are designed to be truly set-and-forget, maximizing your
-						returns at a a fraction of the cost and effort. Our automated
-						strategies utilize staking, lending, and yield farming- No
-						management or constant monitoring necessary!
+						returns at a a fraction of the cost and effort. Nests leverage
+						automated strategies utilizing staking, lending, and yield farming-
+						No management or constant monitoring necessary!
 					</InfoText>
 				</InfoContainer>
 			</InfoCol>
