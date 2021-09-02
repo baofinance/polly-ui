@@ -35,13 +35,13 @@ const NestList: React.FC = () => {
 				<ListLabelCol width={'17.5%'} align={'left'}>
 					Nest Name
 				</ListLabelCol>
-				<ListLabelCol width={'45%'} align={'center'}>
+				<ListLabelCol width={'35%'} align={'center'}>
 					Underlying Assets
 				</ListLabelCol>
-				<ListLabelCol width={'10%'} align={'center'}>
+				<ListLabelCol width={'15%'} align={'center'}>
 					Current Price
 				</ListLabelCol>
-				<ListLabelCol width={'10%'} align={'center'}>
+				<ListLabelCol width={'15%'} align={'center'}>
 					24H Change
 				</ListLabelCol>
 				<ListLabelCol width={'17.5%'} align={'center'}></ListLabelCol>
