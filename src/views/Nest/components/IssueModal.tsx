@@ -154,7 +154,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					</Warning>
 				<p>
 					<b>Disclaimer</b> - During the soft launch, minting of nDEFI is
-					limited to .1 due to low liquidity on some of its underlying tokens.
+					limited to 0.1 due to low liquidity on some of its underlying tokens.
 					Once more liquidity for these tokens is bridged to Polygon, mint
 					limits will be removed. Visit our{' '}
 					<StyledLink href="/farms">farms</StyledLink> to earn POLLY tokens for
