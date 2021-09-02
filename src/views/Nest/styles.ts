@@ -8,13 +8,17 @@ export const StyledAlert = styled(Alert)`
   border: none;
   border-radius: 12px;
   background-color: rgba(0, 0, 0, 0.4);
-  text-align: center;
+  text-align: left;
   color: ${(props) => props.theme.color.grey[100]};
   margin: 20px auto;
   width: 80%;
 
   > * {
     vertical-align: middle;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    width: 90%;
   }
 `
 
@@ -28,20 +32,16 @@ export const StyledExternalLink = styled.a`
   &.active {
     color: ${(props) => props.theme.color.blue[400]};
   }
-  @media (max-width: 400px) {
-    padding-left: ${(props) => props.theme.spacing[2]}px;
-    padding-right: ${(props) => props.theme.spacing[2]}px;
-  }
 `
 
 export const NestBox = styled.div`
-  width: 80%;
-  background: transparent;
-  padding: 15px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 56px;
   text-align: center;
-  margin-top: 1em;
 
-  @media screen and (max-width: 800px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `
@@ -50,14 +50,14 @@ export const NestBoxHeader = styled.div`
   font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.grey[100]};
   margin: auto;
-  font-size: 32px;
+  font-size: 2rem;
 
   p {
     margin: 0;
   }
 
   span.badge {
-    font-size: 18px;
+    font-size: 1.25rem;
     margin-bottom: 1rem;
   }
 
@@ -67,6 +67,32 @@ export const NestBoxHeader = styled.div`
     margin-top: 1em;
     margin-left: 0.5em;
   }
+
+  img {
+    text-align: center;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    font-size: 1.5rem;
+  }
+`
+
+export const CornerButtons = styled.a`
+  float: right;
+  top: 15px;
+  right: 25px;
+  font-size: 24px;
+  position: absolute;
+  color: ${(props) => props.theme.color.grey[100]};
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    right: 10%;
+  }
+
 `
 
 interface NestBreakProps {
@@ -79,6 +105,10 @@ export const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
   margin: ${(props) => props.margin};
   width: 40%;
   background: transparent;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    display: none;
+  }
 `
 
 export const NestCornerButton = styled.a`
@@ -95,7 +125,13 @@ export const NestCornerButton = styled.a`
 `
 
 export const NestAnalytics = styled(Collapse)`
-  margin-bottom: 50px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  width: 80%;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    width: 90%;
+  }
 `
 
 export const NestAnalyticsContainer = styled.div.attrs((props) => ({
@@ -103,12 +139,16 @@ export const NestAnalyticsContainer = styled.div.attrs((props) => ({
 }))``
 
 export const GraphContainer = styled(Col)`
-  width: 80%;
+  width: 100%;
   height: 350px;
   margin: 0 auto 50px;
   border-radius: 12px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.4);
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    height: 250px;
+  }
 `
 
 export const PieGraphRow = styled(Row)`
@@ -118,7 +158,7 @@ export const PieGraphRow = styled(Row)`
 `
 
 export const StyledTable = styled(Table)`
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
@@ -135,6 +175,18 @@ export const StyledTable = styled(Table)`
 
     &:hover {
       color: ${(props) => props.theme.color.grey[100]} !important;
+    }
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    width: 100%;
+
+    th.price {
+      display: none;
+    }
+
+    td.price {
+      display: none;
     }
   }
 `
@@ -161,7 +213,7 @@ export const PrefButtons = styled.div`
     }
   }
 
-  @media ( max-width: 576px ) {
+  @media (max-width: 576px) {
     display: none;
   }
 `
@@ -169,6 +221,15 @@ export const PrefButtons = styled.div`
 export const StatsRow = styled(Row)`
   width: 80%;
   margin: 50px auto;
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    width: 90%;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    margin: 25px auto;
+  }
 `
 
 export const StatCard = styled.div`
@@ -180,6 +241,11 @@ export const StatCard = styled.div`
   font-weight: bold;
   text-align: center;
   color: ${(props) => props.theme.color.grey[100]};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    padding: 10px;
+    background: transparent;
+  }
 `
 
 export const StyledBadge = styled(Badge)`
@@ -189,10 +255,12 @@ export const StyledBadge = styled(Badge)`
 `
 
 export const Icon = styled.img`
-  margin-left: 75px;
-  display: inline;
   height: 200px;
   margin-bottom: 25px;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    margin-left: 0px;
+  }
 `
 
 export const NestButtons = styled.div`
@@ -203,7 +271,8 @@ export const NestButtons = styled.div`
   vertical-align: middle;
   display: flex;
   margin-top: 15px;
-  margin-bottom: 0;
+  margin-bottom: 15px;
+  width: 80%;
 `
 
 export const NestHeader = styled.h1`
@@ -245,9 +314,10 @@ export const NestText = styled.div`
   padding: 50px;
   border-radius: 12px;
 
-  @media ( max-width: 576px ) {
-    width: 100%;
+  @media (max-width: 576px) {
+    width: 90%;
     padding: 25px;
+    margin-top: 25px;
   }
 `
 

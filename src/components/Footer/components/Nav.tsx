@@ -61,7 +61,7 @@ const StyledLink = styled.a`
 		color: ${(props) => props.theme.color.blue[400]};
 	}
 
-	@media (max-width: 576px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		padding-left: 10px;
 		padding-right: 10px;
 	}

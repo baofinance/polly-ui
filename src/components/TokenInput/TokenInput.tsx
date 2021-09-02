@@ -67,6 +67,10 @@ const StyledMaxText = styled.div`
 const StyledTokenSymbol = styled.span`
 	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+		display: none;
+	}
 `
 
 export default TokenInput

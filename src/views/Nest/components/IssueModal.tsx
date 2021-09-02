@@ -10,6 +10,7 @@ import ModalContent from 'components/ModalContent'
 import ModalTitle from 'components/ModalTitle'
 import NestTokenInput from 'components/NestTokenInput'
 import NestTokenOutput from 'components/NestTokenOutput'
+import Spacer from 'components/Spacer'
 import useBao from 'hooks/useBao'
 import useInputAllowance from 'hooks/useInputAllowance'
 import useInputApprove from 'hooks/useInputApprove'
@@ -182,7 +183,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					}
 				}}
 			/>
-			<ModalContent></ModalContent>
+			<Spacer />
 			<NestTokenInput
 				setValue={(num: string) => {
 					setWethNeeded(num)

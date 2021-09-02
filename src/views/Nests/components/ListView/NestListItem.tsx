@@ -94,8 +94,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						<MobileListText>
 							<MobileListTitle>{nest.nestToken}</MobileListTitle>
 							<MobileListDesc>
-								Here is some text for the description area of every nest on the
-								mobile layout.
+								Complete exposure to key DeFi sectors.
 							</MobileListDesc>
 						</MobileListText>
 						<MobileListPrice>

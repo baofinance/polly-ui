@@ -43,7 +43,7 @@ const Farms: React.FC = () => {
 								</StyledInfo>
 								<Spacer size="md" />{' '}
 								<Balances />
-								<Spacer size="md" />
+								<Spacer size="md" />{' '}
 								<StyledInfo>
 									❗️{' '}
 									<span style={{ fontWeight: 600, color: '#ff3333' }}>

@@ -52,6 +52,7 @@ import {
 	StyledTable,
 	StyledAlert,
 	StyledExternalLink,
+	CornerButtons,
 } from './styles'
 
 const Nest: React.FC = () => {
@@ -161,23 +162,25 @@ const Nest: React.FC = () => {
 	return (
 		<>
 			<NestBox>
-				<Tooltipped content={`${analyticsOpen ? 'Hide' : 'View'} Analytics`}>
-					<NestCornerButton
-						onClick={() => setAnalyticsOpen(!analyticsOpen)}
-						aria-controls="analytics-collapse"
-						aria-expanded={analyticsOpen}
-					>
-						<FontAwesomeIcon icon="chart-line" />
-					</NestCornerButton>
-				</Tooltipped>
-				<Tooltipped content="View Contract">
-					<NestCornerButton
-						href={`https://polygonscan.com/address/${nestTokenAddress}`}
-						target="_blank"
-					>
-						<FontAwesomeIcon icon="file-contract" />
-					</NestCornerButton>
-				</Tooltipped>
+				<CornerButtons>
+					<Tooltipped content={`${analyticsOpen ? 'Hide' : 'View'} Analytics`}>
+						<NestCornerButton
+							onClick={() => setAnalyticsOpen(!analyticsOpen)}
+							aria-controls="analytics-collapse"
+							aria-expanded={analyticsOpen}
+						>
+							<FontAwesomeIcon icon="chart-line" />
+						</NestCornerButton>
+					</Tooltipped>
+					<Tooltipped content="View Contract">
+						<NestCornerButton
+							href={`https://polygonscan.com/address/${nestTokenAddress}`}
+							target="_blank"
+						>
+							<FontAwesomeIcon icon="file-contract" />
+						</NestCornerButton>
+					</Tooltipped>
+				</CornerButtons>
 				<NestBoxHeader>
 					<Icon src={icon} alt={nestToken} />
 					<br />
@@ -197,7 +200,7 @@ const Nest: React.FC = () => {
 				</NestBoxHeader>
 				{nest && nest.nid === 1 && (
 					<StyledAlert>
-						<h4 style={{ color: 'white' }}>
+						<h4 style={{ color: 'white', textAlign: 'center' }}>
 							<FontAwesomeIcon icon="exclamation-circle" /> Notice
 						</h4>
 						<p style={{ margin: 0 }}>
@@ -222,7 +225,7 @@ const Nest: React.FC = () => {
 						</p>
 					</StyledAlert>
 				)}
-				<StatsRow lg={4}>
+				<StatsRow lg={4} sm={2}>
 					<Col>
 						<StatCard>
 							<span>
@@ -311,10 +314,8 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
+						<NestBoxHeader style={{ float: 'left' }}>Nest Price</NestBoxHeader>
 						<PrefButtons>
-							<NestBoxHeader style={{ float: 'left' }}>
-								Nest Price
-							</NestBoxHeader>
 							{_.map(['W', 'M', 'Y'], (timeFrame) => (
 								<BootButton
 									variant="outline-primary"
@@ -326,33 +327,32 @@ const Nest: React.FC = () => {
 									{timeFrame}
 								</BootButton>
 							))}
-							<NestBoxHeader style={{ float: 'right' }}>
-								{indexPriceChange24h ? (
-									<>
-										$
-										{priceHistory &&
-											getDisplayBalance(
-												new BigNumber(
-													priceHistory[priceHistory.length - 1].close,
-												),
-												0,
-											)}
-										<span
-											className="smalltext"
-											style={{
-												color: indexPriceChange24h.gt(0) ? 'green' : 'red',
-											}}
-										>
-											{priceHistory &&
-												getDisplayBalance(indexPriceChange24h, 0)}
-											{'%'}
-										</span>
-									</>
-								) : (
-									<SpinnerLoader />
-								)}
-							</NestBoxHeader>
 						</PrefButtons>
+						<NestBoxHeader style={{ float: 'right' }}>
+							{indexPriceChange24h ? (
+								<>
+									$
+									{priceHistory &&
+										getDisplayBalance(
+											new BigNumber(
+												priceHistory[priceHistory.length - 1].close,
+											),
+											0,
+										)}
+									<span
+										className="smalltext"
+										style={{
+											color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+										}}
+									>
+										{priceHistory && getDisplayBalance(indexPriceChange24h, 0)}
+										{'%'}
+									</span>
+								</>
+							) : (
+								<SpinnerLoader />
+							)}
+						</NestBoxHeader>
 						<GraphContainer>
 							<ParentSize>
 								{(parent) =>
@@ -393,8 +393,8 @@ const Nest: React.FC = () => {
 								<thead>
 									<tr>
 										<th>Token</th>
-										<th>Allocation %</th>
-										<th>Price</th>
+										<th>Allocation</th>
+										<th className="price">Price</th>
 										<th>Strategy</th>
 									</tr>
 								</thead>
@@ -424,7 +424,9 @@ const Nest: React.FC = () => {
 														assetColor={component.color}
 													/>
 												</td>
-												<td>${getDisplayBalance(component.price, 0)}</td>
+												<td className="price">
+													${getDisplayBalance(component.price, 0)}
+												</td>
 												<td>
 													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>

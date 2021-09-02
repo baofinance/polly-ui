@@ -38,8 +38,6 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 			</CloseButton>
 			<ModalTitle text="My Account" />
 			<ModalContent>
-				<Spacer />
-
 				<Row lg={2}>
 					<Col>
 						<StyledBalanceWrapper>
@@ -93,6 +91,10 @@ const StyledBalanceWrapper = styled.div`
 	flex: 1;
 	flex-direction: column;
 	margin-bottom: ${(props) => props.theme.spacing[4]}px;
+
+	@media ( max-width: 576px ) {
+		flex-direction: row;
+	}
 `
 
 export const CloseButton = styled.a`

@@ -97,7 +97,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 }
 
 const StyledAccountButton = styled.div`
-	@media (max-width: 576px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		display: none;
 	}
 `

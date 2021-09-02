@@ -88,7 +88,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'YFI-ETH',
-		symbol: 'YFI-ETH Sushi LP',
+		symbol: 'YFI-ETH SUSHI LP',
 		tokenSymbol: 'YFI',
 		icon: '/YFI.png',
 		refUrl:
@@ -106,7 +106,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'CVX-ETH',
-		symbol: 'CVX-ETH SLP',
+		symbol: 'CVX-ETH SUSHI LP',
 		tokenSymbol: 'CVX',
 		icon: '/CVX.png',
 		refUrl:
@@ -124,7 +124,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'ALPHA-ETH',
-		symbol: 'ALPHA-ETH SLP',
+		symbol: 'ALPHA-ETH SUSHI LP',
 		tokenSymbol: 'ALPHA',
 		icon: '/ALPHA.png',
 		refUrl:
@@ -142,7 +142,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'UNI-ETH',
-		symbol: 'UNI-ETH SLP',
+		symbol: 'UNI-ETH SUSHI LP',
 		tokenSymbol: 'UNI',
 		icon: '/UNI.png',
 		refUrl:
@@ -158,7 +158,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'SUSHI-ETH',
-		symbol: 'SUSHI-ETH SLP',
+		symbol: 'SUSHI-ETH SUSHI LP',
 		tokenSymbol: 'SUSHI',
 		icon: '/SUSHI.png',
 		refUrl:
@@ -176,7 +176,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'CRV-ETH',
-		symbol: 'CRV-ETH SLP',
+		symbol: 'CRV-ETH SUSHI LP',
 		tokenSymbol: 'CRV',
 		icon: '/CRV.png',
 		refUrl:
@@ -194,7 +194,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'BAL-ETH',
-		symbol: 'BAL-ETH SLP',
+		symbol: 'BAL-ETH SUSHI LP',
 		tokenSymbol: 'BAL',
 		icon: '/BAL.png',
 		refUrl:
@@ -212,7 +212,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'COMP-ETH',
-		symbol: 'COMP-ETH SLP',
+		symbol: 'COMP-ETH SUSHI LP',
 		tokenSymbol: 'COMP',
 		icon: '/COMP.png',
 		refUrl:
@@ -230,7 +230,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'MKR-ETH',
-		symbol: 'MKR-ETH SLP',
+		symbol: 'MKR-ETH SUSHI LP',
 		tokenSymbol: 'MKR',
 		icon: '/MKR.png',
 		refUrl:
@@ -248,7 +248,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'ALCX-ETH',
-		symbol: 'ALCX-ETH SLP',
+		symbol: 'ALCX-ETH SUSHI LP',
 		tokenSymbol: 'ALCX',
 		icon: '/ALCX.png',
 		refUrl:
@@ -266,7 +266,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: 'LINK-ETH',
-		symbol: 'LINK-ETH SLP',
+		symbol: 'LINK-ETH SUSHI LP',
 		tokenSymbol: 'LINK',
 		icon: '/LINK.png',
 		refUrl:
@@ -284,7 +284,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: `SNX-ETH`,
-		symbol: 'SNX-ETH SLP',
+		symbol: 'SNX-ETH SUSHI LP',
 		tokenSymbol: 'SNX',
 		icon: '/SNX.png',
 		refUrl:
@@ -302,7 +302,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: `UMA-ETH`,
-		symbol: 'UMA-ETH SLP',
+		symbol: 'UMA-ETH SUSHI LP',
 		tokenSymbol: 'UMA',
 		icon: '/UMA.png',
 		refUrl:
@@ -320,7 +320,7 @@ export const supportedPools = [
 		},
 		tokenDecimals: 18,
 		name: `BAO-ETH`,
-		symbol: 'BAO-ETH SLP',
+		symbol: 'BAO-ETH SUSHI LP',
 		tokenSymbol: 'BAO',
 		icon: '/BAO.png',
 		refUrl:

@@ -78,6 +78,7 @@ const StyledMenuButton = styled.button`
 	outline: 0;
 	padding: 0;
 	display: none;
+	
 	@media (max-width: 768px) {
 		align-items: center;
 		display: flex;

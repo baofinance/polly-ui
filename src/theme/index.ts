@@ -3,7 +3,7 @@ import { black, blue, darkGrey, gold, green, grey, red, white } from './colors'
 const theme = {
   borderRadius: 12,
   breakpoints: {
-    mobile: 411,
+    mobile: 576,
   },
   color: {
     black,

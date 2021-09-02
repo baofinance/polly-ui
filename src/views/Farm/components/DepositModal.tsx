@@ -8,6 +8,7 @@ import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/formatBalance'
 import styled from 'styled-components'
+import Spacer from 'components/Spacer'
 
 interface DepositModalProps extends ModalProps {
 	max: BigNumber
@@ -45,7 +46,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
 	return (
 		<Modal>
-			<ModalTitle text={`Deposit ${tokenName} Tokens`} />
+			<ModalTitle text={`Deposit ${tokenName}`} />
 			<TokenInput
 				value={val}
 				onSelectMax={handleSelectMax}
@@ -81,17 +82,22 @@ const DepositModal: React.FC<DepositModalProps> = ({
 				</StyledExternalLink>
 			</StyledInfo>
 			</ModalContent>
+			<Spacer />
 		</Modal>
 	)
 }
 
 const StyledInfo = styled.h3`
 	color: ${(props) => props.theme.color.grey[100]};
-	font-size: 16px;
+	font-size: 1rem;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
 	text-align: left;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+		font-size: 0.75rem;
+	  }
 `
 
 const StyledExternalLink = styled.a`

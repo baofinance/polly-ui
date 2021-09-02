@@ -38,7 +38,7 @@ export const HeroHeader = styled.h6`
     line-height: 4.7rem;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     font-size: 3.5rem !important;
     line-height: 3.2rem;
     text-align: left;
@@ -84,7 +84,7 @@ export const HeroSubHeader = styled.h6`
   -webkit-text-fill-color: transparent;
   animation: bounce 10s ease-in-out infinite alternate;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     font-size: 2rem !important;
   }
 
@@ -103,7 +103,7 @@ export const HeroText = styled.p`
   margin: auto;
   text-align: center;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     text-align: left;
 		font-size: 1.15rem;
 	}
@@ -127,7 +127,7 @@ export const BubbleWrap = styled.div`
 export const BubbleContainer = styled.div`
   position: relative;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: none;
   }
 
@@ -250,7 +250,7 @@ export const BubbleOverlayText = styled.div`
 
 export const StyledSectionContainer = styled.div`
   display: flex;
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     flex-direction: column;
   }
 `
@@ -265,7 +265,7 @@ export const StyledSectionTitle = styled.h2`
 export const StyledCardWrapper = styled.div`
   display: flex;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     flex-direction: column;
   }
 `
@@ -282,7 +282,7 @@ export const StyledCardContent = styled.div`
   height: 550px;
   width: 100%;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     padding: 10px;
     height: 250px;
   }
@@ -302,7 +302,7 @@ export const StyledCardTitle = styled.p`
   margin-bottom: 20px;
   text-align: center;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 5px;
@@ -315,7 +315,7 @@ export const StyledCardIcon = styled.img`
   height: 80px;
   width: 80px;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: block;
     margin: 15px auto;
     height: 50px;
@@ -327,7 +327,7 @@ export const StyledCardText = styled.p`
   font-size: 1.25rem;
   text-align: center;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     font-size: 1rem;
   }
 `
@@ -387,7 +387,7 @@ export const InfoHeader = styled.h2`
     letter-spacing: -0.1rem;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     font-size: 3rem !important;
     letter-spacing: -0.1rem;
   }
@@ -431,7 +431,7 @@ export const InfoImage = styled.img`
     margin: auto;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     margin-inline: 0;
     max-width: 80%;
     margin: auto;

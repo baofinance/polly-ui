@@ -154,7 +154,6 @@ const Balances: React.FC = () => {
 				</Card>
 			</StyledWrapper>
 			<Spacer />
-			<Spacer />
 		</Fragment>
 	)
 }
