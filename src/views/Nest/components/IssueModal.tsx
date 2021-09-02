@@ -148,6 +148,19 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			</CloseButton>
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
+				<Disclaimer>
+					<Warning>
+						<b>❗MINTING LIMIT ENABLED❗</b>
+					</Warning>
+				<p>
+					<b>Disclaimer</b> - During the soft launch, minting of nDEFI is
+					limited to .1 due to low liquidity on some of its underlying tokens.
+					Once more liquidity for these tokens is bridged to Polygon, mint
+					limits will be removed. Visit our{' '}
+					<StyledLink href="/farms">farms</StyledLink> to earn POLLY tokens for
+					providing liquidity on SushiSwap!
+				</p>
+				</Disclaimer>
 				{
 					'Polly uses your wETH to buy the underlying assets for you from Sushiswap. Minting transactions send 5% more wETH to avoid unexpected errors like slippage, any unused WETH is returned.'
 				}
@@ -243,6 +256,40 @@ export const CloseButton = styled.a`
 	&:hover {
 		cursor: pointer;
 	}
+`
+
+const Warning = styled.h3`
+	color: #ff3333;
+	font-size: 1rem;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	max-width: 100%;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+		font-size: 1rem;
+	}
+`
+
+const StyledLink = styled.a`
+	color: ${(props) => props.theme.color.grey[100]};
+	font-weight: 700;
+	text-decoration: none;
+	&:hover {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+	&.active {
+		color: ${(props) => props.theme.color.blue[400]};
+	}
+`
+
+const Disclaimer = styled.div`
+font-size: 1rem;
+
+@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	font-size: 0.75rem;
+}
 `
 
 export default IssueModal
