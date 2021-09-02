@@ -73,9 +73,9 @@ const SectionTwo: React.FC = () => (
 						Meet <InfoSubHeader>Polly DAO</InfoSubHeader>
 					</InfoHeader>
 					<InfoText>
-						Polly's strategies and asset manager are governed, maintained, and
-						upgraded by Polly DAO. Additionally, metagovernance enables POLLY
-						holders to vote in other protocol’s governance decisions.
+						Polly is governed, maintained, and upgraded by its token holders.
+						Polly DAO empowers users to curate their own Nests and develop
+						complex strategies of their own.
 					</InfoText>
 				</InfoContainer>
 			</InfoCol>
