@@ -74,7 +74,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 				75% of POLLY rewards will be locked and vested for 6 years. For more
 				information, please{' '}
 				<StyledExternalLink
-					href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
+					href="https://docs.bao.finance/franchises/polly-finance"
 					target="blank"
 				>
 					{' '}

@@ -55,7 +55,7 @@ const Farms: React.FC = () => {
 									exiting a farm, depending on the length of time your LP was
 									staked. Please{' '}
 									<StyledExternalLink
-										href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
+										href="https://docs.bao.finance/franchises/polly-finance"
 										target="blank"
 									>
 										{' '}

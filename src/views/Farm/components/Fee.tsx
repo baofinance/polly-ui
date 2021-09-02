@@ -58,7 +58,7 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 			<p>
 				Please{' '}
 				<StyledExternalLink
-					href="https://docs.bao.finance/franchises/polly/polly-fees-penalties"
+					href="https://docs.bao.finance/franchises/polly-finance"
 					target="blank"
 				>
 					{' '}
