@@ -181,11 +181,11 @@ export const StyledTable = styled(Table)`
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     width: 100%;
 
-    th.price {
+    th.strategy {
       display: none;
     }
 
-    td.price {
+    td.strategy {
       display: none;
     }
   }

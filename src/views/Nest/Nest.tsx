@@ -394,8 +394,8 @@ const Nest: React.FC = () => {
 									<tr>
 										<th>Token</th>
 										<th>Allocation</th>
-										<th className="price">Price</th>
-										<th>Strategy</th>
+										<th>Price</th>
+										<th className="strategy">Strategy</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -424,10 +424,10 @@ const Nest: React.FC = () => {
 														assetColor={component.color}
 													/>
 												</td>
-												<td className="price">
+												<td>
 													${getDisplayBalance(component.price, 0)}
 												</td>
-												<td>
+												<td className="strategy">
 													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>
 											</tr>
