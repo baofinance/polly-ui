@@ -152,35 +152,36 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					<Warning>
 						<b>❗MINTING LIMIT ENABLED❗</b>
 					</Warning>
-				<p>
-					<b>Disclaimer</b> - During the soft launch, minting of nDEFI is
-					limited to 0.1 due to low liquidity on some of its underlying tokens.
-					Once more liquidity for these tokens is bridged to Polygon, mint
-					limits will be removed. Visit our{' '}
-					<StyledLink href="/farms">farms</StyledLink> to earn POLLY tokens for
-					providing liquidity on SushiSwap!
-				</p>
-				</Disclaimer>
-				{
-					'Polly uses your wETH to buy the underlying assets for you from Sushiswap. Minting transactions send 5% more wETH to avoid unexpected errors like slippage, any unused WETH is returned.'
-				}
-				<br />
-				<br />
-				<b>
-					Your wETH Balance:{' '}
-					{(wethBalance && getDisplayBalance(wethBalance)) || <SpinnerLoader />}{' '}
-					<FontAwesomeIcon icon={['fab', 'ethereum']} />
-				</b>
-				<br />
-				<b>
-					1 {nestName} ={' '}
-					<>
-						{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+					<p>
+						During the soft launch, minting is limited to 0.1 due to low
+						liquidity on its underlying tokens. Once liquidity for these tokens
+						is bridged to Polygon, mint limits will be removed.
+					</p>
+					{
+						'Polly uses your wETH to buy the underlying assets for you from Sushiswap. Minting transactions send 5% more wETH to avoid unexpected errors like slippage, any unused WETH is returned.'
+					}
+					<br />
+					<br />
+					<HidePrice>
+					<b>
+						Your wETH Balance:{' '}
+						{(wethBalance && getDisplayBalance(wethBalance)) || (
 							<SpinnerLoader />
 						)}{' '}
 						<FontAwesomeIcon icon={['fab', 'ethereum']} />
-					</>
-				</b>
+					</b>
+					<br />
+					<b>
+						1 {nestName} ={' '}
+						<>
+							{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+								<SpinnerLoader />
+							)}{' '}
+							<FontAwesomeIcon icon={['fab', 'ethereum']} />
+						</>
+					</b>
+					</HidePrice>
+				</Disclaimer>
 			</ModalContent>
 			<NestTokenOutput
 				value={nestAmount}
@@ -272,6 +273,12 @@ const Warning = styled.h3`
 	}
 `
 
+const HidePrice = styled.div`
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+		display: none;
+	}
+`
+
 const StyledLink = styled.a`
 	color: ${(props) => props.theme.color.grey[100]};
 	font-weight: 700;
@@ -285,11 +292,11 @@ const StyledLink = styled.a`
 `
 
 const Disclaimer = styled.div`
-font-size: 1rem;
+	font-size: 1rem;
 
-@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-	font-size: 0.75rem;
-}
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+		font-size: 0.75rem;
+	}
 `
 
 export default IssueModal
