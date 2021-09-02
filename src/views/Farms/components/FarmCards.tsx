@@ -11,6 +11,7 @@ import { PoolType } from 'contexts/Farms/types'
 import useAllStakedValue, { StakedValue } from 'hooks/useAllStakedValue'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
+import { lighten } from 'polished'
 import React, { useEffect, useState } from 'react'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
@@ -161,6 +162,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	const poolActive = true // startTime * 1000 - Date.now() <= 0
 	const nestMint = 'Get ' + farm.tokenSymbol
 	const destination = farm.refUrl
+	const pairLink = farm.pairUrl
 
 	return (
 		<StyledCardWrapper>
@@ -174,7 +176,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<div style={{height: '100px'}}>
 							<StyledTitle>{farm.name}</StyledTitle>
 							<StyledDetails>
-								<StyledDetail>Deposit {farm.lpToken.toUpperCase()}</StyledDetail>
+								<StyledDetail>Deposit <StyledExternalLink href={pairLink} target="_blank">{farm.lpToken.toUpperCase()}</StyledExternalLink></StyledDetail>
 								<StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
 							</StyledDetails>
 						</div>
@@ -334,6 +336,18 @@ const StyledInsight = styled.div`
 	border: 1px solid #202231;
 	text-align: center;
 	padding: 0 12px;
+`
+
+const StyledExternalLink = styled.a`
+	color: ${(props) => props.theme.color.blue[400]};
+	font-weight: 700;
+	text-decoration: none;
+	&:hover {
+		color: ${(props) => lighten(0.1, props.theme.color.blue[400])};
+	}
+	&.active {
+		color: ${(props) => lighten(0.1, props.theme.color.blue[400])};
+	}
 `
 
 export default FarmCards

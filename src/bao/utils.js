@@ -108,6 +108,7 @@ export const getFarms = (bao) => {
 					lpAddress,
 					lpContract,
 					refUrl,
+					pairUrl,
 					poolType,
 				}) => ({
 					pid,
@@ -124,6 +125,7 @@ export const getFarms = (bao) => {
 					earnTokenAddress: bao.contracts.polly.options.address,
 					icon,
 					refUrl,
+					pairUrl,
 					poolType,
 				}),
 		  )

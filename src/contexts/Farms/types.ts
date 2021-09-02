@@ -19,6 +19,7 @@ export interface Farm {
   id: string
   tokenSymbol: string
   refUrl: string
+  pairUrl: string
   poolType?: PoolType
 }
 
