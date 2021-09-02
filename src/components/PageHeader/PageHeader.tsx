@@ -15,7 +15,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
-					<StyledSubtitle>{subtitle}</StyledSubtitle>
+					{/* <StyledSubtitle>{subtitle}</StyledSubtitle> */}
 				</StyledPageHeader>
 			</Container>
 		)
@@ -24,7 +24,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
-					<StyledSubtitle>{subtitle}</StyledSubtitle>
+					{/* <StyledSubtitle>{subtitle}</StyledSubtitle> */}
 				</StyledPageHeader>
 			</Container>
 		)
@@ -33,7 +33,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
-					<StyledSubtitle>{subtitle}</StyledSubtitle>
+					{/* <StyledSubtitle>{subtitle}</StyledSubtitle> */}
 				</StyledPageHeader>
 			</Container>
 		)
@@ -56,7 +56,13 @@ export const StyledTitle = styled.h1`
 	text-align: center;
 	font-weight: 700 !important;
 	color: #f35626;
-	background: linear-gradient(to left, #6B9AEF 25%, #53C7E4 50%, #4ba9e3 75%, #6B9AEF 100%);
+	background: linear-gradient(
+		to left,
+		#6b9aef 25%,
+		#53c7e4 50%,
+		#4ba9e3 75%,
+		#6b9aef 100%
+	);
 	background-size: 200% auto;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
