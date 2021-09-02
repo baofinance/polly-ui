@@ -8,7 +8,7 @@ export const StyledAlert = styled(Alert)`
   border: none;
   border-radius: 12px;
   background-color: rgba(0, 0, 0, 0.4);
-  text-align: left;
+  text-align: center;
   color: ${(props) => props.theme.color.grey[100]};
   margin: 20px auto;
   width: 80%;

@@ -19,7 +19,7 @@ import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { getDisplayBalance } from 'utils/formatBalance'
+import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
 import { Contract } from 'web3-eth-contract'
 
 interface IssueModalProps extends ModalProps {
@@ -139,6 +139,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const recipeContract = getRecipeContract(bao)
 	const { onIssue } = useNestIssue(nestAddress)
 	const wethBalance = useTokenBalance(addressMap.WETH)
+	const nestBalance = useTokenBalance(nestAddress)
 
 	return (
 		<Modal>
@@ -210,6 +211,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							wethNeeded.slice(-1) === '.' ||
 							nestAmount.slice(-1) === '.' ||
 							isNaN(parseFloat(wethNeeded)) ||
+							isNaN(parseFloat(nestAmount)) ||
+							getBalanceNumber(new BigNumber(nestBalance)) >= 0.1 ||
+							parseFloat(nestAmount) > 0.1 ||
 							parseFloat(wethNeeded) === 0 ||
 							parseFloat(wethNeeded) < 0 ||
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber()
