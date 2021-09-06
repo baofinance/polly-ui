@@ -18,6 +18,7 @@ import Spacer from '../../Spacer'
 import Value from '../../Value'
 import { Col, Row } from 'react-bootstrap'
 import { addressMap } from '../../../bao/lib/constants'
+import { BigNumber } from 'bignumber.js'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()
@@ -47,7 +48,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 								</span>
 							</CardIcon>
 							<StyledBalance>
-								<Value value={getDisplayBalance(wethBalance)} />
+								<Value value={new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)} />
 								<Label text="WETH Balance" />
 							</StyledBalance>
 						</StyledBalanceWrapper>
@@ -60,7 +61,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 								</span>
 							</CardIcon>
 							<StyledBalance>
-								<Value value={getDisplayBalance(baoBalance)} />
+								<Value value={new BigNumber(getDisplayBalance(baoBalance)).toFixed(4)} />
 								<Label text="POLLY Balance" />
 							</StyledBalance>
 						</StyledBalanceWrapper>

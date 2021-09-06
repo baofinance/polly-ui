@@ -9,6 +9,7 @@ import Button from '../../Button'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { BigNumber } from 'bignumber.js'
 
 interface AccountButtonProps {}
 
@@ -53,7 +54,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 									icon="angle-double-right"
 									style={{ margin: '0 5px', color: '  color: ${(props) => props.theme.color.grey[100]};' }}
 								/>
-								{getDisplayBalance(wethBalance)}
+								{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
 								<FontAwesomeIcon
 									icon={['fab', 'ethereum']}
 									style={{ marginLeft: '5px' }}
