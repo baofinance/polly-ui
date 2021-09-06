@@ -7,7 +7,7 @@ const SectionOne: React.FC = () => (
 			<HeroHeaderGradient>Build Your Nest</HeroHeaderGradient>
 		</HeroHeader>
 		<HeroText>
-			With Polly Nests you can diversify your crypto portfoilio & earn passive
+			With Polly Nests you can diversify your crypto portfolio & earn passive
 			yield in just a few clicks! Nests utilize autonomous strategies that will
 			minimize the effort needed to maximize your returns.
 		</HeroText>
