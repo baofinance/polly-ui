@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js/bignumber'
+import Web3 from 'web3'
 import { Multicall as MC } from 'ethereum-multicall'
 import Multicall from '../utils/multicall'
-import BigNumber from 'bignumber.js/bignumber'
-import { Farm } from '../contexts/Farms'
-import { Bao } from '../bao'
-import { decimate, getDisplayBalance } from '../utils/formatBalance'
-import { getMasterChefContract, getWethPriceLink } from '../bao/utils'
-import useBao from './useBao'
-import useMulticall from './useMulticall'
-import useFarms from './useFarms'
-import { addressMap } from '../bao/lib/constants'
+import GraphUtil from '../utils/graph'
+import { decimate } from '../utils/formatBalance'
+import {
+  addressMap,
+  contractAddresses,
+  supportedPools,
+} from '../bao/lib/constants'
 
-export const fetchLPInfo = async (farms: Farm[], bao: Bao, multicall: MC) => {
-  if (!(farms && bao && multicall)) return undefined
+// LP Contract ABI
+import lpAbi from '../bao/lib/abi/uni_v2_lp.json'
+import { AbiItem } from 'web3-utils'
 
-  const masterChef = getMasterChefContract(bao)
+export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
   const results = Multicall.parseCallResults(
     await multicall.call(
       Multicall.createCallContext(
@@ -22,12 +23,18 @@ export const fetchLPInfo = async (farms: Farm[], bao: Bao, multicall: MC) => {
           (farm, i) =>
             ({
               ref: i,
-              contract: farm.lpContract,
+              contract: new web3.eth.Contract(
+                lpAbi as AbiItem[],
+                farm.lpAddresses[137],
+              ),
               calls: [
                 { method: 'getReserves' },
                 { method: 'token0' },
                 { method: 'token1' },
-                { method: 'balanceOf', params: [masterChef.options.address] },
+                {
+                  method: 'balanceOf',
+                  params: [contractAddresses.masterChef[137]],
+                },
                 { method: 'totalSupply' },
               ],
             } as any),
@@ -64,16 +71,12 @@ export const fetchLPInfo = async (farms: Farm[], bao: Bao, multicall: MC) => {
   })
 }
 
-const useAllFarmTVL = () => {
-  const bao = useBao()
-  const multicall = useMulticall()
-  const farms = useFarms()
-
+const useAllFarmTVL = (web3: Web3, multicall: MC) => {
   const [tvl, setTvl] = useState<BigNumber | undefined>()
 
   const fetchAllFarmTVL = useCallback(async () => {
-    const wethPrice = await getWethPriceLink(bao)
-    const lps: any = await fetchLPInfo(farms[0], bao, multicall)
+    const lps: any = await fetchLPInfo(supportedPools, multicall, web3)
+    const wethPrice = await GraphUtil.getPrice(addressMap.WETH)
 
     let _tvl = new BigNumber(0)
     lps.forEach((lpInfo: any) => {
@@ -88,13 +91,13 @@ const useAllFarmTVL = () => {
       _tvl = _tvl.plus(lpStakedUSD)
     })
     setTvl(_tvl)
-  }, [bao, multicall])
+  }, [])
 
   useEffect(() => {
-    if (!(bao && multicall && farms)) return
+    if (!(web3 && multicall)) return
 
     fetchAllFarmTVL()
-  }, [bao, multicall])
+  }, [])
 
   return tvl
 }

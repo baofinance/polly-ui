@@ -9,11 +9,8 @@ import MultiCall from '../utils/multicall'
 import { Multicall as MC } from 'ethereum-multicall'
 
 import experipieAbi from '../bao/lib/abi/experipie.json'
+import useAllFarmTVL from './useAllFarmTVL'
 
-/**
- * Home analytics hook, temporary until we've got a subgraph deployed
- * for nests & polly token.
- */
 const useHomeAnalytics = () => {
   const [analytics, setAnalytics] = useState<
     | Array<{
@@ -29,7 +26,11 @@ const useHomeAnalytics = () => {
   )
   const multicall = new MC({ web3Instance: web3, tryAggregate: true })
 
+  const farmTVL = useAllFarmTVL(web3, multicall)
+
   const fetchAnalytics = useCallback(async () => {
+    if (!farmTVL) return
+
     const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
     const multicallContext = []
     for (const nest of supportedNests) {
@@ -76,7 +77,7 @@ const useHomeAnalytics = () => {
       },
       {
         title: 'Farms TVL',
-        data: '-',
+        data: `$${getDisplayBalance(farmTVL, 0)}`,
       },
       {
         title: 'Polly Burned 🔥',
@@ -85,11 +86,11 @@ const useHomeAnalytics = () => {
         ),
       },
     ])
-  }, [])
+  }, [farmTVL])
 
   useEffect(() => {
     fetchAnalytics()
-  }, [])
+  }, [farmTVL])
 
   return analytics
 }
