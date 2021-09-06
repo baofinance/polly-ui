@@ -77,6 +77,44 @@ const getPriceFromPair = async (
   return wethPrice.times(wethPerToken)
 }
 
+const getPriceFromPairMultiple = async (
+  wethPrice: BigNumber,
+  tokenAddresses: string[],
+  network = 'matic',
+) => {
+  const data: any = await _querySubgraph(
+    _getPriceFromPairMultiple(
+      tokenAddresses.map((tokenAddress) => tokenAddress.toLowerCase()),
+    ),
+    network,
+  )
+  if (!data.tokens) return
+
+  const prices: any[] = []
+  data.tokens.forEach((token: any) => {
+    const quotePair: any = _.find(
+      token.basePairs.concat(token.quotePairs),
+      (pair: any) => {
+        return (
+          pair.token0.symbol.toLowerCase().includes('eth') ||
+          pair.token1.symbol.toLowerCase().includes('eth')
+        )
+      },
+    )
+    if (!quotePair) return
+
+    const wethPerToken = quotePair.token0.symbol.toLowerCase().includes('eth')
+      ? quotePair.token0Price
+      : quotePair.token1Price
+
+    prices.push({
+      address: token.id,
+      price: wethPrice.times(wethPerToken),
+    })
+  })
+  return prices
+}
+
 const getPrice = async (tokenAddress: string, network = 'matic') => {
   const data: any = await getPriceHistory(tokenAddress, network)
   return data.tokens[0] && new BigNumber(data.tokens[0].dayData[0].priceUSD)
@@ -119,8 +157,8 @@ const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
   `
   {
     tokens(where: {id_in:["${tokenAddresses
-    .map((symbol) => symbol.toLowerCase())
-    .join('","')}"]}) {
+      .map((symbol) => symbol.toLowerCase())
+      .join('","')}"]}) {
       id
       name
       symbol
@@ -138,23 +176,50 @@ const _getPriceFromPair = (tokenAddress: string) =>
   {
     token(id:"${tokenAddress}"){
       ${_.map(
-    ['basePairs', 'quotePairs'],
-    (prefix) => `
-      ${prefix} {
-        token0 {
-          symbol
-        },
-        token1 {
-          symbol
-        }
-        token0Price,
-        token1Price
-      }
-      `,
-  )}
+        ['basePairs', 'quotePairs'],
+        (prefix) => `
+          ${prefix} {
+            token0 {
+              symbol
+            },
+            token1 {
+              symbol
+            }
+            token0Price,
+            token1Price
+          }
+          `,
+      )}
     }
   }
   `
+
+const _getPriceFromPairMultiple = (tokenAddresses: string[]) => {
+  return `
+  {
+    tokens(where: {id_in:[${tokenAddresses
+      .map((address) => `"${address}"`)
+      .join(',')}]}){
+      id,
+      ${_.map(
+        ['basePairs', 'quotePairs'],
+        (prefix) => `
+          ${prefix}(where:{name_contains:"WETH"}) {
+            token0 {
+              symbol
+            },
+            token1 {
+              symbol
+            }
+            token0Price,
+            token1Price
+          }
+          `,
+      )}
+    }
+  }
+  `
+}
 
 const _getPollyBurnQuery = () =>
   `
@@ -179,6 +244,7 @@ export default {
   getPriceHistory,
   getPriceHistoryMultiple,
   getPriceFromPair,
+  getPriceFromPairMultiple,
   getPrice,
   getPollyBurned,
   getPollySupply,
