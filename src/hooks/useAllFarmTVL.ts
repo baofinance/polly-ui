@@ -20,9 +20,9 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
     await multicall.call(
       Multicall.createCallContext(
         farms.map(
-          (farm, i) =>
+          (farm) =>
             ({
-              ref: i,
+              ref: farm.lpAddresses[137],
               contract: new web3.eth.Contract(
                 lpAbi as AbiItem[],
                 farm.lpAddresses[137],
@@ -65,6 +65,7 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
 
     return {
       tokens,
+      lpAddress: key,
       lpStaked: new BigNumber(res0[3].values[0].hex),
       lpSupply: new BigNumber(res0[4].values[0].hex),
     }
@@ -72,12 +73,13 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
 }
 
 const useAllFarmTVL = (web3: Web3, multicall: MC) => {
-  const [tvl, setTvl] = useState<BigNumber | undefined>()
+  const [tvl, setTvl] = useState<any | undefined>()
 
   const fetchAllFarmTVL = useCallback(async () => {
     const lps: any = await fetchLPInfo(supportedPools, multicall, web3)
     const wethPrice = await GraphUtil.getPrice(addressMap.WETH)
 
+    const tvls: any[] = []
     let _tvl = new BigNumber(0)
     lps.forEach((lpInfo: any) => {
       const lpStakedUSD = (
@@ -88,16 +90,24 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
         .times(wethPrice)
         .times(2)
         .times(lpInfo.lpStaked.div(lpInfo.lpSupply))
+      tvls.push({
+        lpAddress: lpInfo.lpAddress,
+        tvl: lpStakedUSD,
+      })
       _tvl = _tvl.plus(lpStakedUSD)
     })
-    setTvl(_tvl)
-  }, [])
+    setTvl({
+      tvl: _tvl,
+      tvls,
+    })
+  }, [web3, multicall])
 
   useEffect(() => {
-    if (!(web3 && multicall)) return
+    // Only fetch TVL once per page load
+    if (!(web3 && multicall) || tvl) return
 
     fetchAllFarmTVL()
-  }, [])
+  }, [web3, multicall])
 
   return tvl
 }

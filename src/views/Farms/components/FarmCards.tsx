@@ -11,10 +11,14 @@ import { PoolType } from 'contexts/Farms/types'
 import useAllStakedValue, { StakedValue } from 'hooks/useAllStakedValue'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
+import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
+import useMulticall from '../../../hooks/useMulticall'
 import { lighten } from 'polished'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
+import Tooltipped from '../../../components/Tooltipped'
+import { getDisplayBalance } from '../../../utils/formatBalance'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import styled, { keyframes } from 'styled-components'
@@ -29,9 +33,12 @@ interface FarmWithStakedValue extends Farm, StakedValue {
 const cardsPerRow = 3
 
 const FarmCards: React.FC = () => {
+	const bao = useBao()
+	const multicall = useMulticall()
 	const [farms] = useFarms()
 	const { account } = useWallet()
 	const stakedValue = useAllStakedValue()
+	const farmsTVL = useAllFarmTVL(bao && bao.web3, multicall)
 
 	const baoIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'POLLY')
 
@@ -43,35 +50,42 @@ const FarmCards: React.FC = () => {
 	const BLOCKS_PER_YEAR = new BigNumber(2336000)
 	const BAO_BER_BLOCK = new BigNumber(0)
 
-	const pools: { [key: string]: FarmWithStakedValue[] } = {
-		[PoolType.POLLY]: [],
-		[PoolType.SUSHI]: [],
-		[PoolType.ARCHIVED]: [],
-	}
-
-	farms.forEach((farm, i) => {
-		const farmWithStakedValue = {
-			...farm,
-			...stakedValue[i],
-			poolType: farm.poolType || PoolType.POLLY,
-			apy: stakedValue[i]
-				? baoPrice
-						.times(BAO_BER_BLOCK)
-						.times(BLOCKS_PER_YEAR)
-						.times(stakedValue[i].poolWeight)
-						.div(stakedValue[i].totalWethValue)
-				: null,
+	const pools = useMemo(() => {
+		const _pools: any = {
+			[PoolType.POLLY]: [],
+			[PoolType.SUSHI]: [],
+			[PoolType.ARCHIVED]: [],
 		}
+		if (!(farmsTVL && bao && multicall)) return _pools
 
-		pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
-	})
+		farms.forEach((farm, i) => {
+			const farmWithStakedValue = {
+				...farm,
+				...stakedValue[i],
+				poolType: farm.poolType || PoolType.POLLY,
+				tvl: farmsTVL.tvls.find(
+					(fTVL: any) => fTVL.lpAddress.toLowerCase() === farm.lpTokenAddress.toLowerCase(),
+				).tvl,
+				apy: stakedValue[i]
+					? baoPrice
+							.times(BAO_BER_BLOCK)
+							.times(BLOCKS_PER_YEAR)
+							.times(stakedValue[i].poolWeight)
+							.div(stakedValue[i].totalWethValue)
+					: null,
+			}
+
+			_pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
+		})
+		return _pools
+	}, [farmsTVL, bao, multicall])
 
 	return (
 		<Tabs>
 			<TabPanel>
 				<StyledCards>
-					{pools[PoolType.POLLY].length ? (
-						pools[PoolType.POLLY].map((farm, i) => (
+					{pools[PoolType.POLLY] && pools[PoolType.POLLY].length ? (
+						pools[PoolType.POLLY].map((farm: any, i: number) => (
 							<React.Fragment key={i}>
 								<FarmCard farm={farm} />
 								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
@@ -86,8 +100,8 @@ const FarmCards: React.FC = () => {
 			</TabPanel>
 			<TabPanel>
 				<StyledCards>
-					{pools[PoolType.SUSHI].length ? (
-						pools[PoolType.SUSHI].map((farm, i) => (
+					{pools[PoolType.SUSHI] && [PoolType.SUSHI].length ? (
+						pools[PoolType.SUSHI].map((farm: any, i: number) => (
 							<React.Fragment key={i}>
 								<FarmCard farm={farm} />
 								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
@@ -102,8 +116,8 @@ const FarmCards: React.FC = () => {
 			</TabPanel>
 			<TabPanel>
 				<StyledCards>
-					{pools[PoolType.ARCHIVED].length ? (
-						pools[PoolType.ARCHIVED].map((farm, i) => (
+					{pools[PoolType.ARCHIVED] && pools[PoolType.ARCHIVED].length ? (
+						pools[PoolType.ARCHIVED].map((farm: any, i: number) => (
 							<React.Fragment key={i}>
 								<FarmCard farm={farm} />
 								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
@@ -176,7 +190,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<div style={{height: '100px'}}>
 							<StyledTitle>{farm.name}</StyledTitle>
 							<StyledDetails>
-								<StyledDetail>Deposit <StyledExternalLink href={pairLink} target="_blank">{farm.lpToken.toUpperCase()}</StyledExternalLink></StyledDetail>
+								<StyledDetail>
+									Deposit{' '}
+									<StyledExternalLink href={pairLink} target="_blank">
+										{farm.lpToken.toUpperCase()}
+									</StyledExternalLink>
+								</StyledDetail>
 								<StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
 							</StyledDetails>
 						</div>
@@ -193,10 +212,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 								/>
 							)}
 						</Button>
-						<Spacer />
+						<Spacer size="sm" />
 						<Button text={nestMint} href={destination}></Button>
 						<StyledInsight>
-							<span>APY</span>
+							<span>APR</span>
 							<span>
 								{/*{farm.apy
 									? `${farm.apy
@@ -205,7 +224,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 											.toLocaleString('en-US')
 											.slice(0, -1)}%`
 									: '*/}
-								Loading ...
+								~{' '}
+								<Tooltipped content="APR unable to be calculated until the POLLY Token has a price on SushiSwap." />
 							</span>
 							{/* <span>
                 {farm.tokenAmount
@@ -219,6 +239,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   : '-'}{' '}
                 ETH
               </span> */}
+						</StyledInsight>
+						<StyledInsight>
+							<span>TVL</span>
+							<span>{`$${getDisplayBalance(farm.tvl, 0)}`}</span>
 						</StyledInsight>
 					</StyledContent>
 				</CardContent>

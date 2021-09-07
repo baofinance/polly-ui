@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract'
+import BigNumber from 'bignumber.js/bignumber'
 
 export enum PoolType {
   SUSHI = 'sushi',
@@ -21,6 +22,7 @@ export interface Farm {
   refUrl: string
   pairUrl: string
   poolType?: PoolType
+  tvl?: BigNumber
 }
 
 export interface FarmsContext {

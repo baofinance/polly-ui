@@ -77,7 +77,7 @@ const useHomeAnalytics = () => {
       },
       {
         title: 'Farms TVL',
-        data: `$${getDisplayBalance(farmTVL, 0)}`,
+        data: `$${getDisplayBalance(farmTVL.tvl, 0)}`,
       },
       {
         title: 'Polly Burned 🔥',
