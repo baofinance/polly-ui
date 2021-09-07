@@ -56,16 +56,10 @@ export const SpinnerLoader: React.FC<SpinnerProps> = ({ block }) => {
 		style = {
 			...style,
 			display: 'block',
-			margin: 'auto'
+			margin: 'auto',
 		}
 
-	return (
-		<Spinner
-			animation="border"
-			size="sm"
-			style={style}
-		/>
-	)
+	return <Spinner animation="grow" size="sm" style={style} />
 }
 
 export default Loader

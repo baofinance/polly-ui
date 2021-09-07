@@ -4,7 +4,7 @@ import Button from 'components/Button'
 import Card from 'components/Card'
 import CardContent from 'components/CardContent'
 import CardIcon from 'components/CardIcon'
-import Loader from 'components/Loader'
+import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import { Farm } from 'contexts/Farms'
 import { PoolType } from 'contexts/Farms/types'
@@ -64,7 +64,8 @@ const FarmCards: React.FC = () => {
 				...stakedValue[i],
 				poolType: farm.poolType || PoolType.POLLY,
 				tvl: farmsTVL.tvls.find(
-					(fTVL: any) => fTVL.lpAddress.toLowerCase() === farm.lpTokenAddress.toLowerCase(),
+					(fTVL: any) =>
+						fTVL.lpAddress.toLowerCase() === farm.lpTokenAddress.toLowerCase(),
 				).tvl,
 				apy: stakedValue[i]
 					? baoPrice
@@ -93,7 +94,7 @@ const FarmCards: React.FC = () => {
 						))
 					) : (
 						<StyledLoadingWrapper>
-							<Loader text="Cooking the rice..." />
+							<SpinnerLoader />
 						</StyledLoadingWrapper>
 					)}
 				</StyledCards>
@@ -109,7 +110,7 @@ const FarmCards: React.FC = () => {
 						))
 					) : (
 						<StyledLoadingWrapper>
-							<Loader text="Cooking the rice..." />
+							<SpinnerLoader />
 						</StyledLoadingWrapper>
 					)}
 				</StyledCards>
@@ -125,7 +126,7 @@ const FarmCards: React.FC = () => {
 						))
 					) : (
 						<StyledLoadingWrapper>
-							<Loader text="Cooking the rice..." />
+							<SpinnerLoader />
 						</StyledLoadingWrapper>
 					)}
 				</StyledCards>
