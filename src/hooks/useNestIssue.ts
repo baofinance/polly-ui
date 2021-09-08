@@ -10,22 +10,15 @@ const useNestIssue = (nestContractAddress: string) => {
   const bao = useBao()
   const recipeContract = getRecipeContract(bao)
 
-  const handleIssue = useCallback(
-    async (amountWeth: string, amountIndex: string) => {
-      const encodedAmountData = await recipeContract.methods
-        .encodeData(new BigNumber(amountIndex).times(10 ** 18).toString())
-        .call()
-
-      const txHash = await nestIssue(
-        recipeContract,
-        nestContractAddress,
-        addressMap.WETH,
-        amountWeth,
-        encodedAmountData,
-        account,
-      )
-      console.log(txHash)
-    },
+  const handleIssue = useCallback((amountWeth: string, encodedAmountData: string) =>
+    nestIssue(
+      recipeContract,
+      nestContractAddress,
+      addressMap.WETH,
+      amountWeth,
+      encodedAmountData,
+      account,
+    ),
     [account, nestContractAddress, bao],
   )
 

@@ -47,6 +47,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
+	const [confNo, setConfNo] = useState<number | undefined>()
 
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
@@ -248,12 +249,22 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							!nav ||
 							navDifferenceTooHigh
 						}
-						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+						text={confNo ? `Confirmations: ${confNo}/10` : pendingTx ? 'Pending Confirmation' : 'Confirm'}
 						onClick={async () => {
 							setPendingTx(true)
-							await onIssue(wethNeeded, nestAmount)
-							setPendingTx(false)
-							onDismiss()
+							const encodedAmountData = await recipeContract.methods
+								.encodeData(new BigNumber(nestAmount).times(10 ** 18).toString())
+								.call()
+							onIssue(wethNeeded, encodedAmountData).on('confirmation', (_confNo: any) => {
+								setConfNo(_confNo)
+								console.log(_confNo)
+								if (_confNo >= 10) {
+									setConfNo(undefined)
+									setPendingTx(false)
+									onDismiss()
+									window.location.reload()
+								}
+							})
 						}}
 					/>
 				)}

@@ -9,13 +9,12 @@ const useNestRedeem = (nid: number) => {
   const nestContract = getNestContract(bao, nid)
 
   const handleNestRedeem = useCallback(
-    async (amount: string) => {
-      const txHash = await nestRedeem(
+    (amount: string) => {
+      return nestRedeem(
         nestContract.nestContract,
         amount,
         account,
       )
-      console.log(txHash)
     },
     [account, nid, bao],
   )

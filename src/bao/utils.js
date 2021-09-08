@@ -317,7 +317,7 @@ export const fetchCalcToNest = async (
 	return new BigNumber(amountEthNecessary).div(new BigNumber(10).pow(18))
 }
 
-export const nestIssue = async (
+export const nestIssue = (
 	recipeContract,
 	_outputToken,
 	_inputToken,
@@ -325,25 +325,19 @@ export const nestIssue = async (
 	_data,
 	account,
 ) =>
-	new Promise((resolve) =>
-		recipeContract.methods
-			.bake(
-				_inputToken,
-				_outputToken,
-				new BigNumber(_maxInput).times(10 ** 18).toString(),
-				_data,
-			)
-			.send({ from: account })
-			.on('receipt', (tx) => resolve(tx.transactionHash)),
-	)
+	recipeContract.methods
+		.bake(
+			_inputToken,
+			_outputToken,
+			new BigNumber(_maxInput).times(10 ** 18).toString(),
+			_data,
+		)
+		.send({ from: account })
 
-export const nestRedeem = async (nestContract, amount, account) =>
-	new Promise((resolve) =>
-		nestContract.methods
-			.exitPool(new BigNumber(amount).times(10 ** 18).toString())
-			.send({ from: account })
-			.on('receipt', (tx) => resolve(tx.transactionHash)),
-	)
+export const nestRedeem = (nestContract, amount, account) =>
+	nestContract.methods
+		.exitPool(new BigNumber(amount).times(10 ** 18).toString())
+		.send({ from: account })
 
 export const getWethPriceLink = async (bao) => {
 	const priceOracle = getWethPriceContract(bao)
