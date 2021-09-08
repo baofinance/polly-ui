@@ -1,4 +1,4 @@
-import baoIcon from 'assets/img/bao.png'
+import pollyIcon from 'assets/img/polly.png'
 import Button from 'components/Button'
 import Card from 'components/Card'
 import CardContent from 'components/CardContent'
@@ -35,7 +35,7 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
 				<StyledCardContentInner>
 					<StyledCardHeader>
 						<CardIcon>
-							<img src={baoIcon} height={50} alt="" />
+							<img src={pollyIcon} height={50} alt="" />
 						</CardIcon>
 						<Value value={getBalanceNumber(earnings)} />
 						<Label text="POLLY Earned" />
