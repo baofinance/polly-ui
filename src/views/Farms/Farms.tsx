@@ -77,18 +77,6 @@ const Farms: React.FC = () => {
 									has not yet stabilized.
 								</StyledInfo>
 								<Spacer size="md" />
-								<StyledInfo>
-									<h4 style={{ margin: '1em', textAlign: 'center' }}>
-										<Badge bg="secondary">
-											Polly Price:{' '}
-											{baoPrice ? (
-												`$${getDisplayBalance(baoPrice, 0)}`
-											) : (
-												<SpinnerLoader />
-											)}
-										</Badge>
-									</h4>
-								</StyledInfo>
 							</Container>
 							<FarmCards />
 						</Route>
