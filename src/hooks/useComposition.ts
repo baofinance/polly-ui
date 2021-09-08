@@ -7,7 +7,7 @@ import { useWallet } from 'use-wallet'
 import useBao from './useBao'
 import useMulticall from './useMulticall'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { decimate, getBalanceNumber } from 'utils/formatBalance'
 import { getWethPriceLink } from '../bao/utils'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
@@ -49,7 +49,9 @@ const useComposition = (nest: Nest) => {
               graphData.symbol,
             )}.png`)
 
-            let price = graphData.dayData[0].priceUSD, basePrice
+            let price = graphData.dayData[0].priceUSD,
+              basePrice,
+              baseBalance
             if (price === '0')
               price = await GraphClient.getPriceFromPair(
                 wethPrice,
@@ -108,6 +110,7 @@ const useComposition = (nest: Nest) => {
                   new BigNumber(exchangeRate).times(componentBalance),
                   18,
                 )
+                baseBalance = decimate(underlying, 18)
                 basePrice = new BigNumber(price)
                 price = new BigNumber(price).times(
                   new BigNumber(
@@ -142,6 +145,7 @@ const useComposition = (nest: Nest) => {
               imageUrl,
               price: new BigNumber(price),
               basePrice,
+              baseBalance,
               strategy: _getStrategy(specialSymbol || graphData.symbol),
             }
           }),

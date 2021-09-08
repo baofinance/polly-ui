@@ -138,6 +138,7 @@ const Nest: React.FC = () => {
 			nestContract={nestContract}
 			inputTokenContract={inputTokenContract}
 			outputTokenContract={outputTokenContract}
+			nav={nav}
 		/>,
 	)
 
@@ -262,9 +263,25 @@ const Nest: React.FC = () => {
 							</span>
 							<QuestionIcon icon="question-circle" onClick={onNavModal} />
 							<Spacer size={'sm'} />
-							<StyledBadge>
-								{(nav && `$${getDisplayBalance(nav, 0)}`) || <SpinnerLoader />}
-							</StyledBadge>
+							<Tooltipped content={"Based on SushiSwap's MATIC prices"}>
+								<StyledBadge style={{ marginRight: '10px' }}>
+									<img
+										src={require('../../assets/img/assets/MATIC.png')}
+										style={{ height: '1em' }}
+									/>{' '}
+									{(nav && `$${getDisplayBalance(nav.nav, 0)}`) || (
+										<SpinnerLoader />
+									)}
+								</StyledBadge>
+							</Tooltipped>
+							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
+								<StyledBadge>
+									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
+									{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
+										<SpinnerLoader />
+									)}
+								</StyledBadge>
+							</Tooltipped>
 						</StatCard>
 					</Col>
 					<Col>
@@ -288,7 +305,10 @@ const Nest: React.FC = () => {
 								{(nav &&
 									sushiPairPrice &&
 									`${getDisplayBalance(
-										sushiPairPrice.minus(nav).div(sushiPairPrice).times(100),
+										sushiPairPrice
+											.minus(nav.nav)
+											.div(sushiPairPrice)
+											.times(100),
 										0,
 									)}%`) || <SpinnerLoader />}
 							</StyledBadge>
@@ -296,7 +316,7 @@ const Nest: React.FC = () => {
 					</Col>
 				</StatsRow>
 				<NestButtons>
-					<Button text="Issue" onClick={onPresentDeposit} width="20%" />
+					<Button text="Issue" onClick={onPresentDeposit} width="20%" disabled={!nav} />
 					<Spacer />
 					<Button
 						disabled={tokenBalance.eq(new BigNumber(0))}

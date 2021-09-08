@@ -1,3 +1,4 @@
+import React, { useCallback, useMemo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addressMap } from 'bao/lib/constants'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
@@ -17,7 +18,6 @@ import useInputApprove from 'hooks/useInputApprove'
 import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
-import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
 import { Contract } from 'web3-eth-contract'
@@ -31,6 +31,7 @@ interface IssueModalProps extends ModalProps {
 	outputTokenContract: Contract
 	_inputToken?: string
 	_outputToken?: string
+	nav: { nav: BigNumber, mainnetNav: BigNumber }
 }
 
 const IssueModal: React.FC<IssueModalProps> = ({
@@ -41,6 +42,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	_inputToken,
 	_outputToken,
 	inputTokenContract,
+	nav,
 }) => {
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
@@ -51,6 +53,12 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const allowance = useInputAllowance(inputTokenContract)
 	const { onApprove } = useInputApprove(inputTokenContract)
 	const { wethPerIndex } = useNestRate(nestAddress)
+
+	const navDifferenceTooHigh = useMemo(
+		() =>
+			nav && nav.nav.minus(nav.mainnetNav).div(nav.nav).times(100).abs().gt(5),
+		[nav],
+	)
 
 	const fetchRate = async () => {
 		return fetchCalcToNest(recipeContract, _outputToken, 1)
@@ -153,15 +161,21 @@ const IssueModal: React.FC<IssueModalProps> = ({
 						<b>❗MINTING LIMIT ENABLED❗</b>
 					</Warning>
 					<p>
-						During the soft launch, minting is limited to 0.1 due to low
-						liquidity on its underlying tokens. Once liquidity for these tokens
-						is bridged to Polygon, mint limits will be removed.
+						{navDifferenceTooHigh
+							? `The difference between NAV on mainnet ($${getDisplayBalance(
+									nav.mainnetNav,
+									0,
+							  )}) and NAV on MATIC ($${getDisplayBalance(
+									nav.nav,
+									0,
+							  )}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
+							: 'During the soft launch, minting is limited to 0.1 due to low liquidity on its underlying tokens. Once liquidity for these tokens is bridged to Polygon, mint limits will be removed.'}
 					</p>
-					{
-						'Polly uses your wETH to buy the underlying assets for you from Sushiswap. Minting transactions send 5% more wETH to avoid unexpected errors like slippage, any unused WETH is returned.'
-					}
-					<br />
-					<br />
+					<p>
+						Polly uses your wETH to buy the underlying assets for you from
+						Sushiswap. Minting transactions send 5% more wETH to avoid
+						unexpected errors like slippage, any unused WETH is returned.
+					</p>
 					<HidePrice>
 					<b>
 						Your wETH Balance:{' '}
@@ -230,7 +244,9 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							parseFloat(nestAmount) > 0.1 ||
 							parseFloat(wethNeeded) === 0 ||
 							parseFloat(wethNeeded) < 0 ||
-							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber()
+							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
+							!nav ||
+							navDifferenceTooHigh
 						}
 						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
 						onClick={async () => {

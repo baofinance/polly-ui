@@ -41,8 +41,12 @@ const _querySubgraph = (query: string, network = 'matic', _client?: ApolloClient
 const getPriceHistoryMultiple = async (
   tokenAddresses: string[],
   network = 'matic',
+  first?: number,
 ) =>
-  await _querySubgraph(_getPriceHistoryQueryMultiple(tokenAddresses), network)
+  await _querySubgraph(
+    _getPriceHistoryQueryMultiple(tokenAddresses, first),
+    network,
+  )
 
 const getPriceHistory = async (tokenAddress: string, network = 'matic') =>
   await _querySubgraph(_getPriceHistoryQuery(tokenAddress), network)
@@ -153,7 +157,7 @@ const _getPriceHistoryQuery = (tokenAddress: string) =>
   }
   `
 
-const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
+const _getPriceHistoryQueryMultiple = (tokenAddresses: string[], first = 100) =>
   `
   {
     tokens(where: {id_in:["${tokenAddresses
@@ -163,7 +167,7 @@ const _getPriceHistoryQueryMultiple = (tokenAddresses: string[]) =>
       name
       symbol
       decimals
-      dayData(orderBy:date, orderDirection:desc) {
+      dayData(orderBy:date, orderDirection:desc, first: ${first}) {
         date
         priceUSD
       }
@@ -204,7 +208,7 @@ const _getPriceFromPairMultiple = (tokenAddresses: string[]) => {
       ${_.map(
         ['basePairs', 'quotePairs'],
         (prefix) => `
-          ${prefix}(where:{name_contains:"WETH"}) {
+          ${prefix}(where:{name_contains:"ETH"}) {
             token0 {
               symbol
             },

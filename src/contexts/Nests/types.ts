@@ -21,6 +21,7 @@ export interface NestComponent {
   balanceDecimals?: number
   price?: BigNumber
   basePrice?: BigNumber
+  baseBalance?: BigNumber
   strategy?: string
 }
 
