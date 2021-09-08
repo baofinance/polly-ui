@@ -170,7 +170,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 									nav.nav,
 									0,
 							  )}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
-							: 'During the soft launch, minting is limited to 0.1 due to low liquidity on its underlying tokens. Once liquidity for these tokens is bridged to Polygon, mint limits will be removed.'}
+							: 'Minting is limited to 1,000 due to low liquidity on underlying tokens. Once liquidity for these tokens is bridged to Polygon, mint limits will be removed.'}
 					</p>
 					<p>
 						Polly uses your wETH to buy the underlying assets for you from
