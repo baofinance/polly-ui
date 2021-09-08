@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
 import { addressMap, supportedNests } from '../bao/lib/constants'
 import GraphUtil from '../utils/graph'
-import { getBalanceNumber, getDisplayBalance } from '../utils/formatBalance'
+import { getBalanceNumber, getDisplayBalance, getAnalytics } from '../utils/formatBalance'
 import MultiCall from '../utils/multicall'
 import { Multicall as MC } from 'ethereum-multicall'
 
@@ -69,19 +69,19 @@ const useHomeAnalytics = () => {
     setAnalytics([
       {
         title: 'Polly Supply',
-        data: getDisplayBalance(new BigNumber(pollySupply)),
+        data: getAnalytics(new BigNumber(pollySupply)),
       },
       {
         title: 'Total Value of Nests',
-        data: `$${getDisplayBalance(totalNestUsd, 0)}`,
+        data: `$${getAnalytics(totalNestUsd, 0)}`,
       },
       {
         title: 'Farms TVL',
-        data: `$${getDisplayBalance(farmTVL.tvl, 0)}`,
+        data: `$${getAnalytics(farmTVL.tvl, 0)}`,
       },
       {
         title: 'Polly Burned 🔥',
-        data: getDisplayBalance(
+        data: getAnalytics(
           new BigNumber((await GraphUtil.getPollyBurned()).burnedTokens),
         ),
       },
