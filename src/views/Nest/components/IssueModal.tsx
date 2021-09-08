@@ -240,8 +240,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							nestAmount.slice(-1) === '.' ||
 							isNaN(parseFloat(wethNeeded)) ||
 							isNaN(parseFloat(nestAmount)) ||
-							getBalanceNumber(new BigNumber(nestBalance)) >= 0.1 ||
-							parseFloat(nestAmount) > 0.1 ||
+							getBalanceNumber(new BigNumber(nestBalance)) >= 100 ||
+							parseFloat(nestAmount) > 100 ||
 							parseFloat(wethNeeded) === 0 ||
 							parseFloat(wethNeeded) < 0 ||
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
