@@ -38,7 +38,6 @@ const FarmCards: React.FC = () => {
 	const bao = useBao()
 	const multicall = useMulticall()
 	const [farms] = useFarms()
-	const { account } = useWallet()
 	const farmsTVL = useAllFarmTVL(bao && bao.web3, multicall)
 
 	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
@@ -50,8 +49,10 @@ const FarmCards: React.FC = () => {
 
 	useEffect(() => {
 		GraphUtil.getPrice(addressMap.WETH).then(async (wethPrice) => {
-			const pollyPrice =
-				await GraphUtil.getPriceFromPair(wethPrice, contractAddresses.polly[137])
+			const pollyPrice = await GraphUtil.getPriceFromPair(
+				wethPrice,
+				contractAddresses.polly[137],
+			)
 			setBaoPrice(pollyPrice)
 		})
 
@@ -60,50 +61,56 @@ const FarmCards: React.FC = () => {
 			[PoolType.SUSHI]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(farmsTVL && bao && multicall) || pools.polly.length) return setPools(_pools)
+		if (!(farmsTVL && bao && multicall) || pools.polly.length)
+			return setPools(_pools)
 
-		multicall.call(
-			Multicall.createCallContext([
-				{
-					ref: 'masterChef',
-					contract: getMasterChefContract(bao),
-					calls: farms.map((farm, i) => {
-						return {
-							ref: i.toString(),
-							method: 'getNewRewardPerBlock',
-							params: [farm.pid + 1]
-						}
-					})
-				}
-			])
-		).then(async (_result: any) => {
-			const result = await Multicall.parseCallResults(_result)
+		multicall
+			.call(
+				Multicall.createCallContext([
+					{
+						ref: 'masterChef',
+						contract: getMasterChefContract(bao),
+						calls: farms.map((farm, i) => {
+							return {
+								ref: i.toString(),
+								method: 'getNewRewardPerBlock',
+								params: [farm.pid + 1],
+							}
+						}),
+					},
+				]),
+			)
+			.then(async (_result: any) => {
+				const result = await Multicall.parseCallResults(_result)
 
-			for (let i = 0; i < farms.length; i++) {
-				const farm = farms[i]
-				const farmWithStakedValue = {
-					...farm,
-					poolType: farm.poolType || PoolType.POLLY,
-					tvl: farmsTVL.tvls.find(
+				for (let i = 0; i < farms.length; i++) {
+					const farm = farms[i]
+					const tvlInfo = farmsTVL.tvls.find(
 						(fTVL: any) =>
-							fTVL.lpAddress.toLowerCase() === farm.lpTokenAddress.toLowerCase(),
-					).tvl,
-					apy: baoPrice && farmsTVL
-						? baoPrice
-							.times(BLOCKS_PER_YEAR)
-							.times(new BigNumber(result.masterChef[i].values[0].hex).div(10 ** 18))
-							.div(
-								farmsTVL.tvls.find((tvlInfo: any) =>
-									tvlInfo.lpAddress.toLowerCase() === farm.lpTokenAddress.toLowerCase()
-								).tvl
-							)
-						: null,
-				}
+							fTVL.lpAddress.toLowerCase() ===
+							farm.lpTokenAddress.toLowerCase(),
+					)
+					const farmWithStakedValue = {
+						...farm,
+						poolType: farm.poolType || PoolType.POLLY,
+						tvl: tvlInfo.tvl,
+						apy:
+							baoPrice && farmsTVL
+								? baoPrice
+										.times(BLOCKS_PER_YEAR)
+										.times(
+											new BigNumber(result.masterChef[i].values[0].hex).div(
+												10 ** 18,
+											),
+										)
+										.div(tvlInfo.tvl)
+								: null,
+					}
 
-				_pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
-			}
-			setPools(_pools)
-		})
+					_pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
+				}
+				setPools(_pools)
+			})
 	}, [farmsTVL, bao, multicall])
 
 	const BLOCKS_PER_YEAR = new BigNumber(13428766) // (60 * 60 * 24 * 365.25) / 2.35 (avg Polygon block time)
@@ -213,11 +220,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 			<Card>
 				<CardContent>
 					<StyledContent>
-					{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
+						{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
 						<CardIcon>
 							<img src={farm.icon} alt="" height="50" />
 						</CardIcon>
-						<div style={{height: '100px'}}>
+						<div style={{ height: '100px' }}>
 							<StyledTitle>{farm.name}</StyledTitle>
 							<StyledDetails>
 								<StyledDetail>
@@ -247,13 +254,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<StyledInsight>
 							<span>APR</span>
 							<span>
-								{farm.apy
-									? `${farm.apy
-											.times(new BigNumber(100))
-											.toNumber()
-											.toLocaleString('en-US')
-											.slice(0, -1)}%`
-									: <SpinnerLoader />}
+								{farm.apy ? (
+									`${farm.apy
+										.times(new BigNumber(100))
+										.toNumber()
+										.toLocaleString('en-US')
+										.slice(0, -1)}%`
+								) : (
+									<SpinnerLoader />
+								)}
 							</span>
 							{/* <span>
                 {farm.tokenAmount
