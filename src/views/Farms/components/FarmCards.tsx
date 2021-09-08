@@ -8,16 +8,14 @@ import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import { Farm } from 'contexts/Farms'
 import { PoolType } from 'contexts/Farms/types'
-import useAllStakedValue, { StakedValue } from 'hooks/useAllStakedValue'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
 import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
 import useMulticall from '../../../hooks/useMulticall'
 import { lighten } from 'polished'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
-import Tooltipped from '../../../components/Tooltipped'
 import { getDisplayBalance } from '../../../utils/formatBalance'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
@@ -25,8 +23,12 @@ import styled, { keyframes } from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { bnToDec } from 'utils'
 import './tab-styles.css'
+import GraphUtil from '../../../utils/graph'
+import Multicall from '../../../utils/multicall'
+import { addressMap, contractAddresses } from '../../../bao/lib/constants'
+import { Badge } from 'react-bootstrap'
 
-interface FarmWithStakedValue extends Farm, StakedValue {
+interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
 }
 
@@ -36,102 +38,142 @@ const FarmCards: React.FC = () => {
 	const bao = useBao()
 	const multicall = useMulticall()
 	const [farms] = useFarms()
-	const { account } = useWallet()
-	const stakedValue = useAllStakedValue()
 	const farmsTVL = useAllFarmTVL(bao && bao.web3, multicall)
 
-	const baoIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'POLLY')
+	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
+	const [pools, setPools] = useState<any | undefined>({
+		[PoolType.POLLY]: [],
+		[PoolType.SUSHI]: [],
+		[PoolType.ARCHIVED]: [],
+	})
 
-	const baoPrice =
-		baoIndex >= 0 && stakedValue[baoIndex]
-			? stakedValue[baoIndex].tokenPriceInWeth
-			: new BigNumber(0)
+	useEffect(() => {
+		GraphUtil.getPrice(addressMap.WETH).then(async (wethPrice) => {
+			const pollyPrice = await GraphUtil.getPriceFromPair(
+				wethPrice,
+				contractAddresses.polly[137],
+			)
+			setBaoPrice(pollyPrice)
+		})
 
-	const BLOCKS_PER_YEAR = new BigNumber(2336000)
-	const BAO_BER_BLOCK = new BigNumber(0)
-
-	const pools = useMemo(() => {
 		const _pools: any = {
 			[PoolType.POLLY]: [],
 			[PoolType.SUSHI]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(farmsTVL && bao && multicall)) return _pools
+		if (!(farmsTVL && bao && multicall) || pools.polly.length)
+			return setPools(_pools)
 
-		farms.forEach((farm, i) => {
-			const farmWithStakedValue = {
-				...farm,
-				...stakedValue[i],
-				poolType: farm.poolType || PoolType.POLLY,
-				tvl: farmsTVL.tvls.find(
-					(fTVL: any) =>
-						fTVL.lpAddress.toLowerCase() === farm.lpTokenAddress.toLowerCase(),
-				).tvl,
-				apy: stakedValue[i]
-					? baoPrice
-							.times(BAO_BER_BLOCK)
-							.times(BLOCKS_PER_YEAR)
-							.times(stakedValue[i].poolWeight)
-							.div(stakedValue[i].totalWethValue)
-					: null,
-			}
+		multicall
+			.call(
+				Multicall.createCallContext([
+					{
+						ref: 'masterChef',
+						contract: getMasterChefContract(bao),
+						calls: farms.map((farm, i) => {
+							return {
+								ref: i.toString(),
+								method: 'getNewRewardPerBlock',
+								params: [farm.pid + 1],
+							}
+						}),
+					},
+				]),
+			)
+			.then(async (_result: any) => {
+				const result = await Multicall.parseCallResults(_result)
 
-			_pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
-		})
-		return _pools
+				for (let i = 0; i < farms.length; i++) {
+					const farm = farms[i]
+					const tvlInfo = farmsTVL.tvls.find(
+						(fTVL: any) =>
+							fTVL.lpAddress.toLowerCase() ===
+							farm.lpTokenAddress.toLowerCase(),
+					)
+					const farmWithStakedValue = {
+						...farm,
+						poolType: farm.poolType || PoolType.POLLY,
+						tvl: tvlInfo.tvl,
+						apy:
+							baoPrice && farmsTVL
+								? baoPrice
+										.times(BLOCKS_PER_YEAR)
+										.times(
+											new BigNumber(result.masterChef[i].values[0].hex).div(
+												10 ** 18,
+											),
+										)
+										.div(tvlInfo.tvl)
+								: null,
+					}
+
+					_pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
+				}
+				setPools(_pools)
+			})
 	}, [farmsTVL, bao, multicall])
 
+	const BLOCKS_PER_YEAR = new BigNumber(13428766) // (60 * 60 * 24 * 365.25) / 2.35 (avg Polygon block time)
+
 	return (
-		<Tabs>
-			<TabPanel>
-				<StyledCards>
-					{pools[PoolType.POLLY] && pools[PoolType.POLLY].length ? (
-						pools[PoolType.POLLY].map((farm: any, i: number) => (
-							<React.Fragment key={i}>
-								<FarmCard farm={farm} />
-								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
-							</React.Fragment>
-						))
-					) : (
-						<StyledLoadingWrapper>
-							<SpinnerLoader />
-						</StyledLoadingWrapper>
-					)}
-				</StyledCards>
-			</TabPanel>
-			<TabPanel>
-				<StyledCards>
-					{pools[PoolType.SUSHI] && [PoolType.SUSHI].length ? (
-						pools[PoolType.SUSHI].map((farm: any, i: number) => (
-							<React.Fragment key={i}>
-								<FarmCard farm={farm} />
-								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
-							</React.Fragment>
-						))
-					) : (
-						<StyledLoadingWrapper>
-							<SpinnerLoader />
-						</StyledLoadingWrapper>
-					)}
-				</StyledCards>
-			</TabPanel>
-			<TabPanel>
-				<StyledCards>
-					{pools[PoolType.ARCHIVED] && pools[PoolType.ARCHIVED].length ? (
-						pools[PoolType.ARCHIVED].map((farm: any, i: number) => (
-							<React.Fragment key={i}>
-								<FarmCard farm={farm} />
-								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
-							</React.Fragment>
-						))
-					) : (
-						<StyledLoadingWrapper>
-							<SpinnerLoader />
-						</StyledLoadingWrapper>
-					)}
-				</StyledCards>
-			</TabPanel>
-		</Tabs>
+		<>
+			<h3 style={{ margin: '1em' }}>
+				<Badge bg="secondary">
+					Polly Price:{' '}
+					{baoPrice ? `$${getDisplayBalance(baoPrice, 0)}` : <SpinnerLoader />}
+				</Badge>
+			</h3>
+			<Tabs>
+				<TabPanel>
+					<StyledCards>
+						{pools[PoolType.POLLY] && pools[PoolType.POLLY].length ? (
+							pools[PoolType.POLLY].map((farm: any, i: number) => (
+								<React.Fragment key={i}>
+									<FarmCard farm={farm} />
+									{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
+								</React.Fragment>
+							))
+						) : (
+							<StyledLoadingWrapper>
+								<SpinnerLoader />
+							</StyledLoadingWrapper>
+						)}
+					</StyledCards>
+				</TabPanel>
+				<TabPanel>
+					<StyledCards>
+						{pools[PoolType.SUSHI] && [PoolType.SUSHI].length ? (
+							pools[PoolType.SUSHI].map((farm: any, i: number) => (
+								<React.Fragment key={i}>
+									<FarmCard farm={farm} />
+									{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
+								</React.Fragment>
+							))
+						) : (
+							<StyledLoadingWrapper>
+								<SpinnerLoader />
+							</StyledLoadingWrapper>
+						)}
+					</StyledCards>
+				</TabPanel>
+				<TabPanel>
+					<StyledCards>
+						{pools[PoolType.ARCHIVED] && pools[PoolType.ARCHIVED].length ? (
+							pools[PoolType.ARCHIVED].map((farm: any, i: number) => (
+								<React.Fragment key={i}>
+									<FarmCard farm={farm} />
+									{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}
+								</React.Fragment>
+							))
+						) : (
+							<StyledLoadingWrapper>
+								<SpinnerLoader />
+							</StyledLoadingWrapper>
+						)}
+					</StyledCards>
+				</TabPanel>
+			</Tabs>
+		</>
 	)
 }
 
@@ -184,11 +226,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 			<Card>
 				<CardContent>
 					<StyledContent>
-					{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
+						{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
 						<CardIcon>
 							<img src={farm.icon} alt="" height="50" />
 						</CardIcon>
-						<div style={{height: '100px'}}>
+						<div style={{ height: '100px' }}>
 							<StyledTitle>{farm.name}</StyledTitle>
 							<StyledDetails>
 								<StyledDetail>
@@ -218,15 +260,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<StyledInsight>
 							<span>APR</span>
 							<span>
-								{/*{farm.apy
-									? `${farm.apy
-											.times(new BigNumber(100))
-											.toNumber()
-											.toLocaleString('en-US')
-											.slice(0, -1)}%`
-									: '*/}
-								~{' '}
-								<Tooltipped content="APR unable to be calculated until the POLLY Token has a price on SushiSwap." />
+								{farm.apy ? (
+									`${farm.apy
+										.times(new BigNumber(100))
+										.toNumber()
+										.toLocaleString('en-US')
+										.slice(0, -1)}%`
+								) : (
+									<SpinnerLoader />
+								)}
 							</span>
 							{/* <span>
                 {farm.tokenAmount
