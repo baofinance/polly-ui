@@ -34,6 +34,13 @@ a:focus {
   color: #7793f5;
 }
 
+.badge {
+  background-color: #171522 !important;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #0c0b12;
+}
+
 .tooltip {
   border: none;
 }

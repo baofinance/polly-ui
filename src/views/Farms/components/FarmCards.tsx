@@ -110,14 +110,6 @@ const FarmCards: React.FC = () => {
 
 	return (
 		<>
-			<h3 style={{ margin: '1em' }}>
-				<Badge bg="secondary">
-					Polly Price:{' '}
-					{baoPrice
-						? `$${getDisplayBalance(baoPrice, 0)}`
-						: <SpinnerLoader />}
-				</Badge>
-			</h3>
 			<Tabs>
 				<TabPanel>
 					<StyledCards>
