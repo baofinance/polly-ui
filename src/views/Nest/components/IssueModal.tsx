@@ -248,22 +248,32 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							!nav ||
 							navDifferenceTooHigh
 						}
-						text={confNo ? `Confirmations: ${confNo}/10` : pendingTx ? 'Pending Confirmation' : 'Confirm'}
+						text={
+							confNo
+								? `Confirmations: ${confNo}/15`
+								: pendingTx
+								? 'Pending Confirmation'
+								: 'Confirm'
+						}
 						onClick={async () => {
 							setPendingTx(true)
 							const encodedAmountData = await recipeContract.methods
-								.encodeData(new BigNumber(nestAmount).times(10 ** 18).toString())
+								.encodeData(
+									new BigNumber(nestAmount).times(10 ** 18).toString(),
+								)
 								.call()
-							onIssue(wethNeeded, encodedAmountData).on('confirmation', (_confNo: any) => {
-								setConfNo(_confNo)
-								console.log(_confNo)
-								if (_confNo >= 10) {
-									setConfNo(undefined)
-									setPendingTx(false)
-									onDismiss()
-									window.location.reload()
-								}
-							})
+							onIssue(wethNeeded, encodedAmountData).on(
+								'confirmation',
+								(_confNo: any) => {
+									setConfNo(_confNo)
+									if (_confNo >= 15) {
+										setConfNo(undefined)
+										setPendingTx(false)
+										onDismiss()
+										window.location.reload(false)
+									}
+								},
+							)
 						}}
 					/>
 				)}

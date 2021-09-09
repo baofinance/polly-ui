@@ -117,12 +117,18 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 						parseFloat(val) < 0 ||
 						parseFloat(val) > max.div(10 ** 18).toNumber()
 					}
-					text={confNo ? `Confirmations: ${confNo}/10` : pendingTx ? 'Pending Confirmation' : 'Confirm'}
+					text={
+						confNo
+							? `Confirmations: ${confNo}/15`
+							: pendingTx
+							? 'Pending Confirmation'
+							: 'Confirm'
+					}
 					onClick={async () => {
 						setPendingTx(true)
 						onConfirm(val).on('confirmation', (_confNo: any) => {
 							setConfNo(_confNo)
-							if (_confNo >= 10) {
+							if (_confNo >= 15) {
 								setConfNo(undefined)
 								setPendingTx(false)
 								onDismiss()
