@@ -93,6 +93,7 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
       tvls.push({
         lpAddress: lpInfo.lpAddress,
         tvl: lpStakedUSD,
+        lpStaked: lpInfo.lpStaked,
       })
       _tvl = _tvl.plus(lpStakedUSD)
     })

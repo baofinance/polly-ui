@@ -16,7 +16,7 @@ import { lighten } from 'polished'
 import React, { useEffect, useState } from 'react'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import { decimate, getDisplayBalance } from '../../../utils/formatBalance'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import styled, { keyframes } from 'styled-components'
@@ -30,6 +30,7 @@ import { Badge } from 'react-bootstrap'
 
 interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
+	stakedUSD: BigNumber
 }
 
 const cardsPerRow = 3
@@ -39,6 +40,7 @@ const FarmCards: React.FC = () => {
 	const multicall = useMulticall()
 	const [farms] = useFarms()
 	const farmsTVL = useAllFarmTVL(bao && bao.web3, multicall)
+	const { ethereum, account } = useWallet()
 
 	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
 	const [pools, setPools] = useState<any | undefined>({
@@ -61,7 +63,7 @@ const FarmCards: React.FC = () => {
 			[PoolType.SUSHI]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(farmsTVL && bao && multicall) || pools.polly.length)
+		if (!(ethereum && farmsTVL && bao && multicall) || pools.polly.length)
 			return setPools(_pools)
 
 		multicall
@@ -70,13 +72,23 @@ const FarmCards: React.FC = () => {
 					{
 						ref: 'masterChef',
 						contract: getMasterChefContract(bao),
-						calls: farms.map((farm, i) => {
-							return {
-								ref: i.toString(),
-								method: 'getNewRewardPerBlock',
-								params: [farm.pid + 1],
-							}
-						}),
+						calls: farms
+							.map((farm, i) => {
+								return {
+									ref: i.toString(),
+									method: 'getNewRewardPerBlock',
+									params: [farm.pid + 1],
+								}
+							})
+							.concat(
+								farms.map((farm, i) => {
+									return {
+										ref: (farms.length + i).toString(),
+										method: 'userInfo',
+										params: [farm.pid, account],
+									}
+								}) as any,
+							),
 					},
 				]),
 			)
@@ -94,6 +106,11 @@ const FarmCards: React.FC = () => {
 						...farm,
 						poolType: farm.poolType || PoolType.POLLY,
 						tvl: tvlInfo.tvl,
+						stakedUSD: decimate(
+							result.masterChef[farms.length + i].values[0].hex,
+						)
+							.div(decimate(tvlInfo.lpStaked))
+							.times(tvlInfo.tvl),
 						apy:
 							baoPrice && farmsTVL
 								? baoPrice
@@ -256,7 +273,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							)}
 						</Button>
 						<Spacer size="sm" />
-						<Button text={nestMint} href={destination}></Button>
+						<Button text={nestMint} href={destination} />
 						<StyledInsight>
 							<span>APR</span>
 							<span>
@@ -286,6 +303,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<StyledInsight>
 							<span>TVL</span>
 							<span>{`$${getDisplayBalance(farm.tvl, 0)}`}</span>
+						</StyledInsight>
+						<StyledInsight>
+							<span>LP Staked (USD)</span>
+							<span>{`$${getDisplayBalance(farm.stakedUSD, 0)}`}</span>
 						</StyledInsight>
 					</StyledContent>
 				</CardContent>
