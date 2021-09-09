@@ -47,6 +47,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
+	const [confNo, setConfNo] = useState<number | undefined>()
 
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
@@ -169,7 +170,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 									nav.nav,
 									0,
 							  )}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
-							: 'During the soft launch, minting is limited to 0.1 due to low liquidity on its underlying tokens. Once liquidity for these tokens is bridged to Polygon, mint limits will be removed.'}
+							: 'Minting is limited to 1,000 due to low liquidity on underlying tokens. Once liquidity for these tokens is bridged to Polygon, mint limits will be removed.'}
 					</p>
 					<p>
 						Polly uses your wETH to buy the underlying assets for you from
@@ -240,20 +241,29 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							nestAmount.slice(-1) === '.' ||
 							isNaN(parseFloat(wethNeeded)) ||
 							isNaN(parseFloat(nestAmount)) ||
-							getBalanceNumber(new BigNumber(nestBalance)) >= 0.1 ||
-							parseFloat(nestAmount) > 0.1 ||
+							parseFloat(nestAmount) > 1000 ||
 							parseFloat(wethNeeded) === 0 ||
 							parseFloat(wethNeeded) < 0 ||
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
 							!nav ||
 							navDifferenceTooHigh
 						}
-						text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+						text={confNo ? `Confirmations: ${confNo}/10` : pendingTx ? 'Pending Confirmation' : 'Confirm'}
 						onClick={async () => {
 							setPendingTx(true)
-							await onIssue(wethNeeded, nestAmount)
-							setPendingTx(false)
-							onDismiss()
+							const encodedAmountData = await recipeContract.methods
+								.encodeData(new BigNumber(nestAmount).times(10 ** 18).toString())
+								.call()
+							onIssue(wethNeeded, encodedAmountData).on('confirmation', (_confNo: any) => {
+								setConfNo(_confNo)
+								console.log(_confNo)
+								if (_confNo >= 10) {
+									setConfNo(undefined)
+									setPendingTx(false)
+									onDismiss()
+									window.location.reload()
+								}
+							})
 						}}
 					/>
 				)}

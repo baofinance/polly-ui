@@ -16,7 +16,7 @@ import { Contract } from 'web3-eth-contract'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
-	onConfirm: (amount: string) => void
+	onConfirm: (amount: string) => any
 	nestName: string
 	nestContract: Contract
 	nid: number
@@ -31,6 +31,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
+	const [confNo, setConfNo] = useState<number | undefined>()
 
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
@@ -116,12 +117,18 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 						parseFloat(val) < 0 ||
 						parseFloat(val) > max.div(10 ** 18).toNumber()
 					}
-					text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+					text={confNo ? `Confirmations: ${confNo}/10` : pendingTx ? 'Pending Confirmation' : 'Confirm'}
 					onClick={async () => {
 						setPendingTx(true)
-						await onConfirm(val)
-						setPendingTx(false)
-						onDismiss()
+						onConfirm(val).on('confirmation', (_confNo: any) => {
+							setConfNo(_confNo)
+							if (_confNo >= 10) {
+								setConfNo(undefined)
+								setPendingTx(false)
+								onDismiss()
+								window.location.reload()
+							}
+						})
 					}}
 				/>
 				{/* })} */}

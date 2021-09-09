@@ -134,8 +134,8 @@ const FarmCards: React.FC = () => {
 
 	return (
 		<>
-			<h3 style={{ margin: '1em' }}>
-				<Badge bg="secondary">
+			<h3 style={{ margin: '1rem' }}>
+				<Badge bg="secondary" className="pollyTicker">
 					Polly Price:{' '}
 					{baoPrice ? `$${getDisplayBalance(baoPrice, 0)}` : <SpinnerLoader />}
 				</Badge>

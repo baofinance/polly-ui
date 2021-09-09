@@ -29,10 +29,11 @@ const NestInput: React.FC<InputProps> = ({
 				placeholder={placeholder}
 				value={value}
 				onChange={onChange}
+				readOnly
 			/>
 			{wethBalance && setValue && (
 				<>
-					<MaxButton
+					{/* <MaxButton
 						onClick={() => {
 							setValue(
 								wethBalance
@@ -50,7 +51,7 @@ const NestInput: React.FC<InputProps> = ({
 						}}
 					>
 						MAX
-					</MaxButton>
+					</MaxButton> */}
 				</>
 			)}
 			{!!endAdornment && endAdornment}

@@ -6,18 +6,24 @@ import PageHeader from 'components/PageHeader'
 import Spacer from 'components/Spacer'
 import WalletProviderModal from 'components/WalletProviderModal'
 import useModal from 'hooks/useModal'
-import React from 'react'
+import React, { useState } from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import Farm from '../Farm'
 import Balances from './components/Balances'
 import FarmCards from './components/FarmCards'
+import { Badge } from 'react-bootstrap'
+import { getDisplayBalance } from 'utils/formatBalance'
+import { SpinnerLoader } from 'components/Loader'
+import { BigNumber } from 'bignumber.js'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
 	const { account, ethereum }: any = useWallet()
 	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
+	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
+
 	return (
 		<Switch>
 			<Page>
@@ -41,8 +47,7 @@ const Farms: React.FC = () => {
 									before using the pools so you are familiar with protocol risks
 									and fees!
 								</StyledInfo>
-								<Spacer size="md" />{' '}
-								<Balances />
+								<Spacer size="md" /> <Balances />
 								<Spacer size="md" />{' '}
 								<StyledInfo>
 									❗️{' '}
