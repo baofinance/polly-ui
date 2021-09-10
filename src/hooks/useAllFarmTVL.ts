@@ -13,31 +13,46 @@ import {
 
 // LP Contract ABI
 import lpAbi from '../bao/lib/abi/uni_v2_lp.json'
+import erc20Abi from '../bao/lib/abi/erc20.json'
 import { AbiItem } from 'web3-utils'
 
 export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
   const results = Multicall.parseCallResults(
     await multicall.call(
       Multicall.createCallContext(
-        farms.map(
-          (farm) =>
-            ({
-              ref: farm.lpAddresses[137],
-              contract: new web3.eth.Contract(
-                lpAbi as AbiItem[],
-                farm.lpAddresses[137],
-              ),
-              calls: [
-                { method: 'getReserves' },
-                { method: 'token0' },
-                { method: 'token1' },
-                {
-                  method: 'balanceOf',
-                  params: [contractAddresses.masterChef[137]],
-                },
-                { method: 'totalSupply' },
-              ],
-            } as any),
+        farms.map((farm) =>
+          farm.pid === 14
+            ? ({
+                ref: farm.lpAddresses[137],
+                contract: new web3.eth.Contract(
+                  erc20Abi as AbiItem[],
+                  farm.lpAddresses[137],
+                ),
+                calls: [
+                  {
+                    method: 'balanceOf',
+                    params: [contractAddresses.masterChef[137]],
+                  },
+                  { method: 'totalSupply' },
+                ],
+              } as any)
+            : ({
+                ref: farm.lpAddresses[137],
+                contract: new web3.eth.Contract(
+                  lpAbi as AbiItem[],
+                  farm.lpAddresses[137],
+                ),
+                calls: [
+                  { method: 'getReserves' },
+                  { method: 'token0' },
+                  { method: 'token1' },
+                  {
+                    method: 'balanceOf',
+                    params: [contractAddresses.masterChef[137]],
+                  },
+                  { method: 'totalSupply' },
+                ],
+              } as any),
         ),
       ),
     ),
@@ -45,6 +60,15 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
 
   return Object.keys(results).map((key: any) => {
     const res0 = results[key]
+
+    if (key.toLowerCase() === addressMap.nDEFI.toLowerCase())
+      return {
+        singleAsset: true,
+        lpAddress: key,
+        lpStaked: new BigNumber(res0[0].values[0].hex),
+        lpSupply: new BigNumber(res0[1].values[0].hex),
+      }
+
     const reserves = [
       new BigNumber(res0[0].values[0].hex),
       new BigNumber(res0[0].values[1].hex),
@@ -78,18 +102,29 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
   const fetchAllFarmTVL = useCallback(async () => {
     const lps: any = await fetchLPInfo(supportedPools, multicall, web3)
     const wethPrice = await GraphUtil.getPrice(addressMap.WETH)
+    const ndefiPrice = await GraphUtil.getPriceFromPair(
+      wethPrice,
+      addressMap.nDEFI,
+    )
 
     const tvls: any[] = []
     let _tvl = new BigNumber(0)
     lps.forEach((lpInfo: any) => {
-      const lpStakedUSD = (
-        lpInfo.tokens[0].address.toLowerCase() === addressMap.WETH.toLowerCase()
-          ? lpInfo.tokens[0].balance
-          : lpInfo.tokens[1].balance
-      )
-        .times(wethPrice)
-        .times(2)
-        .times(lpInfo.lpStaked.div(lpInfo.lpSupply))
+      let lpStakedUSD
+      if (lpInfo.singleAsset) {
+        lpStakedUSD = decimate(lpInfo.lpStaked).times(ndefiPrice)
+        _tvl = _tvl.plus(lpStakedUSD)
+      } else {
+        lpStakedUSD = (
+          lpInfo.tokens[0].address.toLowerCase() ===
+          addressMap.WETH.toLowerCase()
+            ? lpInfo.tokens[0].balance
+            : lpInfo.tokens[1].balance
+        )
+          .times(wethPrice)
+          .times(2)
+          .times(lpInfo.lpStaked.div(lpInfo.lpSupply))
+      }
       tvls.push({
         lpAddress: lpInfo.lpAddress,
         tvl: lpStakedUSD,
