@@ -244,6 +244,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 				<CardContent>
 					<StyledContent>
 						{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
+						{farm.tokenSymbol === 'nDEFI' && <StyledCardAccent />}
 						<CardIcon>
 							<img src={farm.icon} alt="" height="50" />
 						</CardIcon>
