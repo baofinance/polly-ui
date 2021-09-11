@@ -279,11 +279,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							<span>APR</span>
 							<span>
 								{farm.apy ? (
-									`${farm.apy
-										.times(new BigNumber(100))
-										.toNumber()
-										.toLocaleString('en-US')
-										.slice(0, -1)}%`
+									farm.apy.gt(0)
+										? `${farm.apy
+												.times(new BigNumber(100))
+												.toNumber()
+												.toLocaleString('en-US')
+												.slice(0, -1)}%`
+										: 'N/A'
 								) : (
 									<SpinnerLoader />
 								)}

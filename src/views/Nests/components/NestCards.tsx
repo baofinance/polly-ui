@@ -24,13 +24,13 @@ const NestCards: React.FC = () => {
 	const { account } = useWallet()
 
 	const indexes: { [key: string]: NestWithIssuedTokens[] } = {
-		[IndexType.TEST]: [],
+		[IndexType.NESTS]: [],
 	}
 
 	nests.forEach((nest, i) => {
 		const nestWithIssuedTokens = {
 			...nest,
-			indexType: nest.indexType || IndexType.TEST,
+			indexType: nest.indexType || IndexType.NESTS,
 		}
 
 		indexes[nestWithIssuedTokens.indexType].push(nestWithIssuedTokens)
@@ -40,8 +40,8 @@ const NestCards: React.FC = () => {
 		<Tabs>
 			<TabPanel>
 				<StyledCards>
-					{indexes[IndexType.TEST].length ? (
-						indexes[IndexType.TEST].map((nest, i) => (
+					{indexes[IndexType.NESTS].length ? (
+						indexes[IndexType.NESTS].map((nest, i) => (
 							<React.Fragment key={i}>
 								<NestCard nest={nest} />
 								{(i + 1) % cardsPerRow !== 0 && <StyledSpacer />}

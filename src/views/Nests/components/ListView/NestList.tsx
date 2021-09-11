@@ -17,13 +17,13 @@ const NestList: React.FC = () => {
 	const { account } = useWallet()
 
 	const indexes: { [key: string]: NestWithIssuedTokens[] } = {
-		[IndexType.TEST]: [],
+		[IndexType.NESTS]: [],
 	}
 
 	nests.forEach((nest, i) => {
 		const nestWithIssuedTokens = {
 			...nest,
-			indexType: nest.indexType || IndexType.TEST,
+			indexType: nest.indexType || IndexType.NESTS,
 		}
 
 		indexes[nestWithIssuedTokens.indexType].push(nestWithIssuedTokens)
@@ -39,15 +39,15 @@ const NestList: React.FC = () => {
 					Underlying Assets
 				</ListLabelCol>
 				<ListLabelCol width={'15%'} align={'center'}>
-					Current Price
+					Cost to Mint
 				</ListLabelCol>
 				<ListLabelCol width={'15%'} align={'center'}>
 					24H Change
 				</ListLabelCol>
-				<ListLabelCol width={'15%'} align={'center'}></ListLabelCol>
+				<ListLabelCol width={'15%'} align={'center'} />
 			</ListLabelContainer>
-			{indexes[IndexType.TEST].length ? (
-				indexes[IndexType.TEST].map((nest, i) => (
+			{indexes[IndexType.NESTS].length ? (
+				indexes[IndexType.NESTS].map((nest, i) => (
 					<React.Fragment key={i}>
 						<NestListItem nest={nest} />
 						{i + 1 !== 0 && <StyledSpacer />}

@@ -5,7 +5,7 @@ export enum IndexType {
   PORTFOLIO = 'portfolio',
   YIELD = 'yield',
   METAGOVERNANCE = 'metagovernance',
-  TEST = 'test',
+  NESTS = 'test',
 }
 
 export interface NestComponent {

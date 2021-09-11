@@ -112,6 +112,7 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
     lps.forEach((lpInfo: any) => {
       let lpStakedUSD
       if (lpInfo.singleAsset) {
+        // Only works for nDEFI, will need to be adjusted once other single asset farms are added.
         lpStakedUSD = decimate(lpInfo.lpStaked).times(
           Object.values(tokenPrices).find(
             (priceInfo) =>
@@ -121,23 +122,38 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
         )
         _tvl = _tvl.plus(lpStakedUSD)
       } else {
-        const token =
-          lpInfo.tokens[0].address.toLowerCase() ===
-            addressMap.WETH.toLowerCase() ||
-          lpInfo.tokens[0].address.toLowerCase() ===
-            addressMap.RAI.toLowerCase()
-            ? lpInfo.tokens[0]
-            : lpInfo.tokens[1]
+        let token, tokenPrice, specialPair
+        if (lpInfo.tokens[0].address.toLowerCase() === addressMap.POLLY.toLowerCase() &&
+          lpInfo.tokens[1].address.toLowerCase() === addressMap.nDEFI.toLowerCase()) {
+          // POLLY-nDEFI pair
+          token = lpInfo.tokens[1]
+          specialPair = true
+        } else if (lpInfo.tokens[0].address.toLowerCase() === addressMap.WETH.toLowerCase() ||
+          lpInfo.tokens[0].address.toLowerCase() === addressMap.RAI.toLowerCase())
+          // *-wETH pair and *-RAI pair
+          token = lpInfo.tokens[0]
+        else token = lpInfo.tokens[1]
+
+        if (token.address.toLowerCase() === addressMap.WETH.toLowerCase())
+          // *-wETH pair
+          tokenPrice = wethPrice
+        else if (token.address.toLowerCase() === addressMap.nDEFI.toLowerCase() && specialPair)
+          // POLLY-nDEFI pair
+          tokenPrice = Object.values(tokenPrices).find(
+            (priceInfo) =>
+              priceInfo.address.toLowerCase() ===
+              addressMap.nDEFI.toLowerCase(),
+          ).price
+        else
+          // *-RAI pair
+          tokenPrice = Object.values(tokenPrices).find(
+            (priceInfo) =>
+              priceInfo.address.toLowerCase() ===
+              addressMap.RAI.toLowerCase(),
+          ).price
+
         lpStakedUSD = token.balance
-          .times(
-            token.address.toLowerCase() === addressMap.WETH.toLowerCase()
-              ? wethPrice
-              : Object.values(tokenPrices).find(
-                  (priceInfo) =>
-                    priceInfo.address.toLowerCase() ===
-                    addressMap.RAI.toLowerCase(),
-                ).price,
-          )
+          .times(tokenPrice)
           .times(2)
           .times(lpInfo.lpStaked.div(lpInfo.lpSupply))
       }
