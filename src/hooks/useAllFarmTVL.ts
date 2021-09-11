@@ -102,29 +102,46 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
   const fetchAllFarmTVL = useCallback(async () => {
     const lps: any = await fetchLPInfo(supportedPools, multicall, web3)
     const wethPrice = await GraphUtil.getPrice(addressMap.WETH)
-    const ndefiPrice = await GraphUtil.getPriceFromPair(
-      wethPrice,
+    const tokenPrices = await GraphUtil.getPriceFromPairMultiple(wethPrice, [
+      addressMap.RAI,
       addressMap.nDEFI,
-    )
+    ])
 
     const tvls: any[] = []
     let _tvl = new BigNumber(0)
     lps.forEach((lpInfo: any) => {
       let lpStakedUSD
       if (lpInfo.singleAsset) {
-        lpStakedUSD = decimate(lpInfo.lpStaked).times(ndefiPrice)
+        lpStakedUSD = decimate(lpInfo.lpStaked).times(
+          Object.values(tokenPrices).find(
+            (priceInfo) =>
+              priceInfo.address.toLowerCase() ===
+              addressMap.nDEFI.toLowerCase(),
+          ).price,
+        )
         _tvl = _tvl.plus(lpStakedUSD)
       } else {
-        lpStakedUSD = (
+        const token =
           lpInfo.tokens[0].address.toLowerCase() ===
-          addressMap.WETH.toLowerCase()
-            ? lpInfo.tokens[0].balance
-            : lpInfo.tokens[1].balance
-        )
-          .times(wethPrice)
+            addressMap.WETH.toLowerCase() ||
+          lpInfo.tokens[0].address.toLowerCase() ===
+            addressMap.RAI.toLowerCase()
+            ? lpInfo.tokens[0]
+            : lpInfo.tokens[1]
+        lpStakedUSD = token.balance
+          .times(
+            token.address.toLowerCase() === addressMap.WETH.toLowerCase()
+              ? wethPrice
+              : Object.values(tokenPrices).find(
+                  (priceInfo) =>
+                    priceInfo.address.toLowerCase() ===
+                    addressMap.RAI.toLowerCase(),
+                ).price,
+          )
           .times(2)
           .times(lpInfo.lpStaked.div(lpInfo.lpSupply))
       }
+
       tvls.push({
         lpAddress: lpInfo.lpAddress,
         tvl: lpStakedUSD,

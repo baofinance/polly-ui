@@ -208,7 +208,7 @@ const _getPriceFromPairMultiple = (tokenAddresses: string[]) => {
       ${_.map(
         ['basePairs', 'quotePairs'],
         (prefix) => `
-          ${prefix}(where:{name_contains:"ETH"}) {
+          ${prefix} {
             token0 {
               symbol
             },
