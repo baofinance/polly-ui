@@ -31,7 +31,7 @@ interface IssueModalProps extends ModalProps {
 	outputTokenContract: Contract
 	_inputToken?: string
 	_outputToken?: string
-	nav: { nav: BigNumber, mainnetNav: BigNumber }
+	nav: { nav: BigNumber; mainnetNav: BigNumber }
 }
 
 const IssueModal: React.FC<IssueModalProps> = ({
@@ -158,9 +158,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
 				<Disclaimer>
-					<Warning>
-						<b>❗MINTING LIMIT ENABLED❗</b>
-					</Warning>
 					<p>
 						{navDifferenceTooHigh
 							? `The difference between NAV on mainnet ($${getDisplayBalance(
@@ -170,7 +167,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 									nav.nav,
 									0,
 							  )}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
-							: 'Minting is limited to 1,000 due to low liquidity on underlying tokens. Once liquidity for these tokens is bridged to Polygon, mint limits will be removed.'}
+							: ''}
 					</p>
 					<p>
 						Polly uses your wETH to buy the underlying assets for you from
@@ -178,23 +175,23 @@ const IssueModal: React.FC<IssueModalProps> = ({
 						unexpected errors like slippage, any unused WETH is returned.
 					</p>
 					<HidePrice>
-					<b>
-						Your wETH Balance:{' '}
-						{(wethBalance && getDisplayBalance(wethBalance)) || (
-							<SpinnerLoader />
-						)}{' '}
-						<FontAwesomeIcon icon={['fab', 'ethereum']} />
-					</b>
-					<br />
-					<b>
-						1 {nestName} ={' '}
-						<>
-							{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+						<b>
+							Your wETH Balance:{' '}
+							{(wethBalance && getDisplayBalance(wethBalance)) || (
 								<SpinnerLoader />
 							)}{' '}
 							<FontAwesomeIcon icon={['fab', 'ethereum']} />
-						</>
-					</b>
+						</b>
+						<br />
+						<b>
+							1 {nestName} ={' '}
+							<>
+								{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+									<SpinnerLoader />
+								)}{' '}
+								<FontAwesomeIcon icon={['fab', 'ethereum']} />
+							</>
+						</b>
 					</HidePrice>
 				</Disclaimer>
 			</ModalContent>
@@ -241,7 +238,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							nestAmount.slice(-1) === '.' ||
 							isNaN(parseFloat(wethNeeded)) ||
 							isNaN(parseFloat(nestAmount)) ||
-							parseFloat(nestAmount) > 1000 ||
 							parseFloat(wethNeeded) === 0 ||
 							parseFloat(wethNeeded) < 0 ||
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
