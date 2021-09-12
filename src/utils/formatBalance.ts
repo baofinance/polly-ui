@@ -27,6 +27,9 @@ export const getAnalytics = (balance: BigNumber, decimals = 18) => {
     if (displayBalance.isGreaterThanOrEqualTo(1000)) {
        return (analytic / 1000).toFixed(2).replace(/\.0$/, '') + 'K';
     }
+    if (displayBalance.isGreaterThanOrEqualTo(0)) {
+      return (analytic).toFixed(2);
+    }
     return analytic;
 }
 
