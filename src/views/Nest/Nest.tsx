@@ -263,7 +263,7 @@ const Nest: React.FC = () => {
 							</span>
 							<QuestionIcon icon="question-circle" onClick={onNavModal} />
 							<Spacer size={'sm'} />
-							<Tooltipped content={"Based on SushiSwap's MATIC prices"}>
+							<Tooltipped content={"Based on Sushiswap's Polygon prices"}>
 								<StyledBadge style={{ marginRight: '10px' }}>
 									<img
 										src={require('../../assets/img/assets/MATIC.png')}
@@ -274,7 +274,7 @@ const Nest: React.FC = () => {
 									)}
 								</StyledBadge>
 							</Tooltipped>
-							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
+							<Tooltipped content={"Based on Sushiswap's Mainnet prices"}>
 								<StyledBadge>
 									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
 									{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
@@ -293,10 +293,10 @@ const Nest: React.FC = () => {
 								Premium{' '}
 								{sushiPairPrice && (
 									<Tooltipped
-										content={`Difference between ${nestToken} price on SushiSwap ($${getDisplayBalance(
+										content={`Difference between ${nestToken} price on Sushiswap ($${getDisplayBalance(
 											sushiPairPrice,
 											0,
-										)}) and NAV price`}
+										)}) and NAV price.`}
 									/>
 								)}
 							</span>
