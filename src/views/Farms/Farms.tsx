@@ -70,10 +70,10 @@ const Farms: React.FC = () => {
 								</StyledInfo>
 								<Spacer />
 								<StyledInfo>
-									❗️ APYs for single-sided pools are not yet accurate.
+									❗️ APRs for single-sided pools are not yet accurate.
 								</StyledInfo>
 								<StyledInfo>
-									❗️ APYs are affected by a 7-day average price of POLLY which
+									❗️ APRs are affected by a 7-day average price of POLLY which
 									has not yet stabilized.
 								</StyledInfo>
 								<Spacer size="md" />
