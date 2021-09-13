@@ -6,5 +6,5 @@ BigNumber.config({
 	DECIMAL_PLACES: 80,
 })
 
-export { Bao } from './Bao.js'
+export { Bao } from './Bao'
 export { Web3, BigNumber }
