@@ -37,6 +37,10 @@ const Farms: React.FC = () => {
 							/>
 							<Container>
 								<StyledInfo>
+									❗️{' '}
+									<span style={{ fontWeight: 600, color: '#ff3333' }}>
+										Attention:
+									</span>{' '}
 									Be sure to read the{' '}
 									<StyledExternalLink
 										href="https://docs.bao.finance/franchises/polly"
@@ -44,38 +48,11 @@ const Farms: React.FC = () => {
 									>
 										docs
 									</StyledExternalLink>{' '}
-									before using the pools so you are familiar with protocol risks
+									before using the farms so you are familiar with protocol risks
 									and fees!
 								</StyledInfo>
-								<Spacer size="md" /> <Balances />
-								<Spacer size="md" />{' '}
-								<StyledInfo>
-									❗️{' '}
-									<span style={{ fontWeight: 600, color: '#ff3333' }}>
-										Attention:
-									</span>{' '}
-									Please familiarize yourself with the fee structure before
-									using PollyChef. Deposits are subject to a 0.75% fee.
-									Withdrawal slashing fee of 0.1% - 50 % will be incurred when
-									exiting a farm, depending on the length of time your LP was
-									staked. Please{' '}
-									<StyledExternalLink
-										href="https://docs.bao.finance/franchises/polly-finance"
-										target="blank"
-									>
-										{' '}
-										read the docs
-									</StyledExternalLink>{' '}
-									to familiarize yourself with fees and penalties.
-								</StyledInfo>
-								<Spacer />
-								<StyledInfo>
-									❗️ APRs for single-sided pools are not yet accurate.
-								</StyledInfo>
-								<StyledInfo>
-									❗️ APRs are affected by a 7-day average price of POLLY which
-									has not yet stabilized.
-								</StyledInfo>
+								<Spacer size="md" />
+								<Balances />
 								<Spacer size="md" />
 							</Container>
 							<FarmCards />

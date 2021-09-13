@@ -27,6 +27,7 @@ import GraphUtil from '../../../utils/graph'
 import Multicall from '../../../utils/multicall'
 import { addressMap, contractAddresses } from '../../../bao/lib/constants'
 import { Badge } from 'react-bootstrap'
+import Tooltipped from 'components/Tooltipped'
 
 interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
@@ -140,6 +141,7 @@ const FarmCards: React.FC = () => {
 					{baoPrice ? `$${getDisplayBalance(baoPrice, 0)}` : <SpinnerLoader />}
 				</Badge>
 			</h3>
+			<Spacer size="md" />
 			<Tabs>
 				<TabPanel>
 					<StyledCards>
@@ -276,16 +278,23 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<Spacer size="sm" />
 						<Button text={nestMint} href={destination} />
 						<StyledInsight>
-							<span>APR</span>
+							<span>APR {' '}
+							<Tooltipped
+								content={`APRs are affected by a 7-day average price of POLLY which
+										has not yet stabilized.`}
+							/>
+							</span>
 							<span>
 								{farm.apy ? (
-									farm.apy.gt(0)
-										? `${farm.apy
-												.times(new BigNumber(100))
-												.toNumber()
-												.toLocaleString('en-US')
-												.slice(0, -1)}%`
-										: 'N/A'
+									farm.apy.gt(0) ? (
+										`${farm.apy
+											.times(new BigNumber(100))
+											.toNumber()
+											.toLocaleString('en-US')
+											.slice(0, -1)}%`
+									) : (
+										'N/A'
+									)
 								) : (
 									<SpinnerLoader />
 								)}
