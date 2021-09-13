@@ -171,7 +171,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					</p>
 					<p>
 						Polly uses your wETH to buy the underlying assets for you from
-						Sushiswap. Minting transactions send 5% more wETH to avoid
+						SushiSwap. Minting transactions send 5% more wETH to avoid
 						unexpected errors like slippage, any unused WETH is returned.
 					</p>
 					<HidePrice>

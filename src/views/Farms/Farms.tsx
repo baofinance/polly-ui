@@ -33,7 +33,7 @@ const Farms: React.FC = () => {
 							<PageHeader
 								icon={pollyNests}
 								title="Farms"
-								subtitle="Earn POLLY by staking Sushiswap LP and Nest Tokens!"
+								subtitle="Earn POLLY by staking SushiSwap LP and Nest Tokens!"
 							/>
 							<Container>
 								<StyledInfo>
