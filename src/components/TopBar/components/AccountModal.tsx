@@ -61,7 +61,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 								</span>
 							</CardIcon>
 							<StyledBalance>
-								<Value value={new BigNumber(getDisplayBalance(baoBalance)).toFixed(4)} />
+								<Value value={getDisplayBalance(baoBalance)} />
 								<Label text="POLLY Balance" />
 							</StyledBalance>
 						</StyledBalanceWrapper>
