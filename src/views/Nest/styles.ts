@@ -249,7 +249,7 @@ export const StatCard = styled.div`
 
 export const StyledBadge = styled(Badge)`
   font-size: 1em;
-  background: rgba(256, 256, 256, 0.1);
+  background: rgba(0, 0, 0, 0.4);
   color: ${(props) => props.theme.color.grey[100]};
 `
 

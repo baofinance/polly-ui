@@ -198,33 +198,6 @@ const Nest: React.FC = () => {
 					</StyledBadge>
 					<br />
 				</NestBoxHeader>
-				{nest && nest.nid === 1 && (
-					<StyledAlert>
-						<h4 style={{ color: 'white', textAlign: 'center' }}>
-							<FontAwesomeIcon icon="exclamation-circle" /> Notice
-						</h4>
-						<p style={{ margin: 0 }}>
-							During the first phase of this rollout, there will be heavy one
-							sided buy pressure in each of the bridged underlying tokens
-							liquidity pools on Sushi as a result of people minting their nDEFI
-							tokens.
-							<Spacer size="md" />
-							Until more liquidity for nDEFI's underlying tokens is bridged to{' '}
-							🍣
-							<StyledExternalLink href="https://app.sushi.com" target="_blank">
-								SushiSwap
-							</StyledExternalLink>{' '}
-							on Polygon and arbitrage bots recognize these pairs, price
-							information for some tokens may slightly skew from that of robust
-							oracles. This slippage affects the NAV price as well.
-							<Spacer size="md" />
-							Have any of nDEFI's underlying tokens laying around on another
-							chain? Bridge the tokens to Polygon and stake them in our{' '}
-							<StyledExternalLink href="/farms">farms</StyledExternalLink> to
-							receive POLLY rewards!
-						</p>
-					</StyledAlert>
-				)}
 				<StatsRow lg={4} sm={2}>
 					<Col>
 						<StatCard>
