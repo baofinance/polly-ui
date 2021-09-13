@@ -45,7 +45,7 @@ const SectionTwo: React.FC = () => (
 					</InfoHeader>
 					<InfoText>
 						Nests are designed to be truly set-and-forget, maximizing your
-						returns at a a fraction of the cost and effort. Nests leverage
+						returns at a fraction of the cost and effort. Nests leverage
 						automated strategies utilizing staking, lending, and yield farming-
 						No management or constant monitoring necessary!
 					</InfoText>
