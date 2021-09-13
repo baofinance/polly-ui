@@ -149,8 +149,7 @@ export const GraphContainer = styled(Col)`
     height: 250px;
   }
 `
-export const PriceGraph = styled.div`
-`
+export const PriceGraph = styled.div``
 
 export const PieGraphRow = styled(Row)`
   height: 400px;
@@ -305,7 +304,7 @@ export const NestSubHeader = styled.h1`
   }
 `
 
-export const NestText = styled.div`
+export const NestExplanation = styled.div`
   background: rgba(0, 0, 0, 0.4);
   color: ${(props) => props.theme.color.grey[100]};
   text-align: left;
