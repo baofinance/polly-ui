@@ -9,13 +9,11 @@ import { useWallet } from 'use-wallet'
 import NestListItem from './NestListItem'
 import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
 
-interface NestWithIssuedTokens extends Nest {}
-
 const NestList: React.FC = () => {
 	const [nests] = useNests()
 	const { account } = useWallet()
 
-	const indexes: { [key: string]: NestWithIssuedTokens[] } = {
+	const indexes: { [key: string]: Nest[] } = {
 		[IndexType.NESTS]: [],
 	}
 

@@ -27,12 +27,9 @@ import {
 import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
 import { BigNumber } from 'bignumber.js'
 
-interface NestWithIssuedTokens extends Nest {}
-
 const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 	const { account } = useWallet()
 	const { nestTokenAddress } = nest
-	const composition = useComposition(nest)
 	const { usdPerIndex } = useNestRate(nestTokenAddress)
 
 	const indexActive = true // startTime * 1000 - Date.now() <= 0
@@ -47,6 +44,8 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 				.times(100)
 		)
 	}, [priceHistory])
+
+	const composition = useComposition(nest)
 
 	return (
 		<>
@@ -146,7 +145,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 }
 
 interface NestListItemProps {
-	nest: NestWithIssuedTokens
+	nest: Nest
 }
 
 export default NestListItem
