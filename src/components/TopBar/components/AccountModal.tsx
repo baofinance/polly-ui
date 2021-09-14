@@ -7,7 +7,7 @@ import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
+import { getDisplayBalance } from 'utils/formatBalance'
 import Button from '../../Button'
 import CardIcon from '../../CardIcon'
 import Label from '../../Label'
@@ -93,16 +93,16 @@ const StyledBalanceWrapper = styled.div`
 	flex-direction: column;
 	margin-bottom: ${(props) => props.theme.spacing[4]}px;
 
-	@media ( max-width: 576px ) {
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		flex-direction: row;
 	}
 `
 
 export const CloseButton = styled.a`
 	float: right;
-	top: 15px;
-	right: 25px;
-	font-size: 24px;
+	top: ${(props) => props.theme.spacing[3]}px;
+	right: ${(props) => props.theme.spacing[4]}px;
+	font-size: 1.5rem;
 	position: absolute;
 	color: ${(props) => props.theme.color.grey[100]};
 

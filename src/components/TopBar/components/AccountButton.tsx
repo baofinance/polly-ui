@@ -104,7 +104,7 @@ const StyledAccountButton = styled.div`
 `
 
 const MobileAccountButton = styled.div`
-	@media (min-width: 576px) {
+	@media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		display: none;
 	}
 `
