@@ -58,7 +58,7 @@ const StyledLink = styled.a`
 	text-decoration: none;
 
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 
 	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {

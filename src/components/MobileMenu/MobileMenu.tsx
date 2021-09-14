@@ -108,10 +108,10 @@ const StyledLink = styled(NavLink)`
 	text-decoration: none;
 	width: 100%;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 `
 
@@ -126,10 +126,10 @@ const StyledExternalLink = styled.a`
 	text-decoration: none;
 	width: 100%;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 `
 

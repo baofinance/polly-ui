@@ -105,10 +105,10 @@ const StyledExternalLink = styled.a`
 	font-weight: 700;
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 `
 

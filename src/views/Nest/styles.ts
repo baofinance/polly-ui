@@ -27,10 +27,10 @@ export const StyledExternalLink = styled.a`
   font-weight: 700;
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.color.blue[400]};
+    color: ${(props) => props.theme.color.blue[200]};
   }
   &.active {
-    color: ${(props) => props.theme.color.blue[400]};
+    color: ${(props) => props.theme.color.blue[200]};
   }
 `
 
@@ -212,7 +212,7 @@ export const PrefButtons = styled.div`
     }
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: none;
   }
 `
@@ -313,7 +313,7 @@ export const NestExplanation = styled.div`
   padding: 50px;
   border-radius: 12px;
 
-  @media (max-width: 576px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     width: 90%;
     padding: 25px;
     margin-top: 25px;

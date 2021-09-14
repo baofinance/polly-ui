@@ -439,7 +439,7 @@ const StyledInsight = styled.div`
 `
 
 const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.blue[400]};
+	color: ${(props) => props.theme.color.blue[200]};
 	font-weight: 700;
 	text-decoration: none;
 	&:hover {

@@ -239,7 +239,7 @@ export const MaxButton = styled.a`
 	&:hover {
 		background-color: ${(props) =>
 			lighten(0.1, props.theme.color.darkGrey[100])};
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 		cursor: pointer;
 	}
 `

@@ -161,10 +161,10 @@ const StyledLink = styled(NavLink)`
 	padding-right: ${(props) => props.theme.spacing[3]}px;
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 	@media (max-width: 400px) {
 		padding-left: ${(props) => props.theme.spacing[2]}px;
@@ -177,10 +177,10 @@ const StyledExternalLink = styled.a`
 	font-weight: 700;
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.blue[200]};
 	}
 `
 

@@ -57,7 +57,7 @@ const StyledMaxText = styled.div`
 	height: 44px;
 	justify-content: flex-end;
 
-	@media (max-width: 576px){
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px){
 		justify-content: center;
 		text-align: center;
 		font-size: 0.75rem;
