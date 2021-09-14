@@ -47,21 +47,21 @@ const Button: React.FC<ButtonProps> = ({
 	let boxShadow: string
 	let buttonSize: number
 	let buttonPadding: number
-	let fontSize: number
+	let fontSize: string
 	switch (size) {
 		case 'sm':
 			boxShadow = `4px 4px 8px ${color.grey[600]},
-        -8px -8px 16px ${color.grey[500]}FF;`
+        -8px -8px 16px ${color.grey[500]};`
 			buttonPadding = spacing[4]
 			buttonSize = 40
-			fontSize = 14
+			fontSize = '0.75rem'
 			break
 		case 'lg':
 			boxShadow = `6px 6px 12px ${color.grey[600]},
         -12px -12px 24px ${color.grey[500]};`
 			buttonPadding = spacing[4]
 			buttonSize = 72
-			fontSize = 16
+			fontSize = '1rem'
 			break
 		case 'md':
 		default:
@@ -69,7 +69,7 @@ const Button: React.FC<ButtonProps> = ({
         -12px -12px 24px -2px ${color.grey[500]};`
 			buttonPadding = spacing[4]
 			buttonSize = 50
-			fontSize = 16
+			fontSize = '1rem'
 	}
 
 	const ButtonChild = useMemo(() => {
