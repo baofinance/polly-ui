@@ -41,7 +41,7 @@ const StyledBao = styled.div`
 `
 
 const StyledText = styled.div`
-	color: ${(props) => props.theme.color.grey[400]};
+	color: ${(props) => props.theme.color.primary[400]};
 `
 
 interface SpinnerProps {
@@ -50,7 +50,7 @@ interface SpinnerProps {
 
 export const SpinnerLoader: React.FC<SpinnerProps> = ({ block }) => {
 	let style: any = {
-		color: `${(props: any) => props.theme.color.grey[100]}`,
+		color: `${(props: any) => props.theme.color.primary[100]}`,
 	}
 	if (block)
 		style = {

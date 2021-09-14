@@ -144,7 +144,7 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	font-size: 16px;
 	font-weight: 400;
 	margin: 0;
@@ -155,16 +155,16 @@ const StyledInfo = styled.h3`
 `
 
 const StyledLink = styled(NavLink)`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
+	color: ${(props) => props.theme.color.primary[100]};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	padding-left: ${(props) => props.theme.spacing[3]}px;
 	padding-right: ${(props) => props.theme.spacing[3]}px;
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 	@media (max-width: 400px) {
 		padding-left: ${(props) => props.theme.spacing[2]}px;
@@ -173,14 +173,14 @@ const StyledLink = styled(NavLink)`
 `
 
 const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
+	color: ${(props) => props.theme.color.primary[100]};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 `
 

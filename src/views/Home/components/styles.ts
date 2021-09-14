@@ -28,8 +28,8 @@ export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 7rem;
   letter-spacing: -0.1rem;
-  font-weight: 700 !important;
-  color: ${(props) => props.theme.color.grey[100]};
+  font-weight: ${(props) => props.theme.fontWeight.strong} !important;
+  color: ${(props) => props.theme.color.primary[100]};
   margin-top: 0.5em;
   text-align: center;
 
@@ -70,7 +70,7 @@ export const HeroSubHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 4rem !important;
   letter-spacing: -0.2rem;
-  font-weight: 700 !important;
+  font-weight: ${(props) => props.theme.fontWeight.strong} !important;
   color: #1fa6e0;
   background: linear-gradient(
     to left,
@@ -97,7 +97,7 @@ export const HeroSubHeader = styled.h6`
 
 export const HeroText = styled.p`
   font-size: 1.25rem;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   font-weight: 400;
   opacity: 0.75;
   margin: auto;
@@ -275,7 +275,7 @@ export const StyledCardContainer = styled.div`
 `
 
 export const StyledCardContent = styled.div`
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   padding: 30px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
@@ -380,7 +380,7 @@ export const InfoHeader = styled.h2`
   font-family: 'Rubik', sans-serif;
   font-size: 5rem;
   letter-spacing: -0.1rem;
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.fontWeight.strong};
 
   @media (max-width: 992px) {
     font-size: 4rem !important;
@@ -415,7 +415,7 @@ export const InfoSubHeader = styled(InfoHeader)`
 `
 
 export const InfoText = styled.p`
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   font-size: 1.25rem;
 `
 

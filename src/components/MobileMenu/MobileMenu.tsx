@@ -99,37 +99,37 @@ const StyledMobileMenu = styled.div`
 
 const StyledLink = styled(NavLink)`
 	box-sizing: border-box;
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	font-size: 18px;
-	font-weight: 700;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	padding: ${(props) => props.theme.spacing[3]}px
 		${(props) => props.theme.spacing[4]}px;
 	text-align: center;
 	text-decoration: none;
 	width: 100%;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 `
 
 const StyledExternalLink = styled.a`
 	box-sizing: border-box;
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	font-size: 18px;
-	font-weight: 700;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	padding: ${(props) => props.theme.spacing[3]}px
 		${(props) => props.theme.spacing[4]}px;
 	text-align: center;
 	text-decoration: none;
 	width: 100%;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 `
 

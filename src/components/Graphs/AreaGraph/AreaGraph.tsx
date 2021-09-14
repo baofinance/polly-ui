@@ -141,13 +141,13 @@ export default withTooltip<AreaProps, TooltipData>(
 					/>
 					<LinearGradient
 						id="line-gradient"
-						from={'#3c32f5'}
+						from={'${(props) => props.theme.color.blue[300]}'}
 						to={'#6332f5'}
 						toOpacity={0.8}
 					/>
 					<LinearGradient
 						id="area-under-curve-gradient"
-						from="#3c32f5"
+						from="${(props) => props.theme.color.blue[300]}"
 						to="#6332f5"
 						fromOpacity={0.1}
 						toOpacity={0.25}

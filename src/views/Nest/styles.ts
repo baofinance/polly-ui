@@ -9,7 +9,7 @@ export const StyledAlert = styled(Alert)`
   border-radius: 12px;
   background-color: rgba(0, 0, 0, 0.4);
   text-align: center;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   margin: 20px auto;
   width: 80%;
 
@@ -23,14 +23,14 @@ export const StyledAlert = styled(Alert)`
 `
 
 export const StyledExternalLink = styled.a`
-  color: ${(props) => props.theme.color.grey[100]};
-  font-weight: 700;
+  color: ${(props) => props.theme.color.primary[100]};
+  font-weight: ${(props) => props.theme.fontWeight.strong};
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.color.blue[200]};
+    color: ${(props) => props.theme.color.secondary[200]};
   }
   &.active {
-    color: ${(props) => props.theme.color.blue[200]};
+    color: ${(props) => props.theme.color.secondary[200]};
   }
 `
 
@@ -48,7 +48,7 @@ export const NestBox = styled.div`
 
 export const NestBoxHeader = styled.div`
   font-family: 'Rubik', sans-serif;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   margin: auto;
   font-size: 2rem;
 
@@ -83,7 +83,7 @@ export const CornerButtons = styled.a`
   right: 25px;
   font-size: 24px;
   position: absolute;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
 
   &:hover {
     cursor: pointer;
@@ -116,7 +116,7 @@ export const NestCornerButton = styled.a`
   margin-right: 15px;
   font-size: 24px;
   vertical-align: middle;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
 
   &:hover {
     cursor: pointer;
@@ -162,7 +162,7 @@ export const StyledTable = styled(Table)`
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 12px;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   border-color: transparent;
 
   th {
@@ -174,7 +174,7 @@ export const StyledTable = styled(Table)`
     vertical-align: middle;
 
     &:hover {
-      color: ${(props) => props.theme.color.grey[100]} !important;
+      color: ${(props) => props.theme.color.primary[100]} !important;
     }
   }
 
@@ -199,14 +199,14 @@ export const PrefButtons = styled.div`
     margin-left: 10px;
     margin-top: 25px;
     border: 1px solid rgba(256, 256, 256, 0.4);
-    color: ${(props) => props.theme.color.grey[100]};
+    color: ${(props) => props.theme.color.primary[100]};
 
     &:hover,
     &.active,
     &:active,
     &:focus {
       border: 1px solid rgba(0, 0, 0, 0.4);
-      color: ${(props) => props.theme.color.grey[100]};
+      color: ${(props) => props.theme.color.primary[100]};
       background-color: rgba(0, 0, 0, 0.4);
       box-shadow: none !important;
     }
@@ -239,7 +239,7 @@ export const StatCard = styled.div`
   border-radius: 12px;
   font-weight: bold;
   text-align: center;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     padding: 10px;
@@ -250,7 +250,7 @@ export const StatCard = styled.div`
 export const StyledBadge = styled(Badge)`
   font-size: 1em;
   background: rgba(0, 0, 0, 0.4);
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
 `
 
 export const Icon = styled.img`
@@ -276,7 +276,7 @@ export const NestButtons = styled.div`
 
 export const NestHeader = styled.h1`
   font-family: 'Rubik', sans-serif;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   margin-bottom: 10px;
   margin-top: 0;
   font-size: 32px;
@@ -291,7 +291,7 @@ export const NestHeader = styled.h1`
 
 export const NestSubHeader = styled.h1`
   font-family: 'Rubik', sans-serif;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   margin-bottom: 10px;
   margin-top: 0;
   font-size: 24px;
@@ -306,7 +306,7 @@ export const NestSubHeader = styled.h1`
 
 export const NestExplanation = styled.div`
   background: rgba(0, 0, 0, 0.4);
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.primary[100]};
   text-align: left;
   width: 80%;
   margin: auto;
@@ -325,11 +325,11 @@ export const NestList = styled.ul`
 `
 
 export const QuestionIcon = styled(FontAwesomeIcon)`
-  color: ${(props) => darken(0.2, props.theme.color.grey[100])};
+  color: ${(props) => darken(0.2, props.theme.color.primary[100])};
 
   &:hover,
   &:focus {
-    color: ${(props) => props.theme.color.grey[100]};
+    color: ${(props) => props.theme.color.primary[100]};
     animation: 200ms;
     cursor: pointer;
   }

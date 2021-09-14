@@ -394,9 +394,9 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledTitle = styled.h4`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	font-size: 19px;
-	font-weight: 700;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	margin: ${(props) => props.theme.spacing[2]}px 0 0;
 	padding: 0;
 	text-align: center;
@@ -419,7 +419,7 @@ const StyledDetails = styled.div`
 `
 
 const StyledDetail = styled.div`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 `
 
 const StyledInsight = styled.div`
@@ -428,7 +428,7 @@ const StyledInsight = styled.div`
 	box-sizing: border-box;
 	border-radius: 8px;
 	background: rgba(256, 256, 256, 0.1);
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	width: 100%;
 	margin-top: 12px;
 	line-height: 32px;
@@ -439,14 +439,14 @@ const StyledInsight = styled.div`
 `
 
 const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.blue[200]};
-	font-weight: 700;
+	color: ${(props) => props.theme.color.secondary[200]};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => lighten(0.1, props.theme.color.blue[400])};
+		color: ${(props) => lighten(0.1, props.theme.color.secondary[400])};
 	}
 	&.active {
-		color: ${(props) => lighten(0.1, props.theme.color.blue[400])};
+		color: ${(props) => lighten(0.1, props.theme.color.secondary[400])};
 	}
 `
 

@@ -30,11 +30,11 @@ const Tooltipped: React.FC<TooltippedProps> = ({
 )
 
 const QuestionIcon = styled(FontAwesomeIcon)`
-	color: ${(props) => darken(0.2, props.theme.color.grey[100])};
+	color: ${(props) => darken(0.2, props.theme.color.primary[100])};
 
 	&:hover,
 	&:focus {
-		color: ${(props) => props.theme.color.grey[100]};
+		color: ${(props) => props.theme.color.primary[100]};
 		animation: 200ms;
 	}
 `

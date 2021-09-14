@@ -52,13 +52,13 @@ const StyledNav = styled.nav`
 `
 
 const StyledLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	padding-left: ${(props) => props.theme.spacing[3]}px;
 	padding-right: ${(props) => props.theme.spacing[3]}px;
 	text-decoration: none;
 
 	&:hover {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 
 	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {

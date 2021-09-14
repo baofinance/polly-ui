@@ -15,7 +15,7 @@ const FeeWarning: React.FC = () => {
 export default FeeWarning
 
 const StyledDocsWarning = styled.span`
-	background-color: ${(props) => props.theme.color.grey[300]};
+	background-color: ${(props) => props.theme.color.primary[300]};
 	font-size: 16px;
 	margin: 1rem;
 	padding: 0.5rem;

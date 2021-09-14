@@ -54,7 +54,7 @@ export const StyledTitle = styled.h1`
 	font-size: 4rem !important;
 	letter-spacing: -0.1rem;
 	text-align: center;
-	font-weight: 700 !important;
+	font-weight: ${(props) => props.theme.fontWeight.strong} !important;
 	color: #f35626;
 	background: linear-gradient(
 		to left,
@@ -80,7 +80,7 @@ export const StyledTitle = styled.h1`
 `
 
 const StyledSubtitle = styled.h3`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	font-size: 18px;
 	font-weight: 400;
 	margin: 0;

@@ -62,17 +62,17 @@ const StyledTokenAdornmentWrapper = styled.div`
 
 const StyledMaxText = styled.div`
 	align-items: center;
-	color: ${(props) => props.theme.color.grey[400]};
+	color: ${(props) => props.theme.color.primary[400]};
 	display: flex;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	height: 44px;
 	justify-content: flex-end;
 `
 
 const StyledTokenSymbol = styled.span`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
+	color: ${(props) => props.theme.color.primary[100]};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 `
 
 export default NestTokenInput

@@ -83,7 +83,7 @@ const Analytic = styled(Col)`
 
 	span > h2 {
 		font-family: 'Rubik', sans-serif;
-		font-weight: 700;
+		font-weight: ${(props) => props.theme.fontWeight.strong};
 	}
 
 	@media (max-width: 992px) {

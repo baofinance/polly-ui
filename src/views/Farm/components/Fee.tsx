@@ -71,19 +71,19 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 }
 
 const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
+	color: ${(props) => props.theme.color.primary[100]};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.blue[200]};
+		color: ${(props) => props.theme.color.secondary[200]};
 	}
 `
 
 const StyledDocsWarning = styled.span`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.primary[100]};
 	font-size: 1rem;
 	margin: 1rem;
 	padding: 0.5rem;
