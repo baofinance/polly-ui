@@ -6,7 +6,6 @@ import React from 'react'
 import 'react-tabs/style/react-tabs.css'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import '../tab-styles.css'
 import NestListItem from './NestListItem'
 import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
 

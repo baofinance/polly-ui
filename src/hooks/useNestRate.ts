@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js'
-import MultiCall from '../utils/multicall'
+import MultiCall from 'utils/multicall'
 import { useCallback, useEffect, useState } from 'react'
 import useBao from './useBao'
 import useMulticall from './useMulticall'
 import {
   getRecipeContract,
   getWethPriceContract,
-} from '../bao/utils'
-import { decimate, exponentiate } from '../utils/formatBalance'
+} from 'bao/utils'
+import { decimate, exponentiate } from 'utils/formatBalance'
 
 const useNestRate = (nestAddress: string) => {
   const bao = useBao()

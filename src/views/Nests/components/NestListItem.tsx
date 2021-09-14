@@ -7,8 +7,7 @@ import React, { useMemo } from 'react'
 import 'react-tabs/style/react-tabs.css'
 import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/formatBalance'
-import Tooltipped from '../../../../components/Tooltipped'
-import '../tab-styles.css'
+import Tooltipped from 'components/Tooltipped'
 import {
 	AssetImage,
 	AssetImageContainer,

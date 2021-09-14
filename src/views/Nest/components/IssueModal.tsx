@@ -62,7 +62,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	)
 
 	const fetchRate = async () => {
-		return fetchCalcToNest(recipeContract, _outputToken, 1)
+		return fetchCalcToNest(recipeContract, _outputToken, nestAmount)
 	}
 
 	const handleOutputChange = useCallback(
@@ -258,7 +258,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 									new BigNumber(nestAmount).times(10 ** 18).toString(),
 								)
 								.call()
-							onIssue(wethNeeded, encodedAmountData).on(
+							onIssue(new BigNumber(wethNeeded), encodedAmountData).on(
 								'confirmation',
 								(_confNo: any) => {
 									setConfNo(_confNo)
@@ -266,7 +266,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 										setConfNo(undefined)
 										setPendingTx(false)
 										onDismiss()
-										window.location.reload(false)
+										window.location.reload()
 									}
 								},
 							)

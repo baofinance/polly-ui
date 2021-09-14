@@ -35,8 +35,8 @@ const useHomeAnalytics = () => {
     const multicallContext = []
     for (const nest of supportedNests) {
       const nestAddress: any =
-        (typeof nest.nestAddress === 'string' && nest.nestAddress) ||
-        (nest.nestAddress && nest.nestAddress[137]) ||
+        (typeof nest.nestAddresses === 'string' && nest.nestAddresses) ||
+        (nest.nestAddresses && nest.nestAddresses[137]) ||
         nest.outputToken
       const nestContract = new web3.eth.Contract(
         experipieAbi as AbiItem[],

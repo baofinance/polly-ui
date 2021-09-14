@@ -10,7 +10,7 @@ const useNestIssue = (nestContractAddress: string) => {
   const bao = useBao()
   const recipeContract = getRecipeContract(bao)
 
-  const handleIssue = useCallback((amountWeth: string, encodedAmountData: string) =>
+  const handleIssue = useCallback((amountWeth: BigNumber, encodedAmountData: string) =>
     nestIssue(
       recipeContract,
       nestContractAddress,

@@ -7,24 +7,24 @@ import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
-import Button from '../../components/Button'
-import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import DonutGraph from '../../components/Graphs/PieGraph'
-import { SpinnerLoader } from '../../components/Loader'
-import Spacer from '../../components/Spacer'
-import Tooltipped from '../../components/Tooltipped'
-import useBao from '../../hooks/useBao'
-import useComposition from '../../hooks/useComposition'
-import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
-import useModal from '../../hooks/useModal'
-import useNav from '../../hooks/useNav'
-import useNest from '../../hooks/useNest'
-import useNestRate from '../../hooks/useNestRate'
-import useNestRedeem from '../../hooks/useNestRedeem'
-import useTokenBalance from '../../hooks/useTokenBalance'
-import usePairPrice from '../../hooks/usePairPrice'
-import { getContract } from '../../utils/erc20'
-import { decimate, getDisplayBalance } from '../../utils/formatBalance'
+import Button from 'components/Button'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
+import DonutGraph from 'components/Graphs/PieGraph'
+import { SpinnerLoader } from 'components/Loader'
+import Spacer from 'components/Spacer'
+import Tooltipped from 'components/Tooltipped'
+import useBao from 'hooks/useBao'
+import useComposition from 'hooks/useComposition'
+import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
+import useModal from 'hooks/useModal'
+import useNav from 'hooks/useNav'
+import useNest from 'hooks/useNest'
+import useNestRate from 'hooks/useNestRate'
+import useNestRedeem from 'hooks/useNestRedeem'
+import useTokenBalance from 'hooks/useTokenBalance'
+import usePairPrice from 'hooks/usePairPrice'
+import { getContract } from 'utils/erc20'
+import { decimate, getDisplayBalance } from 'utils/formatBalance'
 import IssueModal from './components/IssueModal'
 import NavModal from './components/NavModal'
 import { Progress } from './components/Progress'
@@ -65,7 +65,7 @@ const Nest: React.FC = () => {
 	const nest = useNest(nestId)
 	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
 		nest
-	const composition = useComposition(nest)
+	const composition = useComposition(nestTokenAddress)
 	const { wethPrice } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
 	const nav = useNav(composition, supply)
@@ -237,7 +237,7 @@ const Nest: React.FC = () => {
 							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
 								<StyledBadge style={{ marginRight: '10px' }}>
 									<img
-										src={require('../../assets/img/assets/MATIC.png')}
+										src={require('assets/img/assets/MATIC.png')}
 										style={{ height: '1em' }}
 									/>{' '}
 									{(nav && `$${getDisplayBalance(nav.nav, 0)}`) || (
