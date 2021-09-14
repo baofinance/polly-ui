@@ -394,7 +394,7 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledTitle = styled.h4`
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-size: 19px;
 	font-weight: ${(props) => props.theme.fontWeight.strong};
 	margin: ${(props) => props.theme.spacing[2]}px 0 0;
@@ -419,7 +419,7 @@ const StyledDetails = styled.div`
 `
 
 const StyledDetail = styled.div`
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 `
 
 const StyledInsight = styled.div`
@@ -428,7 +428,7 @@ const StyledInsight = styled.div`
 	box-sizing: border-box;
 	border-radius: 8px;
 	background: rgba(256, 256, 256, 0.1);
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	width: 100%;
 	margin-top: 12px;
 	line-height: 32px;
@@ -439,7 +439,7 @@ const StyledInsight = styled.div`
 `
 
 const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.secondary[200]};
+	color: ${(props) => props.theme.color.link[100]};
 	font-weight: ${(props) => props.theme.fontWeight.strong};
 	text-decoration: none;
 	&:hover {

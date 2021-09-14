@@ -284,7 +284,7 @@ export const CloseButton = styled.a`
 	right: 25px;
 	font-size: 24px;
 	position: absolute;
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 
 	&:hover {
 		cursor: pointer;
@@ -312,14 +312,14 @@ const HidePrice = styled.div`
 `
 
 const StyledLink = styled.a`
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.strong};
 	text-decoration: none;
 	&:hover {
-		color: ${(props) => props.theme.color.secondary[200]};
+		color: ${(props) => props.theme.color.link[100]};
 	}
 	&.active {
-		color: ${(props) => props.theme.color.secondary[200]};
+		color: ${(props) => props.theme.color.link[100]};
 	}
 `
 

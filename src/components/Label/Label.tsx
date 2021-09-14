@@ -10,7 +10,7 @@ const Label: React.FC<LabelProps> = ({ text }) => (
 )
 
 const StyledLabel = styled.div`
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 `
 
 export default Label

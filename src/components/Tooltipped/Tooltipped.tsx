@@ -34,7 +34,7 @@ const QuestionIcon = styled(FontAwesomeIcon)`
 
 	&:hover,
 	&:focus {
-		color: ${(props) => props.theme.color.primary[100]};
+		color: ${(props) => props.theme.color.text[100]};
 		animation: 200ms;
 	}
 `

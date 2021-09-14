@@ -161,7 +161,7 @@ const Balances: React.FC = () => {
 const Footnote = styled.div`
 	font-size: 14px;
 	padding: 8px 20px;
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	border-top: solid 1px #161522;
 `
 

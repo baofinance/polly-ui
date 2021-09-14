@@ -102,7 +102,8 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 				<ListCol width={'15%'} align={'right'}>
 					<div style={{ height: '50px' }}>
 						<Button
-							width={'90%'}
+							size='md'
+							width="90%"
 							disabled={!indexActive}
 							text={indexActive ? 'Select' : undefined}
 							to={`/nests/${nest.nid}`}

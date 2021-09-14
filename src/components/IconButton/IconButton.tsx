@@ -84,7 +84,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
 		animation: ${AnimateGradient} 3s ease-in-out infinite;
 		border-color: ${lighten(0.025, '#090130')};
-		color: ${(props) => props.theme.color.primary[100]};
+		color: ${(props) => props.theme.color.text[100]};
 		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
 		box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
 			rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
@@ -94,7 +94,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 const StyledLink = styled(Link)`
 	align-items: center;
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	display: flex;
 	flex: 1;
 	height: 56px;

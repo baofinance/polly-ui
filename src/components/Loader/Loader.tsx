@@ -50,7 +50,7 @@ interface SpinnerProps {
 
 export const SpinnerLoader: React.FC<SpinnerProps> = ({ block }) => {
 	let style: any = {
-		color: `${(props: any) => props.theme.color.primary[100]}`,
+		color: `${(props: any) => props.theme.color.text[100]}`,
 	}
 	if (block)
 		style = {

@@ -5,7 +5,7 @@ export const ListLabelCol = styled.span`
   font-family: 'Rubik', sans-serif;
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
-  color: ${(props) => props.theme.color.primary[100]};
+  color: ${(props) => props.theme.color.text[100]};
   vertical-align: middle;
   font-weight: bold;
   padding: 0;
@@ -132,7 +132,7 @@ export const AssetImageContainer = styled.div`
   margin: 0 auto;
   display: inline-block;
   vertical-align: middle;
-  color: ${(props) => props.theme.color.primary[100]};
+  color: ${(props) => props.theme.color.text[100]};
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: none;
@@ -162,7 +162,7 @@ export const AssetImage = styled(NestImage)`
 `
 
 export const ColumnText = styled.span`
-  color: ${(props) => props.theme.color.primary[100]} !important;
+  color: ${(props) => props.theme.color.text[100]} !important;
   vertical-align: middle;
   text-align: center;
   font-weight: bold;

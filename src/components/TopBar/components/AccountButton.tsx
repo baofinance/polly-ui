@@ -52,7 +52,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 								{account.slice(account.length - 4, account.length)}
 								<FontAwesomeIcon
 									icon="angle-double-right"
-									style={{ margin: '0 5px', color: '  color: ${(props) => props.theme.color.primary[100]};' }}
+									style={{ margin: '0 5px', color: '  color: ${(props) => props.theme.color.text[100]};' }}
 								/>
 								{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
 								<FontAwesomeIcon

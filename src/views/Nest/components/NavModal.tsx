@@ -55,7 +55,7 @@ export const CloseButton = styled.a`
 	right: 25px;
 	font-size: 24px;
 	position: absolute;
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 
 	&:hover {
 		cursor: pointer;

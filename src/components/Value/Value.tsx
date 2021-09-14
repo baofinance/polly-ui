@@ -39,7 +39,7 @@ const Value: React.FC<ValueProps> = ({ value, decimals }) => {
 
 const StyledValue = styled.div`
 	font-family: 'Rubik', sans-serif;
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-size: 2rem;
 	font-weight: ${(props) => props.theme.fontWeight.strong};
 `

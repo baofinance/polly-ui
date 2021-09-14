@@ -118,34 +118,14 @@ interface StyledButtonProps {
 	target?: string
 }
 
-const AnimateGradient = keyframes`
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}`
-
 const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	target: attrs.target || '',
 }))<StyledButtonProps>`
-	padding: 0.7rem 1.7rem;
 	align-items: center;
-	background-color: ${(props) => props.theme.color.secondary[300]};
-	background-image: linear-gradient(
-		135deg,
-		${(props) => props.theme.color.secondary[400]} 0%,
-		${(props) => props.theme.color.secondary[300]} 51%,
-		${(props) => props.theme.color.secondary[500]} 100%
-	);
-	background-size: 200% 200%;
-	border: 1px solid ${(props) => props.theme.color.primary[500]};
-	box-shadow: ${(props) => props.theme.boxShadow.default};
+	background: ${(props) => props.theme.borderGradient.blueGreen};
 	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: 1.75px solid transparent;
+	padding: ${(props) => -props.theme.spacing[3]}px;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
 	font-size: ${(props) => props.fontSize};
@@ -170,24 +150,12 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 		padding: 0.85rem 0.85rem;
 	}
 
-	:hover {
-		transform: scale(1);
-	}
-
-	&:hover:before {
-		transform: scale(1.2);
-	}
-
 	&:hover,
-	&:focus {
-		background-position: right center;
-		-webkit-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		animation: ${AnimateGradient} 3s ease-in-out infinite;
-		border-color: ${(props) => lighten(0.025, props.theme.color.primary[500])};
-		color: ${(props) => props.theme.color.primary[100]};
-		cursor: ${(props) =>
-			props.disabled ? 'not-allowed' : 'pointer'} !important;
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
+		background: ${(props) => props.theme.backgroundGradient.darkToLight};
+		border: 1.75px solid transparent;
 	}
 `
 
@@ -204,7 +172,7 @@ const StyledLink = styled(Link)`
 
 	&:hover,
 	&:focus {
-		color: ${(props) => props.theme.color.primary[100]};
+		color: ${(props) => props.theme.color.text[100]};
 	}
 `
 
@@ -221,13 +189,13 @@ const StyledExternalLink = styled.a`
 
 	&:hover,
 	&:focus {
-		color: ${(props) => props.theme.color.primary[100]};
+		color: ${(props) => props.theme.color.text[100]};
 	}
 `
 
 export const MaxButton = styled.a`
 	padding: 5px;
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	background: ${(props) => props.theme.borderGradient.blueGreen};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1.75px solid transparent;
@@ -240,7 +208,7 @@ export const MaxButton = styled.a`
 
 	&:hover {
 		background-color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
-		color: ${(props) => props.theme.color.primary[100]};
+		color: ${(props) => props.theme.color.text[100]};
 		cursor: pointer;
 	}
 `
@@ -254,8 +222,7 @@ export const StyledBorderButton = styled(StyledButton)`
 	&:hover,
 	&:focus,
 	&:active {
-		background: linear-gradient(225deg, #242436, #1b1b29) padding-box,
-			linear-gradient(157.5deg, #5455c9, #53c7e4) border-box;
+		background: ${(props) => props.theme.backgroundGradient.darkToLight};
 		border: 1.75px solid transparent;
 	}
 `

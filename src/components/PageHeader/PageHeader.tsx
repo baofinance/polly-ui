@@ -80,7 +80,7 @@ export const StyledTitle = styled.h1`
 `
 
 const StyledSubtitle = styled.h3`
-	color: ${(props) => props.theme.color.primary[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-size: 18px;
 	font-weight: 400;
 	margin: 0;
