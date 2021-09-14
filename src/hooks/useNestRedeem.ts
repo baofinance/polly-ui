@@ -10,11 +10,7 @@ const useNestRedeem = (nid: number) => {
 
   const handleNestRedeem = useCallback(
     (amount: string) => {
-      return nestRedeem(
-        nestContract.nestContract,
-        amount,
-        account,
-      )
+      return nestRedeem(nestContract.nestContract, amount, account)
     },
     [account, nid, bao],
   )
