@@ -12,7 +12,7 @@ export const Context = createContext<MulticallContext>({
 })
 
 const MulticallProvider: React.FC = ({ children }) => {
-	const { ethereum } = useWallet()
+	const { ethereum, account } = useWallet()
 	const bao = useBao()
 	const [multicall, setMulticall] = useState<Multicall | undefined>()
 
@@ -20,7 +20,7 @@ const MulticallProvider: React.FC = ({ children }) => {
 		if (!(ethereum && bao && bao.web3)) return
 
 		setMulticall(new Multicall({ web3Instance: bao.web3, tryAggregate: true }))
-	}, [ethereum, bao])
+	}, [ethereum, account, bao])
 
 	return <Context.Provider value={{ multicall }}>{children}</Context.Provider>
 }

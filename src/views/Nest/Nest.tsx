@@ -48,8 +48,6 @@ import {
 	StatsRow,
 	StyledBadge,
 	StyledTable,
-	StyledAlert,
-	StyledExternalLink,
 	CornerButtons,
 } from './styles'
 import NDEFI from './components/explanations/nDEFI'
@@ -63,9 +61,9 @@ const Nest: React.FC = () => {
 	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
 
 	const nest = useNest(nestId)
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
-		nest
-	const composition = useComposition(nestTokenAddress)
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, icon } = nest
+
+	const composition = useComposition(nest)
 	const { wethPrice } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
 	const nav = useNav(composition, supply)
