@@ -42,7 +42,6 @@ export const getNestContract = (bao: Bao, nid: number) => {
     return {
       address,
       nestContract: nest.nestContract,
-      basketContract: nest.basketContract,
     }
   }
 }

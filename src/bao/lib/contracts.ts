@@ -4,7 +4,6 @@ import { provider } from 'web3-core/types'
 import { Contract } from 'web3-eth-contract'
 import { AbiItem } from 'web3-utils'
 import { BaoOptions } from '../Bao'
-import BasketAbi from './abi/basketFacet.json'
 import ChainOracle from './abi/chainoracle.json'
 import ERC20Abi from './abi/erc20.json'
 import ExperipieAbi from './abi/experipie.json'
@@ -33,7 +32,6 @@ export interface FarmableSupportedPool extends SupportedPool {
 export interface ActiveSupportedNest extends SupportedNest {
   nestAddress: string
   nestContract: Contract
-  basketContract: Contract
 }
 
 export class Contracts {
@@ -94,9 +92,6 @@ export class Contracts {
               nestContract: new this.web3.eth.Contract(
                 ExperipieAbi as AbiItem[],
               ),
-              basketContract: new this.web3.eth.Contract(
-                BasketAbi as AbiItem[],
-              ),
             }),
           )
         : undefined
@@ -119,18 +114,17 @@ export class Contracts {
       setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
 
       if (this.pools) {
-        this.pools.forEach((farm) => {
-          const { lpContract, lpAddress, tokenContract, tokenAddress } = farm
-          setProvider(lpContract, lpAddress)
-          setProvider(tokenContract, tokenAddress)
-        })
+        this.pools.forEach(
+          ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
+            setProvider(lpContract, lpAddress)
+            setProvider(tokenContract, tokenAddress)
+          },
+        )
       }
       if (this.nests) {
-        this.nests.forEach((nest) => {
-          const { nestAddress, nestContract, basketContract } = nest
-          setProvider(nestContract, nestAddress)
-          setProvider(basketContract, nestAddress)
-        })
+        this.nests.forEach(({ nestAddress, nestContract }) =>
+          setProvider(nestContract, nestAddress),
+        )
       }
     }
   }
