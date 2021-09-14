@@ -4,6 +4,7 @@ const theme = {
   borderRadius: 12,
   breakpoints: {
     mobile: 576,
+    tablet: 767,
   },
   color: {
     black,

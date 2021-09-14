@@ -13,9 +13,7 @@ export const red = {
 
 export const blue = {
   100: '#0000ff',
-  200: '#C5CBE3',
-  300: '#4056A1',
-  400: '#7793f5',
+  200: '#7793f5',
 }
 
 export const gold = {
