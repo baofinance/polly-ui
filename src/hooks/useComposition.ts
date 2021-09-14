@@ -22,7 +22,7 @@ const useComposition = (nest: Nest) => {
   const multicall = useMulticall()
 
   useEffect(() => {
-    if (!nest || !nest.nestContract) return
+    if (!(nest && nest.nestContract)) return
 
     nest.nestContract.methods
       .getTokens()

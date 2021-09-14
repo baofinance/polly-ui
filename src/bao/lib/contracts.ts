@@ -3,7 +3,6 @@ import Web3 from 'web3'
 import { provider } from 'web3-core/types'
 import { Contract } from 'web3-eth-contract'
 import { AbiItem } from 'web3-utils'
-import { getContract } from '../../utils/erc20'
 import { BaoOptions } from '../Bao'
 import BasketAbi from './abi/basketFacet.json'
 import ChainOracle from './abi/chainoracle.json'
@@ -32,10 +31,10 @@ export interface FarmableSupportedPool extends SupportedPool {
 }
 
 export interface ActiveSupportedNest extends SupportedNest {
-	nestAddress: string
-	nestContract: Contract
-	basketContract: Contract
-  }
+  nestAddress: string
+  nestContract: Contract
+  basketContract: Contract
+}
 
 export class Contracts {
   polly: Contract
@@ -79,24 +78,28 @@ export class Contracts {
       networkId === 137
         ? supportedPools.map((pool) =>
             Object.assign(pool, {
-        lpAddress: pool.lpAddresses[networkId],
-        tokenAddress: pool.tokenAddresses[networkId],
-        lpContract: new this.web3.eth.Contract(UNIV2PairAbi as AbiItem[]),
-        tokenContract: new this.web3.eth.Contract(ERC20Abi as AbiItem[]),
-      }),
-    )
-: undefined
+              lpAddress: pool.lpAddresses[networkId],
+              tokenAddress: pool.tokenAddresses[networkId],
+              lpContract: new this.web3.eth.Contract(UNIV2PairAbi as AbiItem[]),
+              tokenContract: new this.web3.eth.Contract(ERC20Abi as AbiItem[]),
+            }),
+          )
+        : undefined
 
     this.nests =
       networkId === 137
         ? supportedNests.map((nest) =>
             Object.assign(nest, {
-        nestAddress: nest.nestAddresses[networkId],
-        nestContract: new this.web3.eth.Contract(ExperipieAbi as AbiItem[]),
-        basketContract: new this.web3.eth.Contract(BasketAbi as AbiItem[]),
-      }),
-    )
-	: undefined
+              nestAddress: nest.nestAddresses[networkId],
+              nestContract: new this.web3.eth.Contract(
+                ExperipieAbi as AbiItem[],
+              ),
+              basketContract: new this.web3.eth.Contract(
+                BasketAbi as AbiItem[],
+              ),
+            }),
+          )
+        : undefined
 
     this.setProvider(provider, networkId)
     this.setDefaultAccount(this.web3.eth.defaultAccount)
@@ -104,34 +107,32 @@ export class Contracts {
 
   setProvider(provider: provider, networkId: number): void {
     const setProvider = (contract: Contract, address: string) => {
-      // FIXME: how was this ever working before on mainnet?
-      // contract.setProvider(provider)
       if (address) contract.options.address = address
       else console.error('Contract address not found in network', networkId)
     }
 
-	if (networkId === 137) {
-    setProvider(this.polly, contractAddresses.polly[networkId])
-    setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-    setProvider(this.recipe, contractAddresses.recipe[networkId])
-    setProvider(this.weth, contractAddresses.weth[networkId])
-    setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
-	}
-	if (this.pools) {
-	this.pools.forEach(({ lpContract, lpAddress, tokenAddress }) => {
-		const tokenContract = getContract(provider, tokenAddress)
-        setProvider(lpContract, lpAddress)
-        setProvider(tokenContract, tokenAddress)
+    if (networkId === 137) {
+      setProvider(this.polly, contractAddresses.polly[networkId])
+      setProvider(this.masterChef, contractAddresses.masterChef[networkId])
+      setProvider(this.recipe, contractAddresses.recipe[networkId])
+      setProvider(this.weth, contractAddresses.weth[networkId])
+      setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
+
+      if (this.pools) {
+        this.pools.forEach((farm) => {
+          const { lpContract, lpAddress, tokenContract, tokenAddress } = farm
+          setProvider(lpContract, lpAddress)
+          setProvider(tokenContract, tokenAddress)
+        })
       }
-    )}
-	if (this.nests) {
-    this.nests.forEach(({ nestAddress }) => {
-		const nestContract = getContract(provider, nestAddress)
-		const basketContract = getContract(provider, nestAddress)
-      setProvider(nestContract, nestAddress)
-      setProvider(basketContract, nestAddress)
-	}
-	)}
+      if (this.nests) {
+        this.nests.forEach((nest) => {
+          const { nestAddress, nestContract, basketContract } = nest
+          setProvider(nestContract, nestAddress)
+          setProvider(basketContract, nestAddress)
+        })
+      }
+    }
   }
 
   setDefaultAccount(account: string): void {
@@ -141,12 +142,8 @@ export class Contracts {
   }
 
   async callContractFunction(method: any, options: any) {
-    const {
-      confirmations,
-      confirmationType,
-      autoGasMultiplier,
-      ...txOptions
-    } = options
+    const { confirmations, confirmationType, autoGasMultiplier, ...txOptions } =
+      options
 
     if (!this.blockGasLimit) {
       await this.setGasLimit()
@@ -182,7 +179,7 @@ export class Contracts {
       }
 
       if (confirmationType === Types.ConfirmationType.Simulate) {
-        let g = txOptions.gas
+        const g = txOptions.gas
         return { gasEstimate, g }
       }
     }
