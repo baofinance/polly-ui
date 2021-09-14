@@ -44,9 +44,14 @@ export const secondary = {
   500: '#090130',
 }
 
-export const text = {}
+export const text = {
+  100: '#f7f4f2',
+  200: '#b2b2b2',
+}
 
-export const link = {}
+export const link = {
+  100: '#7793f5',
+}
 
 export const darkGrey = {
   100: '#272849',

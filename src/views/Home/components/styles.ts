@@ -97,9 +97,8 @@ export const HeroSubHeader = styled.h6`
 
 export const HeroText = styled.p`
   font-size: 1.25rem;
-  color: ${(props) => props.theme.color.text[100]};
+  color: ${(props) => props.theme.color.text[200]};
   font-weight: 400;
-  opacity: 0.75;
   margin: auto;
   text-align: center;
 
