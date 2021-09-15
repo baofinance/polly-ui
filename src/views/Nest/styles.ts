@@ -1,16 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { darken } from 'polished'
 import { Alert, Badge, Col, Row, Table } from 'react-bootstrap'
 import Collapse from 'react-bootstrap/Collapse'
 import styled from 'styled-components'
 
 export const StyledAlert = styled(Alert)`
   border: none;
-  border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  background-color: ${(props) => props.theme.color.transparent[100]};
   text-align: center;
   color: ${(props) => props.theme.color.text[100]};
-  margin: 20px auto;
+  margin: ${(props) => props.theme.spacing[3]}px auto;
   width: 80%;
 
   > * {
@@ -38,10 +37,10 @@ export const NestBox = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding-top: 56px;
+  padding-top: ${(props) => props.theme.spacing[6]}px;
   text-align: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
     width: 100%;
   }
 `
@@ -58,14 +57,14 @@ export const NestBoxHeader = styled.div`
 
   span.badge {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
+    margin-bottom: ${(props) => props.theme.spacing[3]}px;
   }
 
   span.smalltext {
     float: right;
-    font-size: 0.5em;
-    margin-top: 1em;
-    margin-left: 0.5em;
+    font-size: 0.5rem;
+    margin-top: ${(props) => props.theme.spacing[3]}px;
+    margin-left: ${(props) => props.theme.spacing[2]}px;
   }
 
   img {
@@ -79,9 +78,9 @@ export const NestBoxHeader = styled.div`
 
 export const CornerButtons = styled.a`
   float: right;
-  top: 15px;
-  right: 25px;
-  font-size: 24px;
+  top: ${(props) => props.theme.spacing[3]}px;
+  right: ${(props) => props.theme.spacing[4]}px;
+  font-size: 1.5rem;
   position: absolute;
   color: ${(props) => props.theme.color.text[100]};
 
@@ -112,9 +111,9 @@ export const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
 
 export const NestCornerButton = styled.a`
   float: right;
-  margin-top: 10px;
-  margin-right: 15px;
-  font-size: 24px;
+  margin-top: ${(props) => props.theme.spacing[2]}px;
+  margin-right: ${(props) => props.theme.spacing[3]}px;
+  font-size: 1.5rem;
   vertical-align: middle;
   color: ${(props) => props.theme.color.text[100]};
 
@@ -124,8 +123,8 @@ export const NestCornerButton = styled.a`
 `
 
 export const NestAnalytics = styled(Collapse)`
-  margin-bottom: 25px;
-  margin-top: 25px;
+  margin-bottom: ${(props) => props.theme.spacing[4]}px;
+  margin-top: ${(props) => props.theme.spacing[4]}px;
   width: 80%;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
@@ -140,10 +139,10 @@ export const NestAnalyticsContainer = styled.div.attrs((props) => ({
 export const GraphContainer = styled(Col)`
   width: 100%;
   height: 350px;
-  margin: 0 auto 50px;
-  border-radius: 12px;
+  margin: 0 auto ${(props) => props.theme.spacing[6]}px;
+  border-radius: ${(props) => props.theme.borderRadius};
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props) => props.theme.color.transparent[100]};
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     height: 250px;
@@ -160,14 +159,14 @@ export const PieGraphRow = styled(Row)`
 export const StyledTable = styled(Table)`
   width: 100%;
   margin: 0 auto;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 12px;
+  background: ${(props) => props.theme.color.transparent[100]};
+  border-radius: ${(props) => props.theme.borderRadius};
   color: ${(props) => props.theme.color.text[100]};
   border-color: transparent;
 
   th {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: ${(props) => props.theme.spacing[4]};
+    padding-bottom: ${(props) => props.theme.spacing[4]};
   }
 
   tbody > tr {
@@ -196,18 +195,20 @@ export const PrefButtons = styled.div`
 
   > button {
     float: left;
-    margin-left: 10px;
-    margin-top: 25px;
-    border: 1px solid rgba(256, 256, 256, 0.4);
+    margin-left: ${(props) => props.theme.spacing[2]}px;
+    margin-top: ${(props) => props.theme.spacing[4]}px;
     color: ${(props) => props.theme.color.text[100]};
-
+    border-radius: ${(props) => props.theme.borderRadius}px;
+    width: 48px;
+    background: ${(props) => props.theme.color.transparent[100]};
+  
     &:hover,
     &.active,
     &:active,
     &:focus {
-      border: 1px solid rgba(0, 0, 0, 0.4);
+      border: 2px solid transparent;
       color: ${(props) => props.theme.color.text[100]};
-      background-color: rgba(0, 0, 0, 0.4);
+      background: ${(props) => props.theme.borderGradient.blueGreen};
       box-shadow: none !important;
     }
   }
@@ -219,43 +220,43 @@ export const PrefButtons = styled.div`
 
 export const StatsRow = styled(Row)`
   width: 80%;
-  margin: 50px auto;
+  margin: ${(props) => props.theme.spacing[6]}px auto;
   display: flex;
   flex-direction: row;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     width: 90%;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
-    margin: 25px auto;
+    background: ${(props) => props.theme.color.transparent[100]};
+    border-radius: ${(props) => props.theme.borderRadius};
+    margin: ${(props) => props.theme.spacing[4]}px auto;
   }
 `
 
 export const StatCard = styled.div`
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props) => props.theme.color.transparent[100]};
   width: 90%;
   margin: 0 auto;
-  padding: 15px;
-  border-radius: 12px;
-  font-weight: bold;
+  padding: ${(props) => props.theme.spacing[3]}px;
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   text-align: center;
   color: ${(props) => props.theme.color.text[100]};
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    padding: 10px;
+    padding: ${(props) => props.theme.spacing[2]}px;
     background: transparent;
   }
 `
 
 export const StyledBadge = styled(Badge)`
   font-size: 1em;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props) => props.theme.color.transparent[100]};
   color: ${(props) => props.theme.color.text[100]};
 `
 
 export const Icon = styled.img`
   height: 200px;
-  margin-bottom: 25px;
+  margin-bottom: ${(props) => props.theme.spacing[4]}px;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     margin-left: 0px;
@@ -269,63 +270,63 @@ export const NestButtons = styled.div`
   justify-content: center;
   vertical-align: middle;
   display: flex;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: ${(props) => props.theme.spacing[3]}px;
+  margin-bottom: ${(props) => props.theme.spacing[3]}px;
   width: 80%;
 `
 
 export const NestHeader = styled.h1`
   font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.text[100]};
-  margin-bottom: 10px;
+  margin-bottom: ${(props) => props.theme.spacing[2]}px;
   margin-top: 0;
-  font-size: 32px;
+  font-size: 2rem;
 
   small {
     display: block;
     font-family: 'Rubik', sans-serif;
-    font-size: 40%;
-    margin-top: 5px;
+    font-size: 1.5rem;
+    margin-top: ${(props) => props.theme.spacing[1]}px;
   }
 `
 
 export const NestSubHeader = styled.h1`
   font-family: 'Rubik', sans-serif;
   color: ${(props) => props.theme.color.text[100]};
-  margin-bottom: 10px;
+  margin-bottom: ${(props) => props.theme.spacing[2]}px;
   margin-top: 0;
-  font-size: 24px;
+  font-size: 2rem;
 
   small {
     display: block;
     font-family: 'Rubik', sans-serif;
-    font-size: 40%;
-    margin-top: 5px;
+    font-size: 1.5rem;
+    margin-top: ${(props) => props.theme.spacing[1]}px;
   }
 `
 
 export const NestExplanation = styled.div`
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props) => props.theme.color.transparent[100]};
   color: ${(props) => props.theme.color.text[100]};
   text-align: left;
   width: 80%;
   margin: auto;
-  padding: 50px;
-  border-radius: 12px;
+  padding: ${(props) => props.theme.spacing[6]}px;
+  border-radius: ${(props) => props.theme.borderRadius}px;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     width: 90%;
-    padding: 25px;
-    margin-top: 25px;
+    padding: ${(props) => props.theme.spacing[4]}px;
+    margin-top: ${(props) => props.theme.spacing[4]}px;
   }
 `
 
 export const NestList = styled.ul`
-  margin-left: 25px;
+  margin-left: ${(props) => props.theme.spacing[4]}px;
 `
 
 export const QuestionIcon = styled(FontAwesomeIcon)`
-  color: ${(props) => darken(0.2, props.theme.color.primary[100])};
+  color: ${(props) =>props.theme.color.text[200]};
 
   &:hover,
   &:focus {

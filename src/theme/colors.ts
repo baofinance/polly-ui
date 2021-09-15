@@ -58,3 +58,7 @@ export const darkGrey = {
   200: '#0c0b12',
   300: '#06060a',
 }
+
+export const transparent = {
+  100: 'rgba(0, 0, 0, 0.4)'
+}

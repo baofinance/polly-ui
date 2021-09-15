@@ -8,6 +8,7 @@ import {
   text,
   link,
   darkGrey,
+  transparent,
 } from './colors'
 
 const theme = {
@@ -26,6 +27,7 @@ const theme = {
     text,
     link,
     darkGrey,
+    transparent,
   },
   fontWeight: {
     thin: 100,

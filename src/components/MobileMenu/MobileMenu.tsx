@@ -52,7 +52,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
 }
 
 const StyledBackdrop = styled.div`
-	background: rgba(0, 0, 0, 0.4);
+	background: ${(props) => props.theme.color.transparent[100]};
 	position: absolute;
 	top: 0;
 	right: 0;

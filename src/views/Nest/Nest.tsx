@@ -320,7 +320,7 @@ const Nest: React.FC = () => {
 										onClick={() => setPriceHistoryTimeFrame(timeFrame)}
 										active={priceHistoryTimeFrame === timeFrame}
 										key={timeFrame}
-										style={{ marginTop: '0px' }}
+										style={{ marginTop: '0px', borderColor: 'transparent' }}
 									>
 										{timeFrame}
 									</BootButton>

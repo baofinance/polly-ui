@@ -25,7 +25,7 @@ export const ListLabelContainer = styled.div`
 `
 
 export const ListItemContainer = styled.div`
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props) => props.theme.color.transparent[100]};
   border-radius: 12px;
   padding: 1.5rem;
   display: block;
@@ -39,7 +39,7 @@ export const ListItemContainer = styled.div`
 export const MobileListItemWrapper = styled.div`
   display: none;
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    background: rgba(0, 0, 0, 0.4);
+    background: ${(props) => props.theme.color.transparent[100]};
     border-radius: 12px;
     width: 100%;
     flex-direction: column;

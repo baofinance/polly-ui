@@ -30,7 +30,7 @@ const Tooltipped: React.FC<TooltippedProps> = ({
 )
 
 const QuestionIcon = styled(FontAwesomeIcon)`
-	color: ${(props) => darken(0.2, props.theme.color.primary[100])};
+	color: ${(props) => props.theme.color.text[200]};
 
 	&:hover,
 	&:focus {

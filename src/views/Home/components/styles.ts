@@ -276,7 +276,7 @@ export const StyledCardContainer = styled.div`
 export const StyledCardContent = styled.div`
   color: ${(props) => props.theme.color.text[100]};
   padding: 30px;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${(props) => props.theme.color.transparent[100]};
   border-radius: 12px;
   height: 550px;
   width: 100%;

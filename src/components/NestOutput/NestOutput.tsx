@@ -36,7 +36,7 @@ const NestOutput: React.FC<OutputProps> = ({
 
 const StyledOutputWrapper = styled.div`
 	align-items: center;
-    background: rgba(0,0,0,0.4);
+    background: ${(props) => props.theme.color.transparent[100]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	display: flex;
 	height: 72px;

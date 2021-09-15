@@ -41,6 +41,10 @@ a:focus {
   border: 1px solid #0c0b12;
 }
 
+.outline-primary {
+  border: none !important;
+}
+
 .tooltip {
   border: none;
 }
