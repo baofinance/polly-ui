@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import pollyIcon from 'assets/img/logo.svg'
 import wethIcon from 'assets/img/assets/WETH.png'
+import pollyIcon from 'assets/img/logo.svg'
+import { BigNumber } from 'bignumber.js'
 import useBao from 'hooks/useBao'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback } from 'react'
+import { Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/numberFormat'
@@ -15,9 +17,7 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
-import { Col, Row } from 'react-bootstrap'
 import Config from '../../../bao/lib/config'
-import { BigNumber } from 'bignumber.js'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()

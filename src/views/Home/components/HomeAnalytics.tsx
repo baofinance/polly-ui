@@ -1,10 +1,7 @@
-import React from 'react'
-import useHomeAnalytics from 'hooks/useHomeAnalytics'
 import { SpinnerLoader } from 'components/Loader'
-import {
-	AnalyticsContainer,
-	Analytic,
-} from './styles'
+import useHomeAnalytics from 'hooks/useHomeAnalytics'
+import React from 'react'
+import { Analytic, AnalyticsContainer } from './styles'
 
 const HomeAnalytics: React.FC = () => {
 	const homeAnalytics = useHomeAnalytics()

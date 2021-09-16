@@ -142,7 +142,8 @@ export const AssetImageContainer = styled.div`
 
 export const AssetImage = styled(NestImage)`
   height: 40px;
-  margin: 0 0 -${(props) => props.theme.spacing[3]}px -${(props) => props.theme.spacing[3]}px;
+  margin: 0 0 -${(props) => props.theme.spacing[3]}px -${(props) =>
+      props.theme.spacing[3]}px;
   vertical-align: super;
   transition: 200ms;
   user-select: none;

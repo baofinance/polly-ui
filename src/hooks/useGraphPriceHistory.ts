@@ -10,12 +10,15 @@ const useGraphPriceHistory = (nest: Nest) => {
   const querySubgraph = useCallback(async () => {
     if (!(nest && nest.nestTokenAddress)) return
 
-    const data: any = await GraphClient.getPriceHistory(nest.nestTokenAddress.toLowerCase())
-    const formattedData: Array<TimeseriesData> =
-      data.tokens[0].dayData.map((dayData: any) => ({
+    const data: any = await GraphClient.getPriceHistory(
+      nest.nestTokenAddress.toLowerCase(),
+    )
+    const formattedData: Array<TimeseriesData> = data.tokens[0].dayData.map(
+      (dayData: any) => ({
         date: new Date(dayData.date * 1000).toISOString(),
         close: parseFloat(dayData.priceUSD),
-      }))
+      }),
+    )
     setRes(_.reverse(formattedData))
   }, [nest])
 

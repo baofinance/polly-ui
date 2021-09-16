@@ -1,8 +1,8 @@
 import MenuIcon from 'components/icons/MenuIcon'
-import React from 'react'
-import styled from 'styled-components'
-import { Container } from 'react-bootstrap'
 import Logo from 'components/Logo'
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import styled from 'styled-components'
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
 

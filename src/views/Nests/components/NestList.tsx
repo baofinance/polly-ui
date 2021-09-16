@@ -11,7 +11,7 @@ import {
 	ListLabelContainer,
 	NestListContainer,
 	StyledLoadingWrapper,
-	StyledSpacer,
+	StyledSpacer
 } from './styles'
 
 const NestList: React.FC = () => {

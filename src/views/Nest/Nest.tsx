@@ -1,12 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ParentSize } from '@visx/responsive'
 import BigNumber from 'bignumber.js'
-import _ from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
-import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
-import { useWallet } from 'use-wallet'
-import { provider } from 'web3-core'
 import Button from 'components/Button'
 import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import DonutGraph from 'components/Graphs/PieGraph'
@@ -21,18 +15,25 @@ import useNav from 'hooks/useNav'
 import useNest from 'hooks/useNest'
 import useNestRate from 'hooks/useNestRate'
 import useNestRedeem from 'hooks/useNestRedeem'
-import useTokenBalance from 'hooks/useTokenBalance'
 import usePairPrice from 'hooks/usePairPrice'
+import useTokenBalance from 'hooks/useTokenBalance'
+import _ from 'lodash'
+import React, { useEffect, useMemo, useState } from 'react'
+import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
+import { useWallet } from 'use-wallet'
 import { getContract } from 'utils/erc20'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
+import { provider } from 'web3-core'
+import NDEFI from './components/explanations/nDEFI'
 import IssueModal from './components/IssueModal'
 import NavModal from './components/NavModal'
 import { Progress } from './components/Progress'
 import RedeemModal from './components/RedeemModal'
 import {
+	CornerButtons,
 	GraphContainer,
 	Icon,
-	PriceGraph,
 	NestAnalytics,
 	NestAnalyticsContainer,
 	NestBox,
@@ -43,14 +44,14 @@ import {
 	NestExplanation,
 	PieGraphRow,
 	PrefButtons,
+	PriceBadge,
+	PriceGraph,
 	QuestionIcon,
 	StatCard,
 	StatsRow,
 	StyledBadge,
 	StyledTable,
-	CornerButtons,
 } from './components/styles'
-import NDEFI from './components/explanations/nDEFI'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
@@ -182,7 +183,7 @@ const Nest: React.FC = () => {
 				<NestBoxHeader>
 					<Icon src={icon} alt={nestToken} />
 					<br />
-					<StyledBadge>
+					<PriceBadge>
 						1 {nestToken} ={' '}
 						{(wethPrice &&
 							sushiPairPrice &&
@@ -193,7 +194,7 @@ const Nest: React.FC = () => {
 						{(sushiPairPrice && getDisplayBalance(sushiPairPrice, 0)) || (
 							<SpinnerLoader />
 						)}
-					</StyledBadge>
+					</PriceBadge>
 					<br />
 				</NestBoxHeader>
 				<StatsRow lg={4} sm={2}>
@@ -233,7 +234,11 @@ const Nest: React.FC = () => {
 							<QuestionIcon icon="question-circle" onClick={onNavModal} />
 							<Spacer size={'sm'} />
 							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
-								<StyledBadge style={{ marginRight: '${(props) => props.theme.spacing[2]}px' }}>
+								<StyledBadge
+									style={{
+										marginRight: '${(props) => props.theme.spacing[2]}px',
+									}}
+								>
 									<img
 										src={require('assets/img/assets/MATIC.png')}
 										style={{ height: '1em' }}
@@ -462,7 +467,8 @@ const Nest: React.FC = () => {
 														<Badge
 															style={{
 																backgroundColor: component.color,
-																margin: '${(props) => props.theme.spacing[2]px} 0',
+																margin:
+																	'${(props) => props.theme.spacing[2]px} 0',
 															}}
 														>
 															{component.symbol}

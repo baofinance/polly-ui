@@ -1,8 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
-import { darken } from 'polished'
 
 interface TooltippedProps {
 	content: string
@@ -41,3 +40,4 @@ const QuestionIcon = styled(FontAwesomeIcon)`
 
 export default Tooltipped
 export type { TooltippedProps }
+

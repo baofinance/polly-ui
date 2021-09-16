@@ -3,7 +3,7 @@ import Context from './context'
 import reducer, {
 	addTransaction,
 	initialState,
-	setTransactions,
+	setTransactions
 } from './reducer'
 import { Transaction, TransactionsMap } from './types'
 

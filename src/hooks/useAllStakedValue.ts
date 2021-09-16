@@ -1,18 +1,15 @@
-import { useCallback, useEffect, useState } from 'react'
-import { provider } from 'web3-core'
-
 import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-
+import { provider } from 'web3-core'
 import {
-  getMasterChefContract,
-  getWethContract,
-  getFarms,
-  getTotalLPWethValue,
+  getFarms, getMasterChefContract, getTotalLPWethValue, getWethContract
 } from '../bao/utils'
+import { getContract } from '../utils/erc20'
 import useBao from './useBao'
 import useBlock from './useBlock'
-import { getContract } from '../utils/erc20'
+
+
 
 export interface StakedValue {
   tokenAmount: BigNumber

@@ -21,8 +21,8 @@ import USDC from 'assets/img/assets/USDC.png'
 import USDT from 'assets/img/assets/USDT.png'
 import WETH from 'assets/img/assets/WETH.png'
 import YFI from 'assets/img/assets/YFI.png'
-import styled from 'styled-components'
 import { Col, Row } from 'react-bootstrap'
+import styled from 'styled-components'
 
 export const HeroHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
@@ -422,7 +422,7 @@ export const GraphContainer = styled(Col)`
   width: 100%;
   height: 350px;
   margin: 0 auto ${(props) => props.theme.spacing[6]}px;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.borderRadius}px;
   overflow: hidden;
   background: ${(props) => props.theme.color.transparent[100]};
 
@@ -432,84 +432,83 @@ export const GraphContainer = styled(Col)`
 `
 
 export const PriceGraphContainer = styled.div`
-	width: 80%;
-	margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 `
 
 export const StyledGraphContainer = styled(GraphContainer)`
-	width: 100%;
-	margin: ${(props) => props.theme.spacing[5]}px auto 0;
+  width: 100%;
+  margin: ${(props) => props.theme.spacing[5]}px auto 0;
 `
 
 export const AnalyticsContainer = styled(Row)`
-	display: flex;
-	flex-direction: row;
-	border-radius: ${(props) => props.theme.borderRadius}px;
-	background-color: ${(props) => props.theme.color.transparent[100]};
-	backdrop-filter: blur(5px);
-	margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
-	position: absolute;
-	width: 80%;
-	left: 50%;
-	transform: translateX(-50%);
-	height: 125px;
+  display: flex;
+  flex-direction: row;
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  background-color: ${(props) => props.theme.color.transparent[100]};
+  backdrop-filter: blur(5px);
+  margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
+  position: absolute;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 125px;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
-		flex-direction: column;
-		margin: ${(props) => props.theme.spacing[6]}px auto;
-		position: relative;
-		width: auto;
-		min-height: 133px;
-		height: auto;
-	}
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+    flex-direction: column;
+    margin: ${(props) => props.theme.spacing[6]}px auto;
+    position: relative;
+    width: auto;
+    min-height: 133px;
+    height: auto;
+  }
 
-	@media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
-		position: relative;
-		margin: ${(props) => props.theme.spacing[5]}px auto;
-		left: 0;
-		transform: none;
-	}
+  @media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
+    position: relative;
+    margin: ${(props) => props.theme.spacing[5]}px auto;
+    left: 0;
+    transform: none;
+  }
 `
 
 export const Analytic = styled(Col)`
-	margin: auto;
-	text-align: center;
-	height: 75%;
-	display: flex;
-	-webkit-box-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	justify-content: center;
-	border-right: 1px solid ${(props) => props.theme.color.transparent[200]};
-	flex: 1 1;
-	padding: ${(props) => props.theme.spacing[5]}px;
+  margin: auto;
+  text-align: center;
+  height: 75%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex: 1 1;
+  padding: ${(props) => props.theme.spacing[5]}px;
 
-	&:first-child {
-	}
+  &:first-child {
+  }
 
-	&:last-child {
-		border-right: none;
-	}
+  &:last-child {
+    border-right: none;
+  }
 
-	span > h2 {
-		font-family: 'Rubik', sans-serif;
-		font-weight: ${(props) => props.theme.fontWeight.medium};
-	}
+  span > h2 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
 
-	@media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
-		border-right: none;
-		border-bottom: 1px solid ${(props) => props.theme.color.transparent[200]};
-		flex: auto !important;
-		padding-bottom: ${(props) => props.theme.spacing[3]}px;
-		padding-top: ${(props) => props.theme.spacing[3]}px;
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+    border-right: none;
+    border-bottom: 1px solid ${(props) => props.theme.color.transparent[200]};
+    flex: auto !important;
+    padding-bottom: ${(props) => props.theme.spacing[3]}px;
+    padding-top: ${(props) => props.theme.spacing[3]}px;
 
-		&:first-child {
-		}
+    &:first-child {
+    }
 
-		&:last-child {
-			border-bottom: none;
-		}
-	}
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 `
 
 export const NestBoxHeader = styled.div`
@@ -554,7 +553,7 @@ export const PrefButtons = styled.div`
     border-radius: ${(props) => props.theme.borderRadius}px;
     width: 48px;
     background: ${(props) => props.theme.color.transparent[100]};
-  
+
     &:hover,
     &.active,
     &:active,

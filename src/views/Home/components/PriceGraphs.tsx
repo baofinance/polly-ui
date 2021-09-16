@@ -1,15 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import _ from 'lodash'
 import GraphClient from 'utils/graph'
 import { getDisplayBalance } from 'utils/numberFormat'
 import Config from 'bao/lib/config'
-import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import { ParentSize } from '@visx/responsive'
-import { Button } from 'react-bootstrap'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
-import { PriceGraphContainer, StyledGraphContainer, PrefButtons, NestBoxHeader } from './styles'
+import _ from 'lodash'
+import { Button } from 'react-bootstrap'
+import {
+	NestBoxHeader,
+	PrefButtons,
+	PriceGraphContainer,
+	StyledGraphContainer,
+} from './styles'
 
 const PriceGraphs: React.FC = () => {
 	const [priceData, setPriceData] = useState<any | undefined>()
@@ -64,7 +69,10 @@ const PriceGraphs: React.FC = () => {
 						onClick={() => setActiveNest(nest)}
 						active={activeNest === nest}
 						key={nest.symbol}
-						style={{ margin: '${(props) => props.theme.spacing[1]}px ${(props) => props.theme.spacing[2]}px' }}
+						style={{
+							margin:
+								'${(props) => props.theme.spacing[1]}px ${(props) => props.theme.spacing[2]}px',
+						}}
 					>
 						{nest.symbol}
 					</Button>
@@ -83,7 +91,9 @@ const PriceGraphs: React.FC = () => {
 							<span
 								className="smalltext"
 								style={{
-									color: indexPriceChange24h.gt(0) ? '${(props) => props.theme.color.green}' : '${(props) => props.theme.color.red}',
+									color: indexPriceChange24h.gt(0)
+										? '${(props) => props.theme.color.green}'
+										: '${(props) => props.theme.color.red}',
 								}}
 							>
 								{activeToken.dayData &&

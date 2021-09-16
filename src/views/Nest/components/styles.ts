@@ -140,7 +140,7 @@ export const GraphContainer = styled(Col)`
   width: 100%;
   height: 350px;
   margin: 0 auto ${(props) => props.theme.spacing[6]}px;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.borderRadius}px;
   overflow: hidden;
   background: ${(props) => props.theme.color.transparent[100]};
 
@@ -161,7 +161,7 @@ export const StyledTable = styled(Table)`
   width: 100%;
   margin: 0 auto;
   background: ${(props) => props.theme.color.transparent[100]};
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.borderRadius}px;
   color: ${(props) => props.theme.color.text[100]};
   border-color: transparent;
 
@@ -228,7 +228,7 @@ export const StatsRow = styled(Row)`
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     width: 90%;
     background: ${(props) => props.theme.color.transparent[100]};
-    border-radius: ${(props) => props.theme.borderRadius};
+    border-radius: ${(props) => props.theme.borderRadius}px;
     margin: ${(props) => props.theme.spacing[4]}px auto;
   }
 `
@@ -250,6 +250,11 @@ export const StatCard = styled.div`
 `
 
 export const StyledBadge = styled(Badge)`
+  font-size: 1em;
+  color: ${(props) => props.theme.color.text[100]};
+`
+
+export const PriceBadge = styled(Badge)`
   font-size: 1em;
   background: ${(props) => props.theme.color.transparent[100]};
   color: ${(props) => props.theme.color.text[100]};

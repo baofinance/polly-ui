@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProgressBarProps, ProgressBar, OutsideLabel } from './styles'
+import { OutsideLabel, ProgressBar, ProgressBarProps } from './styles'
 
 export const Progress: React.FC<ProgressBarProps> = ({
 	assetColor,

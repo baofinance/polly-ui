@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { MaxButton } from '../Button'
 import Input, { InputProps } from '../Input'
 
-
 interface TokenInputProps extends InputProps {
 	max: number | string
 	symbol: string
@@ -27,8 +26,8 @@ const TokenInput: React.FC<TokenInputProps> = ({
 			<Input
 				endAdornment={
 					<StyledTokenAdornmentWrapper>
-							<MaxButton onClick={onSelectHalf}>½</MaxButton>
-							<MaxButton onClick={onSelectMax}>MAX</MaxButton>
+						<MaxButton onClick={onSelectHalf}>½</MaxButton>
+						<MaxButton onClick={onSelectMax}>MAX</MaxButton>
 						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
 					</StyledTokenAdornmentWrapper>
 				}
@@ -40,8 +39,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
 	)
 }
 
-const StyledTokenInput = styled.div`
-`
+const StyledTokenInput = styled.div``
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;
@@ -57,7 +55,7 @@ const StyledMaxText = styled.div`
 	height: 44px;
 	justify-content: flex-end;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px){
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		justify-content: center;
 		text-align: center;
 		font-size: 0.75rem;

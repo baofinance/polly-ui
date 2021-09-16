@@ -1,4 +1,3 @@
-import React, { useCallback, useMemo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Config from '../../../bao/lib/config'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
@@ -20,8 +19,9 @@ import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
 import styled from 'styled-components'
 import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Contract } from 'web3-eth-contract'
-import { Disclaimer, CloseButton, HidePrice } from './styles'
+import { CloseButton, Disclaimer, HidePrice } from './styles'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string

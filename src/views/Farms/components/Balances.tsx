@@ -17,7 +17,6 @@ import useFarms from 'hooks/useFarms'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { Fragment, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
-import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { getBalanceNumber } from 'utils/numberFormat'
 import {

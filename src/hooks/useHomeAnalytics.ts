@@ -1,13 +1,15 @@
-import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { AbiItem } from 'web3-utils'
+import { Multicall as MC } from 'ethereum-multicall'
+import { useCallback, useEffect, useState } from 'react'
 import Config from '../bao/lib/config'
-import GraphUtil from '../utils/graph'
 import { getBalanceNumber, truncateNumber } from '../utils/numberFormat'
-import MultiCall from '../utils/multicall'
 import useBao from './useBao'
 
 import experipieAbi from '../bao/lib/abi/experipie.json'
+import Web3 from 'web3'
+import { AbiItem } from 'web3-utils'
+import GraphUtil from '../utils/graph'
+import MultiCall from '../utils/multicall'
 import useAllFarmTVL from './useAllFarmTVL'
 
 const useHomeAnalytics = () => {

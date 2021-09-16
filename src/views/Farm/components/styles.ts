@@ -1,8 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Alert, Badge, Col, Row, Table } from 'react-bootstrap'
-import Collapse from 'react-bootstrap/Collapse'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { NavLink, useParams } from 'react-router-dom'
 
 export const StyledInfo = styled.h3`
   color: ${(props) => props.theme.color.text[100]};

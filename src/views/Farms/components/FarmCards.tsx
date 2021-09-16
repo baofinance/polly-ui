@@ -10,7 +10,6 @@ import { Farm } from 'contexts/Farms'
 import { PoolType } from 'contexts/Farms/types'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
-import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
 import { lighten } from 'polished'
 import React, { useEffect, useState } from 'react'
 import type { CountdownRenderProps } from 'react-countdown'
@@ -18,10 +17,10 @@ import Countdown from 'react-countdown'
 import { decimate, getDisplayBalance } from '../../../utils/numberFormat'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import styled, { keyframes } from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { bnToDec } from 'utils'
-import './tab-styles.css'
+import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
+import useMulticall from '../../../hooks/useMulticall'
 import GraphUtil from '../../../utils/graph'
 import Multicall from '../../../utils/multicall'
 import Config from '../../../bao/lib/config'
@@ -38,8 +37,9 @@ import {
 	StyledInsight,
 	StyledLoadingWrapper,
 	StyledSpacer,
-	StyledTitle,
+	StyledTitle
 } from './styles'
+import './tab-styles.css'
 
 interface FarmWithStakedValue extends Farm {
 	apy: BigNumber

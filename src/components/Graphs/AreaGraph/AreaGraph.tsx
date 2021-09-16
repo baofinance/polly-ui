@@ -92,7 +92,7 @@ export default withTooltip<AreaProps, TooltipData>(
 					range: [innerHeight + margin.top, 0],
 					domain: [
 						min(timeSeries, getValue) || 0,
-						(max(timeSeries, getValue) || 0),
+						max(timeSeries, getValue) || 0,
 					],
 					nice: true,
 				}),

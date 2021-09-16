@@ -1,10 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import useFees from 'hooks/useFees'
-import useBlockDiff from 'hooks/useBlockDiff'
-import { useUserFarmInfo } from '../../../hooks/useUserFarmInfo'
 import Tooltipped from 'components/Tooltipped'
+import useBlockDiff from 'hooks/useBlockDiff'
+import useFees from 'hooks/useFees'
+import React from 'react'
 import { SpinnerLoader } from '../../../components/Loader'
+import { useUserFarmInfo } from '../../../hooks/useUserFarmInfo'
 import { StyledDocsWarning, StyledExternalLink, Warning } from './styles'
 
 interface FeeProps {
@@ -34,14 +33,14 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 			<p>
 				<b>Current Fee:</b>{' '}
 				{fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />}
-					<br />
+				<br />
 				<b>Last interaction:</b>{' '}
 				{lastInteraction ? lastInteraction.toString() : <SpinnerLoader />} {''}
 				<Tooltipped
 					content="This date is an estimation, it grows more innaccurate as time passes due to block times being inconsistent. Please use blocks as a metric in order to correctly determine your current withdraw fee."
 					placement="right"
 				/>
-					<br />
+				<br />
 				<b>Blocks passed:</b> {blockDiff ? blockDiff : <SpinnerLoader />}
 				<br />
 				<b>Last withdraw block:</b>{' '}

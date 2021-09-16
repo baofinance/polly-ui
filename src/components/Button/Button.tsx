@@ -1,7 +1,7 @@
 import { lighten } from 'polished'
 import React, { useContext, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import styled, { keyframes, ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 
 interface ButtonProps {
 	children?: React.ReactNode
@@ -144,18 +144,21 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 		/* margin: 0 0.5rem 0 0.5rem; */
 		text-align: center;
 		text-decoration: none;
-		padding: ${(props) => -props.theme.spacing[1]}px ${(props) => -props.theme.spacing[3]}px;
+		padding: ${(props) => -props.theme.spacing[1]}px
+			${(props) => -props.theme.spacing[3]}px;
 	}
 	@media (max-width: 640px) {
 		width: 100%;
-		padding: ${(props) => -props.theme.spacing[3]}px ${(props) => -props.theme.spacing[3]}px;
+		padding: ${(props) => -props.theme.spacing[3]}px
+			${(props) => -props.theme.spacing[3]}px;
 	}
 
 	&:hover,
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
+		cursor: ${(props) =>
+			props.disabled ? 'not-allowed' : 'pointer'} !important;
 		box-shadow: ${(props) => props.theme.boxShadow.hover};
 	}
 `
@@ -195,7 +198,7 @@ const StyledExternalLink = styled.a`
 `
 
 export const MaxButton = styled.a`
-	padding: 5px;
+	padding: ${(props) => props.theme.spacing[1]}px;
 	color: ${(props) => props.theme.color.text[100]};
 	background: ${(props) => props.theme.buttonGradient.a};
 	border-radius: ${(props) => props.theme.borderRadius}px;
@@ -216,7 +219,7 @@ export const MaxButton = styled.a`
 
 export const StyledBorderButton = styled(StyledButton)`
 	background: ${(props) => props.theme.buttonGradient.a};
-	border-radius: ${(props) => props.theme.borderRadius};
+	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1.75px solid transparent;
 	padding: ${(props) => -props.theme.spacing[3]}px;
 

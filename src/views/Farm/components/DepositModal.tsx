@@ -4,11 +4,11 @@ import Modal, { ModalProps } from 'components/Modal'
 import ModalActions from 'components/ModalActions'
 import ModalContent from 'components/ModalContent'
 import ModalTitle from 'components/ModalTitle'
+import Spacer from 'components/Spacer'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/numberFormat'
 import styled from 'styled-components'
-import Spacer from 'components/Spacer'
 import { StyledExternalLink, StyledInfo } from './styles'
 
 interface DepositModalProps extends ModalProps {
@@ -49,18 +49,18 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		<Modal>
 			<ModalTitle text={`Deposit ${tokenName}`} />
 			<ModalContent>
-			<StyledInfo>
-				❗️ Remember a 0.75% fee will be added to the treasury when depositing.
-				75% of POLLY rewards will be locked and vested for 6 years. For more
-				information, please{' '}
-				<StyledExternalLink
-					href="https://docs.bao.finance/franchises/polly-finance"
-					target="blank"
-				>
-					{' '}
-					read the docs.
-				</StyledExternalLink>
-			</StyledInfo>
+				<StyledInfo>
+					❗️ Remember a 0.75% fee will be added to the treasury when
+					depositing. 75% of POLLY rewards will be locked and vested for 6
+					years. For more information, please{' '}
+					<StyledExternalLink
+						href="https://docs.bao.finance/franchises/polly-finance"
+						target="blank"
+					>
+						{' '}
+						read the docs.
+					</StyledExternalLink>
+				</StyledInfo>
 			</ModalContent>
 			<TokenInput
 				value={val}

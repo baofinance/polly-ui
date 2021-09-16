@@ -8,7 +8,6 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/numberFormat'
 import Fee from './Fee'
 
-
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
 	onConfirm: (amount: string) => void
@@ -21,7 +20,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onDismiss,
 	max,
 	tokenName = '',
-	pid = null
+	pid = null,
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)

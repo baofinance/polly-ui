@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { lighten } from 'polished'
 
 const Card: React.FC = ({ children }) => <StyledCard>{children}</StyledCard>
 

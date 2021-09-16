@@ -1,5 +1,5 @@
-import { Contract } from 'web3-eth-contract'
 import BigNumber from 'bignumber.js/bignumber'
+import { Contract } from 'web3-eth-contract'
 
 export enum PoolType {
   SUSHI = 'sushi',

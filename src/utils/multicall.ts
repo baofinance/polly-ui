@@ -1,6 +1,6 @@
 import { ContractCallContext, ContractCallResults } from 'ethereum-multicall'
-import { Contract } from 'web3-eth-contract'
 import _ from 'lodash'
+import { Contract } from 'web3-eth-contract'
 
 interface ContractCalls {
   contract: Contract
