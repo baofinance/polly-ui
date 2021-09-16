@@ -380,16 +380,16 @@ const Nest: React.FC = () => {
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(false)}
 								active={!allocationDisplayType}
-								style={{ marginTop: '0px' }}
-							>
+								style={{ marginTop: '0px', borderColor: 'transparent' }}
+								>
 								<FontAwesomeIcon icon="table" />
 							</BootButton>
 							<BootButton
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(true)}
 								active={allocationDisplayType}
-								style={{ marginTop: '0px' }}
-							>
+								style={{ marginTop: '0px', borderColor: 'transparent' }}
+								>
 								<FontAwesomeIcon icon="chart-pie" />
 							</BootButton>
 						</PrefButtons>

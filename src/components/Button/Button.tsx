@@ -122,7 +122,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	target: attrs.target || '',
 }))<StyledButtonProps>`
 	align-items: center;
-	background: ${(props) => props.theme.color.secondary[100]};
+	background: ${(props) => props.theme.color.primary[200]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1px solid ${(props) => props.theme.color.primary[400]};
 	box-shadow: ${(props) => props.theme.boxShadow.default};
