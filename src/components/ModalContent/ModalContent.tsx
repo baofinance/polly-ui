@@ -8,7 +8,7 @@ const ModalContent: React.FC = ({ children }) => {
 const StyledModalContent = styled.div`
 	padding: ${(props) => props.theme.spacing[4]}px;
 	font-size: 1rem;
-	font-weight: 400;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
 	text-align: center;
 	
 	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {

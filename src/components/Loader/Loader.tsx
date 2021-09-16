@@ -11,7 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ text }) => {
 	return (
 		<StyledLoader>
 			<CardIcon>
-				<StyledBao>🥟</StyledBao>
+				<StyledBao>🦜</StyledBao>
 			</CardIcon>
 			{!!text && <StyledText>{text}</StyledText>}
 		</StyledLoader>
@@ -35,13 +35,13 @@ const StyledLoader = styled.div`
 `
 
 const StyledBao = styled.div`
-	font-size: 32px;
+	font-size: 2rem;
 	position: relative;
 	animation: 1s ${spin} infinite;
 `
 
 const StyledText = styled.div`
-	color: ${(props) => props.theme.color.primary[400]};
+	color: ${(props) => props.theme.color.text[200]};
 `
 
 interface SpinnerProps {

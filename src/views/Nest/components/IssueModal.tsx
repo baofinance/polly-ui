@@ -21,6 +21,7 @@ import useTokenBalance from 'hooks/useTokenBalance'
 import styled from 'styled-components'
 import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
+import { Disclaimer, CloseButton, HidePrice } from './styles'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -276,58 +277,5 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		</Modal>
 	)
 }
-
-export const CloseButton = styled.a`
-	float: right;
-	top: 15px;
-	right: 25px;
-	font-size: 24px;
-	position: absolute;
-	color: ${(props) => props.theme.color.text[100]};
-
-	&:hover {
-		cursor: pointer;
-	}
-`
-
-const Warning = styled.h3`
-	color: #ff3333;
-	font-size: 1rem;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	max-width: 100%;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 1rem;
-	}
-`
-
-const HidePrice = styled.div`
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		display: none;
-	}
-`
-
-const StyledLink = styled.a`
-	color: ${(props) => props.theme.color.text[100]};
-	font-weight: ${(props) => props.theme.fontWeight.strong};
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => props.theme.color.link[100]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.link[100]};
-	}
-`
-
-const Disclaimer = styled.div`
-	font-size: 1rem;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 0.75rem;
-	}
-`
 
 export default IssueModal

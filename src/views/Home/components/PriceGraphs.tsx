@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
-import GraphClient from '../../../utils/graph'
-import { getDisplayBalance } from '../../../utils/numberFormat'
-import Config from '../../../bao/lib/config'
-import AreaGraph from '../../../components/Graphs/AreaGraph/AreaGraph'
-import { PrefButtons, NestBoxHeader, GraphContainer } from '../../Nest/styles'
+import GraphClient from 'utils/graph'
+import { getDisplayBalance } from 'utils/numberFormat'
+import Config from 'bao/lib/config'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import { ParentSize } from '@visx/responsive'
 import { Button } from 'react-bootstrap'
-import { SpinnerLoader } from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
-import styled from 'styled-components'
+import { SpinnerLoader } from 'components/Loader'
+import Spacer from 'components/Spacer'
+import { PriceGraphContainer, StyledGraphContainer, PrefButtons, NestBoxHeader } from './styles'
 
 const PriceGraphs: React.FC = () => {
 	const [priceData, setPriceData] = useState<any | undefined>()
@@ -65,7 +64,7 @@ const PriceGraphs: React.FC = () => {
 						onClick={() => setActiveNest(nest)}
 						active={activeNest === nest}
 						key={nest.symbol}
-						style={{ margin: '5px 10px' }}
+						style={{ margin: '${(props) => props.theme.spacing[1]}px ${(props) => props.theme.spacing[2]}px' }}
 					>
 						{nest.symbol}
 					</Button>
@@ -84,7 +83,7 @@ const PriceGraphs: React.FC = () => {
 							<span
 								className="smalltext"
 								style={{
-									color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+									color: indexPriceChange24h.gt(0) ? '${(props) => props.theme.color.green}' : '${(props) => props.theme.color.red}',
 								}}
 							>
 								{activeToken.dayData &&
@@ -115,15 +114,5 @@ const PriceGraphs: React.FC = () => {
 		</PriceGraphContainer>
 	)
 }
-
-const PriceGraphContainer = styled.div`
-	width: 80%;
-	margin: 0 auto;
-`
-
-const StyledGraphContainer = styled(GraphContainer)`
-	width: 100%;
-	margin: 2.5em auto 0;
-`
 
 export default PriceGraphs

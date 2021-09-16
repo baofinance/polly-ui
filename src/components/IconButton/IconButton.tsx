@@ -27,30 +27,18 @@ interface StyledButtonProps {
 	disabled?: boolean
 }
 
-const AnimateGradient = keyframes`
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}`
-
 const StyledButton = styled.button<StyledButtonProps>`
 	align-items: center;
 	background-color: ${(props) => props.theme.color.secondary[300]};
 	background-image: linear-gradient(
 		to right,
-		${(props) => props.theme.color.secondary[400]} 0%,
-		${(props) => props.theme.color.secondary[300]} 51%,
-		${(props) => props.theme.color.secondary[500]} 100%);
+		${(props) => props.theme.color.secondary[200]} 0%,
+		${(props) => props.theme.color.secondary[100]} 51%,
+		${(props) => props.theme.color.secondary[300]} 100%);
 	);
 	background-size: 200% 200%;
-	border: 1px solid ${(props) => props.theme.color.primary[500]};
-	border-radius: 28px;
+	border: 1px solid ${(props) => props.theme.color.primary[400]};
+	border-radius: 32px;
 	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
 		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	border: 0;
@@ -58,7 +46,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 	cursor: pointer;
 	display: flex;
 	font-weight: ${(props) => props.theme.fontWeight.strong};
-	height: 56px;
+	height: 50px;
 	justify-content: center;
 	letter-spacing: 1px;
 	outline: none;
@@ -66,7 +54,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 	margin: 0;
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	text-transform: uppercase;
-	width: 56px;
+	width: 50px;
 
 	:hover {
 		transform: scale(1);
@@ -80,9 +68,6 @@ const StyledButton = styled.button<StyledButtonProps>`
 	&:focus {
 		background-position: right center;
 		transform: translate(1px, 1px);
-		-webkit-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		animation: ${AnimateGradient} 3s ease-in-out infinite;
 		border-color: ${lighten(0.025, '#090130')};
 		color: ${(props) => props.theme.color.text[100]};
 		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;

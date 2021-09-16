@@ -23,13 +23,13 @@ export const StyledAlert = styled(Alert)`
 
 export const StyledExternalLink = styled.a`
   color: ${(props) => props.theme.color.text[100]};
-  font-weight: ${(props) => props.theme.fontWeight.strong};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.color.link[100]};
+    color: ${(props) => props.theme.color.text[300]};
   }
   &.active {
-    color: ${(props) => props.theme.color.link[100]};
+    color: ${(props) => props.theme.color.text[300]};
   }
 `
 
@@ -148,6 +148,7 @@ export const GraphContainer = styled(Col)`
     height: 250px;
   }
 `
+
 export const PriceGraph = styled.div``
 
 export const PieGraphRow = styled(Row)`
@@ -201,14 +202,14 @@ export const PrefButtons = styled.div`
     border-radius: ${(props) => props.theme.borderRadius}px;
     width: 48px;
     background: ${(props) => props.theme.color.transparent[100]};
-  
+
     &:hover,
     &.active,
     &:active,
     &:focus {
       border: 2px solid transparent;
       color: ${(props) => props.theme.color.text[100]};
-      background: ${(props) => props.theme.borderGradient.blueGreen};
+      background: ${(props) => props.theme.buttonGradient.a};
       box-shadow: none !important;
     }
   }
@@ -326,7 +327,7 @@ export const NestList = styled.ul`
 `
 
 export const QuestionIcon = styled(FontAwesomeIcon)`
-  color: ${(props) =>props.theme.color.text[200]};
+  color: ${(props) => props.theme.color.text[200]};
 
   &:hover,
   &:focus {
@@ -334,4 +335,51 @@ export const QuestionIcon = styled(FontAwesomeIcon)`
     animation: 200ms;
     cursor: pointer;
   }
+`
+
+export const CloseButton = styled.a`
+  float: right;
+  top: ${(props) => props.theme.spacing[3]}px;
+  right: ${(props) => props.theme.spacing[4]}px;
+  font-size: 1.5rem;
+  position: absolute;
+  color: ${(props) => props.theme.color.text[100]};
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+export const HidePrice = styled.div`
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    display: none;
+  }
+`
+
+export const Disclaimer = styled.div`
+  font-size: 1rem;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    font-size: 0.75rem;
+  }
+`
+
+export interface ProgressBarProps {
+  assetColor: string
+  width: number
+  label?: string
+}
+
+export const ProgressBar = styled.div.attrs((props: ProgressBarProps) => ({}))`
+  background-color: ${(props: ProgressBarProps) => props.assetColor};
+  border-radius: ${(props) => props.theme.borderRaidus}px;
+  width: ${(props: ProgressBarProps) => props.width}%;
+  height: 100%;
+  display: inline-block;
+  float: left;
+`
+
+export const OutsideLabel = styled.span`
+  float: left;
+  margin-left: ${(props) => props.theme.spacing[2]}px;
 `

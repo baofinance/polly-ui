@@ -9,6 +9,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/numberFormat'
 import styled from 'styled-components'
 import Spacer from 'components/Spacer'
+import { StyledExternalLink, StyledInfo } from './styles'
 
 interface DepositModalProps extends ModalProps {
 	max: BigNumber
@@ -86,30 +87,5 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		</Modal>
 	)
 }
-
-const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.text[100]};
-	font-size: 1rem;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 0.75rem;
-	  }
-`
-
-const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.text[100]};
-	font-weight: ${(props) => props.theme.fontWeight.strong};
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => props.theme.color.link[100]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.link[100]};
-	}
-`
 
 export default DepositModal

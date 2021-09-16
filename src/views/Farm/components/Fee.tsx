@@ -5,6 +5,7 @@ import useBlockDiff from 'hooks/useBlockDiff'
 import { useUserFarmInfo } from '../../../hooks/useUserFarmInfo'
 import Tooltipped from 'components/Tooltipped'
 import { SpinnerLoader } from '../../../components/Loader'
+import { StyledDocsWarning, StyledExternalLink, Warning } from './styles'
 
 interface FeeProps {
 	pid: number
@@ -69,48 +70,5 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 		</StyledDocsWarning>
 	)
 }
-
-const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.text[100]};
-	font-weight: ${(props) => props.theme.fontWeight.strong};
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => props.theme.color.link[100]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.link[100]};
-	}
-`
-
-const StyledDocsWarning = styled.span`
-	color: ${(props) => props.theme.color.text[100]};
-	font-size: 1rem;
-	margin: 1rem;
-	padding: 0.5rem;
-	text-align: left;
-	border-left: 3px solid ${(props) => props.theme.color.green};
-	width: 90%;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 0.75rem;
-		padding: 0px;
-		width: 100%;
-		margin: 0;
-	}
-`
-
-const Warning = styled.h3`
-	color: #ff3333;
-	font-size: 1rem;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	max-width: 100%;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 1rem;
-	}
-`
 
 export default Fee

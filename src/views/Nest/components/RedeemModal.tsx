@@ -13,6 +13,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { getFullDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
+import { CloseButton } from './styles'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
@@ -147,18 +148,5 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		</Modal>
 	)
 }
-
-export const CloseButton = styled.a`
-	float: right;
-	top: 15px;
-	right: 25px;
-	font-size: 24px;
-	position: absolute;
-	color: ${(props) => props.theme.color.text[100]};
-
-	&:hover {
-		cursor: pointer;
-	}
-`
 
 export default WithdrawModal

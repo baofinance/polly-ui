@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import { ProgressBarProps, ProgressBar, OutsideLabel } from './styles'
 
 export const Progress: React.FC<ProgressBarProps> = ({
 	assetColor,
@@ -20,24 +20,4 @@ export const Progress: React.FC<ProgressBarProps> = ({
 			{width <= 20 && <OutsideLabel>{label}</OutsideLabel>}
 		</>
 	)
-}
-
-const ProgressBar = styled.div.attrs((props: ProgressBarProps) => ({}))`
-	background-color: ${(props: ProgressBarProps) => props.assetColor};
-	border-radius: 5px;
-	width: ${(props: ProgressBarProps) => props.width}%;
-	height: 100%;
-	display: inline-block;
-	float: left;
-`
-
-const OutsideLabel = styled.span`
-	float: left;
-	margin-left: 10px;
-`
-
-interface ProgressBarProps {
-	assetColor: string
-	width: number
-	label?: string
 }

@@ -49,7 +49,7 @@ import {
 	StyledBadge,
 	StyledTable,
 	CornerButtons,
-} from './styles'
+} from './components/styles'
 import NDEFI from './components/explanations/nDEFI'
 
 const Nest: React.FC = () => {
@@ -233,7 +233,7 @@ const Nest: React.FC = () => {
 							<QuestionIcon icon="question-circle" onClick={onNavModal} />
 							<Spacer size={'sm'} />
 							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
-								<StyledBadge style={{ marginRight: '10px' }}>
+								<StyledBadge style={{ marginRight: '${(props) => props.theme.spacing[2]}px' }}>
 									<img
 										src={require('assets/img/assets/MATIC.png')}
 										style={{ height: '1em' }}
@@ -462,7 +462,7 @@ const Nest: React.FC = () => {
 														<Badge
 															style={{
 																backgroundColor: component.color,
-																margin: '10px 0',
+																margin: '${(props) => props.theme.spacing[2]px} 0',
 															}}
 														>
 															{component.symbol}

@@ -43,7 +43,7 @@ const StyledInput = styled.input`
 	width: 60%;
 	border: 0;
 	color: ${(props) => props.theme.color.text[100]};
-	font-size: 18px;
+	font-size: 1rem;
 	flex: 1;
 	height: 56px;
 	margin: 0;

@@ -37,7 +37,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 						text={
 							<>
 								Connect Wallet{' '}
-								<FontAwesomeIcon icon="link" style={{ marginLeft: '5px' }} />
+								<FontAwesomeIcon icon="link" style={{ marginLeft: '${(props) => props.theme.spacing[1]}px' }} />
 							</>
 						}
 						border={true}
@@ -52,12 +52,12 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 								{account.slice(account.length - 4, account.length)}
 								<FontAwesomeIcon
 									icon="angle-double-right"
-									style={{ margin: '0 5px', color: '  color: ${(props) => props.theme.color.text[100]};' }}
+									style={{ margin: '0 ${(props) => props.theme.spacing[1]}px', color: '${(props) => props.theme.color.text[100]}' }}
 								/>
 								{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
 								<FontAwesomeIcon
 									icon={['fab', 'ethereum']}
-									style={{ marginLeft: '5px' }}
+									style={{ marginLeft: '${(props) => props.theme.spacing[1]}px' }}
 								/>
 							</>
 						}
@@ -74,7 +74,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 						text={
 							<>
 								Connect Wallet{' '}
-								<FontAwesomeIcon icon="link" style={{ marginLeft: '5px' }} />
+								<FontAwesomeIcon icon="link" style={{ marginLeft: '${(props) => props.theme.spacing[1]}px' }} />
 							</>
 						}
 						border={true}

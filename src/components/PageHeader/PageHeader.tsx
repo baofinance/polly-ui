@@ -15,7 +15,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
-					{/* <StyledSubtitle>{subtitle}</StyledSubtitle> */}
 				</StyledPageHeader>
 			</Container>
 		)
@@ -24,7 +23,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
-					{/* <StyledSubtitle>{subtitle}</StyledSubtitle> */}
 				</StyledPageHeader>
 			</Container>
 		)
@@ -33,7 +31,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 			<Container size="sm">
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
-					{/* <StyledSubtitle>{subtitle}</StyledSubtitle> */}
 				</StyledPageHeader>
 			</Container>
 		)
@@ -46,7 +43,7 @@ const StyledPageHeader = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-bottom: ${(props) => props.theme.spacing[6]}px;
-	margin: 56px auto 0;
+	margin: ${(props) => props.theme.spacing[6]}px auto 0;
 `
 
 export const StyledTitle = styled.h1`
@@ -55,13 +52,13 @@ export const StyledTitle = styled.h1`
 	letter-spacing: -0.1rem;
 	text-align: center;
 	font-weight: ${(props) => props.theme.fontWeight.strong} !important;
-	color: #f35626;
+	color: ${(props) => props.theme.color.text[100]};
 	background: linear-gradient(
 		to left,
-		#6b9aef 25%,
-		#53c7e4 50%,
-		#4ba9e3 75%,
-		#6b9aef 100%
+		${(props) => props.theme.color.accent[300]} 0%,
+		${(props) => props.theme.color.accent[100]} 33%,
+		${(props) => props.theme.color.accent[200]} 66%,
+		${(props) => props.theme.color.accent[300]} 100%
 	);
 	background-size: 200% auto;
 	-webkit-background-clip: text;
@@ -77,16 +74,6 @@ export const StyledTitle = styled.h1`
 			background-position: 300%;
 		}
 	}
-`
-
-const StyledSubtitle = styled.h3`
-	color: ${(props) => props.theme.color.text[100]};
-	font-size: 18px;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	opacity: 0.8;
 `
 
 export default PageHeader

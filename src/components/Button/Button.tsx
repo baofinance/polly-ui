@@ -50,23 +50,23 @@ const Button: React.FC<ButtonProps> = ({
 	let fontSize: string
 	switch (size) {
 		case 'sm':
-			boxShadow = `4px 4px 8px ${color.primary[600]},
-        -8px -8px 16px ${color.primary[500]};`
+			boxShadow = `4px 4px 8px ${color.primary.black},
+        -8px -8px 16px ${color.primary.dark};`
 			buttonPadding = spacing[4]
 			buttonSize = 40
 			fontSize = '0.75rem'
 			break
 		case 'lg':
-			boxShadow = `6px 6px 12px ${color.primary[600]},
-        -12px -12px 24px ${color.primary[500]};`
+			boxShadow = `6px 6px 12px ${color.primary.black},
+        -12px -12px 24px ${color.primary.dark};`
 			buttonPadding = spacing[4]
 			buttonSize = 72
 			fontSize = '1rem'
 			break
 		case 'md':
 		default:
-			boxShadow = `6px 6px 12px ${color.primary[600]},
-        -12px -12px 24px -2px ${color.primary[500]};`
+			boxShadow = `6px 6px 12px ${color.primary.black},
+        -12px -12px 24px -2px ${color.primary.dark};`
 			buttonPadding = spacing[4]
 			buttonSize = 50
 			fontSize = '1rem'
@@ -122,9 +122,10 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	target: attrs.target || '',
 }))<StyledButtonProps>`
 	align-items: center;
-	background: ${(props) => props.theme.borderGradient.blueGreen};
+	background: ${(props) => props.theme.color.secondary[100]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
-	border: 1.75px solid transparent;
+	border: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
 	padding: ${(props) => -props.theme.spacing[3]}px;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
@@ -143,19 +144,19 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 		/* margin: 0 0.5rem 0 0.5rem; */
 		text-align: center;
 		text-decoration: none;
-		padding: 0.25rem 1rem;
+		padding: ${(props) => -props.theme.spacing[1]}px ${(props) => -props.theme.spacing[3]}px;
 	}
 	@media (max-width: 640px) {
 		width: 100%;
-		padding: 0.85rem 0.85rem;
+		padding: ${(props) => -props.theme.spacing[3]}px ${(props) => -props.theme.spacing[3]}px;
 	}
 
 	&:hover,
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-		background: ${(props) => props.theme.backgroundGradient.darkToLight};
-		border: 1.75px solid transparent;
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
+		box-shadow: ${(props) => props.theme.boxShadow.hover};
 	}
 `
 
@@ -196,7 +197,7 @@ const StyledExternalLink = styled.a`
 export const MaxButton = styled.a`
 	padding: 5px;
 	color: ${(props) => props.theme.color.text[100]};
-	background: ${(props) => props.theme.borderGradient.blueGreen};
+	background: ${(props) => props.theme.buttonGradient.a};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1.75px solid transparent;
 	vertical-align: middle;
@@ -207,14 +208,14 @@ export const MaxButton = styled.a`
 	text-decoration: none;
 
 	&:hover {
-		background-color: ${(props) => lighten(0.1, props.theme.color.darkGrey[100])};
+		background-color: ${(props) => lighten(0.1, props.theme.color.primary[100])};
 		color: ${(props) => props.theme.color.text[100]};
 		cursor: pointer;
 	}
 `
 
 export const StyledBorderButton = styled(StyledButton)`
-	background: ${(props) => props.theme.borderGradient.blueGreen};
+	background: ${(props) => props.theme.buttonGradient.a};
 	border-radius: ${(props) => props.theme.borderRadius};
 	border: 1.75px solid transparent;
 	padding: ${(props) => -props.theme.spacing[3]}px;
@@ -222,7 +223,7 @@ export const StyledBorderButton = styled(StyledButton)`
 	&:hover,
 	&:focus,
 	&:active {
-		background: ${(props) => props.theme.backgroundGradient.darkToLight};
+		background: ${(props) => props.theme.buttonGradient.hover};
 		border: 1.75px solid transparent;
 	}
 `

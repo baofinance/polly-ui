@@ -30,10 +30,10 @@ export const HeroHeader = styled.h6`
   letter-spacing: -0.1rem;
   font-weight: ${(props) => props.theme.fontWeight.strong} !important;
   color: ${(props) => props.theme.color.text[100]};
-  margin-top: 0.5em;
+  margin-top: ${(props) => props.theme.spacing[2]}px;
   text-align: center;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     font-size: 5rem !important;
     line-height: 4.7rem;
   }
@@ -47,13 +47,7 @@ export const HeroHeader = styled.h6`
 
 export const HeroHeaderGradient = styled(HeroHeader)`
   display: inline-block;
-  background: linear-gradient(
-    to left,
-    #6b9aef 25%,
-    #65c48c 50%,
-    #1fa6e0 75%,
-    #6b9aef 100%
-  );
+  background: ${(props) => props.theme.heroGradient};
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -70,15 +64,9 @@ export const HeroSubHeader = styled.h6`
   font-family: 'Rubik', sans-serif;
   font-size: 4rem !important;
   letter-spacing: -0.2rem;
-  font-weight: ${(props) => props.theme.fontWeight.strong} !important;
-  color: #1fa6e0;
-  background: linear-gradient(
-    to left,
-    #6b9aef 25%,
-    #65c48c 50%,
-    #1fa6e0 75%,
-    #6b9aef 100%
-  );
+  font-weight: ${(props) => props.theme.fontWeight.medium} !important;
+  color: $props{(props) => props.theme.color.text[100]};
+  background: ${(props) => props.theme.heroGradient};
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -98,14 +86,14 @@ export const HeroSubHeader = styled.h6`
 export const HeroText = styled.p`
   font-size: 1.25rem;
   color: ${(props) => props.theme.color.text[200]};
-  font-weight: 400;
+  font-weight: ${(props) => props.theme.fontWeight.regular};
   margin: auto;
   text-align: center;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     text-align: left;
-		font-size: 1.15rem;
-	}
+    font-size: 1.15rem;
+  }
 `
 
 export const BubbleWrap = styled.div`
@@ -114,11 +102,11 @@ export const BubbleWrap = styled.div`
   margin-right: calc(-100vw / 2 + 500px / 2);
   overflow: hidden;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     display: none;
   }
 
-  @media (min-width: 2160px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
     display: none;
   }
 `
@@ -255,10 +243,10 @@ export const StyledSectionContainer = styled.div`
 `
 
 export const StyledSectionTitle = styled.h2`
-  font-size: 32px;
+  font-size: 2rem;
   border-bottom: 1px solid ${(props) => props.theme.colors.grey[100]};
-  padding-bottom: 30px;
-  margin-bottom: 30px;
+  padding-bottom: ${(props) => props.theme.spacing[4]}px;
+  margin-bottom: ${(props) => props.theme.spacing[4]}px;
 `
 
 export const StyledCardWrapper = styled.div`
@@ -275,14 +263,14 @@ export const StyledCardContainer = styled.div`
 
 export const StyledCardContent = styled.div`
   color: ${(props) => props.theme.color.text[100]};
-  padding: 30px;
+  padding: ${(props) => props.theme.spacing[4]}px;
   background: ${(props) => props.theme.color.transparent[100]};
-  border-radius: 12px;
+  border-radius: ${(props) => props.theme.borderRadius}px;
   height: 550px;
   width: 100%;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    padding: 10px;
+    padding: ${(props) => props.theme.spacing[2]}px;
     height: 250px;
   }
 `
@@ -297,26 +285,25 @@ export const StyledCardParralax = styled.div`
 
 export const StyledCardTitle = styled.p`
   font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-weight: ${(props) => props.theme.fontWeight.strong};
+  margin-bottom: ${(props) => props.theme.spacing[3]}px;
   text-align: center;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: ${(props) => props.theme.spacing[1]}px;
   }
 `
 
 export const StyledCardIcon = styled.img`
-  margin: 30px auto;
+  margin: ${(props) => props.theme.spacing[4]}px auto;
   display: block;
   height: 80px;
   width: 80px;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: block;
-    margin: 15px auto;
+    margin: ${(props) => props.theme.spacing[3]}px auto;
     height: 50px;
     width: 50px;
   }
@@ -335,7 +322,7 @@ export const InfoWrapper = styled(Row)`
   width: 80%;
   margin: auto;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     flex-direction: column;
     width: 100%;
   }
@@ -345,10 +332,10 @@ export const InfoImageCol = styled(Col)`
   margin-bottom: 5em;
   width: 30%;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     width: 90%;
     margin: auto;
-    margin-bottom: 2em;
+    margin-bottom: ${(props) => props.theme.spacing[5]}px;
   }
 `
 
@@ -362,7 +349,7 @@ export const InfoCol = styled(InfoImageCol)`
   display: table;
   width: 70%;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     width: 100%;
   }
 `
@@ -379,9 +366,9 @@ export const InfoHeader = styled.h2`
   font-family: 'Rubik', sans-serif;
   font-size: 5rem;
   letter-spacing: -0.1rem;
-  font-weight: ${(props) => props.theme.fontWeight.strong};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     font-size: 4rem !important;
     letter-spacing: -0.1rem;
   }
@@ -394,13 +381,7 @@ export const InfoHeader = styled.h2`
 
 export const InfoSubHeader = styled(InfoHeader)`
   display: inline-block;
-  background: linear-gradient(
-    to left,
-    #6b9aef 25%,
-    #65c48c 50%,
-    #1fa6e0 75%,
-    #6b9aef 100%
-  );
+  background: ${(props) => props.theme.heroGradient};
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -422,9 +403,9 @@ export const InfoImage = styled.img`
   max-width: 100%;
   height: auto;
   margin-inline: auto;
-  margin: 0 1em;
+  margin: 0 ${(props) => props.theme.spacing[3]}px;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     margin-inline: 0;
     max-width: 70%;
     margin: auto;
@@ -434,5 +415,158 @@ export const InfoImage = styled.img`
     margin-inline: 0;
     max-width: 80%;
     margin: auto;
+  }
+`
+
+export const GraphContainer = styled(Col)`
+  width: 100%;
+  height: 350px;
+  margin: 0 auto ${(props) => props.theme.spacing[6]}px;
+  border-radius: ${(props) => props.theme.borderRadius};
+  overflow: hidden;
+  background: ${(props) => props.theme.color.transparent[100]};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    height: 250px;
+  }
+`
+
+export const PriceGraphContainer = styled.div`
+	width: 80%;
+	margin: 0 auto;
+`
+
+export const StyledGraphContainer = styled(GraphContainer)`
+	width: 100%;
+	margin: ${(props) => props.theme.spacing[5]}px auto 0;
+`
+
+export const AnalyticsContainer = styled(Row)`
+	display: flex;
+	flex-direction: row;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	background-color: ${(props) => props.theme.color.transparent[100]};
+	backdrop-filter: blur(5px);
+	margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
+	position: absolute;
+	width: 80%;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 125px;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+		flex-direction: column;
+		margin: ${(props) => props.theme.spacing[6]}px auto;
+		position: relative;
+		width: auto;
+		min-height: 133px;
+		height: auto;
+	}
+
+	@media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
+		position: relative;
+		margin: ${(props) => props.theme.spacing[5]}px auto;
+		left: 0;
+		transform: none;
+	}
+`
+
+export const Analytic = styled(Col)`
+	margin: auto;
+	text-align: center;
+	height: 75%;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	border-right: 1px solid ${(props) => props.theme.color.transparent[200]};
+	flex: 1 1;
+	padding: ${(props) => props.theme.spacing[5]}px;
+
+	&:first-child {
+	}
+
+	&:last-child {
+		border-right: none;
+	}
+
+	span > h2 {
+		font-family: 'Rubik', sans-serif;
+		font-weight: ${(props) => props.theme.fontWeight.medium};
+	}
+
+	@media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+		border-right: none;
+		border-bottom: 1px solid ${(props) => props.theme.color.transparent[200]};
+		flex: auto !important;
+		padding-bottom: ${(props) => props.theme.spacing[3]}px;
+		padding-top: ${(props) => props.theme.spacing[3]}px;
+
+		&:first-child {
+		}
+
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+`
+
+export const NestBoxHeader = styled.div`
+  font-family: 'Rubik', sans-serif;
+  color: ${(props) => props.theme.color.text[100]};
+  margin: auto;
+  font-size: 2rem;
+
+  p {
+    margin: 0;
+  }
+
+  span.badge {
+    font-size: 1.25rem;
+    margin-bottom: ${(props) => props.theme.spacing[3]}px;
+  }
+
+  span.smalltext {
+    float: right;
+    font-size: 0.5rem;
+    margin-top: ${(props) => props.theme.spacing[3]}px;
+    margin-left: ${(props) => props.theme.spacing[2]}px;
+  }
+
+  img {
+    text-align: center;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    font-size: 1.5rem;
+  }
+`
+
+export const PrefButtons = styled.div`
+  margin: auto;
+
+  > button {
+    float: left;
+    margin-left: ${(props) => props.theme.spacing[2]}px;
+    margin-top: ${(props) => props.theme.spacing[4]}px;
+    color: ${(props) => props.theme.color.text[100]};
+    border-radius: ${(props) => props.theme.borderRadius}px;
+    width: 48px;
+    background: ${(props) => props.theme.color.transparent[100]};
+  
+    &:hover,
+    &.active,
+    &:active,
+    &:focus {
+      border: 2px solid transparent;
+      color: ${(props) => props.theme.color.text[100]};
+      background: ${(props) => props.theme.buttonGradient.a};
+      box-shadow: none !important;
+    }
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    display: none;
   }
 `

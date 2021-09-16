@@ -20,6 +20,13 @@ import CountUp from 'react-countup'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { getBalanceNumber } from 'utils/numberFormat'
+import {
+	Footnote,
+	FootnoteValue,
+	StyledBalance,
+	StyledBalances,
+	StyledWrapper,
+} from './styles'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)
@@ -158,37 +165,5 @@ const Balances: React.FC = () => {
 		</Fragment>
 	)
 }
-
-const Footnote = styled.div`
-	font-size: 14px;
-	padding: 8px 20px;
-	color: ${(props) => props.theme.color.text[100]};
-	border-top: solid 1px #161522;
-`
-
-const FootnoteValue = styled.div`
-	font-family: 'Poppins', sans-serif;
-	float: right;
-`
-
-const StyledWrapper = styled.div`
-	align-items: center;
-	display: flex;
-	@media (max-width: 768px) {
-		width: 100%;
-		flex-flow: column nowrap;
-		align-items: stretch;
-	}
-`
-
-const StyledBalances = styled.div`
-	display: flex;
-`
-
-const StyledBalance = styled.div`
-	align-items: center;
-	display: flex;
-	flex: 1;
-`
 
 export default Balances

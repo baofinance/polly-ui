@@ -20,6 +20,12 @@ import styled from 'styled-components'
 import { getBalanceNumber } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
 import DepositModal from './DepositModal'
+import {
+	StyledActionSpacer,
+	StyledCardActions,
+	StyledCardContentInner,
+	StyledCardHeader,
+} from './styles'
 import WithdrawModal from './WithdrawModal'
 
 interface StakeProps {
@@ -81,7 +87,7 @@ const Stake: React.FC<StakeProps> = ({
 			<CardContent>
 				<StyledCardContentInner>
 					<StyledCardHeader>
-						<CardIcon>👨🏻‍🍳</CardIcon>
+						<CardIcon>🦜</CardIcon>
 						<Value value={getBalanceNumber(stakedBalance)} />
 						<Label text={`${tokenName} Staked`} />
 					</StyledCardHeader>
@@ -115,30 +121,5 @@ const Stake: React.FC<StakeProps> = ({
 		</Card>
 	)
 }
-
-const StyledCardHeader = styled.div`
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-`
-const StyledCardActions = styled.div`
-	display: flex;
-	justify-content: center;
-	margin-top: ${(props) => props.theme.spacing[6]}px;
-	width: 100%;
-`
-
-const StyledActionSpacer = styled.div`
-	height: ${(props) => props.theme.spacing[4]}px;
-	width: ${(props) => props.theme.spacing[4]}px;
-`
-
-const StyledCardContentInner = styled.div`
-	align-items: center;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	justify-content: space-between;
-`
 
 export default Stake
