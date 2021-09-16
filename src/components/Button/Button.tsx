@@ -204,14 +204,14 @@ export const MaxButton = styled.a`
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1.75px solid transparent;
 	vertical-align: middle;
-	margin-right: ${(props) => -props.theme.spacing[2]}px;
+	margin-right: ${(props) => props.theme.spacing[2]}px;
 	transition: 100ms;
 	user-select: none;
-	font-weight: font-weight: ${(props) => props.theme.fontWeight.medium};
+	font-weight: ${(props) => props.theme.fontWeight.medium};
 	text-decoration: none;
 
 	&:hover {
-		background-color: ${(props) => lighten(0.1, props.theme.color.primary[100])};
+		background: ${(props) => props.theme.buttonGradient.hover};
 		color: ${(props) => props.theme.color.text[100]};
 		cursor: pointer;
 	}
