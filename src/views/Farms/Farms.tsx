@@ -14,7 +14,7 @@ import Farm from '../Farm'
 import Balances from './components/Balances'
 import FarmCards from './components/FarmCards'
 import { Badge } from 'react-bootstrap'
-import { getDisplayBalance } from 'utils/formatBalance'
+import { getDisplayBalance } from 'utils/numberFormat'
 import { SpinnerLoader } from 'components/Loader'
 import { BigNumber } from 'bignumber.js'
 

@@ -3,8 +3,8 @@ import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import { addressMap } from '../../../bao/lib/constants'
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import Config from '../../../bao/lib/config'
+import { getDisplayBalance } from '../../../utils/numberFormat'
 import Button from '../../Button'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
@@ -21,7 +21,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 	)
 
 	const { account } = useWallet()
-	const wethBalance = useTokenBalance(addressMap.WETH)
+	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
 	const handleUnlockClick = useCallback(() => {
 		onPresentWalletProviderModal()

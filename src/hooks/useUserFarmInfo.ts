@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import useBao from './useBao'
-import { getMasterChefContract, getUserInfo } from '../bao/utils'
+import { getMasterChefContract, getUserInfoChef } from '../bao/utils'
 
 export const useUserFarmInfo = (pid: number) => {
   const [userInfo, setUserInfo] = useState<any | undefined>()
@@ -9,10 +9,10 @@ export const useUserFarmInfo = (pid: number) => {
   const bao = useBao()
 
   const fetchUserInfo = useCallback(async () => {
-    const _userInfo = await getUserInfo(
+    const _userInfo = await getUserInfoChef(
       getMasterChefContract(bao),
       pid,
-      account
+      account,
     )
     setUserInfo(_userInfo)
   }, [bao, ethereum])

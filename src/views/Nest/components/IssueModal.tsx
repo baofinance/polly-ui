@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { addressMap } from 'bao/lib/constants'
+import Config from '../../../bao/lib/config'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import Button from 'components/Button'
@@ -19,7 +19,7 @@ import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
 import styled from 'styled-components'
-import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
+import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
 
 interface IssueModalProps extends ModalProps {
@@ -147,8 +147,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const bao = useBao()
 	const recipeContract = getRecipeContract(bao)
 	const { onIssue } = useNestIssue(nestAddress)
-	const wethBalance = useTokenBalance(addressMap.WETH)
-	const nestBalance = useTokenBalance(nestAddress)
+	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
 	return (
 		<Modal>

@@ -11,12 +11,11 @@ import { PoolType } from 'contexts/Farms/types'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
 import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
-import useMulticall from '../../../hooks/useMulticall'
 import { lighten } from 'polished'
 import React, { useEffect, useState } from 'react'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
-import { decimate, getDisplayBalance } from '../../../utils/formatBalance'
+import { decimate, getDisplayBalance } from '../../../utils/numberFormat'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import styled, { keyframes } from 'styled-components'
@@ -25,7 +24,7 @@ import { bnToDec } from 'utils'
 import './tab-styles.css'
 import GraphUtil from '../../../utils/graph'
 import Multicall from '../../../utils/multicall'
-import { addressMap, contractAddresses } from '../../../bao/lib/constants'
+import Config from '../../../bao/lib/config'
 import { Badge } from 'react-bootstrap'
 import Tooltipped from 'components/Tooltipped'
 
@@ -38,9 +37,8 @@ const cardsPerRow = 3
 
 const FarmCards: React.FC = () => {
 	const bao = useBao()
-	const multicall = useMulticall()
 	const [farms] = useFarms()
-	const farmsTVL = useAllFarmTVL(bao && bao.web3, multicall)
+	const farmsTVL = useAllFarmTVL(bao && bao.web3, bao && bao.multicall)
 	const { ethereum, account } = useWallet()
 
 	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
@@ -51,10 +49,10 @@ const FarmCards: React.FC = () => {
 	})
 
 	useEffect(() => {
-		GraphUtil.getPrice(addressMap.WETH).then(async (wethPrice) => {
+		GraphUtil.getPrice(Config.addressMap.WETH).then(async (wethPrice) => {
 			const pollyPrice = await GraphUtil.getPriceFromPair(
 				wethPrice,
-				contractAddresses.polly[137],
+				Config.contracts.polly[Config.networkId].address,
 			)
 			setBaoPrice(pollyPrice)
 		})
@@ -64,10 +62,10 @@ const FarmCards: React.FC = () => {
 			[PoolType.SUSHI]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(ethereum && farmsTVL && bao && multicall) || pools.polly.length)
+		if (!(ethereum && farmsTVL && bao) || pools.polly.length)
 			return setPools(_pools)
 
-		multicall
+		bao.multicall
 			.call(
 				Multicall.createCallContext([
 					{
@@ -129,7 +127,7 @@ const FarmCards: React.FC = () => {
 				}
 				setPools(_pools)
 			})
-	}, [farmsTVL, bao, multicall])
+	}, [farmsTVL, bao])
 
 	const BLOCKS_PER_YEAR = new BigNumber(13428766) // (60 * 60 * 24 * 365.25) / 2.35 (avg Polygon block time)
 
@@ -223,11 +221,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	useEffect(() => {
 		async function fetchEarned() {
 			if (bao) return
-			const earned = await getEarned(
-				getMasterChefContract(bao),
-				pid,
-				account,
-			)
+			const earned = await getEarned(getMasterChefContract(bao), pid, account)
 			setHarvestable(bnToDec(earned))
 		}
 		if (bao && account) {
@@ -245,8 +239,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 			<Card>
 				<CardContent>
 					<StyledContent>
-						{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
-						{farm.tokenSymbol === 'nDEFI' && <StyledCardAccent />}
+						{(farm.tokenSymbol === 'POLLY' || farm.tokenSymbol === 'nDEFI') && (
+							<StyledCardAccent />
+						)}
 						<CardIcon>
 							<img src={farm.icon} alt="" height="50" />
 						</CardIcon>
@@ -278,11 +273,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<Spacer size="sm" />
 						<Button text={nestMint} href={destination} />
 						<StyledInsight>
-							<span>APR {' '}
-							<Tooltipped
-								content={`APRs are affected by a 7-day average price of POLLY which
-										has not yet stabilized.`}
-							/>
+							<span>
+								APR{' '}
+								<Tooltipped
+									content={`APRs are affected by a 7-day average price of POLLY which
+											has not yet stabilized.`}
+								/>
 							</span>
 							<span>
 								{farm.apy ? (
@@ -328,7 +324,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 }
 
 const RainbowLight = keyframes`
-  
+
 	0% {
 		background-position: 0% 50%;
 	}

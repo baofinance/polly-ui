@@ -4,51 +4,23 @@ import { provider } from 'web3-core/types'
 import { Contract } from 'web3-eth-contract'
 import { AbiItem } from 'web3-utils'
 import { BaoOptions } from '../Bao'
-import ChainOracle from './abi/chainoracle.json'
 import ERC20Abi from './abi/erc20.json'
 import ExperipieAbi from './abi/experipie.json'
-import MasterChefAbi from './abi/masterchef.json'
-import PollyAbi from './abi/polly.json'
-import RecipeAbi from './abi/recipe.json'
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
-import WETHAbi from './abi/weth.json'
-import {
-  contractAddresses,
-  SUBTRACT_GAS_LIMIT,
-  SupportedNest,
-  supportedNests,
-  SupportedPool,
-  supportedPools,
-} from './constants'
-import * as Types from './types.js'
-
-export interface FarmableSupportedPool extends SupportedPool {
-  lpAddress: string
-  tokenAddress: string
-  lpContract: Contract
-  tokenContract: Contract
-}
-
-export interface ActiveSupportedNest extends SupportedNest {
-  nestAddress: string
-  nestContract: Contract
-}
+import Config from './config'
+import * as Types from './types'
 
 export class Contracts {
-  polly: Contract
+  networkId: number
   web3: Web3
   defaultConfirmations: number
   autoGasMultiplier: number
   confirmationType: number
   defaultGas: string
   defaultGasPrice: string
-  masterChef: Contract
-  recipe: Contract
-  weth: Contract
-  wethPrice: Contract
-  pollyPrice: Contract
-  pools: FarmableSupportedPool[]
-  nests: ActiveSupportedNest[]
+  contracts: Types.ContractsConfig
+  pools: Types.FarmableSupportedPool[]
+  nests: Types.ActiveSupportedNest[]
   blockGasLimit: any
   notifier: any
 
@@ -58,6 +30,7 @@ export class Contracts {
     web3: Web3,
     options: BaoOptions,
   ) {
+    this.networkId = networkId
     this.web3 = web3
     this.defaultConfirmations = options.defaultConfirmations
     this.autoGasMultiplier = options.autoGasMultiplier || 1.1
@@ -66,32 +39,31 @@ export class Contracts {
     this.defaultGas = options.defaultGas
     this.defaultGasPrice = options.defaultGasPrice
 
-    this.polly = new this.web3.eth.Contract(PollyAbi as AbiItem[])
-    this.masterChef = new this.web3.eth.Contract(MasterChefAbi as AbiItem[])
-    this.recipe = new this.web3.eth.Contract(RecipeAbi as AbiItem[])
-    this.weth = new this.web3.eth.Contract(WETHAbi as AbiItem[])
-    this.wethPrice = new this.web3.eth.Contract(ChainOracle as AbiItem[])
+    this.contracts = Config.contracts
+    Object.keys(Config.contracts).forEach((contractName) => {
+      this.contracts[contractName][networkId].contract = this.getNewContract(
+        this.contracts[contractName][networkId].abi,
+      )
+    })
 
     this.pools =
       networkId === 137
-        ? supportedPools.map((pool) =>
+        ? Config.farms.map((pool) =>
             Object.assign(pool, {
               lpAddress: pool.lpAddresses[networkId],
               tokenAddress: pool.tokenAddresses[networkId],
-              lpContract: new this.web3.eth.Contract(UNIV2PairAbi as AbiItem[]),
-              tokenContract: new this.web3.eth.Contract(ERC20Abi as AbiItem[]),
+              lpContract: this.getNewContract(UNIV2PairAbi),
+              tokenContract: this.getNewContract(ERC20Abi),
             }),
           )
         : undefined
 
     this.nests =
       networkId === 137
-        ? supportedNests.map((nest) =>
+        ? Config.nests.map((nest) =>
             Object.assign(nest, {
               nestAddress: nest.nestAddresses[networkId],
-              nestContract: new this.web3.eth.Contract(
-                ExperipieAbi as AbiItem[],
-              ),
+              nestContract: this.getNewContract(ExperipieAbi),
             }),
           )
         : undefined
@@ -106,12 +78,13 @@ export class Contracts {
       else console.error('Contract address not found in network', networkId)
     }
 
-    if (networkId === 137) {
-      setProvider(this.polly, contractAddresses.polly[networkId])
-      setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-      setProvider(this.recipe, contractAddresses.recipe[networkId])
-      setProvider(this.weth, contractAddresses.weth[networkId])
-      setProvider(this.wethPrice, contractAddresses.wethPrice[networkId])
+    if (networkId === Config.networkId) {
+      Object.keys(this.contracts).forEach((contractName) => {
+        setProvider(
+          this.contracts[contractName][networkId].contract,
+          this.contracts[contractName][networkId].address,
+        )
+      })
 
       if (this.pools) {
         this.pools.forEach(
@@ -130,9 +103,20 @@ export class Contracts {
   }
 
   setDefaultAccount(account: string): void {
-    this.polly.options.from = account
-    this.masterChef.options.from = account
-    this.recipe.options.from = account
+    this.getContract('polly').options.from = account
+    this.getContract('masterChef').options.from = account
+    this.getContract('recipe').options.from = account
+  }
+
+  getContract(contractName: string, networkId = this.networkId): Contract {
+    return this.contracts[contractName][networkId].contract
+  }
+
+  getNewContract(abi: string | unknown, address?: string): Contract {
+    return new this.web3.eth.Contract(
+      (typeof abi === 'string' ? require(`./abi/${abi}`) : abi) as AbiItem[],
+      address,
+    )
   }
 
   async callContractFunction(method: any, options: any) {
@@ -303,6 +287,6 @@ export class Contracts {
 
   async setGasLimit() {
     const block = await this.web3.eth.getBlock('latest')
-    this.blockGasLimit = block.gasLimit - SUBTRACT_GAS_LIMIT
+    this.blockGasLimit = block.gasLimit - 100000
   }
 }

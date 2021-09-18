@@ -11,7 +11,7 @@ import useApprove from 'hooks/useApprove'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { getFullDisplayBalance } from 'utils/formatBalance'
+import { getFullDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
 
 interface WithdrawModalProps extends ModalProps {

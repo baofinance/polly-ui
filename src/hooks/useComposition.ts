@@ -5,13 +5,12 @@ import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import useBao from './useBao'
-import useMulticall from './useMulticall'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
-import { decimate, getBalanceNumber } from 'utils/formatBalance'
+import { decimate, getBalanceNumber } from 'utils/numberFormat'
 import { getWethPriceLink } from '../bao/utils'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
-import { addressMap } from '../bao/lib/constants'
+import Config from '../bao/lib/config'
 
 const useComposition = (nest: Nest) => {
   const { ethereum }: { ethereum: provider } = useWallet()
@@ -19,7 +18,6 @@ const useComposition = (nest: Nest) => {
     Array<NestComponent> | undefined
   >()
   const bao = useBao()
-  const multicall = useMulticall()
 
   useEffect(() => {
     if (!(nest && nest.nestContract)) return
@@ -95,7 +93,7 @@ const useComposition = (nest: Nest) => {
                 componentToken: componentResults,
                 creamContract: creamResults,
               } = MultiCall.parseCallResults(
-                await multicall.call(_multicallContext),
+                await bao.multicall.call(_multicallContext),
               )
               specialSymbol = results[0].values[0]
               specialDecimals = results[1].values[0]
@@ -192,13 +190,13 @@ const useComposition = (nest: Nest) => {
 }
 
 const SPECIAL_TOKEN_ADDRESSES: any = {
-  '0x28424507fefb6f7f8e9d3860f56504e4e5f5f390': addressMap.WETH, // amWETH
-  '0x4486835e0c567a320c0636d8f6e6e6679a46a271': addressMap.AAVE, // crAAVE
-  '0x20d5d319c2964ecb52e1b006a4c059b7f6d6ad0a': addressMap.LINK, // crLINK
-  '0xe82225ba6bed28406912522f01c7102dd9f07e78': addressMap.CRV, // crCRV
-  '0x3fae5e5722c51cdb5b0afd8c7082e8a6af336ee8': addressMap.MATIC, // crMATIC
-  '0x468a7bf78f11da82c90b17a93adb7b14999af5ab': addressMap.SUSHI, // crSUSHI
-  '0xd4409b8d17d5d49a7ed9ae734b0e8edba29b9ffa': addressMap.SNX, // crSNX
+  '0x28424507fefb6f7f8e9d3860f56504e4e5f5f390': Config.addressMap.WETH, // amWETH
+  '0x4486835e0c567a320c0636d8f6e6e6679a46a271': Config.addressMap.AAVE, // crAAVE
+  '0x20d5d319c2964ecb52e1b006a4c059b7f6d6ad0a': Config.addressMap.LINK, // crLINK
+  '0xe82225ba6bed28406912522f01c7102dd9f07e78': Config.addressMap.CRV, // crCRV
+  '0x3fae5e5722c51cdb5b0afd8c7082e8a6af336ee8': Config.addressMap.MATIC, // crMATIC
+  '0x468a7bf78f11da82c90b17a93adb7b14999af5ab': Config.addressMap.SUSHI, // crSUSHI
+  '0xd4409b8d17d5d49a7ed9ae734b0e8edba29b9ffa': Config.addressMap.SNX, // crSNX
 }
 
 // Special cases for token addresses (i.e. lending strategies)

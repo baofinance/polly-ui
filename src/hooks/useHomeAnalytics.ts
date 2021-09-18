@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
-import { addressMap, supportedNests } from '../bao/lib/constants'
+import Config from '../bao/lib/config'
 import GraphUtil from '../utils/graph'
-import { getBalanceNumber, getDisplayBalance, getAnalytics } from '../utils/formatBalance'
+import { getBalanceNumber, truncateNumber } from '../utils/numberFormat'
 import MultiCall from '../utils/multicall'
 import { Multicall as MC } from 'ethereum-multicall'
 
@@ -31,12 +31,12 @@ const useHomeAnalytics = () => {
   const fetchAnalytics = useCallback(async () => {
     if (!farmTVL) return
 
-    const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
+    const ethPrice = await GraphUtil.getPrice(Config.addressMap.WETH)
     const multicallContext = []
-    for (const nest of supportedNests) {
+    for (const nest of Config.nests) {
       const nestAddress: any =
         (typeof nest.nestAddresses === 'string' && nest.nestAddresses) ||
-        (nest.nestAddresses && nest.nestAddresses[137]) ||
+        (nest.nestAddresses && nest.nestAddresses[Config.networkId]) ||
         nest.outputToken
       const nestContract = new web3.eth.Contract(
         experipieAbi as AbiItem[],
@@ -69,19 +69,19 @@ const useHomeAnalytics = () => {
     setAnalytics([
       {
         title: 'Polly Supply',
-        data: getAnalytics(new BigNumber(pollySupply)),
+        data: truncateNumber(new BigNumber(pollySupply)),
       },
       {
         title: 'Total Value of Nests',
-        data: `$${getAnalytics(totalNestUsd, 0)}`,
+        data: `$${truncateNumber(totalNestUsd, 0)}`,
       },
       {
         title: 'Farms TVL',
-        data: `$${getAnalytics(farmTVL.tvl, 0)}`,
+        data: `$${truncateNumber(farmTVL.tvl, 0)}`,
       },
       {
         title: 'Polly Burned 🔥',
-        data: getAnalytics(
+        data: truncateNumber(
           new BigNumber((await GraphUtil.getPollyBurned()).burnedTokens),
         ),
       },

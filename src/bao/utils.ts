@@ -1,38 +1,32 @@
 import BigNumber from 'bignumber.js'
 import { Contract } from 'web3-eth-contract'
 import _ from 'lodash'
-import { addressMap } from './lib/constants'
+import Config from './lib/config'
 import { Bao } from './Bao'
 import { Farm } from '../contexts/Farms'
 import { ethers } from 'ethers'
+import { decimate, exponentiate } from '../utils/numberFormat'
+import Multicall from '../utils/multicall'
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 })
 
-export const getMasterChefAddress = (bao: Bao): string => {
-  return bao && bao.masterChefAddress
-}
-
-export const getPollyAddress = (bao: Bao): string => {
-  return bao && bao.pollyAddress
-}
-
 export const getWethContract = (bao: Bao): Contract => {
-  return bao && bao.contracts && bao.contracts.weth
+  return bao && bao.contracts && bao.getContract('weth')
 }
 
 export const getWethPriceContract = (bao: Bao): Contract => {
-  return bao && bao.contracts && bao.contracts.wethPrice
+  return bao && bao.contracts && bao.getContract('wethPrice')
 }
 
 export const getMasterChefContract = (bao: Bao): Contract => {
-  return bao && bao.contracts && bao.contracts.masterChef
+  return bao && bao.contracts && bao.getContract('masterChef')
 }
 
 export const getPollyContract = (bao: Bao): Contract => {
-  return bao && bao.contracts && bao.contracts.polly
+  return bao && bao.contracts && bao.getContract('polly')
 }
 
 export const getNestContract = (bao: Bao, nid: number) => {
@@ -47,7 +41,7 @@ export const getNestContract = (bao: Bao, nid: number) => {
 }
 
 export const getRecipeContract = (bao: Bao) => {
-  return bao && bao.contracts && bao.contracts.recipe
+  return bao && bao.contracts && bao.getContract('recipe')
 }
 
 export const getNests = (bao: Bao) => {
@@ -71,7 +65,7 @@ export const getNests = (bao: Bao) => {
           nestTokenAddress: nestAddress,
           inputToken: 'wETH',
           nestToken: symbol,
-          inputTokenAddress: addressMap.WETH,
+          inputTokenAddress: Config.addressMap.WETH,
         }),
       )
     : []
@@ -105,7 +99,7 @@ export const getFarms = (bao: Bao): Farm[] => {
           tokenSymbol,
           tokenContract,
           earnToken: 'POLLY',
-          earnTokenAddress: bao.contracts.polly.options.address,
+          earnTokenAddress: bao.getContract('polly').options.address,
           icon,
           refUrl,
           pairUrl,
@@ -255,24 +249,10 @@ export const getStaked = async (
   }
 }
 
-export const getWethPrice = async (bao: Bao) => {
-  console.log(bao)
-  const amount = await bao.contracts.wethPrice.methods.latestAnswer().call()
-  return new BigNumber(amount)
-}
-
-export const getPollyPrice = async (bao: Bao) => {
-  // FIXME: re-assess once price oracle is deployed, or use baoswap rates
-  return new BigNumber(0)
-  // const addr = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-  // const amount = await bao.contracts.baoPrice.methods
-  //   .consult(addr.toString(), 1)
-  //   .call()
-  // return new BigNumber(amount)
-}
-
 export const getPollySupply = async (bao: Bao) => {
-  return new BigNumber(await bao.contracts.polly.methods.totalSupply().call())
+  return new BigNumber(
+    await bao.getContract('polly').methods.totalSupply().call(),
+  )
 }
 
 export const getReferrals = async (
@@ -282,7 +262,7 @@ export const getReferrals = async (
   return await masterChefContract.methods.getGlobalRefAmount(account).call()
 }
 
-export function getRefUrl() {
+export const getRefUrl = (): string => {
   let refer = '0x0000000000000000000000000000000000000000'
   const urlParams = new URLSearchParams(window.location.search)
   if (urlParams.has('ref')) {
@@ -317,7 +297,7 @@ export const enter = async (
   account: string,
 ): Promise<string> => {
   return contract?.methods
-    .enter(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+    .enter(exponentiate(amount).toString())
     .send({ from: account })
     .on('transactionHash', (tx: { transactionHash: string }) => {
       console.log(tx)
@@ -331,7 +311,7 @@ export const leave = async (
   account: string,
 ): Promise<string> => {
   return contract.methods
-    .leave(new BigNumber(amount).times(new BigNumber(10).pow(18)).toString())
+    .leave(exponentiate(amount).toString())
     .send({ from: account })
     .on('transactionHash', (tx: { transactionHash: string }) => {
       console.log(tx)
@@ -344,12 +324,11 @@ export const fetchCalcToNest = async (
   nestAddress: string,
   nestAmount: string,
 ) => {
-  const amount = new BigNumber(nestAmount).times(new BigNumber(10).pow(18))
-
+  const amount = exponentiate(nestAmount)
   const amountEthNecessary = await recipeContract.methods
     .calcToPie(nestAddress, amount.toFixed(0))
     .call()
-  return new BigNumber(amountEthNecessary).div(new BigNumber(10).pow(18))
+  return decimate(amountEthNecessary)
 }
 
 export const nestIssue = (
@@ -361,12 +340,7 @@ export const nestIssue = (
   account: string,
 ) =>
   recipeContract.methods
-    .bake(
-      _inputToken,
-      _outputToken,
-      new BigNumber(_maxInput).times(10 ** 18).toString(),
-      _data,
-    )
+    .bake(_inputToken, _outputToken, exponentiate(_maxInput).toString(), _data)
     .send({ from: account })
 
 export const nestRedeem = (
@@ -375,21 +349,29 @@ export const nestRedeem = (
   account: string,
 ) =>
   nestContract.methods
-    .exitPool(new BigNumber(amount).times(10 ** 18).toString())
+    .exitPool(exponentiate(amount).toString())
     .send({ from: account })
 
-export const getWethPriceLink = async (bao: Bao) => {
-  const priceOracle = getWethPriceContract(bao)
+export const getWethPriceLink = async (bao: Bao): Promise<BigNumber> => {
+  const priceOracle = bao.contracts.getContract('wethPrice')
+  const { wethPrice } = Multicall.parseCallResults(
+    await bao.multicall.call(
+      Multicall.createCallContext([
+        {
+          ref: 'wethPrice',
+          contract: priceOracle,
+          calls: [{ method: 'decimals' }, { method: 'latestRoundData' }],
+        },
+      ]),
+    ),
+  )
 
-  const [decimals, latestRound] = await Promise.all([
-    priceOracle.methods.decimals().call(),
-    priceOracle.methods.latestRoundData().call(),
-  ])
-
-  return new BigNumber(latestRound.answer).div(10 ** decimals)
+  return new BigNumber(wethPrice[1].values[1].hex).div(
+    10 ** wethPrice[0].values[0],
+  )
 }
 
-export const getUserInfo = async (
+export const getUserInfoChef = async (
   masterChefContract: Contract,
   pid: number,
   account: string,

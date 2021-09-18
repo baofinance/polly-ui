@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
 import GraphClient from '../../../utils/graph'
-import { getDisplayBalance } from '../../../utils/formatBalance'
-import { addressMap, supportedNests } from '../../../bao/lib/constants'
+import { getDisplayBalance } from '../../../utils/numberFormat'
+import Config from '../../../bao/lib/config'
 import AreaGraph from '../../../components/Graphs/AreaGraph/AreaGraph'
 import { PrefButtons, NestBoxHeader, GraphContainer } from '../../Nest/styles'
 import { ParentSize } from '@visx/responsive'
@@ -19,7 +19,7 @@ const PriceGraphs: React.FC = () => {
 	const activeToken = useMemo(() => {
 		return _.find(
 			priceData,
-			(d: any) => d.id === addressMap.WETH, // activeNest.nestAddress[137]
+			(d: any) => d.id === Config.addressMap.WETH, // activeNest.nestAddress[137]
 		)
 	}, [activeNest])
 
@@ -35,7 +35,7 @@ const PriceGraphs: React.FC = () => {
 
 	useEffect(() => {
 		GraphClient.getPriceHistoryMultiple(
-			supportedNests.map(() => addressMap.WETH), // nest.nestAddress[137]
+			Config.nests.map(() => Config.addressMap.WETH), // nest.nestAddress[137]
 		).then((res: any) => {
 			// Clean price data from subgraph
 			const tokens = _.cloneDeep(res.tokens).map((token: any) => {
@@ -43,7 +43,7 @@ const PriceGraphs: React.FC = () => {
 				return token
 			})
 			setPriceData(tokens)
-			setActiveNest(supportedNests[0])
+			setActiveNest(Config.nests[0])
 		})
 	}, [])
 
@@ -59,7 +59,7 @@ const PriceGraphs: React.FC = () => {
 		<PriceGraphContainer>
 			<PrefButtons style={{ width: '100%' }}>
 				<NestBoxHeader style={{ float: 'left' }}>Nest Price</NestBoxHeader>
-				{supportedNests.map((nest) => (
+				{Config.nests.map((nest) => (
 					<Button
 						variant="outline-primary"
 						onClick={() => setActiveNest(nest)}

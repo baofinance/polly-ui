@@ -14,23 +14,23 @@ export const getDisplayBalance = (balance: BigNumber, decimals = 18) => {
   }
 }
 
-export const getAnalytics = (balance: BigNumber, decimals = 18) => {
+export const truncateNumber = (balance: BigNumber, decimals = 18) => {
   const displayBalance = balance.dividedBy(new BigNumber(10).pow(decimals))
   const analytic = displayBalance.toNumber()
 
-    if (displayBalance.isGreaterThanOrEqualTo(1000000000)) {
-       return (analytic / 1000000000).toFixed(2).replace(/\.0$/, '') + 'G';
-    }
-    if (displayBalance.isGreaterThanOrEqualTo(1000000)) {
-       return (analytic / 1000000).toFixed(2).replace(/\.0$/, '') + 'M';
-    }
-    if (displayBalance.isGreaterThanOrEqualTo(1000)) {
-       return (analytic / 1000).toFixed(2).replace(/\.0$/, '') + 'K';
-    }
-    if (displayBalance.isGreaterThanOrEqualTo(0)) {
-      return (analytic).toFixed(2);
-    }
-    return analytic;
+  if (displayBalance.isGreaterThanOrEqualTo(1000000000)) {
+    return (analytic / 1000000000).toFixed(2).replace(/\.0$/, '') + 'B'
+  }
+  if (displayBalance.isGreaterThanOrEqualTo(1000000)) {
+    return (analytic / 1000000).toFixed(2).replace(/\.0$/, '') + 'M'
+  }
+  if (displayBalance.isGreaterThanOrEqualTo(1000)) {
+    return (analytic / 1000).toFixed(2).replace(/\.0$/, '') + 'K'
+  }
+  if (displayBalance.isGreaterThanOrEqualTo(0)) {
+    return analytic.toFixed(2)
+  }
+  return analytic
 }
 
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
@@ -38,13 +38,7 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
 }
 
 export const decimate = (n: any, decimals?: any): BigNumber =>
-  new BigNumber(n)
-    .div(
-      new BigNumber(10).pow(new BigNumber(decimals || 18))
-    )
+  new BigNumber(n).div(new BigNumber(10).pow(new BigNumber(decimals || 18)))
 
 export const exponentiate = (n: any, decimals?: any): BigNumber =>
-  new BigNumber(n)
-    .times(
-      new BigNumber(10).pow(new BigNumber(decimals || 18))
-    )
+  new BigNumber(n).times(new BigNumber(10).pow(new BigNumber(decimals || 18)))

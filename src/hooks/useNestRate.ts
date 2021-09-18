@@ -2,13 +2,11 @@ import BigNumber from 'bignumber.js'
 import MultiCall from '../utils/multicall'
 import { useCallback, useEffect, useState } from 'react'
 import useBao from './useBao'
-import useMulticall from './useMulticall'
 import { getRecipeContract, getWethPriceContract } from '../bao/utils'
-import { decimate, exponentiate } from '../utils/formatBalance'
+import { decimate, exponentiate } from '../utils/numberFormat'
 
 const useNestRate = (nestAddress: string) => {
   const bao = useBao()
-  const multicall = useMulticall()
   const recipeContract = getRecipeContract(bao)
 
   const [wethPerIndex, setWethPerIndex] = useState<BigNumber | undefined>()
@@ -16,7 +14,7 @@ const useNestRate = (nestAddress: string) => {
   const [usdPerIndex, setUsdPerIndex] = useState<BigNumber | undefined>()
 
   const nestRate = useCallback(async () => {
-    if (!(bao && multicall && nestAddress)) return
+    if (!(bao && nestAddress)) return
 
     const wethOracle = getWethPriceContract(bao)
     const multicallContext = MultiCall.createCallContext([
@@ -37,7 +35,9 @@ const useNestRate = (nestAddress: string) => {
       },
     ])
     const { recipeContract: recipeResults, linkWethOracle: oracleResults } =
-      await MultiCall.parseCallResults(await multicall.call(multicallContext))
+      await MultiCall.parseCallResults(
+        await bao.multicall.call(multicallContext),
+      )
     const wethPerNest = decimate(recipeResults[0].values[0].hex)
     const _wethPrice = decimate(
       oracleResults[1].values[1].hex,
@@ -47,11 +47,11 @@ const useNestRate = (nestAddress: string) => {
     setWethPerIndex(wethPerNest)
     setWethPrice(_wethPrice)
     setUsdPerIndex(_wethPrice.times(wethPerNest))
-  }, [bao, multicall, nestAddress])
+  }, [bao, nestAddress])
 
   useEffect(() => {
     nestRate()
-  }, [bao, multicall, nestAddress])
+  }, [bao, nestAddress])
 
   return {
     wethPerIndex,

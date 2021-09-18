@@ -1,6 +1,5 @@
 import {
 	getMasterChefContract,
-	getPollyAddress,
 	getPollySupply,
 	getReferrals,
 } from 'bao/utils'
@@ -20,7 +19,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber } from 'utils/numberFormat'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)
@@ -79,7 +78,9 @@ const Balances: React.FC = () => {
 	const [totalReferrals, setTotalReferrals] = useState<string>()
 	const [refLink, setRefLink] = useState<string>()
 	const bao = useBao()
-	const pollyBalance = useTokenBalance(getPollyAddress(bao))
+	const pollyBalance = useTokenBalance(
+		bao && bao.getContract('polly').options.address,
+	)
 	const masterChefContract = getMasterChefContract(bao)
 	const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 

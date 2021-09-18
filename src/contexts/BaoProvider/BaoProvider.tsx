@@ -40,14 +40,11 @@ const BaoProvider: React.FC = ({ children }) => {
 
 		if (ethereum) {
 			const chainId = Number(ethereum.chainId)
-			const baoLib = new Bao(ethereum, chainId, false, {
-				defaultAccount: ethereum.selectedAddress,
+			const baoLib = new Bao(ethereum, chainId, {
 				defaultConfirmations: 1,
 				autoGasMultiplier: 1.05,
-				testing: false,
 				defaultGas: '300000',
 				defaultGasPrice: '20000000000',
-				accounts: [],
 				ethereumNodeTimeout: 10000,
 			})
 			setBao(baoLib)

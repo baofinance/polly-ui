@@ -6,7 +6,7 @@ import ModalContent from 'components/ModalContent'
 import ModalTitle from 'components/ModalTitle'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
-import { getFullDisplayBalance } from 'utils/formatBalance'
+import { getFullDisplayBalance } from 'utils/numberFormat'
 import Fee from './Fee'
 
 

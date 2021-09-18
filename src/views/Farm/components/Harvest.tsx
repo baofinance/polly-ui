@@ -6,15 +6,12 @@ import CardIcon from 'components/CardIcon'
 import Label from 'components/Label'
 import Spacer from 'components/Spacer'
 import Value from 'components/Value'
-import useBao from 'hooks/useBao'
 import useEarnings from 'hooks/useEarnings'
 import useLockedEarnings from 'hooks/useLockedEarnings'
 import useReward from 'hooks/useReward'
-import useSubValues from 'hooks/useSubValues'
-import useValues from 'hooks/useValues'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber } from 'utils/numberFormat'
 
 interface HarvestProps {
 	pid: number
@@ -25,9 +22,6 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
 	const locks = useLockedEarnings()
 	const [pendingTx, setPendingTx] = useState(false)
 	const { onReward } = useReward(pid)
-	const bao = useBao()
-	const userInfo = useValues()
-	const userSubInfo = useSubValues()
 
 	return (
 		<Card>

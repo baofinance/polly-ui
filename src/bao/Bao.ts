@@ -1,19 +1,17 @@
 import Web3 from 'web3'
 import { Contracts } from './lib/contracts'
-import { Account } from './lib/accounts.js'
-import { EVM } from './lib/evm.js'
-import { contractAddresses } from './lib/constants'
-import { provider, AddAccount } from 'web3-core/types'
+import { provider } from 'web3-core/types'
+import { Multicall as MC } from 'ethereum-multicall'
+import Multicall from '../utils/multicall'
+import { Contract } from 'web3-eth-contract'
+import BigNumber from 'bignumber.js'
 
 export interface BaoOptions {
   confirmationType?: number
-  defaultAccount: string
   defaultConfirmations: number
   autoGasMultiplier: number
-  testing: boolean
   defaultGas: string
   defaultGasPrice: string
-  accounts: Account[]
   ethereumNodeTimeout: number
 }
 
@@ -22,20 +20,15 @@ export interface SetsNetworkId {
 }
 
 export class Bao {
-  public readonly accounts: Account[]
+  public readonly networkId: number
   public readonly contracts: Contracts
   public readonly web3: Web3
-  public readonly testing: EVM | null | undefined
-  public readonly snapshot: Promise<string> | null | undefined
-  public readonly pollyAddress: string
-  public readonly masterChefAddress: string
-  public readonly wethAddress: string
+  public readonly multicall: MC
   operation: SetsNetworkId
 
   constructor(
     provider: string | provider,
     networkId: number,
-    testing: boolean,
     options: BaoOptions,
   ) {
     let realProvider
@@ -57,62 +50,27 @@ export class Bao {
       realProvider = provider
     }
 
+    this.networkId = networkId
     this.web3 = new Web3(realProvider)
+    this.multicall = new MC({
+      web3Instance: this.web3,
+      tryAggregate: true,
+    })
 
-    if (testing) {
-      this.testing = new EVM(realProvider)
-      this.snapshot = this.testing.snapshot()
-    }
-
-    if (options.defaultAccount) {
-      this.web3.eth.defaultAccount = options.defaultAccount
-    }
     this.contracts = new Contracts(realProvider, networkId, this.web3, options)
-    if (networkId == 137) {
-      this.pollyAddress = contractAddresses.polly[networkId]
-      this.masterChefAddress = contractAddresses.masterChef[networkId]
-      this.wethAddress = contractAddresses.weth[networkId]
-    }
-    console.log(`network Id: ${networkId}`, contractAddresses)
   }
 
-  async resetEVM(): Promise<void> {
-    if (this.snapshot && this.testing) {
-      this.testing.resetEVM(await this.snapshot)
-    }
+  getContract(contractName: string, networkId = this.networkId): Contract {
+    return this.contracts.getContract(contractName, networkId)
   }
 
-  addAccount(address: string, number: number): void {
-    this.accounts.push(new Account(this.contracts, address))
+  getNewContract(abi: string | unknown, address?: string): Contract {
+    return this.contracts.getNewContract(abi, address)
   }
 
   setProvider(provider: provider, networkId: number): void {
     this.web3.setProvider(provider)
     this.contracts.setProvider(provider, networkId)
     this.operation.setNetworkId(networkId)
-  }
-
-  setDefaultAccount(account: string): void {
-    this.web3.eth.defaultAccount = account
-    this.contracts.setDefaultAccount(account)
-  }
-
-  getDefaultAccount(): string {
-    return this.web3.eth.defaultAccount
-  }
-
-  loadAccount(account: AddAccount): void {
-    const newAccount = this.web3.eth.accounts.wallet.add(account.privateKey)
-
-    if (
-      !newAccount ||
-      (account.address &&
-        account.address.toLowerCase() !== newAccount.address.toLowerCase())
-    ) {
-      throw new Error(`Loaded account address mismatch.
-        Expected ${account.address}, got ${
-        newAccount ? newAccount.address : null
-      }`)
-    }
   }
 }

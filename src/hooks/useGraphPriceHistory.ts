@@ -3,7 +3,6 @@ import { Nest } from 'contexts/Nests'
 import _ from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import GraphClient from 'utils/graph'
-import { addressMap } from '../bao/lib/constants'
 
 const useGraphPriceHistory = (nest: Nest) => {
   const [res, setRes] = useState<TimeseriesData[] | undefined>()
