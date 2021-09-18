@@ -8,7 +8,7 @@ import useBao from './useBao'
 import useMulticall from './useMulticall'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
 import { decimate, getBalanceNumber } from 'utils/formatBalance'
-import { getWethPriceLink } from '../bao/utils'
+import { getMaticPriceLink, getWethPriceLink } from '../bao/utils'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
 import { addressMap } from '../bao/lib/constants'
@@ -34,6 +34,7 @@ const useComposition = (nest: Nest) => {
           ),
         )
         const wethPrice = await getWethPriceLink(bao)
+        const maticPrice = await getMaticPriceLink(bao)
 
         const res = await Promise.all(
           tokenComposition.map(async (component: any) => {
@@ -49,10 +50,12 @@ const useComposition = (nest: Nest) => {
               graphData.symbol,
             )}.png`)
 
-            let price = graphData.dayData[0].priceUSD,
+            let price = new BigNumber(graphData.dayData[0].priceUSD)
+                .div(wethPrice)
+                .times(maticPrice),
               basePrice,
               baseBalance
-            if (price === '0')
+            if (price.eq(0))
               price = await GraphClient.getPriceFromPair(
                 wethPrice,
                 graphData.id,

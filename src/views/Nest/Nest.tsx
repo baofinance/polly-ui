@@ -48,8 +48,6 @@ import {
 	StatsRow,
 	StyledBadge,
 	StyledTable,
-	StyledAlert,
-	StyledExternalLink,
 	CornerButtons,
 } from './styles'
 import NDEFI from './components/explanations/nDEFI'
@@ -331,14 +329,7 @@ const Nest: React.FC = () => {
 							<NestBoxHeader style={{ float: 'right' }}>
 								{indexPriceChange24h ? (
 									<>
-										$
-										{priceHistory &&
-											getDisplayBalance(
-												new BigNumber(
-													priceHistory[priceHistory.length - 1].close,
-												),
-												0,
-											)}
+										${sushiPairPrice && getDisplayBalance(sushiPairPrice, 0)}
 										<span
 											className="smalltext"
 											style={{

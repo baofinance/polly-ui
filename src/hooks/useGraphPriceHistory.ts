@@ -3,20 +3,29 @@ import { Nest } from 'contexts/Nests'
 import _ from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import GraphClient from 'utils/graph'
-import { addressMap } from '../bao/lib/constants'
+import { getMaticPriceLink, getWethPriceLink } from '../bao/utils'
+import useBao from './useBao'
+import { BigNumber } from 'bignumber.js'
 
 const useGraphPriceHistory = (nest: Nest) => {
   const [res, setRes] = useState<TimeseriesData[] | undefined>()
+  const bao = useBao()
 
   const querySubgraph = useCallback(async () => {
-    if (!(nest && nest.nestTokenAddress)) return
+    if (!(nest && nest.nestTokenAddress && bao)) return
 
-    const data: any = await GraphClient.getPriceHistory(nest.nestTokenAddress.toLowerCase())
-    const formattedData: Array<TimeseriesData> =
-      data.tokens[0].dayData.map((dayData: any) => ({
+    const wethPrice = await getWethPriceLink(bao)
+    const maticPrice = await getMaticPriceLink(bao)
+
+    const data: any = await GraphClient.getPriceHistory(
+      nest.nestTokenAddress.toLowerCase(),
+    )
+    const formattedData: Array<TimeseriesData> = data.tokens[0].dayData.map(
+      (dayData: any) => ({
         date: new Date(dayData.date * 1000).toISOString(),
-        close: parseFloat(dayData.priceUSD),
-      }))
+        close: new BigNumber(dayData.priceUSD).div(wethPrice).times(maticPrice),
+      }),
+    )
     setRes(_.reverse(formattedData))
   }, [nest])
 

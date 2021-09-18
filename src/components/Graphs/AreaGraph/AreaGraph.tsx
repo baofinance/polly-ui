@@ -89,7 +89,7 @@ export default withTooltip<AreaProps, TooltipData>(
 		const valueScale = useMemo(
 			() =>
 				scaleLinear({
-					range: [innerHeight + margin.top, 0],
+					range: [innerHeight + margin.top, innerHeight / 2],
 					domain: [
 						min(timeSeries, getValue) || 0,
 						(max(timeSeries, getValue) || 0),

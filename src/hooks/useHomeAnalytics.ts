@@ -7,6 +7,7 @@ import GraphUtil from '../utils/graph'
 import { getBalanceNumber, getDisplayBalance, getAnalytics } from '../utils/formatBalance'
 import MultiCall from '../utils/multicall'
 import { Multicall as MC } from 'ethereum-multicall'
+import useBao from './useBao'
 
 import experipieAbi from '../bao/lib/abi/experipie.json'
 import useAllFarmTVL from './useAllFarmTVL'
@@ -27,11 +28,12 @@ const useHomeAnalytics = () => {
   const multicall = new MC({ web3Instance: web3, tryAggregate: true })
 
   const farmTVL = useAllFarmTVL(web3, multicall)
+  const bao = useBao()
 
   const fetchAnalytics = useCallback(async () => {
     if (!farmTVL) return
 
-    const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
+    const ethPrice = await GraphUtil.getPrice(addressMap.WETH, 'matic', bao)
     const multicallContext = []
     for (const nest of supportedNests) {
       const nestAddress: any =

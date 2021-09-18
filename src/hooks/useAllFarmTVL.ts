@@ -5,6 +5,7 @@ import { Multicall as MC } from 'ethereum-multicall'
 import Multicall from '../utils/multicall'
 import GraphUtil from '../utils/graph'
 import { decimate } from '../utils/formatBalance'
+import useBao from './useBao'
 import {
   addressMap,
   contractAddresses,
@@ -98,10 +99,11 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
 
 const useAllFarmTVL = (web3: Web3, multicall: MC) => {
   const [tvl, setTvl] = useState<any | undefined>()
+  const bao = useBao()
 
   const fetchAllFarmTVL = useCallback(async () => {
     const lps: any = await fetchLPInfo(supportedPools, multicall, web3)
-    const wethPrice = await GraphUtil.getPrice(addressMap.WETH)
+    const wethPrice = await GraphUtil.getPrice(addressMap.WETH, 'matic', bao)
     const tokenPrices = await GraphUtil.getPriceFromPairMultiple(wethPrice, [
       addressMap.RAI,
       addressMap.nDEFI,
