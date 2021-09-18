@@ -44,6 +44,18 @@ export interface ActiveSupportedNest extends SupportedNest {
   nestContract: Contract
 }
 
+export interface RpcConfig {
+  chainId: string
+  rpcUrls: string[]
+  blockExplorerUrls: string[]
+  chainName: string
+  nativeCurrency: {
+    name: string
+    symbol: string
+    decimals: number
+  }
+}
+
 export interface AddressMapConfig {
   [name: string]: string
 }
@@ -66,6 +78,7 @@ export interface SubgraphConfig {
 
 export interface Config {
   networkId: number
+  defaultRpc: RpcConfig
   addressMap: AddressMapConfig
   contracts: ContractsConfig
   subgraphs: SubgraphConfig

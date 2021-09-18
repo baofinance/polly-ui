@@ -6,28 +6,24 @@ import PageHeader from 'components/PageHeader'
 import Spacer from 'components/Spacer'
 import WalletProviderModal from 'components/WalletProviderModal'
 import useModal from 'hooks/useModal'
-import React, { useState } from 'react'
+import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import Farm from '../Farm'
 import Balances from './components/Balances'
 import FarmCards from './components/FarmCards'
-import { Badge } from 'react-bootstrap'
-import { getDisplayBalance } from 'utils/numberFormat'
-import { SpinnerLoader } from 'components/Loader'
-import { BigNumber } from 'bignumber.js'
+import Config from '../../bao/lib/config'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
 	const { account, ethereum }: any = useWallet()
 	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
-	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
 
 	return (
 		<Switch>
 			<Page>
-				{account && ethereum.chainId === '0x89' ? (
+				{account && ethereum.chainId === Config.defaultRpc.chainId ? (
 					<>
 						<Route exact path={path}>
 							<PageHeader

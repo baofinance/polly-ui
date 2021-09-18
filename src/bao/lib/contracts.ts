@@ -47,7 +47,7 @@ export class Contracts {
     })
 
     this.pools =
-      networkId === 137
+      networkId === Config.networkId
         ? Config.farms.map((pool) =>
             Object.assign(pool, {
               lpAddress: pool.lpAddresses[networkId],
@@ -59,7 +59,7 @@ export class Contracts {
         : undefined
 
     this.nests =
-      networkId === 137
+      networkId === Config.networkId
         ? Config.nests.map((nest) =>
             Object.assign(nest, {
               nestAddress: nest.nestAddresses[networkId],

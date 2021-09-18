@@ -1,8 +1,6 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
-import useBao from "../hooks/useBao";
-import {getWethPriceLink} from "../bao/utils";
 
 const SUSHI_SUBGRAPH_URLS = {
   matic: 'https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange',

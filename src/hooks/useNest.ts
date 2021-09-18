@@ -9,7 +9,7 @@ const useNest: any = (id: string) => {
     nests.find((nest) => nest.nid.toString() === id) || {
       nid: nest.nid,
       nestToken: nest.symbol,
-      nestTokenAddress: nest.nestAddresses[137],
+      nestTokenAddress: nest.nestAddresses[Config.networkId],
       inputToken: 'WETH',
       inputTokenAddress: Config.addressMap.WETH,
       name: nest.name,

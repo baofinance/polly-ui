@@ -2,6 +2,7 @@ import { Bao } from 'bao'
 import React, { createContext, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import Web3 from 'web3'
+import Config from '../../bao/lib/config'
 
 export interface BaoContext {
 	bao?: typeof Bao
@@ -39,8 +40,7 @@ const BaoProvider: React.FC = ({ children }) => {
 		}
 
 		if (ethereum) {
-			const chainId = Number(ethereum.chainId)
-			const baoLib = new Bao(ethereum, chainId, {
+			const baoLib = new Bao(ethereum, Config.networkId, {
 				defaultConfirmations: 1,
 				autoGasMultiplier: 1.05,
 				defaultGas: '300000',

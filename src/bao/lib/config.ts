@@ -2,6 +2,17 @@ import { Config } from './types'
 
 export default {
   networkId: 137,
+  defaultRpc: {
+    chainId: '0x89',
+    rpcUrls: ['https://polygon-rpc.com'],
+    blockExplorerUrls: ['https://explorer-mainnet.maticvigil.com'],
+    chainName: 'Matic Mainnet',
+    nativeCurrency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18,
+    },
+  },
   addressMap: {
     uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
     uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',

@@ -9,6 +9,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import Nest from '../Nest'
 import NestList from './components/NestList'
+import Config from '../../bao/lib/config'
 
 const Nests: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -17,10 +18,14 @@ const Nests: React.FC = () => {
 	return (
 		<Switch>
 			<Page>
-				{account && ethereum.chainId === '0x89' ? (
+				{account && ethereum.chainId === Config.defaultRpc.chainId ? (
 					<>
 						<Route exact path={path}>
-							<PageHeader icon={pollyNests} title="Nests" subtitle="Tokenized baskets with autonomous yield bearing strategies!" />
+							<PageHeader
+								icon={pollyNests}
+								title="Nests"
+								subtitle="Tokenized baskets with autonomous yield bearing strategies!"
+							/>
 							<NestList />
 						</Route>
 						<Route path={`${path}/:nestId`}>

@@ -9,12 +9,13 @@ import ModalContent from '../ModalContent'
 import ModalTitle from '../ModalTitle'
 import Spacer from '../Spacer'
 import WalletCard from './components/WalletCard'
+import Config from '../../bao/lib/config'
 
 const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, ethereum, connect }: any = useWallet()
 
 	useEffect(() => {
-		if (account && ethereum.chainId === '0x89') {
+		if (account && ethereum.chainId === Config.defaultRpc.chainId) {
 			onDismiss()
 		}
 	}, [account, onDismiss])

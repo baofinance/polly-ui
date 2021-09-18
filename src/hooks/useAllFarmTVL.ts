@@ -17,12 +17,12 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
     await multicall.call(
       Multicall.createCallContext(
         farms.map((farm) =>
-          farm.pid === 14
+          farm.pid === 14 // single asset farms (TODO: make single asset a config field)
             ? ({
-                ref: farm.lpAddresses[137],
+                ref: farm.lpAddresses[Config.networkId],
                 contract: new web3.eth.Contract(
                   erc20Abi as AbiItem[],
-                  farm.lpAddresses[137],
+                  farm.lpAddresses[Config.networkId],
                 ),
                 calls: [
                   {
@@ -35,10 +35,10 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
                 ],
               } as any)
             : ({
-                ref: farm.lpAddresses[137],
+                ref: farm.lpAddresses[Config.networkId],
                 contract: new web3.eth.Contract(
                   lpAbi as AbiItem[],
-                  farm.lpAddresses[137],
+                  farm.lpAddresses[Config.networkId],
                 ),
                 calls: [
                   { method: 'getReserves' },

@@ -2,9 +2,7 @@ import Web3 from 'web3'
 import { Contracts } from './lib/contracts'
 import { provider } from 'web3-core/types'
 import { Multicall as MC } from 'ethereum-multicall'
-import Multicall from '../utils/multicall'
 import { Contract } from 'web3-eth-contract'
-import BigNumber from 'bignumber.js'
 
 export interface BaoOptions {
   confirmationType?: number
