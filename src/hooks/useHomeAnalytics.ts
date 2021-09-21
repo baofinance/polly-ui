@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
 import Config from '../bao/lib/config'
 import GraphUtil from '../utils/graph'
 import { getBalanceNumber, truncateNumber } from '../utils/numberFormat'
 import MultiCall from '../utils/multicall'
-import { Multicall as MC } from 'ethereum-multicall'
+import useBao from './useBao'
 
 import experipieAbi from '../bao/lib/abi/experipie.json'
 import useAllFarmTVL from './useAllFarmTVL'
@@ -20,16 +19,14 @@ const useHomeAnalytics = () => {
     | undefined
   >()
 
-  // Read only web3 instance
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider('https://polygon-rpc.com'),
-  )
-  const multicall = new MC({ web3Instance: web3, tryAggregate: true })
+  const bao = useBao()
+  const web3 = bao && bao.web3
+  const multicall = bao && bao.multicall
 
   const farmTVL = useAllFarmTVL(web3, multicall)
 
   const fetchAnalytics = useCallback(async () => {
-    if (!farmTVL) return
+    if (!(farmTVL && bao)) return
 
     const ethPrice = await GraphUtil.getPrice(Config.addressMap.WETH)
     const multicallContext = []
@@ -86,11 +83,11 @@ const useHomeAnalytics = () => {
         ),
       },
     ])
-  }, [farmTVL])
+  }, [farmTVL, bao])
 
   useEffect(() => {
     fetchAnalytics()
-  }, [farmTVL])
+  }, [farmTVL, bao])
 
   return analytics
 }

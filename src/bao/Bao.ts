@@ -3,6 +3,7 @@ import { Contracts } from './lib/contracts'
 import { provider } from 'web3-core/types'
 import { Multicall as MC } from 'ethereum-multicall'
 import { Contract } from 'web3-eth-contract'
+import Config from './lib/config'
 
 export interface BaoOptions {
   confirmationType?: number
@@ -44,8 +45,10 @@ export class Bao {
           timeout: options.ethereumNodeTimeout || 100000,
         })
       }
-    } else {
+    } else if (provider) {
       realProvider = provider
+    } else {
+      realProvider = new Web3.providers.HttpProvider(Config.defaultRpc.rpcUrls[0])
     }
 
     this.networkId = networkId
@@ -64,6 +67,10 @@ export class Bao {
 
   getNewContract(abi: string | unknown, address?: string): Contract {
     return this.contracts.getNewContract(abi, address)
+  }
+
+  async hasAccounts(): Promise<boolean> {
+    return (await this.web3.eth.getAccounts()).length > 0
   }
 
   setProvider(provider: provider, networkId: number): void {

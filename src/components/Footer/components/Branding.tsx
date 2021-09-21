@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import baoLogo from '../../../assets/img/bao-logo.png'
 
 const Branding: React.FC = () => {
 	return (

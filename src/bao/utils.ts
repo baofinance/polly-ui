@@ -29,15 +29,9 @@ export const getPollyContract = (bao: Bao): Contract => {
   return bao && bao.contracts && bao.getContract('polly')
 }
 
-export const getNestContract = (bao: Bao, nid: number) => {
-  if (bao && bao.contracts && bao.contracts.nests) {
-    const nest = _.find(bao.contracts.nests, { nid })
-    const address = nest.nestAddress
-    return {
-      address,
-      nestContract: nest.nestContract,
-    }
-  }
+export const getNestContract = (bao: Bao, nid: number): Contract | undefined => {
+  if (bao && bao.contracts && bao.contracts.nests)
+    return _.find(bao.contracts.nests, { nid }).nestContract
 }
 
 export const getRecipeContract = (bao: Bao) => {
