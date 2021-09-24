@@ -6,6 +6,7 @@ import { Bao } from './Bao'
 import { Farm } from '../contexts/Farms'
 import { decimate, exponentiate } from '../utils/numberFormat'
 import Multicall from '../utils/multicall'
+import { Contract } from 'web3-eth-contract'
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,

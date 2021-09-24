@@ -11,7 +11,6 @@ import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
 import Config from '../bao/lib/config'
 import { provider } from 'web3-core'
-import useMulticall from './useMulticall'
 
 const useComposition = (nest: Nest) => {
   const { ethereum }: { ethereum: provider } = useWallet()

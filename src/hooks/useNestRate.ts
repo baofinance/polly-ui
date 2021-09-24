@@ -4,7 +4,6 @@ import useBao from './useBao'
 import { getRecipeContract, getWethPriceContract } from '../bao/utils'
 import { decimate, exponentiate } from '../utils/numberFormat'
 import MultiCall from '../utils/multicall'
-import useMulticall from './useMulticall'
 
 const useNestRate = (nestAddress: string) => {
   const bao = useBao()

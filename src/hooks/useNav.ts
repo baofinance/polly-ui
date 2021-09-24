@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { addressMap } from '../bao/lib/constants'
 import { NestComponent } from '../contexts/Nests/types'
 import GraphUtil from '../utils/graph'
 import Config from '../bao/lib/config'
