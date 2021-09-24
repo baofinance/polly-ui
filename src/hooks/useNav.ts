@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
+import Config from '../bao/lib/config'
 import { NestComponent } from '../contexts/Nests/types'
 import GraphUtil from '../utils/graph'
-import Config from '../bao/lib/config'
 
 const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
   const [nav, setNav] = useState<

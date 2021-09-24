@@ -1,8 +1,4 @@
-import {
-	getMasterChefContract,
-	getPollySupply,
-	getReferrals,
-} from 'bao/utils'
+import { getMasterChefContract, getPollySupply, getReferrals } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import Card from 'components/Card'
 import CardContent from 'components/CardContent'

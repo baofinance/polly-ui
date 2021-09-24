@@ -1,9 +1,9 @@
-import Web3 from 'web3'
-import { Contracts } from './lib/contracts'
-import { provider } from 'web3-core/types'
 import { Multicall as MC } from 'ethereum-multicall'
+import Web3 from 'web3'
+import { provider } from 'web3-core/types'
 import { Contract } from 'web3-eth-contract'
 import Config from './lib/config'
+import { Contracts } from './lib/contracts'
 
 export interface BaoOptions {
   confirmationType?: number
@@ -48,7 +48,9 @@ export class Bao {
     } else if (provider) {
       realProvider = provider
     } else {
-      realProvider = new Web3.providers.HttpProvider(Config.defaultRpc.rpcUrls[0])
+      realProvider = new Web3.providers.HttpProvider(
+        Config.defaultRpc.rpcUrls[0],
+      )
     }
 
     this.networkId = networkId

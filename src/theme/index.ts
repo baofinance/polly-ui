@@ -1,7 +1,14 @@
 import {
-  accent, blue, darkGrey, green, monochrome, primary, red, secondary,
+  accent,
+  blue,
+  darkGrey,
+  green,
+  monochrome,
+  primary,
+  red,
+  secondary,
   text,
-  transparent
+  transparent,
 } from './colors'
 
 const theme = {

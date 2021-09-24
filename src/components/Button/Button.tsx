@@ -1,4 +1,3 @@
-import { lighten } from 'polished'
 import React, { useContext, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { ThemeContext } from 'styled-components'

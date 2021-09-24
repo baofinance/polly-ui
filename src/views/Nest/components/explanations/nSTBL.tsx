@@ -4,9 +4,7 @@ import { NestHeader, NestList, NestSubHeader } from '../styles'
 const nSTBL: React.FC = () => (
 	<>
 		<NestHeader>Description</NestHeader>
-		<p>
-			The Polly Stable Nest...
-		</p>
+		<p>The Polly Stable Nest...</p>
 
 		<NestHeader>Objective</NestHeader>
 		<p>

@@ -9,6 +9,7 @@ import { Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/numberFormat'
+import Config from '../../../bao/lib/config'
 import Button from '../../Button'
 import CardIcon from '../../CardIcon'
 import Label from '../../Label'
@@ -17,7 +18,6 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
-import Config from '../../../bao/lib/config'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, reset } = useWallet()

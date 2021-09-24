@@ -252,7 +252,7 @@ export const StatCard = styled.div`
 export const StyledBadge = styled(Badge)`
   font-size: 1em;
   color: ${(props) => props.theme.color.text[100]};
-  font-weight: ${(props) => props.theme.fontWeight.medium}
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 `
 
 export const PriceBadge = styled(Badge)`

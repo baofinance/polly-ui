@@ -1,9 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import overlay from 'assets/img/overlay.png'
 import React from 'react'
+import { Alert, Container } from 'react-bootstrap'
 import styled from 'styled-components'
 import Footer from '../Footer'
-import { Alert, Container } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Page: React.FC = ({ children }) => (
 	<StyledPageContainer>
@@ -11,15 +11,15 @@ const Page: React.FC = ({ children }) => (
 			<Container>
 				<Alert variant="danger" style={{ margin: 0, textAlign: 'center' }}>
 					<b>
-						<FontAwesomeIcon icon="exclamation-triangle" />
-						{' '}NOTICE{' '}
+						<FontAwesomeIcon icon="exclamation-triangle" /> NOTICE{' '}
 						<FontAwesomeIcon icon="exclamation-triangle" />
 					</b>
 					<br />
-					2021-09-16 - SushiSwap's matic-exchange subgraph is experiencing issues at the moment,{' '}
-					and all token prices are inaccurate. Funds are safe, this issue is{' '}
-					affecting the front-end only. SushiSwap is aware of the issue and are in the process of{' '}
-					deploying a fix to their subgraph.
+					2021-09-16 - SushiSwap's matic-exchange subgraph is experiencing
+					issues at the moment, and all token prices are inaccurate. Funds are
+					safe, this issue is affecting the front-end only. SushiSwap is aware
+					of the issue and are in the process of deploying a fix to their
+					subgraph.
 				</Alert>
 			</Container>
 			<StyledMain>{children}</StyledMain>

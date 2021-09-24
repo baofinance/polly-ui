@@ -381,7 +381,7 @@ const Nest: React.FC = () => {
 								onClick={() => setAllocationDisplayType(false)}
 								active={!allocationDisplayType}
 								style={{ marginTop: '0px', borderColor: 'transparent' }}
-								>
+							>
 								<FontAwesomeIcon icon="table" />
 							</BootButton>
 							<BootButton
@@ -389,7 +389,7 @@ const Nest: React.FC = () => {
 								onClick={() => setAllocationDisplayType(true)}
 								active={allocationDisplayType}
 								style={{ marginTop: '0px', borderColor: 'transparent' }}
-								>
+							>
 								<FontAwesomeIcon icon="chart-pie" />
 							</BootButton>
 						</PrefButtons>

@@ -10,7 +10,6 @@ import useEarnings from 'hooks/useEarnings'
 import useLockedEarnings from 'hooks/useLockedEarnings'
 import useReward from 'hooks/useReward'
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import { getBalanceNumber } from 'utils/numberFormat'
 import {
 	StyledCardActions,

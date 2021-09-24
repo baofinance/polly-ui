@@ -1,3 +1,9 @@
+// FontAwesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useCallback, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
@@ -13,12 +19,6 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
-// Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-// FontAwesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas, fab)
 
 const url = new URL(window.location.toString())

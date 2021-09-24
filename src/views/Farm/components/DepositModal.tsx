@@ -8,7 +8,6 @@ import Spacer from 'components/Spacer'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/numberFormat'
-import styled from 'styled-components'
 import { StyledExternalLink, StyledInfo } from './styles'
 
 interface DepositModalProps extends ModalProps {

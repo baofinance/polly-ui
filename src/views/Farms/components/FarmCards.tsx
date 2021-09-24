@@ -6,25 +6,24 @@ import CardContent from 'components/CardContent'
 import CardIcon from 'components/CardIcon'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
+import Tooltipped from 'components/Tooltipped'
 import { Farm } from 'contexts/Farms'
 import { PoolType } from 'contexts/Farms/types'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
-import { lighten } from 'polished'
 import React, { useEffect, useState } from 'react'
+import { Badge } from 'react-bootstrap'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
-import { decimate, getDisplayBalance } from '../../../utils/numberFormat'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { useWallet } from 'use-wallet'
 import { bnToDec } from 'utils'
+import Config from '../../../bao/lib/config'
 import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
 import GraphUtil from '../../../utils/graph'
 import Multicall from '../../../utils/multicall'
-import Config from '../../../bao/lib/config'
-import { Badge } from 'react-bootstrap'
-import Tooltipped from 'components/Tooltipped'
+import { decimate, getDisplayBalance } from '../../../utils/numberFormat'
 import {
 	StyledCardAccent,
 	StyledCards,
@@ -36,7 +35,7 @@ import {
 	StyledInsight,
 	StyledLoadingWrapper,
 	StyledSpacer,
-	StyledTitle
+	StyledTitle,
 } from './styles'
 import './tab-styles.css'
 

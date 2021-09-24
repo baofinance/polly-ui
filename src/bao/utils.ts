@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import _ from 'lodash'
-import Config from './lib/config'
-import { Bao } from './Bao'
-import { Farm } from '../contexts/Farms'
-import { decimate, exponentiate } from '../utils/numberFormat'
-import Multicall from '../utils/multicall'
 import { Contract } from 'web3-eth-contract'
+import { Farm } from '../contexts/Farms'
+import Multicall from '../utils/multicall'
+import { decimate, exponentiate } from '../utils/numberFormat'
+import { Bao } from './Bao'
+import Config from './lib/config'
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -29,7 +29,10 @@ export const getPollyContract = (bao: Bao): Contract => {
   return bao && bao.contracts && bao.getContract('polly')
 }
 
-export const getNestContract = (bao: Bao, nid: number): Contract | undefined => {
+export const getNestContract = (
+  bao: Bao,
+  nid: number,
+): Contract | undefined => {
   if (bao && bao.contracts && bao.contracts.nests)
     return _.find(bao.contracts.nests, { nid }).nestContract
 }

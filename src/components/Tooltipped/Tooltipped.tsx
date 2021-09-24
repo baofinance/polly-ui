@@ -40,4 +40,3 @@ const QuestionIcon = styled(FontAwesomeIcon)`
 
 export default Tooltipped
 export type { TooltippedProps }
-

@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import BigNumber from 'bignumber.js'
-import GraphClient from 'utils/graph'
-import { getDisplayBalance } from 'utils/numberFormat'
-import Config from 'bao/lib/config'
 import { ParentSize } from '@visx/responsive'
+import Config from 'bao/lib/config'
+import BigNumber from 'bignumber.js'
 import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import _ from 'lodash'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from 'react-bootstrap'
+import GraphClient from 'utils/graph'
+import { getDisplayBalance } from 'utils/numberFormat'
 import {
 	NestBoxHeader,
 	PrefButtons,

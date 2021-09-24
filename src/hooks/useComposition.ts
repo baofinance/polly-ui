@@ -3,14 +3,14 @@ import { Nest, NestComponent } from 'contexts/Nests/types'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-import useBao from './useBao'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
-import { decimate, getBalanceNumber } from 'utils/numberFormat'
-import { getWethPriceLink } from '../bao/utils'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
-import Config from '../bao/lib/config'
+import { decimate, getBalanceNumber } from 'utils/numberFormat'
 import { provider } from 'web3-core'
+import Config from '../bao/lib/config'
+import { getWethPriceLink } from '../bao/utils'
+import useBao from './useBao'
 
 const useComposition = (nest: Nest) => {
   const { ethereum }: { ethereum: provider } = useWallet()

@@ -8,7 +8,6 @@ import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
 import useNestRate from 'hooks/useNestRate'
 import React, { useMemo } from 'react'
 import 'react-tabs/style/react-tabs.css'
-import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/numberFormat'
 import {
 	AssetImage,
@@ -24,7 +23,7 @@ import {
 	MobileListText,
 	MobileListTitle,
 	MobileNestLink,
-	NestImage
+	NestImage,
 } from './styles'
 
 const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
@@ -86,7 +85,9 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 							<>
 								<span
 									style={{
-										color: nestPriceChange24h.gt(0) ? '${(props) => props.theme.color.green}' : '${(props) => props.theme.color.red}',
+										color: nestPriceChange24h.gt(0)
+											? '${(props) => props.theme.color.green}'
+											: '${(props) => props.theme.color.red}',
 									}}
 								>
 									{priceHistory && getDisplayBalance(nestPriceChange24h, 0)}

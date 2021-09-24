@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Config from '../../../bao/lib/config'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import Button from 'components/Button'
@@ -17,10 +16,10 @@ import useInputApprove from 'hooks/useInputApprove'
 import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
-import styled from 'styled-components'
-import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
 import React, { useCallback, useMemo, useState } from 'react'
+import { getDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
+import Config from '../../../bao/lib/config'
 import { CloseButton, Disclaimer, HidePrice } from './styles'
 
 interface IssueModalProps extends ModalProps {

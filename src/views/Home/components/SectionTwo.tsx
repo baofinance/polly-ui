@@ -3,7 +3,15 @@ import diversify from 'assets/img/diversify.svg'
 import passiveYield from 'assets/img/passive-yield.svg'
 import React from 'react'
 import {
-	InfoCol, InfoContainer, InfoHeader, InfoImage, InfoImageCol, InfoImageContainer, InfoSubHeader, InfoText, InfoWrapper
+	InfoCol,
+	InfoContainer,
+	InfoHeader,
+	InfoImage,
+	InfoImageCol,
+	InfoImageContainer,
+	InfoSubHeader,
+	InfoText,
+	InfoWrapper,
 } from './styles'
 
 const SectionTwo: React.FC = () => (

@@ -7,9 +7,9 @@ import useModal from 'hooks/useModal'
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
+import Config from '../../bao/lib/config'
 import Nest from '../Nest'
 import NestList from './components/NestList'
-import Config from '../../bao/lib/config'
 
 const Nests: React.FC = () => {
 	const { path } = useRouteMatch()

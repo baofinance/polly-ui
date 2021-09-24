@@ -3,13 +3,14 @@ import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import {
-  getFarms, getMasterChefContract, getTotalLPWethValue, getWethContract
+  getFarms,
+  getMasterChefContract,
+  getTotalLPWethValue,
+  getWethContract,
 } from '../bao/utils'
 import { getContract } from '../utils/erc20'
 import useBao from './useBao'
 import useBlock from './useBlock'
-
-
 
 export interface StakedValue {
   tokenAmount: BigNumber

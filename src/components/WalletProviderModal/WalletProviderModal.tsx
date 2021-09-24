@@ -2,6 +2,7 @@ import metamaskLogo from 'assets/img/metamask-fox.svg'
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import Config from '../../bao/lib/config'
 import Button from '../Button'
 import Modal, { ModalProps } from '../Modal'
 import ModalActions from '../ModalActions'
@@ -9,7 +10,6 @@ import ModalContent from '../ModalContent'
 import ModalTitle from '../ModalTitle'
 import Spacer from '../Spacer'
 import WalletCard from './components/WalletCard'
-import Config from '../../bao/lib/config'
 
 const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, ethereum, connect }: any = useWallet()
