@@ -4,6 +4,7 @@ import {
 	getPollySupply,
 	getReferrals,
 } from 'bao/utils'
+import Button from 'components/Button'
 import BigNumber from 'bignumber.js'
 import Card from 'components/Card'
 import CardContent from 'components/CardContent'
@@ -12,9 +13,11 @@ import PollyIcon from 'components/PollyIcon'
 import Spacer from 'components/Spacer'
 import Value from 'components/Value'
 import useAllEarnings from 'hooks/useAllEarnings'
+import useAllRewards from 'hooks/useAllRewards'
 import useAllStakedValue from 'hooks/useAllStakedValue'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
+import useFarmsWithBalance from 'hooks/useFarmsWithBalance'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { Fragment, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
@@ -75,13 +78,16 @@ const PendingRewards: React.FC = () => {
 }
 
 const Balances: React.FC = () => {
+	const [pendingTx, setPendingTx] = useState(false)
 	const [totalSupply, setTotalSupply] = useState<BigNumber>()
 	const [totalReferrals, setTotalReferrals] = useState<string>()
 	const [refLink, setRefLink] = useState<string>()
 	const bao = useBao()
+	const farmsWithBalance = useFarmsWithBalance();
 	const pollyBalance = useTokenBalance(getPollyAddress(bao))
 	const masterChefContract = getMasterChefContract(bao)
 	const { account, ethereum }: { account: any; ethereum: any } = useWallet()
+	const { onUseAllRewards } = useAllRewards();
 
 	useEffect(() => {
 		async function fetchTotalSupply() {
@@ -137,6 +143,15 @@ const Balances: React.FC = () => {
 							<PendingRewards /> POLLY
 						</FootnoteValue>
 					</Footnote>
+					<Button 
+						disabled={!farmsWithBalance.length||pendingTx}
+						text={pendingTx ? 'Collecting POLLY' : 'Harvest All'}
+						onClick={async () => {
+							setPendingTx(true)
+							await onUseAllRewards()
+							setPendingTx(false)
+						}}
+					/>
 				</Card>
 				<Spacer />
 
