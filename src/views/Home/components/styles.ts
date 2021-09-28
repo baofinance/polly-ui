@@ -482,6 +482,7 @@ export const Analytic = styled(Col)`
   justify-content: center;
   flex: 1 1;
   padding: ${(props) => props.theme.spacing[5]}px;
+  border-right: 1px solid ${(props) => props.theme.color.transparent[200]};
 
   &:first-child {
   }

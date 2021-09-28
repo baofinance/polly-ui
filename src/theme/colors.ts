@@ -39,7 +39,7 @@ export const text = {
 
 export const transparent = {
   100: 'rgba(0, 0, 0, 0.4)', //dark
-  200: 'rgba(256, 256, 256, 0.4)', //light
+  200: 'rgba(256, 256, 256, 0.1)', //light
 }
 
 export const accent = {

@@ -40,7 +40,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 								<FontAwesomeIcon
 									icon="link"
 									style={{
-										marginLeft: '${(props) => props.theme.spacing[1]}px',
+										marginLeft: '4px',
 									}}
 								/>
 							</>
@@ -55,18 +55,19 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 							<>
 								{account.slice(0, 6)}...
 								{account.slice(account.length - 4, account.length)}
+								{' '}
 								<FontAwesomeIcon
 									icon="angle-double-right"
 									style={{
-										margin: '0 ${(props) => props.theme.spacing[1]}px',
-										color: '${(props) => props.theme.color.text[100]}',
+										margin: '0 4px',
+										color: 'white',
 									}}
-								/>
+								/>{' '}
 								{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
 								<FontAwesomeIcon
 									icon={['fab', 'ethereum']}
 									style={{
-										marginLeft: '${(props) => props.theme.spacing[1]}px',
+										marginLeft: '4px',
 									}}
 								/>
 							</>
@@ -87,7 +88,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 								<FontAwesomeIcon
 									icon="link"
 									style={{
-										marginLeft: '${(props) => props.theme.spacing[1]}px',
+										marginLeft: '4px',
 									}}
 								/>
 							</>
