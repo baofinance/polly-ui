@@ -49,9 +49,9 @@ const theme = {
   },
   boxShadow: {
     default:
-      'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+      'inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 1px rgb(0 0 0 / 19%)',
     hover:
-      'rgba(0, 0, 0, 0.4) 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 0px 0px 0px, rgba(0, 0, 0, 0.2) 0px -0px 0px inset',
+      'inset 0 0px 0 rgb(255 255 255 / 20%), 0 0px 0px rgb(0 0 0 / 19%)',
   },
   buttonGradient: {
     a: 'linear-gradient(225deg, #1c1c27, #1f1c27) padding-box, linear-gradient(135deg, #373865, #53c7e4) border-box',

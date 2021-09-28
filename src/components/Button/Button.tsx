@@ -121,9 +121,10 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	target: attrs.target || '',
 }))<StyledButtonProps>`
 	align-items: center;
-	background: ${(props) => props.theme.color.primary[200]};
+	background: ${(props) => props.theme.color.secondary[200]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
-	border: 1px solid ${(props) => props.theme.color.primary[400]};
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
 	box-shadow: ${(props) => props.theme.boxShadow.default};
 	padding: ${(props) => -props.theme.spacing[3]}px;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
@@ -138,6 +139,9 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	width: ${(props) => (props.width ? props.width : '100%')};
 	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	position: relative;
+	transition: .6s;
+	overflow: hidden;
 
 	@media (max-width: 960px) {
 		/* margin: 0 0.5rem 0 0.5rem; */
@@ -152,13 +156,58 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 			${(props) => -props.theme.spacing[3]}px;
 	}
 
+	&:focus {
+		outline: 0;
+	}
+
+	&:before{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[300]};
+		width: 60px;
+		height: 100%;
+		left: 0;
+		top: 0;
+		opacity: .5;
+		filter: blur(30px);
+		transform: translateX(-100px)  skewX(-15deg);
+	  }
+	  &:after{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[200]};
+		width: 30px;
+		height: 100%;
+		left: 30px;
+		top: 0;
+		opacity: 0;
+		filter: blur(5px);
+		transform: translateX(-100px) skewX(-15deg);
+	  }
+	  &:hover{
+		background: ${(props) => props.theme.color.secondary[100]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(300px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(300px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
+	}
+
 	&:hover,
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 		cursor: ${(props) =>
 			props.disabled ? 'not-allowed' : 'pointer'} !important;
-		box-shadow: ${(props) => props.theme.boxShadow.hover};
 	}
 `
 

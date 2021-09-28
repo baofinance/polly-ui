@@ -30,7 +30,7 @@ export const HeroHeader = styled.h6`
   letter-spacing: -0.1rem;
   font-weight: ${(props) => props.theme.fontWeight.strong} !important;
   color: ${(props) => props.theme.color.text[100]};
-  margin-top: ${(props) => props.theme.spacing[2]}px;
+  margin-top: ${(props) => props.theme.spacing[6]}px;
   text-align: center;
 
   @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
@@ -86,7 +86,7 @@ export const HeroSubHeader = styled.h6`
 export const HeroText = styled.p`
   font-size: 1.25rem;
   color: ${(props) => props.theme.color.text[200]};
-  font-weight: ${(props) => props.theme.fontWeight.regular};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   margin: auto;
   text-align: center;
 
@@ -397,6 +397,7 @@ export const InfoSubHeader = styled(InfoHeader)`
 export const InfoText = styled.p`
   color: ${(props) => props.theme.color.text[100]};
   font-size: 1.25rem;
+  font-weight: ${(props) => props.theme.fontWeight.regular};
 `
 
 export const InfoImage = styled.img`
