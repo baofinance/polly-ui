@@ -151,15 +151,3 @@ export const StyledInfo = styled.h3`
   margin: 0;
   padding: 0;
 `
-
-export const StyledExternalLink = styled.a`
-  color: ${(props) => props.theme.color.text[100]};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  text-decoration: none;
-  &:hover {
-    color: ${(props) => props.theme.color.text[300]};
-  }
-  &.active {
-    color: ${(props) => props.theme.color.text[300]};
-  }
-`

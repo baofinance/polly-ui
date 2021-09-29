@@ -13,7 +13,8 @@ import Config from '../../bao/lib/config'
 import Farm from '../Farm'
 import Balances from './components/Balances'
 import FarmCards from './components/FarmCards'
-import { StyledExternalLink, StyledInfo } from './components/styles'
+import { StyledInfo } from './components/styles'
+import ExternalLink from 'components/ExternalLink'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
@@ -43,12 +44,12 @@ const Farms: React.FC = () => {
 										Attention:
 									</span>{' '}
 									Be sure to read the{' '}
-									<StyledExternalLink
+									<ExternalLink
 										href="https://docs.bao.finance/franchises/polly"
 										target="_blank"
 									>
 										docs
-									</StyledExternalLink>{' '}
+									</ExternalLink>{' '}
 									before using the farms so you are familiar with protocol risks
 									and fees!
 								</StyledInfo>

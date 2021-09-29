@@ -8,7 +8,8 @@ import Spacer from 'components/Spacer'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/numberFormat'
-import { StyledExternalLink, StyledInfo } from './styles'
+import { StyledInfo } from './styles'
+import ExternalLink from 'components/ExternalLink'
 
 interface DepositModalProps extends ModalProps {
 	max: BigNumber
@@ -52,13 +53,13 @@ const DepositModal: React.FC<DepositModalProps> = ({
 					❗️ Remember a 0.75% fee will be added to the treasury when
 					depositing. 75% of POLLY rewards will be locked and vested for 6
 					years. For more information, please{' '}
-					<StyledExternalLink
+					<ExternalLink
 						href="https://docs.bao.finance/franchises/polly-finance"
 						target="blank"
 					>
 						{' '}
 						read the docs.
-					</StyledExternalLink>
+					</ExternalLink>
 				</StyledInfo>
 			</ModalContent>
 			<TokenInput

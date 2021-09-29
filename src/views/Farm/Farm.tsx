@@ -14,10 +14,10 @@ import { HeroSubHeader } from 'views/Home/components/styles'
 import { provider } from 'web3-core'
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
+import ExternalLink from 'components/ExternalLink'
 import {
 	StyledCardsWrapper,
 	StyledCardWrapper,
-	StyledExternalLink,
 	StyledFarm,
 	StyledInfo,
 	StyledLink,
@@ -110,19 +110,19 @@ const Farm: React.FC = () => {
 					PollyChef. Deposits are subject to a 0.75% fee. Withdrawal slashing
 					fee of 0.1% - 50 % will be incurred when exiting a farm, depending on
 					the length of time your LP was staked. Please{' '}
-					<StyledExternalLink
+					<ExternalLink
 						href="https://docs.bao.finance/franchises/polly-finance"
 						target="blank"
 					>
 						{' '}
 						read the docs
-					</StyledExternalLink>{' '}
+					</ExternalLink>{' '}
 					to familiarize yourself with fees and penalties.
 				</StyledInfo>
 				<Spacer size="lg" />
 				<StyledLink exact activeClassName="active" to={{ pathname: '/farms' }}>
 					<HeroSubHeader>
-						<FontAwesomeIcon icon="arrow-left" size="xs" /> Return to Farms
+						<FontAwesomeIcon icon="arrow-left" size="xs" color="#6b9aef" /> Return to Farms
 					</HeroSubHeader>
 				</StyledLink>
 			</StyledFarm>

@@ -12,18 +12,6 @@ export const StyledInfo = styled.h3`
   max-width: 980px;
 `
 
-export const StyledExternalLink = styled.a`
-  color: ${(props) => props.theme.color.text[100]};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  text-decoration: none;
-  &:hover {
-    color: ${(props) => props.theme.color.text[300]};
-  }
-  &.active {
-    color: ${(props) => props.theme.color.text[300]};
-  }
-`
-
 export const StyledDocsWarning = styled.span`
   color: ${(props) => props.theme.color.text[100]};
   font-size: 1rem;

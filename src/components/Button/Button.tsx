@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { ThemeContext } from 'styled-components'
+import ExternalLink from 'components/ExternalLink'
 
 interface ButtonProps {
 	children?: React.ReactNode
@@ -76,9 +77,9 @@ const Button: React.FC<ButtonProps> = ({
 			return <StyledLink to={to}>{text}</StyledLink>
 		} else if (href) {
 			return (
-				<StyledExternalLink href={href} target="__blank">
+				<ExternalLink href={href} target="__blank">
 					{text}
-				</StyledExternalLink>
+				</ExternalLink>
 			)
 		} else {
 			return text
@@ -217,23 +218,6 @@ const StyledLink = styled(Link)`
 	display: flex;
 	flex: 1;
 	height: 50px;
-	justify-content: center;
-	margin: 0 ${(props) => -props.theme.spacing[4]}px;
-	padding: 0 ${(props) => props.theme.spacing[4]}px;
-	text-decoration: none;
-
-	&:hover,
-	&:focus {
-		color: ${(props) => props.theme.color.text[100]};
-	}
-`
-
-const StyledExternalLink = styled.a`
-	align-items: center;
-	color: inherit;
-	display: flex;
-	flex: 1;
-	height: 56px;
 	justify-content: center;
 	margin: 0 ${(props) => -props.theme.spacing[4]}px;
 	padding: 0 ${(props) => props.theme.spacing[4]}px;

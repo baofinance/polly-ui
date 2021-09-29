@@ -21,18 +21,6 @@ export const StyledAlert = styled(Alert)`
   }
 `
 
-export const StyledExternalLink = styled.a`
-  color: ${(props) => props.theme.color.text[100]};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  text-decoration: none;
-  &:hover {
-    color: ${(props) => props.theme.color.text[300]};
-  }
-  &.active {
-    color: ${(props) => props.theme.color.text[300]};
-  }
-`
-
 export const NestBox = styled.div`
   align-items: center;
   display: flex;

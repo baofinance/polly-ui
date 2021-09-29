@@ -4,7 +4,8 @@ import useFees from 'hooks/useFees'
 import React from 'react'
 import { SpinnerLoader } from '../../../components/Loader'
 import { useUserFarmInfo } from '../../../hooks/useUserFarmInfo'
-import { StyledDocsWarning, StyledExternalLink, Warning } from './styles'
+import { StyledDocsWarning, Warning } from './styles'
+import ExternalLink from 'components/ExternalLink'
 
 interface FeeProps {
 	pid: number
@@ -57,13 +58,13 @@ const Fee: React.FC<FeeProps> = ({ pid }) => {
 
 			<p>
 				Please{' '}
-				<StyledExternalLink
+				<ExternalLink
 					href="https://docs.bao.finance/franchises/polly-finance"
 					target="blank"
 				>
 					{' '}
 					read the docs
-				</StyledExternalLink>{' '}
+				</ExternalLink>{' '}
 				to familiarize yourself with fees and penalties.
 			</p>
 		</StyledDocsWarning>

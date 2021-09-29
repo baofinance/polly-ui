@@ -31,12 +31,12 @@ import {
 	StyledContent,
 	StyledDetail,
 	StyledDetails,
-	StyledExternalLink,
 	StyledInsight,
 	StyledLoadingWrapper,
 	StyledSpacer,
 	StyledTitle,
 } from './styles'
+import ExternalLink from 'components/ExternalLink'
 import './tab-styles.css'
 
 interface FarmWithStakedValue extends Farm {
@@ -261,9 +261,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							<StyledDetails>
 								<StyledDetail>
 									Deposit{' '}
-									<StyledExternalLink href={pairLink} target="_blank">
+									<ExternalLink href={pairLink} target="_blank">
 										{farm.lpToken.toUpperCase()}
-									</StyledExternalLink>
+									</ExternalLink>
 								</StyledDetail>
 								<StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
 							</StyledDetails>
