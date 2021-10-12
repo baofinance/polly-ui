@@ -350,19 +350,5 @@ export const getWethPriceLink = async (bao) => {
 	return new BigNumber(latestRound.answer).div(10 ** decimals)
 }
 
-export const getMaticPriceLink = async (bao) => {
-	const priceOracle = new bao.web3.eth.Contract(
-		require('./lib/abi/chainoracle.json'),
-		'0xAB594600376Ec9fD91F8e885dADF0CE036862dE0',
-	)
-
-	const [decimals, latestRound] = await Promise.all([
-		priceOracle.methods.decimals().call(),
-		priceOracle.methods.latestRoundData().call(),
-	])
-
-	return new BigNumber(latestRound.answer).div(10 ** decimals)
-}
-
 export const getUserInfo = async (masterChefContract, pid, account) =>
 	await masterChefContract.methods.userInfo(pid, account).call()

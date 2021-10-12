@@ -51,7 +51,7 @@ const FarmCards: React.FC = () => {
 	})
 
 	useEffect(() => {
-		GraphUtil.getPrice(addressMap.WETH, 'matic', bao).then(async (wethPrice) => {
+		GraphUtil.getPrice(addressMap.WETH).then(async (wethPrice) => {
 			const pollyPrice = await GraphUtil.getPriceFromPair(
 				wethPrice,
 				contractAddresses.polly[137],
@@ -328,7 +328,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 }
 
 const RainbowLight = keyframes`
-
+  
 	0% {
 		background-position: 0% 50%;
 	}

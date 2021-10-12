@@ -2,39 +2,24 @@ import overlay from 'assets/img/overlay.png'
 import React from 'react'
 import styled from 'styled-components'
 import Footer from '../Footer'
-import {Alert, Badge, Container} from 'react-bootstrap'
+import { Alert, Container } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Page: React.FC = ({ children }) => (
 	<StyledPageContainer>
 		<StyledPageWrapper>
 			<Container>
-				<Alert variant="warning" style={{ margin: 0, textAlign: 'center' }}>
+				<Alert variant="danger" style={{ margin: 0, textAlign: 'center' }}>
 					<b>
-						<FontAwesomeIcon icon="exclamation-triangle" /> NOTICE{' '}
+						<FontAwesomeIcon icon="exclamation-triangle" />
+						{' '}NOTICE{' '}
 						<FontAwesomeIcon icon="exclamation-triangle" />
 					</b>
 					<br />
-					2021-09-18 - SushiSwap's matic-exchange subgraph is experiencing{' '}
-					issues at the moment, and all token prices are inaccurate. Funds are
-					safe, and this issue affects the front-end only. Until the subgraph
-					re-syncs, we are adjusting their prices as follows:{' '}
-					<Badge bg="warning">
-						(subgraph_price / weth_price) * matic_price
-					</Badge>
-					{', '}
-					where ETH price and MATIC price come from ChainLink oracles deployed
-					on Polygon.
-					<br />
-					There may still be some slippage in USD evaluations, however. Sushi's
-					subgraph should be re-synced{' '}
-					<a
-						href="https://thegraph.com/legacy-explorer/subgraph/sushiswap/matic-exchange?version=pending"
-						style={{ textDecoration: 'underline', color: '#664d03' }}
-					>
-						~9 days from this notice
-					</a>
-					.
+					2021-09-16 - SushiSwap's matic-exchange subgraph is experiencing issues at the moment,{' '}
+					and all token prices are inaccurate. Funds are safe, this issue is{' '}
+					affecting the front-end only. SushiSwap is aware of the issue and are in the process of{' '}
+					deploying a fix to their subgraph.
 				</Alert>
 			</Container>
 			<StyledMain>{children}</StyledMain>

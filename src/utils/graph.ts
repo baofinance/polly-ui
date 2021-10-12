@@ -1,9 +1,6 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import BigNumber from 'bignumber.js'
 import _ from 'lodash'
-import { Bao } from '../bao'
-import { getWethPriceLink } from '../bao/utils'
-import { addressMap } from '../bao/lib/constants'
 
 const SUSHI_SUBGRAPH_URLS = {
   matic: 'https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange',
@@ -29,11 +26,7 @@ const clients = {
 const _getClient = (network: string) =>
   network.toLowerCase() === 'matic' ? clients.matic : clients.mainnet
 
-const _querySubgraph = (
-  query: string,
-  network = 'matic',
-  _client?: ApolloClient<any>,
-) => {
+const _querySubgraph = (query: string, network = 'matic', _client?: ApolloClient<any>) => {
   const client = _client || _getClient(network)
   return new Promise((resolve, reject) => {
     client
@@ -126,11 +119,7 @@ const getPriceFromPairMultiple = async (
   return prices
 }
 
-const getPrice = async (tokenAddress: string, network = 'matic', bao?: Bao) => {
-  if (tokenAddress === addressMap.WETH) {
-    if (bao) return await getWethPriceLink(bao)
-  }
-
+const getPrice = async (tokenAddress: string, network = 'matic') => {
   const data: any = await getPriceHistory(tokenAddress, network)
   return data.tokens[0] && new BigNumber(data.tokens[0].dayData[0].priceUSD)
 }
