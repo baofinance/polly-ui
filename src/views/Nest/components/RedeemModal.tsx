@@ -13,25 +13,30 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { getFullDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
 import { CloseButton } from './styles'
+import { Form, FloatingLabel } from 'react-bootstrap'
+import useNestRedeem from '../../../hooks/useNestRedeem'
+import styled from 'styled-components'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
-	onConfirm: (amount: string) => any
 	nestName: string
 	nestContract: Contract
 	nid: number
 }
 
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
-	onConfirm,
 	onDismiss,
 	max,
+	nid,
 	nestName,
 	nestContract,
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
+	const [redeemToWeth, setRedeemToWeth] = useState(true)
 	const [confNo, setConfNo] = useState<number | undefined>()
+
+	const { onNestRedeem } = useNestRedeem(nid, redeemToWeth)
 
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
@@ -99,6 +104,17 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 				max={fullBalance}
 				symbol={nestName}
 			/>
+			<br />
+			{/* TODO: Add approval for weth redeem contract */}
+			<FloatingLabel controlId="floatingSelect" label="Redeem To">
+				<RedeemToChoice
+					aria-label="Redeem To"
+					onChange={(e: any) => setRedeemToWeth(e.currentTarget.value === 'wETH')}
+				>
+					<option>wETH</option>
+					<option>Underlying Tokens</option>
+				</RedeemToChoice>
+			</FloatingLabel>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
 				{/* {!allowance.toNumber() ? (
@@ -126,7 +142,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 					}
 					onClick={async () => {
 						setPendingTx(true)
-						onConfirm(val).on('confirmation', (_confNo: any) => {
+						onNestRedeem(val).on('confirmation', (_confNo: any) => {
 							setConfNo(_confNo)
 							if (_confNo >= 15) {
 								setConfNo(undefined)
@@ -147,5 +163,18 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		</Modal>
 	)
 }
+
+const RedeemToChoice = styled(Form.Select)`
+	background-color: ${(props) => props.theme.color.transparent[100]};
+	color: ${(props) => props.theme.color.text[100]};
+	border: none;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	height: 72px;
+	
+	&:active, &:focus {
+		outline: none;
+		box-shadow: none;
+	}
+`
 
 export default WithdrawModal

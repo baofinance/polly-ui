@@ -14,7 +14,6 @@ import useModal from 'hooks/useModal'
 import useNav from 'hooks/useNav'
 import useNest from 'hooks/useNest'
 import useNestRate from 'hooks/useNestRate'
-import useNestRedeem from 'hooks/useNestRedeem'
 import usePairPrice from 'hooks/usePairPrice'
 import useTokenBalance from 'hooks/useTokenBalance'
 import _ from 'lodash'
@@ -139,11 +138,9 @@ const Nest: React.FC = () => {
 		/>,
 	)
 
-	const { onNestRedeem } = useNestRedeem(nid)
 	const [onPresentRedeem] = useModal(
 		<RedeemModal
 			max={tokenBalance}
-			onConfirm={onNestRedeem}
 			nestName={nestToken}
 			nestContract={nestContract}
 			nid={nid}
