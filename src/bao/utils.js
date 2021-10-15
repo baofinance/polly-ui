@@ -215,11 +215,12 @@ export const unstake = async (masterChefContract, pid, amount, account, ref) =>
 	)
 
 export const harvest = async (masterChefContract, pid, account) =>
-	new Promise((resolve) =>
+	new Promise((resolve, reject) =>
 		masterChefContract.methods
 			.claimReward(pid)
 			.send({ from: account })
-			.on('receipt', (tx) => resolve(tx.transactionHash)),
+			.on('receipt', (tx) => resolve(tx.transactionHash))
+			.on('error', (error) => reject(error))
 	)
 
 export const getStaked = async (masterChefContract, pid, account) => {
