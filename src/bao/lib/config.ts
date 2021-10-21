@@ -68,8 +68,8 @@ export default {
       137: {
         address: '0x368dcc09e2ca43a0666ea505f58c41f0d053d43e',
         abi: 'ndefiRedeem.json',
-      }
-    }
+      },
+    },
   },
   subgraphs: {
     137: {

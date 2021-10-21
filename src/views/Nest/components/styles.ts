@@ -195,9 +195,8 @@ export const PrefButtons = styled.div`
     &.active,
     &:active,
     &:focus {
-      border: 2px solid transparent;
       color: ${(props) => props.theme.color.text[100]};
-      background: ${(props) => props.theme.buttonGradient.a};
+      background: ${(props) => props.theme.color.transparent[200]};
       box-shadow: none !important;
     }
   }
@@ -241,6 +240,7 @@ export const StyledBadge = styled(Badge)`
   font-size: 1em;
   color: ${(props) => props.theme.color.text[100]};
   font-weight: ${(props) => props.theme.fontWeight.medium};
+  background-color: ${(props) => props.theme.color.transparent[200]};
 `
 
 export const PriceBadge = styled(Badge)`
@@ -366,7 +366,7 @@ export interface ProgressBarProps {
 
 export const ProgressBar = styled.div.attrs((props: ProgressBarProps) => ({}))`
   background-color: ${(props: ProgressBarProps) => props.assetColor};
-  border-radius: ${(props) => props.theme.borderRaidus}px;
+  border-radius: 5px;
   width: ${(props: ProgressBarProps) => props.width}%;
   height: 100%;
   display: inline-block;

@@ -62,7 +62,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	)
 
 	const fetchRate = async () => {
-		return fetchCalcToNest(recipeContract, _outputToken, nestAmount)
+		return fetchCalcToNest(recipeContract, _outputToken, '1')
 	}
 
 	const handleOutputChange = useCallback(

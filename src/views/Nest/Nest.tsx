@@ -29,6 +29,7 @@ import IssueModal from './components/IssueModal'
 import NavModal from './components/NavModal'
 import { Progress } from './components/Progress'
 import RedeemModal from './components/RedeemModal'
+import Config from '../../bao/lib/config'
 import {
 	CornerButtons,
 	GraphContainer,
@@ -245,6 +246,7 @@ const Nest: React.FC = () => {
 									)}
 								</StyledBadge>
 							</Tooltipped>
+							<span style={{ marginLeft: '5px' }} />
 							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
 								<StyledBadge>
 									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
@@ -302,7 +304,7 @@ const Nest: React.FC = () => {
 					/>
 					<Spacer />
 					<Button
-						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619`}
+						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=${Config.addressMap.WETH}`}
 						target="_blank"
 						text="Swap"
 						width="20%"
@@ -390,6 +392,7 @@ const Nest: React.FC = () => {
 								<FontAwesomeIcon icon="chart-pie" />
 							</BootButton>
 						</PrefButtons>
+						<br />
 						{!allocationDisplayType ? (
 							<StyledTable bordered hover>
 								<thead>
@@ -437,7 +440,15 @@ const Nest: React.FC = () => {
 													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>
 											</tr>
-										))) || <SpinnerLoader />}
+										))) || (
+										<tr>
+											{_.times(4, () => (
+												<td>
+													<SpinnerLoader />
+												</td>
+											))}
+										</tr>
+									)}
 								</tbody>
 							</StyledTable>
 						) : (
@@ -464,8 +475,7 @@ const Nest: React.FC = () => {
 														<Badge
 															style={{
 																backgroundColor: component.color,
-																margin:
-																	'${(props) => props.theme.spacing[2]px} 0',
+																margin: '8px 0',
 															}}
 														>
 															{component.symbol}
