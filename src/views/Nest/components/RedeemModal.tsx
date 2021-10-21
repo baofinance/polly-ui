@@ -149,15 +149,20 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 						}
 						onClick={async () => {
 							setPendingTx(true)
-							onNestRedeem(val).on('confirmation', (_confNo: any) => {
-								setConfNo(_confNo)
-								if (_confNo >= 15) {
+							onNestRedeem(val)
+								.on('confirmation', (_confNo: any) => {
+									setConfNo(_confNo)
+									if (_confNo >= 15) {
+										setConfNo(undefined)
+										setPendingTx(false)
+										onDismiss()
+										window.location.reload()
+									}
+								})
+								.on('error', () => {
 									setConfNo(undefined)
 									setPendingTx(false)
-									onDismiss()
-									window.location.reload()
-								}
-							})
+								})
 						}}
 					/>
 				)}

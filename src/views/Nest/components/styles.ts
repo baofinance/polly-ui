@@ -50,7 +50,7 @@ export const NestBoxHeader = styled.div`
 
   span.smalltext {
     float: right;
-    font-size: 0.5rem;
+    font-size: 1rem;
     margin-top: ${(props) => props.theme.spacing[3]}px;
     margin-left: ${(props) => props.theme.spacing[2]}px;
   }

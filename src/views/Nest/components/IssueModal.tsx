@@ -257,9 +257,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 									new BigNumber(nestAmount).times(10 ** 18).toString(),
 								)
 								.call()
-							onIssue(new BigNumber(wethNeeded), encodedAmountData).on(
-								'confirmation',
-								(_confNo: any) => {
+							onIssue(new BigNumber(wethNeeded), encodedAmountData)
+								.on('confirmation', (_confNo: any) => {
 									setConfNo(_confNo)
 									if (_confNo >= 15) {
 										setConfNo(undefined)
@@ -267,8 +266,11 @@ const IssueModal: React.FC<IssueModalProps> = ({
 										onDismiss()
 										window.location.reload()
 									}
-								},
-							)
+								})
+								.on('error', () => {
+									setConfNo(undefined)
+									setPendingTx(false)
+								})
 						}}
 					/>
 				)}
