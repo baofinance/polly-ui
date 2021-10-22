@@ -51,7 +51,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 				<ListCol width={'17.5%'} align={'left'}>
 					<ColumnText>
 						<NestImage src={nest.icon} alt={nest.nestToken} />
-						{nest.nestToken}
+						<b>{nest.nestToken}</b>
 					</ColumnText>
 				</ListCol>
 				<ListCol width={'37.5%'} align={'center'}>
