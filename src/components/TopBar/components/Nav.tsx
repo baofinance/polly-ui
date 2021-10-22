@@ -57,6 +57,7 @@ const StyledNav = styled.nav`
 `
 
 const StyledLink = styled(NavLink)`
+	font-family: 'Rubik', sans-serif;
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
 	padding-left: ${(props) => props.theme.spacing[3]}px;
