@@ -122,7 +122,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	target: attrs.target || '',
 }))<StyledButtonProps>`
 	align-items: center;
-	background: ${(props) => props.theme.color.secondary[200]};
+	background: ${(props) => props.theme.color.primary[200]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: none;
 	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
@@ -188,15 +188,15 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 		transform: translateX(-100px) skewX(-15deg);
 	  }
 	  &:hover{
-		background: ${(props) => props.theme.color.secondary[100]};
+		background: ${(props) => props.theme.color.primary[100]};
 		cursor: pointer;
 		&:before{
-		  transform: translateX(300px)  skewX(-15deg);  
+		  transform: translateX(500px)  skewX(-15deg);  
 		  opacity: 0.6;
 		  transition: .7s;
 		}
 		&:after{
-		  transform: translateX(300px) skewX(-15deg);  
+		  transform: translateX(500px) skewX(-15deg);  
 		  opacity: 1;
 		  transition: .7s;
 		}
