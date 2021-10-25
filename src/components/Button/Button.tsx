@@ -131,7 +131,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
 	font-size: ${(props) => props.fontSize};
-	font-weight: ${(props) => props.theme.fontWeight.medium};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	height: ${(props) => props.size}px;
 	justify-content: center;
 	outline: none;
