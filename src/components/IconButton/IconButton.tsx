@@ -29,19 +29,11 @@ interface StyledButtonProps {
 
 const StyledButton = styled.button<StyledButtonProps>`
 	align-items: center;
-	background-color: ${(props) => props.theme.color.secondary[300]};
-	background-image: linear-gradient(
-		to right,
-		${(props) => props.theme.color.secondary[200]} 0%,
-		${(props) => props.theme.color.secondary[100]} 51%,
-		${(props) => props.theme.color.secondary[300]} 100%);
-	);
-	background-size: 200% 200%;
-	border: 1px solid ${(props) => props.theme.color.primary[400]};
+	background: ${(props) => props.theme.color.primary[200]};
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
 	border-radius: 32px;
-	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-	border: 0;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	cursor: pointer;
 	display: flex;
@@ -55,25 +47,37 @@ const StyledButton = styled.button<StyledButtonProps>`
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	text-transform: uppercase;
 	width: 50px;
+	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	position: relative;
+	transition: .6s;
+	overflow: hidden;
 
-	:hover {
-		transform: scale(1);
+	&:focus {
+		outline: 0;
 	}
 
-	&:hover:before {
-		transform: scale(1.2);
+	  &:hover{
+		background: ${(props) => props.theme.color.primary[100]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
 	}
 
 	&:hover,
-	&:focus {
-		background-position: right center;
-		transform: translate(1px, 1px);
-		border-color: ${lighten(0.025, '#090130')};
-		color: ${(props) => props.theme.color.text[100]};
-		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
-		box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-			rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-			rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
+		cursor: ${(props) =>
+			props.disabled ? 'not-allowed' : 'pointer'} !important;
 	}
 `
 
