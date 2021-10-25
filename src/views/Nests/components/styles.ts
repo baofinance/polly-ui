@@ -159,7 +159,7 @@ export const AssetImage = styled(NestImage)`
 `
 
 export const ColumnText = styled.span`
-  color: ${(props) => props.theme.color.text[100]} !important;
+  color: ${(props) => props.theme.color.text[100]};
   vertical-align: middle;
   text-align: center;
   font-weight: ${(props) => props.theme.fontWeight.medium};
