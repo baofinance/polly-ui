@@ -183,6 +183,10 @@ const RedeemToChoice = styled(Form.Select)`
 		outline: none;
 		box-shadow: none;
 	}
+
+	option {
+		background-color: ${(props) => props.theme.color.secondary[400]};
+	}
 `
 
 export default WithdrawModal
