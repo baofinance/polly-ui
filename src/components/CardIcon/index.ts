@@ -1,1 +1,2 @@
-export { default } from './CardIcon'
+export { default } from './CardIcon';
+

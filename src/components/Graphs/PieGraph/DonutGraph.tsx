@@ -4,7 +4,7 @@ import { NestComponent } from 'contexts/Nests/types'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { animated, interpolate, useTransition } from 'react-spring'
-import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
+import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
 
 interface AssetAllocationAmount {
 	label: string

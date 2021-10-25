@@ -4,7 +4,7 @@ import { useWallet } from 'use-wallet'
 import { getAllowance } from 'utils/erc20'
 import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
-import { contractAddresses } from '../bao/lib/constants'
+import Config from '../bao/lib/config'
 
 const useAllowance = (lpContract: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
@@ -14,7 +14,7 @@ const useAllowance = (lpContract: Contract) => {
     const allowance = await getAllowance(
       lpContract,
       account,
-      contractAddresses.masterChef[137],
+      Config.contracts.masterChef[Config.networkId].address,
     )
     setAllowance(new BigNumber(allowance))
   }, [account, lpContract])

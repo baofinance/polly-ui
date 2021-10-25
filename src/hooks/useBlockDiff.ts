@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import useBlock from './useBlock'
 
@@ -11,10 +11,8 @@ const useBlockDiff = (userInfo: any) => {
   const fetchBlockDiff = useCallback(async () => {
     if (!(account && ethereum && userInfo)) return
 
-    const firstDepositBlock =
-      new BigNumber(userInfo.firstDepositBlock)
-    const lastWithdrawBlock =
-      new BigNumber(userInfo.lastWithdrawBlock)
+    const firstDepositBlock = new BigNumber(userInfo.firstDepositBlock)
+    const lastWithdrawBlock = new BigNumber(userInfo.lastWithdrawBlock)
 
     const blockDiff =
       block -

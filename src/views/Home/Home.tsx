@@ -1,12 +1,10 @@
 import Page from 'components/Page'
-import Spacer from 'components/Spacer'
 import React, { useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import Bubbles, { bubbleSpecs } from './components/Bubbles'
-import SectionOne from './components/SectionOne'
-import PriceGraphs from './components/PriceGraphs'
-import SectionTwo from './components/SectionTwo'
 import HomeAnalytics from './components/HomeAnalytics'
+import SectionOne from './components/SectionOne'
+import SectionTwo from './components/SectionTwo'
 import { BubbleContainer, BubbleWrap } from './components/styles'
 
 const Home: React.FC = () => {

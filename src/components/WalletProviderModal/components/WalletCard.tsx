@@ -1,12 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
+import { useWallet } from 'use-wallet'
+import Config from '../../../bao/lib/config'
 import Button from '../../Button'
-import WalletModalCard from '../../WalletModalCard'
 import CardContent from '../../CardContent'
 import CardIcon from '../../CardIcon'
 import CardTitle from '../../CardTitle'
 import Spacer from '../../Spacer'
-import { useWallet } from 'use-wallet'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import WalletModalCard from '../../WalletModalCard'
 
 interface WalletCardProps {
 	icon: React.ReactNode
@@ -46,29 +47,17 @@ const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => {
 }
 
 const _getButtonText = async (ethereum: any, status: string): Promise<any> => {
-	if (ethereum && ethereum.chainId !== '0x89') {
+	if (ethereum && ethereum.chainId !== Config.defaultRpc.chainId) {
 		try {
 			await ethereum.request({
 				method: 'wallet_switchEthereumChain',
-				params: [{ chainId: '0x89' }],
+				params: [{ chainId: Config.defaultRpc.chainId }],
 			})
 		} catch (error) {
 			if (error.code === 4902) {
 				await ethereum.request({
 					method: 'wallet_addEthereumChain',
-					params: [
-						{
-							chainId: '0x89',
-							rpcUrls: ['https://polygon-rpc.com'],
-							blockExplorerUrls: ['https://explorer-mainnet.maticvigil.com'],
-							chainName: 'Matic Mainnet',
-							nativeCurrency: {
-								name: 'MATIC',
-								symbol: 'MATIC',
-								decimals: 18,
-							},
-						},
-					],
+					params: [Config.defaultRpc],
 				})
 			}
 		}

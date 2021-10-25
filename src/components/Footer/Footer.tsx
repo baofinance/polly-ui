@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Nav from './components/Nav'
 import Branding from './components/Branding'
+import Nav from './components/Nav'
 
 const Footer: React.FC = () => (
 	<StyledFooter>
@@ -15,9 +15,9 @@ const Footer: React.FC = () => (
 )
 
 const StyledFooter = styled.footer`
-	margin-top: 25px;
+	margin-top: ${(props) => props.theme.spacing[4]}px;
 	margin: auto;
-	padding: 25px;
+	padding: ${(props) => props.theme.spacing[4]}px;
 `
 const StyledFooterInner = styled.div`
 	margin: auto;
@@ -27,7 +27,7 @@ const StyledFooterInner = styled.div`
 	justify-content: space-between;
 	max-width: ${(props) => props.theme.siteWidth}px;
 	width: 100%;
-	margin-bottom: -1em;
+	margin-bottom: -${(props) => props.theme.spacing[3]}px;
 `
 
 const StyledNavWrapper = styled.div`

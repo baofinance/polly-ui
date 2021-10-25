@@ -1,1 +1,2 @@
-export { default, MaxButton } from './Button'
+export { default, MaxButton } from './Button';
+

@@ -1,19 +1,19 @@
 const getWithdrawalPenalty = (blocksSince: any) => {
   return blocksSince <= 0
     ? 0.99
-    : blocksSince <= 1800
+    : blocksSince <= 1525
     ? 0.5
-    : blocksSince <= 43200
+    : blocksSince <= 36600
     ? 0.25
-    : blocksSince <= 126000
+    : blocksSince <= 109800
     ? 0.12
-    : blocksSince <= 216000
+    : blocksSince <= 183000
     ? 0.08
-    : blocksSince <= 604800
+    : blocksSince <= 512400
     ? 0.04
-    : blocksSince <= 1296000
+    : blocksSince <= 1024800
     ? 0.02
-    : 0.001
+    : 0.01
 }
 
 const useFees = (blockDiff: number) =>

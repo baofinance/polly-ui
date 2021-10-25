@@ -4,19 +4,21 @@ import { IndexType } from 'contexts/Nests/types'
 import useNests from 'hooks/useNests'
 import React from 'react'
 import 'react-tabs/style/react-tabs.css'
-import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import '../tab-styles.css'
 import NestListItem from './NestListItem'
-import { ListLabelCol, ListLabelContainer, NestListContainer } from './styles'
-
-interface NestWithIssuedTokens extends Nest {}
+import {
+	ListLabelCol,
+	ListLabelContainer,
+	NestListContainer,
+	StyledLoadingWrapper,
+	StyledSpacer,
+} from './styles'
 
 const NestList: React.FC = () => {
 	const [nests] = useNests()
 	const { account } = useWallet()
 
-	const indexes: { [key: string]: NestWithIssuedTokens[] } = {
+	const indexes: { [key: string]: Nest[] } = {
 		[IndexType.NESTS]: [],
 	}
 
@@ -61,17 +63,5 @@ const NestList: React.FC = () => {
 		</NestListContainer>
 	)
 }
-
-const StyledLoadingWrapper = styled.div`
-	align-items: center;
-	display: flex;
-	flex: 1;
-	justify-content: center;
-`
-
-const StyledSpacer = styled.div`
-	height: ${(props) => props.theme.spacing[4]}px;
-	width: ${(props) => props.theme.spacing[4]}px;
-`
 
 export default NestList

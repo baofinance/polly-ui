@@ -6,28 +6,38 @@ import CardContent from 'components/CardContent'
 import CardIcon from 'components/CardIcon'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
+import Tooltipped from 'components/Tooltipped'
 import { Farm } from 'contexts/Farms'
 import { PoolType } from 'contexts/Farms/types'
 import useBao from 'hooks/useBao'
 import useFarms from 'hooks/useFarms'
-import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
-import useMulticall from '../../../hooks/useMulticall'
-import { lighten } from 'polished'
 import React, { useEffect, useState } from 'react'
+import { Badge } from 'react-bootstrap'
 import type { CountdownRenderProps } from 'react-countdown'
 import Countdown from 'react-countdown'
-import { decimate, getDisplayBalance } from '../../../utils/formatBalance'
 import { TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import styled, { keyframes } from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { bnToDec } from 'utils'
-import './tab-styles.css'
+import Config from '../../../bao/lib/config'
+import useAllFarmTVL from '../../../hooks/useAllFarmTVL'
 import GraphUtil from '../../../utils/graph'
 import Multicall from '../../../utils/multicall'
-import { addressMap, contractAddresses } from '../../../bao/lib/constants'
-import { Badge } from 'react-bootstrap'
-import Tooltipped from 'components/Tooltipped'
+import { decimate, getDisplayBalance } from '../../../utils/numberFormat'
+import {
+	StyledCardAccent,
+	StyledCards,
+	StyledCardWrapper,
+	StyledContent,
+	StyledDetail,
+	StyledDetails,
+	StyledInsight,
+	StyledLoadingWrapper,
+	StyledSpacer,
+	StyledTitle,
+} from './styles'
+import ExternalLink from 'components/ExternalLink'
+import './tab-styles.css'
 
 interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
@@ -38,9 +48,8 @@ const cardsPerRow = 3
 
 const FarmCards: React.FC = () => {
 	const bao = useBao()
-	const multicall = useMulticall()
 	const [farms] = useFarms()
-	const farmsTVL = useAllFarmTVL(bao && bao.web3, multicall)
+	const farmsTVL = useAllFarmTVL(bao && bao.web3, bao && bao.multicall)
 	const { ethereum, account } = useWallet()
 
 	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
@@ -51,10 +60,10 @@ const FarmCards: React.FC = () => {
 	})
 
 	useEffect(() => {
-		GraphUtil.getPrice(addressMap.WETH).then(async (wethPrice) => {
+		GraphUtil.getPrice(Config.addressMap.WETH).then(async (wethPrice) => {
 			const pollyPrice = await GraphUtil.getPriceFromPair(
 				wethPrice,
-				contractAddresses.polly[137],
+				Config.contracts.polly[Config.networkId].address,
 			)
 			setBaoPrice(pollyPrice)
 		})
@@ -64,10 +73,10 @@ const FarmCards: React.FC = () => {
 			[PoolType.SUSHI]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(ethereum && farmsTVL && bao && multicall) || pools.polly.length)
+		if (!(ethereum && farmsTVL && bao) || pools.polly.length)
 			return setPools(_pools)
 
-		multicall
+		bao.multicall
 			.call(
 				Multicall.createCallContext([
 					{
@@ -129,13 +138,13 @@ const FarmCards: React.FC = () => {
 				}
 				setPools(_pools)
 			})
-	}, [farmsTVL, bao, multicall])
+	}, [farmsTVL, bao])
 
 	const BLOCKS_PER_YEAR = new BigNumber(13428766) // (60 * 60 * 24 * 365.25) / 2.35 (avg Polygon block time)
 
 	return (
 		<>
-			<h3 style={{ margin: '1rem' }}>
+			<h3 style={{ margin: '${(props) => props.theme.spacing[3]}px' }}>
 				<Badge bg="secondary" className="pollyTicker">
 					Polly Price:{' '}
 					{baoPrice ? `$${getDisplayBalance(baoPrice, 0)}` : <SpinnerLoader />}
@@ -205,7 +214,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	const [harvestable, setHarvestable] = useState(0)
 
 	const { account } = useWallet()
-	const { lpTokenAddress } = farm
+	const { pid } = farm
 	const bao = useBao()
 
 	const renderer = (countdownProps: CountdownRenderProps) => {
@@ -223,17 +232,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 	useEffect(() => {
 		async function fetchEarned() {
 			if (bao) return
-			const earned = await getEarned(
-				getMasterChefContract(bao),
-				lpTokenAddress,
-				account,
-			)
+			const earned = await getEarned(getMasterChefContract(bao), pid, account)
 			setHarvestable(bnToDec(earned))
 		}
 		if (bao && account) {
 			fetchEarned()
 		}
-	}, [bao, lpTokenAddress, account, setHarvestable])
+	}, [bao, pid, account, setHarvestable])
 
 	const poolActive = true // startTime * 1000 - Date.now() <= 0
 	const nestMint = 'Get ' + farm.tokenSymbol
@@ -245,8 +250,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 			<Card>
 				<CardContent>
 					<StyledContent>
-						{farm.tokenSymbol === 'POLLY' && <StyledCardAccent />}
-						{farm.tokenSymbol === 'nDEFI' && <StyledCardAccent />}
+						{(farm.tokenSymbol === 'POLLY' || farm.tokenSymbol === 'nDEFI') && (
+							<StyledCardAccent />
+						)}
 						<CardIcon>
 							<img src={farm.icon} alt="" height="50" />
 						</CardIcon>
@@ -255,9 +261,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 							<StyledDetails>
 								<StyledDetail>
 									Deposit{' '}
-									<StyledExternalLink href={pairLink} target="_blank">
+									<ExternalLink href={pairLink} target="_blank">
 										{farm.lpToken.toUpperCase()}
-									</StyledExternalLink>
+									</ExternalLink>
 								</StyledDetail>
 								<StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
 							</StyledDetails>
@@ -278,11 +284,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 						<Spacer size="sm" />
 						<Button text={nestMint} href={destination} />
 						<StyledInsight>
-							<span>APR {' '}
-							<Tooltipped
-								content={`APRs are affected by a 7-day average price of POLLY which
+							<span>
+								APR{' '}
+								<Tooltipped
+									content={`APRs are affected by a 7-day average price of POLLY which
 										has not yet stabilized.`}
-							/>
+								/>
 							</span>
 							<span>
 								{farm.apy ? (
@@ -326,128 +333,5 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 		</StyledCardWrapper>
 	)
 }
-
-const RainbowLight = keyframes`
-  
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-`
-
-const StyledCardAccent = styled.div`
-	background: linear-gradient(
-		45deg,
-		rgba(255, 0, 0, 1) 0%,
-		rgba(255, 154, 0, 1) 10%,
-		rgba(208, 222, 33, 1) 20%,
-		rgba(79, 220, 74, 1) 30%,
-		rgba(63, 218, 216, 1) 40%,
-		rgba(47, 201, 226, 1) 50%,
-		rgba(28, 127, 238, 1) 60%,
-		rgba(95, 21, 242, 1) 70%,
-		rgba(186, 12, 248, 1) 80%,
-		rgba(251, 7, 217, 1) 90%,
-		rgba(255, 0, 0, 1) 100%
-	);
-	background-size: 300% 300%;
-	animation: ${RainbowLight} 2s linear infinite;
-	border-radius: 12px;
-	filter: blur(6px);
-	position: absolute;
-	top: -2px;
-	right: -2px;
-	bottom: -2px;
-	left: -2px;
-	z-index: -1;
-`
-
-const StyledCards = styled.div`
-	width: 900px;
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-evenly;
-	@media (max-width: 768px) {
-		width: 100%;
-		flex-flow: column nowrap;
-		align-items: center;
-	}
-`
-
-const StyledLoadingWrapper = styled.div`
-	align-items: center;
-	display: flex;
-	flex: 1;
-	justify-content: center;
-`
-
-const StyledCardWrapper = styled.div`
-	display: flex;
-	margin-top: ${(props) => props.theme.spacing[4]}px;
-	width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 3);
-	position: relative;
-`
-
-const StyledTitle = styled.h4`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-size: 19px;
-	font-weight: 700;
-	margin: ${(props) => props.theme.spacing[2]}px 0 0;
-	padding: 0;
-	text-align: center;
-`
-
-const StyledContent = styled.div`
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-`
-
-const StyledSpacer = styled.div`
-	height: ${(props) => props.theme.spacing[4]}px;
-	width: ${(props) => props.theme.spacing[4]}px;
-`
-
-const StyledDetails = styled.div`
-	margin-top: ${(props) => props.theme.spacing[2]}px;
-	text-align: center;
-`
-
-const StyledDetail = styled.div`
-	color: ${(props) => props.theme.color.grey[100]};
-`
-
-const StyledInsight = styled.div`
-	display: flex;
-	justify-content: space-between;
-	box-sizing: border-box;
-	border-radius: 8px;
-	background: rgba(256, 256, 256, 0.1);
-	color: ${(props) => props.theme.color.grey[100]};
-	width: 100%;
-	margin-top: 12px;
-	line-height: 32px;
-	font-size: 13px;
-	border: 1px solid #202231;
-	text-align: center;
-	padding: 0 12px;
-`
-
-const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.blue[400]};
-	font-weight: 700;
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => lighten(0.1, props.theme.color.blue[400])};
-	}
-	&.active {
-		color: ${(props) => lighten(0.1, props.theme.color.blue[400])};
-	}
-`
 
 export default FarmCards

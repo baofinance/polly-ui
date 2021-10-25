@@ -1,6 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { addressMap } from 'bao/lib/constants'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import Button from 'components/Button'
@@ -18,9 +16,11 @@ import useInputApprove from 'hooks/useInputApprove'
 import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
-import styled from 'styled-components'
-import { getBalanceNumber, getDisplayBalance } from 'utils/formatBalance'
+import React, { useCallback, useMemo, useState } from 'react'
+import { getDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
+import Config from '../../../bao/lib/config'
+import { CloseButton, Disclaimer, HidePrice } from './styles'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -62,7 +62,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	)
 
 	const fetchRate = async () => {
-		return fetchCalcToNest(recipeContract, _outputToken, 1)
+		return fetchCalcToNest(recipeContract, _outputToken, '1')
 	}
 
 	const handleOutputChange = useCallback(
@@ -147,8 +147,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const bao = useBao()
 	const recipeContract = getRecipeContract(bao)
 	const { onIssue } = useNestIssue(nestAddress)
-	const wethBalance = useTokenBalance(addressMap.WETH)
-	const nestBalance = useTokenBalance(nestAddress)
+	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
 	return (
 		<Modal>
@@ -258,18 +257,20 @@ const IssueModal: React.FC<IssueModalProps> = ({
 									new BigNumber(nestAmount).times(10 ** 18).toString(),
 								)
 								.call()
-							onIssue(wethNeeded, encodedAmountData).on(
-								'confirmation',
-								(_confNo: any) => {
+							onIssue(new BigNumber(wethNeeded), encodedAmountData)
+								.on('confirmation', (_confNo: any) => {
 									setConfNo(_confNo)
 									if (_confNo >= 15) {
 										setConfNo(undefined)
 										setPendingTx(false)
 										onDismiss()
-										window.location.reload(false)
+										window.location.reload()
 									}
-								},
-							)
+								})
+								.on('error', () => {
+									setConfNo(undefined)
+									setPendingTx(false)
+								})
 						}}
 					/>
 				)}
@@ -277,58 +278,5 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		</Modal>
 	)
 }
-
-export const CloseButton = styled.a`
-	float: right;
-	top: 15px;
-	right: 25px;
-	font-size: 24px;
-	position: absolute;
-	color: ${(props) => props.theme.color.grey[100]};
-
-	&:hover {
-		cursor: pointer;
-	}
-`
-
-const Warning = styled.h3`
-	color: #ff3333;
-	font-size: 1rem;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	max-width: 100%;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 1rem;
-	}
-`
-
-const HidePrice = styled.div`
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		display: none;
-	}
-`
-
-const StyledLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
-	}
-`
-
-const Disclaimer = styled.div`
-	font-size: 1rem;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 0.75rem;
-	}
-`
 
 export default IssueModal

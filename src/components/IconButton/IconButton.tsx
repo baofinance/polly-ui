@@ -1,7 +1,7 @@
 import { lighten } from 'polished'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 interface IconButtonProps {
 	children?: React.ReactNode
@@ -27,38 +27,18 @@ interface StyledButtonProps {
 	disabled?: boolean
 }
 
-const AnimateGradient = keyframes`
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}`
-
 const StyledButton = styled.button<StyledButtonProps>`
 	align-items: center;
-	background-color: #3c32f5;
-	background-image: linear-gradient(
-		to right,
-		#220f68 0%,
-		#3c32f5 51%,
-		#220f68 100%
-	);
-	background-size: 200% 200%;
-	border: 1px solid ${(props) => props.theme.color.grey[500]};
-	border-radius: 28px;
-	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-	border: 0;
+	background: ${(props) => props.theme.color.primary[200]};
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
+	border-radius: 32px;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	cursor: pointer;
 	display: flex;
-	font-weight: 700;
-	height: 56px;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
+	height: 50px;
 	justify-content: center;
 	letter-spacing: 1px;
 	outline: none;
@@ -66,36 +46,44 @@ const StyledButton = styled.button<StyledButtonProps>`
 	margin: 0;
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	text-transform: uppercase;
-	width: 56px;
+	width: 50px;
+	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	position: relative;
+	transition: .6s;
+	overflow: hidden;
 
-	:hover {
-		transform: scale(1);
+	&:focus {
+		outline: 0;
 	}
 
-	&:hover:before {
-		transform: scale(1.2);
+	  &:hover{
+		background: ${(props) => props.theme.color.primary[100]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
 	}
 
 	&:hover,
-	&:focus {
-		background-position: right center;
-		transform: translate(1px, 1px);
-		-webkit-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		animation: ${AnimateGradient} 3s ease-in-out infinite;
-		border-color: ${lighten(0.025, '#090130')};
-		color: ${(props) => props.theme.color.grey[100]};
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 		cursor: ${(props) =>
 			props.disabled ? 'not-allowed' : 'pointer'} !important;
-		box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-			rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-			rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	}
 `
 
 const StyledLink = styled(Link)`
 	align-items: center;
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	display: flex;
 	flex: 1;
 	height: 56px;

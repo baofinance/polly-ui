@@ -9,7 +9,7 @@ import { curveMonotoneX } from '@visx/visx'
 import BigNumber from 'bignumber.js'
 import { bisector, extent, max, min } from 'd3-array'
 import React, { useCallback, useMemo } from 'react'
-import { getDisplayBalance } from 'utils/formatBalance'
+import { getDisplayBalance } from 'utils/numberFormat'
 
 export type TimeseriesData = {
 	close: number
@@ -92,7 +92,7 @@ export default withTooltip<AreaProps, TooltipData>(
 					range: [innerHeight + margin.top, 0],
 					domain: [
 						min(timeSeries, getValue) || 0,
-						(max(timeSeries, getValue) || 0),
+						max(timeSeries, getValue) || 0,
 					],
 					nice: true,
 				}),

@@ -1,38 +1,39 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ParentSize } from '@visx/responsive'
 import BigNumber from 'bignumber.js'
+import Button from 'components/Button'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
+import DonutGraph from 'components/Graphs/PieGraph'
+import { SpinnerLoader } from 'components/Loader'
+import Spacer from 'components/Spacer'
+import Tooltipped from 'components/Tooltipped'
+import useBao from 'hooks/useBao'
+import useComposition from 'hooks/useComposition'
+import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
+import useModal from 'hooks/useModal'
+import useNav from 'hooks/useNav'
+import useNest from 'hooks/useNest'
+import useNestRate from 'hooks/useNestRate'
+import usePairPrice from 'hooks/usePairPrice'
+import useTokenBalance from 'hooks/useTokenBalance'
 import _ from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
+import { getContract } from 'utils/erc20'
+import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
-import Button from '../../components/Button'
-import AreaGraph from '../../components/Graphs/AreaGraph/AreaGraph'
-import DonutGraph from '../../components/Graphs/PieGraph'
-import { SpinnerLoader } from '../../components/Loader'
-import Spacer from '../../components/Spacer'
-import Tooltipped from '../../components/Tooltipped'
-import useBao from '../../hooks/useBao'
-import useComposition from '../../hooks/useComposition'
-import useGraphPriceHistory from '../../hooks/useGraphPriceHistory'
-import useModal from '../../hooks/useModal'
-import useNav from '../../hooks/useNav'
-import useNest from '../../hooks/useNest'
-import useNestRate from '../../hooks/useNestRate'
-import useNestRedeem from '../../hooks/useNestRedeem'
-import useTokenBalance from '../../hooks/useTokenBalance'
-import usePairPrice from '../../hooks/usePairPrice'
-import { getContract } from '../../utils/erc20'
-import { decimate, getDisplayBalance } from '../../utils/formatBalance'
+import NDEFI from './components/explanations/nDEFI'
 import IssueModal from './components/IssueModal'
 import NavModal from './components/NavModal'
 import { Progress } from './components/Progress'
 import RedeemModal from './components/RedeemModal'
+import Config from '../../bao/lib/config'
 import {
+	CornerButtons,
 	GraphContainer,
 	Icon,
-	PriceGraph,
 	NestAnalytics,
 	NestAnalyticsContainer,
 	NestBox,
@@ -43,16 +44,14 @@ import {
 	NestExplanation,
 	PieGraphRow,
 	PrefButtons,
+	PriceBadge,
+	PriceGraph,
 	QuestionIcon,
 	StatCard,
 	StatsRow,
 	StyledBadge,
 	StyledTable,
-	StyledAlert,
-	StyledExternalLink,
-	CornerButtons,
-} from './styles'
-import NDEFI from './components/explanations/nDEFI'
+} from './components/styles'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
@@ -63,8 +62,8 @@ const Nest: React.FC = () => {
 	const [allocationDisplayType, setAllocationDisplayType] = useState(false)
 
 	const nest = useNest(nestId)
-	const { nid, nestToken, nestTokenAddress, inputTokenAddress, name, icon } =
-		nest
+	const { nid, nestToken, nestTokenAddress, inputTokenAddress, icon } = nest
+
 	const composition = useComposition(nest)
 	const { wethPrice } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
@@ -100,7 +99,7 @@ const Nest: React.FC = () => {
 		)
 	}, [composition])
 
-	const indexPriceChange24h = useMemo(() => {
+	const nestPriceChange24h = useMemo(() => {
 		return (
 			priceHistory &&
 			new BigNumber(priceHistory[priceHistory.length - 1].close)
@@ -140,11 +139,9 @@ const Nest: React.FC = () => {
 		/>,
 	)
 
-	const { onNestRedeem } = useNestRedeem(nid)
 	const [onPresentRedeem] = useModal(
 		<RedeemModal
 			max={tokenBalance}
-			onConfirm={onNestRedeem}
 			nestName={nestToken}
 			nestContract={nestContract}
 			nid={nid}
@@ -184,7 +181,7 @@ const Nest: React.FC = () => {
 				<NestBoxHeader>
 					<Icon src={icon} alt={nestToken} />
 					<br />
-					<StyledBadge>
+					<PriceBadge>
 						1 {nestToken} ={' '}
 						{(wethPrice &&
 							sushiPairPrice &&
@@ -195,7 +192,7 @@ const Nest: React.FC = () => {
 						{(sushiPairPrice && getDisplayBalance(sushiPairPrice, 0)) || (
 							<SpinnerLoader />
 						)}
-					</StyledBadge>
+					</PriceBadge>
 					<br />
 				</NestBoxHeader>
 				<StatsRow lg={4} sm={2}>
@@ -235,9 +232,13 @@ const Nest: React.FC = () => {
 							<QuestionIcon icon="question-circle" onClick={onNavModal} />
 							<Spacer size={'sm'} />
 							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
-								<StyledBadge style={{ marginRight: '10px' }}>
+								<StyledBadge
+									style={{
+										marginRight: '${(props) => props.theme.spacing[2]}px',
+									}}
+								>
 									<img
-										src={require('../../assets/img/assets/MATIC.png')}
+										src={require('assets/img/assets/MATIC.png')}
 										style={{ height: '1em' }}
 									/>{' '}
 									{(nav && `$${getDisplayBalance(nav.nav, 0)}`) || (
@@ -245,6 +246,7 @@ const Nest: React.FC = () => {
 									)}
 								</StyledBadge>
 							</Tooltipped>
+							<span style={{ marginLeft: '5px' }} />
 							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
 								<StyledBadge>
 									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
@@ -302,7 +304,7 @@ const Nest: React.FC = () => {
 					/>
 					<Spacer />
 					<Button
-						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619`}
+						href={`https://app.sushi.com/swap?inputCurrency=${nestTokenAddress}&outputCurrency=${Config.addressMap.WETH}`}
 						target="_blank"
 						text="Swap"
 						width="20%"
@@ -322,14 +324,14 @@ const Nest: React.FC = () => {
 										onClick={() => setPriceHistoryTimeFrame(timeFrame)}
 										active={priceHistoryTimeFrame === timeFrame}
 										key={timeFrame}
-										style={{ marginTop: '0px' }}
+										style={{ marginTop: '0px', borderColor: 'transparent' }}
 									>
 										{timeFrame}
 									</BootButton>
 								))}
 							</PrefButtons>
 							<NestBoxHeader style={{ float: 'right' }}>
-								{indexPriceChange24h ? (
+								{nestPriceChange24h ? (
 									<>
 										$
 										{priceHistory &&
@@ -342,11 +344,11 @@ const Nest: React.FC = () => {
 										<span
 											className="smalltext"
 											style={{
-												color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+												color: nestPriceChange24h.gt(0) ? 'green' : 'red',
 											}}
 										>
 											{priceHistory &&
-												getDisplayBalance(indexPriceChange24h, 0)}
+												getDisplayBalance(nestPriceChange24h, 0)}
 											{'%'}
 										</span>
 									</>
@@ -377,7 +379,7 @@ const Nest: React.FC = () => {
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(false)}
 								active={!allocationDisplayType}
-								style={{ marginTop: '0px' }}
+								style={{ marginTop: '0px', borderColor: 'transparent' }}
 							>
 								<FontAwesomeIcon icon="table" />
 							</BootButton>
@@ -385,11 +387,12 @@ const Nest: React.FC = () => {
 								variant="outline-primary"
 								onClick={() => setAllocationDisplayType(true)}
 								active={allocationDisplayType}
-								style={{ marginTop: '0px' }}
+								style={{ marginTop: '0px', borderColor: 'transparent' }}
 							>
 								<FontAwesomeIcon icon="chart-pie" />
 							</BootButton>
 						</PrefButtons>
+						<br />
 						{!allocationDisplayType ? (
 							<StyledTable bordered hover>
 								<thead>
@@ -437,7 +440,15 @@ const Nest: React.FC = () => {
 													<StyledBadge>{component.strategy}</StyledBadge>
 												</td>
 											</tr>
-										))) || <SpinnerLoader />}
+										))) || (
+										<tr>
+											{_.times(4, () => (
+												<td>
+													<SpinnerLoader />
+												</td>
+											))}
+										</tr>
+									)}
 								</tbody>
 							</StyledTable>
 						) : (
@@ -464,7 +475,7 @@ const Nest: React.FC = () => {
 														<Badge
 															style={{
 																backgroundColor: component.color,
-																margin: '10px 0',
+																margin: '8px 0',
 															}}
 														>
 															{component.symbol}

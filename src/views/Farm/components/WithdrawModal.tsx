@@ -2,13 +2,11 @@ import BigNumber from 'bignumber.js'
 import Button from 'components/Button'
 import Modal, { ModalProps } from 'components/Modal'
 import ModalActions from 'components/ModalActions'
-import ModalContent from 'components/ModalContent'
 import ModalTitle from 'components/ModalTitle'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
-import { getFullDisplayBalance } from 'utils/formatBalance'
+import { getFullDisplayBalance } from 'utils/numberFormat'
 import Fee from './Fee'
-
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber
@@ -22,7 +20,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	onDismiss,
 	max,
 	tokenName = '',
-	pid = null
+	pid = null,
 }) => {
 	const [val, setVal] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)

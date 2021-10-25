@@ -1,15 +1,13 @@
-import { useCallback, useEffect, useState } from 'react'
-import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { AbiItem } from 'web3-utils'
-import { addressMap, supportedNests } from '../bao/lib/constants'
-import GraphUtil from '../utils/graph'
-import { getBalanceNumber, getDisplayBalance, getAnalytics } from '../utils/formatBalance'
-import MultiCall from '../utils/multicall'
-import { Multicall as MC } from 'ethereum-multicall'
-
 import experipieAbi from '../bao/lib/abi/experipie.json'
+import Config from '../bao/lib/config'
+import GraphUtil from '../utils/graph'
+import MultiCall from '../utils/multicall'
+import { getBalanceNumber, truncateNumber } from '../utils/numberFormat'
 import useAllFarmTVL from './useAllFarmTVL'
+import useBao from './useBao'
 
 const useHomeAnalytics = () => {
   const [analytics, setAnalytics] = useState<
@@ -20,23 +18,21 @@ const useHomeAnalytics = () => {
     | undefined
   >()
 
-  // Read only web3 instance
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider('https://polygon-rpc.com'),
-  )
-  const multicall = new MC({ web3Instance: web3, tryAggregate: true })
+  const bao = useBao()
+  const web3 = bao && bao.web3
+  const multicall = bao && bao.multicall
 
   const farmTVL = useAllFarmTVL(web3, multicall)
 
   const fetchAnalytics = useCallback(async () => {
-    if (!farmTVL) return
+    if (!(farmTVL && bao)) return
 
-    const ethPrice = await GraphUtil.getPrice(addressMap.WETH)
+    const ethPrice = await GraphUtil.getPrice(Config.addressMap.WETH)
     const multicallContext = []
-    for (const nest of supportedNests) {
+    for (const nest of Config.nests) {
       const nestAddress: any =
-        (typeof nest.nestAddress === 'string' && nest.nestAddress) ||
-        (nest.nestAddress && nest.nestAddress[137]) ||
+        (typeof nest.nestAddresses === 'string' && nest.nestAddresses) ||
+        (nest.nestAddresses && nest.nestAddresses[Config.networkId]) ||
         nest.outputToken
       const nestContract = new web3.eth.Contract(
         experipieAbi as AbiItem[],
@@ -69,28 +65,28 @@ const useHomeAnalytics = () => {
     setAnalytics([
       {
         title: 'Polly Supply',
-        data: getAnalytics(new BigNumber(pollySupply)),
+        data: truncateNumber(new BigNumber(pollySupply)),
       },
       {
         title: 'Total Value of Nests',
-        data: `$${getAnalytics(totalNestUsd, 0)}`,
+        data: `$${truncateNumber(totalNestUsd, 0)}`,
       },
       {
         title: 'Farms TVL',
-        data: `$${getAnalytics(farmTVL.tvl, 0)}`,
+        data: `$${truncateNumber(farmTVL.tvl, 0)}`,
       },
       {
         title: 'Polly Burned 🔥',
-        data: getAnalytics(
+        data: truncateNumber(
           new BigNumber((await GraphUtil.getPollyBurned()).burnedTokens),
         ),
       },
     ])
-  }, [farmTVL])
+  }, [farmTVL, bao])
 
   useEffect(() => {
     fetchAnalytics()
-  }, [farmTVL])
+  }, [farmTVL, bao])
 
   return analytics
 }

@@ -5,9 +5,9 @@ export const ListLabelCol = styled.span`
   font-family: 'Rubik', sans-serif;
   display: inline-block;
   text-align: ${(props: ColProps) => props.align};
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.text[100]};
   vertical-align: middle;
-  font-weight: bold;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   padding: 0;
   width: ${(props: ColProps) => props.width};
 
@@ -17,7 +17,7 @@ export const ListLabelCol = styled.span`
 `
 
 export const ListLabelContainer = styled.div`
-  padding: 1rem;
+  padding: ${(props) => props.theme.spacing[3]}px;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: none;
@@ -25,11 +25,11 @@ export const ListLabelContainer = styled.div`
 `
 
 export const ListItemContainer = styled.div`
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: ${(props) => props.theme.color.transparent[100]};
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  padding: ${(props) => props.theme.spacing[4]}px;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: ${(props) => props.theme.spacing[2]}px;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: none;
@@ -39,8 +39,8 @@ export const ListItemContainer = styled.div`
 export const MobileListItemWrapper = styled.div`
   display: none;
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
+    background: ${(props) => props.theme.color.transparent[100]};
+    border-radius: ${(props) => props.theme.borderRadius}px;
     width: 100%;
     flex-direction: column;
     display: flex;
@@ -50,7 +50,7 @@ export const MobileListItemWrapper = styled.div`
 export const MobileListItemContainer = styled.div`
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     width: 100%;
-    padding: 1rem;
+    padding: ${(props) => props.theme.spacing[3]}px;
     align-items: center;
     display: flex;
   }
@@ -74,7 +74,7 @@ export const MobileListTitle = styled.span`
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     line-height: 1.25rem;
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.fontWeight.strong};
   }
 `
 
@@ -98,9 +98,9 @@ export const MobileListPrice = styled.div`
 
 export const MobileListChange = styled.div`
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    color: #24d897;
+    color: ${(props) => props.theme.color.accent[500]};
     width: fit-content;
-    justify-content: space-aroudn;
+    justify-content: space-around;
     display: flex;
     align-items: center;
   }
@@ -108,21 +108,21 @@ export const MobileListChange = styled.div`
 
 export const NestImage = styled.img`
   height: 50px;
-  margin-right: 15px;
+  margin-right: ${(props) => props.theme.spacing[3]}px;
 
-  @media (max-width: 1280px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     height: 40px;
-    margin-right: 15px;
+    margin-right: ${(props) => props.theme.spacing[3]}px;
   }
 
-  @media (max-width: 840px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
     height: 35px;
-    margin-right: 15px;
+    margin-right: ${(props) => props.theme.spacing[3]}px;
   }
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     height: 50px;
-    margin-right: 15px;
+    margin-right: ${(props) => props.theme.spacing[3]}px;
   }
 `
 
@@ -132,7 +132,7 @@ export const AssetImageContainer = styled.div`
   margin: 0 auto;
   display: inline-block;
   vertical-align: middle;
-  color: ${(props) => props.theme.color.grey[100]};
+  color: ${(props) => props.theme.color.text[100]};
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     display: none;
@@ -141,32 +141,29 @@ export const AssetImageContainer = styled.div`
 `
 
 export const AssetImage = styled(NestImage)`
-  height: 50px;
-  margin: 0 0 -15px -15px;
+  height: 40px;
+  margin: 0 0 -${(props) => props.theme.spacing[3]}px -${(props) =>
+      props.theme.spacing[3]}px;
   vertical-align: super;
   transition: 200ms;
   user-select: none;
   -webkit-user-drag: none;
 
-  @media (max-width: 1920px) {
-    height: 40px;
-  }
-
-  @media (max-width: 1280px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     height: 30px;
   }
 
-  @media (max-width: 840px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
     height: 25px;
   }
 `
 
 export const ColumnText = styled.span`
-  color: ${(props) => props.theme.color.grey[100]} !important;
+  color: ${(props) => props.theme.color.text[100]};
   vertical-align: middle;
   text-align: center;
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  font-size: 1rem;
 `
 
 // List Item
@@ -183,6 +180,18 @@ export const ListCol = styled.div`
   display: inline-block;
   width: ${(props: ColProps) => props.width};
   text-align: ${(props: ColProps) => props.align};
+`
+
+export const StyledLoadingWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`
+
+export const StyledSpacer = styled.div`
+  height: ${(props) => props.theme.spacing[4]}px;
+  width: ${(props) => props.theme.spacing[4]}px;
 `
 
 // Props and stuff

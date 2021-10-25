@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import baoLogo from '../../../assets/img/bao-logo.png'
 
 const Branding: React.FC = () => {
 	return (
 		<StyledLink target="_blank" href="https://bao.finance">
 			<StyledText>
 				<TitleText>
-						<span>by Bao.Finance</span>
+					<span>by Bao.Finance</span>
 				</TitleText>
 			</StyledText>
 		</StyledLink>
@@ -17,11 +16,12 @@ const Branding: React.FC = () => {
 const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-family: 'Kaushan Script', sans-serif;
-	font-size: 24px;
+	font-size: 1.5rem;
 	letter-spacing: 0.03rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
 `
 
 const StyledLink = styled.a`
@@ -34,15 +34,14 @@ const StyledLink = styled.a`
 	text-decoration: none;
 
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.text[300]};
 	}
 `
 
 const StyledText = styled.span`
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-family: 'Rubik', sans-serif;
-	font-size: 20px;
-	font-weight: 700;
+	font-size: 1.5rem;
 	letter-spacing: 0.03em;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `

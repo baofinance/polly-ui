@@ -1,14 +1,14 @@
+import { BigNumber } from 'bignumber.js'
 import Button from 'components/Button'
 import { SpinnerLoader } from 'components/Loader'
+import Tooltipped from 'components/Tooltipped'
 import { Nest } from 'contexts/Nests'
 import useComposition from 'hooks/useComposition'
+import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
 import useNestRate from 'hooks/useNestRate'
 import React, { useMemo } from 'react'
 import 'react-tabs/style/react-tabs.css'
-import { useWallet } from 'use-wallet'
-import { getDisplayBalance } from 'utils/formatBalance'
-import Tooltipped from '../../../../components/Tooltipped'
-import '../tab-styles.css'
+import { getDisplayBalance } from 'utils/numberFormat'
 import {
 	AssetImage,
 	AssetImageContainer,
@@ -25,21 +25,15 @@ import {
 	MobileNestLink,
 	NestImage,
 } from './styles'
-import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
-import { BigNumber } from 'bignumber.js'
-
-interface NestWithIssuedTokens extends Nest {}
 
 const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
-	const { account } = useWallet()
 	const { nestTokenAddress } = nest
-	const composition = useComposition(nest)
 	const { usdPerIndex } = useNestRate(nestTokenAddress)
 
 	const indexActive = true // startTime * 1000 - Date.now() <= 0
 
 	const priceHistory = useGraphPriceHistory(nest)
-	const indexPriceChange24h = useMemo(() => {
+	const nestPriceChange24h = useMemo(() => {
 		return (
 			priceHistory &&
 			new BigNumber(priceHistory[priceHistory.length - 1].close)
@@ -49,13 +43,15 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 		)
 	}, [priceHistory])
 
+	const composition = useComposition(nest)
+
 	return (
 		<>
 			<ListItemContainer>
 				<ListCol width={'17.5%'} align={'left'}>
 					<ColumnText>
 						<NestImage src={nest.icon} alt={nest.nestToken} />
-						{nest.nestToken}
+						<b>{nest.nestToken}</b>
 					</ColumnText>
 				</ListCol>
 				<ListCol width={'37.5%'} align={'center'}>
@@ -85,14 +81,14 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 				</ListCol>
 				<ListCol width={'15%'} align={'center'}>
 					<ColumnText>
-						{indexPriceChange24h ? (
+						{nestPriceChange24h ? (
 							<>
 								<span
-									style={{
-										color: indexPriceChange24h.gt(0) ? 'green' : 'red',
-									}}
+											style={{
+												color: nestPriceChange24h.gt(0) ? 'green' : 'red',
+											}}
 								>
-									{priceHistory && getDisplayBalance(indexPriceChange24h, 0)}
+									{priceHistory && getDisplayBalance(nestPriceChange24h, 0)}
 									{'%'}
 								</span>
 							</>
@@ -104,7 +100,8 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 				<ListCol width={'15%'} align={'right'}>
 					<div style={{ height: '50px' }}>
 						<Button
-							width={'90%'}
+							size="md"
+							width="90%"
 							disabled={!indexActive}
 							text={indexActive ? 'Select' : undefined}
 							to={`/nests/${nest.nid}`}
@@ -147,7 +144,7 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 }
 
 interface NestListItemProps {
-	nest: NestWithIssuedTokens
+	nest: Nest
 }
 
 export default NestListItem

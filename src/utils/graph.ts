@@ -26,7 +26,11 @@ const clients = {
 const _getClient = (network: string) =>
   network.toLowerCase() === 'matic' ? clients.matic : clients.mainnet
 
-const _querySubgraph = (query: string, network = 'matic', _client?: ApolloClient<any>) => {
+const _querySubgraph = (
+  query: string,
+  network = 'matic',
+  _client?: ApolloClient<any>,
+) => {
   const client = _client || _getClient(network)
   return new Promise((resolve, reject) => {
     client
@@ -42,13 +46,16 @@ const getPriceHistoryMultiple = async (
   tokenAddresses: string[],
   network = 'matic',
   first?: number,
-) =>
+): Promise<any> =>
   await _querySubgraph(
     _getPriceHistoryQueryMultiple(tokenAddresses, first),
     network,
   )
 
-const getPriceHistory = async (tokenAddress: string, network = 'matic') =>
+const getPriceHistory = async (
+  tokenAddress: string,
+  network = 'matic',
+): Promise<any> =>
   await _querySubgraph(_getPriceHistoryQuery(tokenAddress), network)
 
 // This is janky, will remove once the sushi subgraph syncs USD prices for most of our tokens
@@ -85,7 +92,7 @@ const getPriceFromPairMultiple = async (
   wethPrice: BigNumber,
   tokenAddresses: string[],
   network = 'matic',
-) => {
+): Promise<Array<{ address: string; price: BigNumber }>> => {
   const data: any = await _querySubgraph(
     _getPriceFromPairMultiple(
       tokenAddresses.map((tokenAddress) => tokenAddress.toLowerCase()),
@@ -119,12 +126,15 @@ const getPriceFromPairMultiple = async (
   return prices
 }
 
-const getPrice = async (tokenAddress: string, network = 'matic') => {
+const getPrice = async (
+  tokenAddress: string,
+  network = 'matic',
+): Promise<BigNumber> => {
   const data: any = await getPriceHistory(tokenAddress, network)
   return data.tokens[0] && new BigNumber(data.tokens[0].dayData[0].priceUSD)
 }
 
-const getPollyBurned = async () => {
+const getPollyBurned = async (): Promise<any> => {
   const data: any = await _querySubgraph(
     _getPollyBurnQuery(),
     'matic',
@@ -133,7 +143,7 @@ const getPollyBurned = async () => {
   return data.burn
 }
 
-const getPollySupply = async () => {
+const getPollySupply = async (): Promise<number> => {
   const data: any = await _querySubgraph(
     _getPollySupplyQuery(),
     'matic',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NestHeader, NestSubHeader, NestList } from '../../styles'
+import { NestHeader, NestList, NestSubHeader } from '../styles'
 
 const nDEFI: React.FC = () => (
 	<>

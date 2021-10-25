@@ -1,16 +1,20 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import BigNumber from 'bignumber.js'
-import _ from 'lodash'
-import GraphClient from '../../../utils/graph'
-import { getDisplayBalance } from '../../../utils/formatBalance'
-import { addressMap, supportedNests } from '../../../bao/lib/constants'
-import AreaGraph from '../../../components/Graphs/AreaGraph/AreaGraph'
-import { PrefButtons, NestBoxHeader, GraphContainer } from '../../Nest/styles'
 import { ParentSize } from '@visx/responsive'
+import Config from 'bao/lib/config'
+import BigNumber from 'bignumber.js'
+import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
+import { SpinnerLoader } from 'components/Loader'
+import Spacer from 'components/Spacer'
+import _ from 'lodash'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from 'react-bootstrap'
-import { SpinnerLoader } from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
-import styled from 'styled-components'
+import GraphClient from 'utils/graph'
+import { getDisplayBalance } from 'utils/numberFormat'
+import {
+	NestBoxHeader,
+	PrefButtons,
+	PriceGraphContainer,
+	StyledGraphContainer,
+} from './styles'
 
 const PriceGraphs: React.FC = () => {
 	const [priceData, setPriceData] = useState<any | undefined>()
@@ -19,11 +23,11 @@ const PriceGraphs: React.FC = () => {
 	const activeToken = useMemo(() => {
 		return _.find(
 			priceData,
-			(d: any) => d.id === addressMap.WETH, // activeNest.nestAddress[137]
+			(d: any) => d.id === Config.addressMap.WETH, // activeNest.nestAddress[137]
 		)
 	}, [activeNest])
 
-	const indexPriceChange24h = useMemo(() => {
+	const nestPriceChange24h = useMemo(() => {
 		if (!(activeNest && activeToken.dayData)) return
 
 		const { dayData } = activeToken
@@ -35,7 +39,7 @@ const PriceGraphs: React.FC = () => {
 
 	useEffect(() => {
 		GraphClient.getPriceHistoryMultiple(
-			supportedNests.map(() => addressMap.WETH), // nest.nestAddress[137]
+			Config.nests.map(() => Config.addressMap.WETH), // nest.nestAddress[137]
 		).then((res: any) => {
 			// Clean price data from subgraph
 			const tokens = _.cloneDeep(res.tokens).map((token: any) => {
@@ -43,7 +47,7 @@ const PriceGraphs: React.FC = () => {
 				return token
 			})
 			setPriceData(tokens)
-			setActiveNest(supportedNests[0])
+			setActiveNest(Config.nests[0])
 		})
 	}, [])
 
@@ -59,19 +63,22 @@ const PriceGraphs: React.FC = () => {
 		<PriceGraphContainer>
 			<PrefButtons style={{ width: '100%' }}>
 				<NestBoxHeader style={{ float: 'left' }}>Nest Price</NestBoxHeader>
-				{supportedNests.map((nest) => (
+				{Config.nests.map((nest) => (
 					<Button
 						variant="outline-primary"
 						onClick={() => setActiveNest(nest)}
 						active={activeNest === nest}
 						key={nest.symbol}
-						style={{ margin: '5px 10px' }}
+						style={{
+							margin:
+								'${(props) => props.theme.spacing[1]}px ${(props) => props.theme.spacing[2]}px',
+						}}
 					>
 						{nest.symbol}
 					</Button>
 				))}
 				<NestBoxHeader style={{ float: 'right' }}>
-					{indexPriceChange24h ? (
+					{nestPriceChange24h ? (
 						<>
 							$
 							{activeToken.dayData &&
@@ -84,11 +91,13 @@ const PriceGraphs: React.FC = () => {
 							<span
 								className="smalltext"
 								style={{
-									color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+									color: nestPriceChange24h.gt(0)
+										? '${(props) => props.theme.color.green}'
+										: '${(props) => props.theme.color.red}',
 								}}
 							>
 								{activeToken.dayData &&
-									getDisplayBalance(indexPriceChange24h, 0)}
+									getDisplayBalance(nestPriceChange24h, 0)}
 								{'%'}
 							</span>
 						</>
@@ -115,15 +124,5 @@ const PriceGraphs: React.FC = () => {
 		</PriceGraphContainer>
 	)
 }
-
-const PriceGraphContainer = styled.div`
-	width: 80%;
-	margin: 0 auto;
-`
-
-const StyledGraphContainer = styled(GraphContainer)`
-	width: 100%;
-	margin: 2.5em auto 0;
-`
 
 export default PriceGraphs

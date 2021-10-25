@@ -1,15 +1,15 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { BigNumber } from 'bignumber.js'
 import useModal from 'hooks/useModal'
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import Config from '../../../bao/lib/config'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import { addressMap } from '../../../bao/lib/constants'
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import { getDisplayBalance } from '../../../utils/numberFormat'
 import Button from '../../Button'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { BigNumber } from 'bignumber.js'
 
 interface AccountButtonProps {}
 
@@ -21,7 +21,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 	)
 
 	const { account } = useWallet()
-	const wethBalance = useTokenBalance(addressMap.WETH)
+	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
 	const handleUnlockClick = useCallback(() => {
 		onPresentWalletProviderModal()
@@ -37,7 +37,12 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 						text={
 							<>
 								Connect Wallet{' '}
-								<FontAwesomeIcon icon="link" style={{ marginLeft: '5px' }} />
+								<FontAwesomeIcon
+									icon="link"
+									style={{
+										marginLeft: '4px',
+									}}
+								/>
 							</>
 						}
 						border={true}
@@ -50,14 +55,20 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 							<>
 								{account.slice(0, 6)}...
 								{account.slice(account.length - 4, account.length)}
+								{' '}
 								<FontAwesomeIcon
 									icon="angle-double-right"
-									style={{ margin: '0 5px', color: '  color: ${(props) => props.theme.color.grey[100]};' }}
-								/>
+									style={{
+										margin: '0 4px',
+										color: 'white',
+									}}
+								/>{' '}
 								{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
 								<FontAwesomeIcon
 									icon={['fab', 'ethereum']}
-									style={{ marginLeft: '5px' }}
+									style={{
+										marginLeft: '4px',
+									}}
 								/>
 							</>
 						}
@@ -74,7 +85,12 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 						text={
 							<>
 								Connect Wallet{' '}
-								<FontAwesomeIcon icon="link" style={{ marginLeft: '5px' }} />
+								<FontAwesomeIcon
+									icon="link"
+									style={{
+										marginLeft: '4px',
+									}}
+								/>
 							</>
 						}
 						border={true}
@@ -104,7 +120,7 @@ const StyledAccountButton = styled.div`
 `
 
 const MobileAccountButton = styled.div`
-	@media (min-width: 576px) {
+	@media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		display: none;
 	}
 `

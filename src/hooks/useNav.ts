@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import _ from 'lodash'
-import { NestComponent } from '../contexts/Nests/types'
 import BigNumber from 'bignumber.js'
+import _ from 'lodash'
+import { useEffect, useState } from 'react'
+import Config from '../bao/lib/config'
+import { NestComponent } from '../contexts/Nests/types'
 import GraphUtil from '../utils/graph'
-import { addressMap } from '../bao/lib/constants'
 
 const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
   const [nav, setNav] = useState<
@@ -20,7 +20,7 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
       async (_mainnetPrices: any) => {
         const mainnetPrices = JSON.parse(JSON.stringify(_mainnetPrices)) // Create mutable copy
         const wethPrice = await GraphUtil.getPrice(
-          MAINNET_ADDRESS_MAP[addressMap.WETH],
+          MAINNET_ADDRESS_MAP[Config.addressMap.WETH],
           'mainnet',
         )
         // Check for special case low liquidity pairs
