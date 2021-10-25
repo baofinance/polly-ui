@@ -93,7 +93,7 @@ const Farm: React.FC = () => {
 					❗️ <span style={{ fontWeight: 600, color: '#ff3333' }}>Attention:</span>{' '}
 					Please familiarize yourself with the fee structure before using
 					PollyChef. Deposits are subject to a 0.75% fee. Withdrawal slashing
-					fee of 0.1% - 50 % will be incurred when exiting a farm, depending on
+					fee of 1% - 50 % will be incurred when exiting a farm, depending on
 					the length of time your LP was staked. Please{' '}
 					<StyledExternalLink
 						href="https://docs.bao.finance/franchises/polly-finance"
