@@ -77,9 +77,9 @@ const Button: React.FC<ButtonProps> = ({
 			return <StyledLink to={to}>{text}</StyledLink>
 		} else if (href) {
 			return (
-				<ExternalLink href={href} target="__blank">
+				<ButtonLink href={href} target="__blank">
 					{text}
-				</ExternalLink>
+				</ButtonLink>
 			)
 		} else {
 			return text
@@ -131,7 +131,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
 	font-size: ${(props) => props.fontSize};
-	font-weight: ${(props) => props.theme.fontWeight.strong};
+	font-weight: ${(props) => props.theme.fontWeight.medium};
 	height: ${(props) => props.size}px;
 	justify-content: center;
 	outline: none;
@@ -213,6 +213,23 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 `
 
 const StyledLink = styled(Link)`
+	align-items: center;
+	color: inherit;
+	display: flex;
+	flex: 1;
+	height: 50px;
+	justify-content: center;
+	margin: 0 ${(props) => -props.theme.spacing[4]}px;
+	padding: 0 ${(props) => props.theme.spacing[4]}px;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: ${(props) => props.theme.color.text[100]};
+	}
+`
+
+const ButtonLink = styled.a`
 	align-items: center;
 	color: inherit;
 	display: flex;
