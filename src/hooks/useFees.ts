@@ -13,7 +13,7 @@ const getWithdrawalPenalty = (blocksSince: any) => {
     ? 0.04
     : blocksSince <= 1296000
     ? 0.02
-    : 0.001
+    : 0.01
 }
 
 const useFees = (blockDiff: number) =>
