@@ -99,7 +99,7 @@ const Nest: React.FC = () => {
 		)
 	}, [composition])
 
-	const indexPriceChange24h = useMemo(() => {
+	const nestPriceChange24h = useMemo(() => {
 		return (
 			priceHistory &&
 			new BigNumber(priceHistory[priceHistory.length - 1].close)
@@ -331,7 +331,7 @@ const Nest: React.FC = () => {
 								))}
 							</PrefButtons>
 							<NestBoxHeader style={{ float: 'right' }}>
-								{indexPriceChange24h ? (
+								{nestPriceChange24h ? (
 									<>
 										$
 										{priceHistory &&
@@ -344,11 +344,11 @@ const Nest: React.FC = () => {
 										<span
 											className="smalltext"
 											style={{
-												color: indexPriceChange24h.gt(0) ? 'green' : 'red',
+												color: nestPriceChange24h.gt(0) ? 'green' : 'red',
 											}}
 										>
 											{priceHistory &&
-												getDisplayBalance(indexPriceChange24h, 0)}
+												getDisplayBalance(nestPriceChange24h, 0)}
 											{'%'}
 										</span>
 									</>

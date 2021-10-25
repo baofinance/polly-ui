@@ -27,7 +27,7 @@ const PriceGraphs: React.FC = () => {
 		)
 	}, [activeNest])
 
-	const indexPriceChange24h = useMemo(() => {
+	const nestPriceChange24h = useMemo(() => {
 		if (!(activeNest && activeToken.dayData)) return
 
 		const { dayData } = activeToken
@@ -78,7 +78,7 @@ const PriceGraphs: React.FC = () => {
 					</Button>
 				))}
 				<NestBoxHeader style={{ float: 'right' }}>
-					{indexPriceChange24h ? (
+					{nestPriceChange24h ? (
 						<>
 							$
 							{activeToken.dayData &&
@@ -91,13 +91,13 @@ const PriceGraphs: React.FC = () => {
 							<span
 								className="smalltext"
 								style={{
-									color: indexPriceChange24h.gt(0)
+									color: nestPriceChange24h.gt(0)
 										? '${(props) => props.theme.color.green}'
 										: '${(props) => props.theme.color.red}',
 								}}
 							>
 								{activeToken.dayData &&
-									getDisplayBalance(indexPriceChange24h, 0)}
+									getDisplayBalance(nestPriceChange24h, 0)}
 								{'%'}
 							</span>
 						</>
