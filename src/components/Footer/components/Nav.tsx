@@ -27,7 +27,7 @@ const Nav: React.FC = () => {
 				</StyledLink>
 			</Tooltipped>
 			<Tooltipped content="Snapshot" placement="top">
-				<StyledLink target="_blank" href="https://snapshot.page/#/baovotes.eth">
+				<StyledLink target="_blank" href="https://snapshot.page/#/pollyfinance.eth">
 					<FontAwesomeIcon icon="bolt" />
 				</StyledLink>
 			</Tooltipped>
