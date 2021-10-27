@@ -5,7 +5,7 @@ import useBao from './useBao'
 import { getAllowance } from '../utils/erc20'
 import { BigNumber } from 'bignumber.js'
 
-const useAllowancev2 = (tokenAddress: string, spenderAddress: string) => {
+const useAllowancev2 = (tokenAddress: string, spenderAddress: string, pendingTx: boolean) => {
   const { account }: { account: string; ethereum: provider } = useWallet()
   const bao = useBao()
 
@@ -23,11 +23,11 @@ const useAllowancev2 = (tokenAddress: string, spenderAddress: string) => {
     } catch (e) {
       setAllowance(new BigNumber(0))
     }
-  }, [account, tokenAddress, spenderAddress])
+  }, [account, tokenAddress, spenderAddress, pendingTx])
 
   useEffect(() => {
     _getAllowance()
-  }, [account, tokenAddress, spenderAddress])
+  }, [account, tokenAddress, spenderAddress, pendingTx])
 
   return allowance
 }

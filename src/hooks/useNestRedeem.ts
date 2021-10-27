@@ -14,7 +14,7 @@ const useNestRedeem = (nid: number, redeemToWeth = true) => {
       return redeemToWeth
         ? bao
             .getContract('nDefiRedeem') // TODO: per-nest redeem contracts, or one contract that can redeem all nests
-            .methods.redeemNestToWeth(exponentiate(amount))
+            .methods.redeemNestToWeth(exponentiate(amount).toString())
             .send({ from: account })
         : nestRedeem(nestContract, amount, account)
     },

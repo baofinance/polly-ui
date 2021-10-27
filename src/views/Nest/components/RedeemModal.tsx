@@ -36,7 +36,6 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	const [confNo, setConfNo] = useState<number | undefined>()
 
 	const bao = useBao()
-	const { onNestRedeem } = useNestRedeem(nid, redeemToWeth)
 
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
@@ -44,10 +43,12 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
+	const { onNestRedeem } = useNestRedeem(nid, redeemToWeth)
 	// TODO: per-nest redeem contracts in config, or just make one contract that can redeem all nests
 	const redeemAllowance = useAllowancev2(
 		nestContract.options.address,
 		bao.getContract('nDefiRedeem').options.address,
+		pendingTx
 	)
 	const { onApprove: onApproveRedeem } = useApprovev2(
 		nestContract,
@@ -82,19 +83,6 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 		)
 	}, [fullBalance, setVal])
 
-	const handleApprove = useCallback(async () => {
-		try {
-			setRequestedApproval(true)
-			const txHash = await onApproveRedeem()
-			// user rejected tx or didn't go thru
-			if (!txHash) {
-				setRequestedApproval(false)
-			}
-		} catch (e) {
-			console.log(e)
-		}
-	}, [onApproveRedeem, setRequestedApproval])
-
 	return (
 		<Modal>
 			<CloseButton onClick={onDismiss}>
@@ -127,8 +115,31 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 				{redeemToWeth && redeemAllowance && !redeemAllowance.gt(0) ? (
 					<Button
 						disabled={requestedApproval}
-						onClick={handleApprove}
-						text={`Approve ${nestName}`}
+						onClick={() => {
+							setPendingTx(true)
+							setRequestedApproval(true)
+							onApproveRedeem()
+								.on('confirmation', (_confNo: any) => {
+									if (_confNo < 15) {
+										setConfNo(_confNo)
+									} else if (_confNo >= 15) {
+										setConfNo(undefined)
+										setRequestedApproval(false)
+										setPendingTx(false)
+									}
+								})
+								.on('error', () => {
+									setRequestedApproval(false)
+									setPendingTx(false)
+								})
+						}}
+						text={
+							confNo
+								? `Confirmations: ${confNo}/15`
+								: pendingTx
+									? 'Pending Confirmation'
+									: `Approve ${nestName}`
+						}
 					/>
 				) : (
 					<Button

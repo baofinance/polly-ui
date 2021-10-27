@@ -186,6 +186,16 @@ export const approve = async (
     .send({ from: account })
 }
 
+export const approvev2 = (
+  token: Contract,
+  spender: Contract,
+  account: string,
+) => {
+  return token.methods
+    .approve(spender.options.address, ethers.constants.MaxUint256)
+    .send({ from: account })
+}
+
 export const stake = async (
   masterChefContract: Contract,
   pid: number,
