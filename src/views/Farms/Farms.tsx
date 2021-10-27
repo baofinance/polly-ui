@@ -6,28 +6,25 @@ import PageHeader from 'components/PageHeader'
 import Spacer from 'components/Spacer'
 import WalletProviderModal from 'components/WalletProviderModal'
 import useModal from 'hooks/useModal'
-import React, { useState } from 'react'
+import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
-import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import Config from '../../bao/lib/config'
 import Farm from '../Farm'
 import Balances from './components/Balances'
 import FarmCards from './components/FarmCards'
-import { Badge } from 'react-bootstrap'
-import { getDisplayBalance } from 'utils/formatBalance'
-import { SpinnerLoader } from 'components/Loader'
-import { BigNumber } from 'bignumber.js'
+import { StyledInfo } from './components/styles'
+import ExternalLink from 'components/ExternalLink'
 
 const Farms: React.FC = () => {
 	const { path } = useRouteMatch()
 	const { account, ethereum }: any = useWallet()
 	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
-	const [baoPrice, setBaoPrice] = useState<BigNumber | undefined>()
 
 	return (
 		<Switch>
 			<Page>
-				{account && ethereum.chainId === '0x89' ? (
+				{account && ethereum.chainId === Config.defaultRpc.chainId ? (
 					<>
 						<Route exact path={path}>
 							<PageHeader
@@ -38,16 +35,21 @@ const Farms: React.FC = () => {
 							<Container>
 								<StyledInfo>
 									❗️{' '}
-									<span style={{ fontWeight: 600, color: '#ff3333' }}>
+									<span
+										style={{
+											fontWeight: 700,
+											color: '${(props) => props.theme.color.red}',
+										}}
+									>
 										Attention:
 									</span>{' '}
 									Be sure to read the{' '}
-									<StyledExternalLink
+									<ExternalLink
 										href="https://docs.bao.finance/franchises/polly"
 										target="_blank"
 									>
 										docs
-									</StyledExternalLink>{' '}
+									</ExternalLink>{' '}
 									before using the farms so you are familiar with protocol risks
 									and fees!
 								</StyledInfo>
@@ -80,25 +82,5 @@ const Farms: React.FC = () => {
 		</Switch>
 	)
 }
-
-const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-size: 1rem;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-`
-
-const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
-	}
-`
 
 export default Farms

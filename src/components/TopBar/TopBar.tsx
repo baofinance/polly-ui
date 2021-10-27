@@ -1,8 +1,8 @@
 import MenuIcon from 'components/icons/MenuIcon'
+import Logo from 'components/Logo'
 import React from 'react'
-import styled from 'styled-components'
 import { Container } from 'react-bootstrap'
-import Logo from '../Logo'
+import styled from 'styled-components'
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
 
@@ -33,7 +33,7 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 
 const StyledLogoWrapper = styled.div`
 	width: 200px;
-	@media (max-width: 768px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
 		width: auto;
 	}
 `
@@ -45,7 +45,7 @@ const StyledNavWrapper = styled.div`
 	display: flex;
 	flex: 1;
 	justify-content: center;
-	@media (max-width: 768px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
 		display: none;
 	}
 `
@@ -65,7 +65,7 @@ const StyledAccountButtonWrapper = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	width: 200px;
-	@media (max-width: 400px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		justify-content: center;
 		width: auto;
 	}
@@ -78,14 +78,14 @@ const StyledMenuButton = styled.button`
 	outline: 0;
 	padding: 0;
 	display: none;
-	
-	@media (max-width: 768px) {
+
+	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
 		align-items: center;
 		display: flex;
 		height: 44px;
 		justify-content: center;
 		width: 44px;
-		margin-left: 10px;
+		margin-left: ${(props) => props.theme.spacing[2]}px;
 	}
 `
 

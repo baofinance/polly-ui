@@ -1,9 +1,9 @@
+import BigNumber from 'bignumber.js'
 import { Nest } from 'contexts/Nests'
 import { useCallback, useEffect, useState } from 'react'
 import GraphClient from 'utils/graph'
-import BigNumber from 'bignumber.js'
-import useBao from './useBao'
 import { getWethPriceLink } from '../bao/utils'
+import useBao from './useBao'
 
 const usePairPrice = (nest: Nest) => {
   const [res, setRes] = useState<BigNumber | undefined>()

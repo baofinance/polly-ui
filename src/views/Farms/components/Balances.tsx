@@ -1,9 +1,4 @@
-import {
-	getMasterChefContract,
-	getPollyAddress,
-	getPollySupply,
-	getReferrals,
-} from 'bao/utils'
+import { getMasterChefContract, getPollySupply, getReferrals } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import Card from 'components/Card'
 import CardContent from 'components/CardContent'
@@ -18,9 +13,15 @@ import useFarms from 'hooks/useFarms'
 import useTokenBalance from 'hooks/useTokenBalance'
 import React, { Fragment, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
-import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber } from 'utils/numberFormat'
+import {
+	Footnote,
+	FootnoteValue,
+	StyledBalance,
+	StyledBalances,
+	StyledWrapper,
+} from './styles'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)
@@ -79,7 +80,9 @@ const Balances: React.FC = () => {
 	const [totalReferrals, setTotalReferrals] = useState<string>()
 	const [refLink, setRefLink] = useState<string>()
 	const bao = useBao()
-	const pollyBalance = useTokenBalance(getPollyAddress(bao))
+	const pollyBalance = useTokenBalance(
+		bao && bao.getContract('polly').options.address,
+	)
 	const masterChefContract = getMasterChefContract(bao)
 	const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 
@@ -157,37 +160,5 @@ const Balances: React.FC = () => {
 		</Fragment>
 	)
 }
-
-const Footnote = styled.div`
-	font-size: 14px;
-	padding: 8px 20px;
-	color: ${(props) => props.theme.color.grey[100]};
-	border-top: solid 1px #161522;
-`
-
-const FootnoteValue = styled.div`
-	font-family: 'Poppins', sans-serif;
-	float: right;
-`
-
-const StyledWrapper = styled.div`
-	align-items: center;
-	display: flex;
-	@media (max-width: 768px) {
-		width: 100%;
-		flex-flow: column nowrap;
-		align-items: stretch;
-	}
-`
-
-const StyledBalances = styled.div`
-	display: flex;
-`
-
-const StyledBalance = styled.div`
-	align-items: center;
-	display: flex;
-	flex: 1;
-`
 
 export default Balances

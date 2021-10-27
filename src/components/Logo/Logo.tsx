@@ -22,9 +22,9 @@ const Logo: React.FC = () => {
 const TitleText = styled.div`
 	width: fit-content;
 	white-space: nowrap;
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-family: 'Rubik', sans-serif;
-	font-size: 36px;
+	font-size: 2.25rem;
 	letter-spacing: 0.03rem;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 `
@@ -41,13 +41,14 @@ const StyledLogo = styled(Link)`
 `
 
 const StyledText = styled.span`
-	color: ${(props) => props.theme.color.grey[600]};
+	color: ${(props) => props.theme.color.text[100]};
 	font-family: 'Rubik', sans-serif;
-	font-size: 20px;
-	font-weight: 700;
+	font-size: 1.25rem;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	letter-spacing: 0.03em;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
-	@media (max-width: 400px) {
+
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
 		display: none;
 	}
 `

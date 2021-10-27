@@ -1,7 +1,7 @@
-import { lighten } from 'polished'
 import React, { useContext, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import styled, { keyframes, ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
+import ExternalLink from 'components/ExternalLink'
 
 interface ButtonProps {
 	children?: React.ReactNode
@@ -47,29 +47,29 @@ const Button: React.FC<ButtonProps> = ({
 	let boxShadow: string
 	let buttonSize: number
 	let buttonPadding: number
-	let fontSize: number
+	let fontSize: string
 	switch (size) {
 		case 'sm':
-			boxShadow = `4px 4px 8px ${color.grey[600]},
-        -8px -8px 16px ${color.grey[500]}FF;`
+			boxShadow = `4px 4px 8px ${color.primary.black},
+        -8px -8px 16px ${color.primary.dark};`
 			buttonPadding = spacing[4]
 			buttonSize = 40
-			fontSize = 14
+			fontSize = '0.75rem'
 			break
 		case 'lg':
-			boxShadow = `6px 6px 12px ${color.grey[600]},
-        -12px -12px 24px ${color.grey[500]};`
+			boxShadow = `6px 6px 12px ${color.primary.black},
+        -12px -12px 24px ${color.primary.dark};`
 			buttonPadding = spacing[4]
 			buttonSize = 72
-			fontSize = 16
+			fontSize = '1rem'
 			break
 		case 'md':
 		default:
-			boxShadow = `6px 6px 12px ${color.grey[600]},
-        -12px -12px 24px -2px ${color.grey[500]};`
+			boxShadow = `6px 6px 12px ${color.primary.black},
+        -12px -12px 24px -2px ${color.primary.dark};`
 			buttonPadding = spacing[4]
 			buttonSize = 50
-			fontSize = 16
+			fontSize = '1rem'
 	}
 
 	const ButtonChild = useMemo(() => {
@@ -77,18 +77,16 @@ const Button: React.FC<ButtonProps> = ({
 			return <StyledLink to={to}>{text}</StyledLink>
 		} else if (href) {
 			return (
-				<StyledExternalLink href={href} target="__blank">
+				<ButtonLink href={href} target="__blank">
 					{text}
-				</StyledExternalLink>
+				</ButtonLink>
 			)
 		} else {
 			return text
 		}
 	}, [href, text, to])
 
-	const ButtonComp = !border
-		? StyledButton
-		: StyledBorderButton
+	const ButtonComp = !border ? StyledButton : StyledBorderButton
 	return (
 		<ButtonComp
 			boxShadow={boxShadow}
@@ -112,7 +110,7 @@ interface StyledButtonProps {
 	boxShadow: string
 	color: string
 	disabled?: boolean
-	fontSize: number
+	fontSize: string
 	padding: number
 	size: number
 	inline: boolean
@@ -120,35 +118,20 @@ interface StyledButtonProps {
 	target?: string
 }
 
-const AnimateGradient = keyframes`
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}`
-
 const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	target: attrs.target || '',
 }))<StyledButtonProps>`
-	padding: 0.7rem 1.7rem;
 	align-items: center;
-	background-color: #3c32f5;
-	background-image: linear-gradient(135deg,
-	#2E1D5B 0%,
-	#3c32f5 51%,
-	#220f68 100%);
-	background-size: 200% 200%;
-	border: 1px solid ${(props) => props.theme.color.grey[500]};
-	border-radius: 10px;
+	background: ${(props) => props.theme.color.primary[200]};
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
+	padding: ${(props) => -props.theme.spacing[3]}px;
 	color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 	display: ${(props) => (props.inline ? 'inline-block' : 'flex')};
-	font-size: ${(props) => props.fontSize}px;
-	font-weight: 700;
+	font-size: ${(props) => props.fontSize};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	height: ${(props) => props.size}px;
 	justify-content: center;
 	outline: none;
@@ -157,34 +140,73 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	width: ${(props) => (props.width ? props.width : '100%')};
 	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	position: relative;
+	transition: .6s;
+	overflow: hidden;
 
 	@media (max-width: 960px) {
 		/* margin: 0 0.5rem 0 0.5rem; */
 		text-align: center;
 		text-decoration: none;
-		padding: 0.25rem 1rem;
+		padding: ${(props) => -props.theme.spacing[1]}px
+			${(props) => -props.theme.spacing[3]}px;
 	}
 	@media (max-width: 640px) {
 		width: 100%;
-		padding: 0.85rem 0.85rem;
+		padding: ${(props) => -props.theme.spacing[3]}px
+			${(props) => -props.theme.spacing[3]}px;
 	}
 
-	:hover {
-		transform: scale(1);
+	&:focus {
+		outline: 0;
 	}
 
-	&:hover:before {
-		transform: scale(1.2);
+	&:before{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[300]};
+		width: 60px;
+		height: 100%;
+		left: 0;
+		top: 0;
+		opacity: .5;
+		filter: blur(30px);
+		transform: translateX(-100px)  skewX(-15deg);
+	  }
+	  &:after{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[200]};
+		width: 30px;
+		height: 100%;
+		left: 30px;
+		top: 0;
+		opacity: 0;
+		filter: blur(5px);
+		transform: translateX(-100px) skewX(-15deg);
+	  }
+	  &:hover{
+		background: ${(props) => props.theme.color.primary[100]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
 	}
 
 	&:hover,
-	&:focus {
-		background-position: right center;
-		-webkit-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		-moz-animation: ${AnimateGradient} 3s ease-in-out infinite;
-		animation: ${AnimateGradient} 3s ease-in-out infinite;
-		border-color: ${lighten(0.025, '#090130')};
-		color: ${(props) => props.theme.color.grey[100]};
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
 		cursor: ${(props) =>
 			props.disabled ? 'not-allowed' : 'pointer'} !important;
 	}
@@ -203,16 +225,16 @@ const StyledLink = styled(Link)`
 
 	&:hover,
 	&:focus {
-		color: ${(props) => props.theme.color.grey[100]};
+		color: ${(props) => props.theme.color.text[100]};
 	}
 `
 
-const StyledExternalLink = styled.a`
+const ButtonLink = styled.a`
 	align-items: center;
 	color: inherit;
 	display: flex;
 	flex: 1;
-	height: 56px;
+	height: 50px;
 	justify-content: center;
 	margin: 0 ${(props) => -props.theme.spacing[4]}px;
 	padding: 0 ${(props) => props.theme.spacing[4]}px;
@@ -220,46 +242,42 @@ const StyledExternalLink = styled.a`
 
 	&:hover,
 	&:focus {
-		color: ${(props) => props.theme.color.grey[100]};
+		color: ${(props) => props.theme.color.text[100]};
 	}
 `
 
 export const MaxButton = styled.a`
-	padding: 5px;
-	border: 1px solid ${(props) => props.theme.color.grey[100]};
-	color: ${(props) => props.theme.color.grey[100]};
-	border-radius: 5px;
+	padding: ${(props) => props.theme.spacing[1]}px;
+	color: ${(props) => props.theme.color.text[100]};
+	background: ${(props) => props.theme.buttonGradient.a};
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: 1.75px solid transparent;
 	vertical-align: middle;
-	margin-right: 10px;
+	margin-right: ${(props) => props.theme.spacing[2]}px;
 	transition: 100ms;
 	user-select: none;
-	font-weight: bold;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
 	text-decoration: none;
 
 	&:hover {
-		background-color: ${(props) =>
-			lighten(0.1, props.theme.color.darkGrey[100])};
-		color: ${(props) => props.theme.color.blue[400]};
+		background: ${(props) => props.theme.buttonGradient.hover};
+		color: ${(props) => props.theme.color.text[100]};
 		cursor: pointer;
 	}
 `
 
 export const StyledBorderButton = styled(StyledButton)`
-	background:
-		linear-gradient(#1B1B29, #1B1B29) padding-box,
-		linear-gradient(135deg, #42439d, #53C7E4) border-box;
-	border-radius: 15px;
+	background: ${(props) => props.theme.buttonGradient.a};
+	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1.75px solid transparent;
-	padding: 15px;
+	padding: ${(props) => -props.theme.spacing[3]}px;
 
 	&:hover,
 	&:focus,
 	&:active {
-		background:
-			linear-gradient(225deg, #242436, #1B1B29) padding-box,
-			linear-gradient(157.5deg, #5455c9, #53C7E4) border-box;
+		background: ${(props) => props.theme.buttonGradient.hover};
 		border: 1.75px solid transparent;
 	}
-`;
+`
 
 export default Button

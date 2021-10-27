@@ -4,11 +4,12 @@ import Modal, { ModalProps } from 'components/Modal'
 import ModalActions from 'components/ModalActions'
 import ModalContent from 'components/ModalContent'
 import ModalTitle from 'components/ModalTitle'
+import Spacer from 'components/Spacer'
 import TokenInput from 'components/TokenInput'
 import React, { useCallback, useMemo, useState } from 'react'
-import { getFullDisplayBalance } from 'utils/formatBalance'
-import styled from 'styled-components'
-import Spacer from 'components/Spacer'
+import { getFullDisplayBalance } from 'utils/numberFormat'
+import { StyledInfo } from './styles'
+import ExternalLink from 'components/ExternalLink'
 
 interface DepositModalProps extends ModalProps {
 	max: BigNumber
@@ -48,18 +49,18 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		<Modal>
 			<ModalTitle text={`Deposit ${tokenName}`} />
 			<ModalContent>
-			<StyledInfo>
-				❗️ Remember a 0.75% fee will be added to the treasury when depositing.
-				75% of POLLY rewards will be locked and vested for 6 years. For more
-				information, please{' '}
-				<StyledExternalLink
-					href="https://docs.bao.finance/franchises/polly-finance"
-					target="blank"
-				>
-					{' '}
-					read the docs.
-				</StyledExternalLink>
-			</StyledInfo>
+				<StyledInfo>
+					❗️ Remember a 0.75% fee will be added to the treasury when
+					depositing. 75% of POLLY rewards will be locked and vested for 6
+					years. For more information, please{' '}
+					<ExternalLink
+						href="https://docs.bao.finance/franchises/polly-finance"
+						target="blank"
+					>
+						{' '}
+						read the docs.
+					</ExternalLink>
+				</StyledInfo>
 			</ModalContent>
 			<TokenInput
 				value={val}
@@ -86,30 +87,5 @@ const DepositModal: React.FC<DepositModalProps> = ({
 		</Modal>
 	)
 }
-
-const StyledInfo = styled.h3`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-size: 1rem;
-	font-weight: 400;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		font-size: 0.75rem;
-	  }
-`
-
-const StyledExternalLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
-	font-weight: 700;
-	text-decoration: none;
-	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.blue[400]};
-	}
-`
 
 export default DepositModal

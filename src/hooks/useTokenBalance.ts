@@ -15,7 +15,7 @@ const useTokenBalance = (tokenAddress: string) => {
   }, [account, ethereum, tokenAddress])
 
   useEffect(() => {
-    if (account && ethereum) {
+    if (account && ethereum && tokenAddress) {
       fetchBalance()
     }
   }, [account, ethereum, setBalance, tokenAddress])

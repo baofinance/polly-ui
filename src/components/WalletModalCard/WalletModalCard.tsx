@@ -6,9 +6,9 @@ const WalletModalCard: React.FC = ({ children }) => (
 )
 
 const StyledCard = styled.div`
-	background: rgba(0, 0, 0, 0.4);
-	border: 1px solid ${(props) => props.theme.color.darkGrey[200]};
-	border-radius: 12px;
+	background: ${(props) => props.theme.color.transparent[100]};
+	border: 1px solid ${(props) => props.theme.color.primary[200]};
+	border-radius: ${(props) => props.theme.borderRadius}px;
 	display: flex;
 	flex: 1;
 	flex-direction: column;

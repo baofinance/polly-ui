@@ -4,7 +4,7 @@ import { useWallet } from 'use-wallet'
 import { getAllowance } from 'utils/erc20'
 import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
-import { contractAddresses } from '../bao/lib/constants'
+import Config from '../bao/lib/config'
 
 const useOutputAllowance = (nestContract: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
@@ -14,7 +14,7 @@ const useOutputAllowance = (nestContract: Contract) => {
     const allowance = await getAllowance(
       nestContract,
       account,
-      contractAddresses.recipe[137],
+      Config.contracts.recipe[Config.networkId].address,
     )
     setAllowance(new BigNumber(allowance))
   }, [account, nestContract])

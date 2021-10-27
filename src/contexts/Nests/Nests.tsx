@@ -4,9 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import Context from './context'
 
-
-
-
 const Nests: React.FC = ({ children }) => {
 	const bao = useBao()
 	const { ethereum } = useWallet()

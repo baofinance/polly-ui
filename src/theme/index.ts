@@ -1,26 +1,41 @@
-import { black, blue, darkGrey, gold, green, grey, red, white } from './colors'
+import {
+  accent,
+  blue,
+  darkGrey,
+  green,
+  monochrome,
+  primary,
+  red,
+  secondary,
+  text,
+  transparent,
+} from './colors'
 
 const theme = {
   borderRadius: 12,
   breakpoints: {
     mobile: 576,
+    tablet: 767,
+    fhd: 992,
+    uhd: 2160,
   },
   color: {
-    black,
-    grey,
-    darkGrey,
-    primary: {
-      light: red[200],
-      main: red[200],
-    },
-    secondary: {
-      main: green[100],
-    },
-    white,
+    monochrome,
     red,
-    blue,
     green,
-    gold,
+    blue,
+    primary,
+    secondary,
+    text,
+    transparent,
+    accent,
+    darkGrey,
+  },
+  fontWeight: {
+    thin: 100,
+    regular: 300,
+    medium: 500,
+    strong: 700,
   },
   siteWidth: 1200,
   spacing: {
@@ -32,6 +47,19 @@ const theme = {
     6: 48,
     7: 64,
   },
+  boxShadow: {
+    default:
+      'inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 1px rgb(0 0 0 / 19%)',
+    hover:
+      'inset 0 0px 0 rgb(255 255 255 / 20%), 0 0px 0px rgb(0 0 0 / 19%)',
+  },
+  buttonGradient: {
+    a: 'linear-gradient(225deg, #1c1c27, #1f1c27) padding-box, linear-gradient(135deg, #373865, #53c7e4) border-box',
+    hover:
+      'linear-gradient(225deg, #242436, #1b1b29) padding-box, linear-gradient(157.5deg, #5455c9, #53c7e4) border-box',
+  },
+  heroGradient:
+    'linear-gradient(to left, #6b9aef 0%, #65c48c 33%, #1fa6e0 66%, #6b9aef 100%)',
   topBarSize: 72,
 }
 

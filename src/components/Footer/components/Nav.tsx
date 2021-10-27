@@ -1,6 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tooltipped from '../../Tooltipped'
 
 const Nav: React.FC = () => {
@@ -32,7 +32,10 @@ const Nav: React.FC = () => {
 				</StyledLink>
 			</Tooltipped>
 			<Tooltipped content="Documentation" placement="top">
-				<StyledLink target="_blank" href="https://docs.bao.finance/franchises/polly-finance">
+				<StyledLink
+					target="_blank"
+					href="https://docs.bao.finance/franchises/polly-finance"
+				>
 					<FontAwesomeIcon icon="book" />
 				</StyledLink>
 			</Tooltipped>
@@ -48,22 +51,22 @@ const Nav: React.FC = () => {
 const StyledNav = styled.nav`
 	align-items: center;
 	display: flex;
-	font-size: 24px;
+	font-size: 1.5rem;
 `
 
 const StyledLink = styled.a`
-	color: ${(props) => props.theme.color.grey[100]};
+	color: ${(props) => props.theme.color.text[100]};
 	padding-left: ${(props) => props.theme.spacing[3]}px;
 	padding-right: ${(props) => props.theme.spacing[3]}px;
 	text-decoration: none;
 
 	&:hover {
-		color: ${(props) => props.theme.color.blue[400]};
+		color: ${(props) => props.theme.color.text[300]};
 	}
 
 	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-		padding-left: 10px;
-		padding-right: 10px;
+		padding-left: ${(props) => props.theme.spacing[2]}px;
+		padding-right: ${(props) => props.theme.spacing[2]}px;
 	}
 `
 

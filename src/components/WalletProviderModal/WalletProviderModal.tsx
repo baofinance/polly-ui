@@ -2,6 +2,7 @@ import metamaskLogo from 'assets/img/metamask-fox.svg'
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import Config from '../../bao/lib/config'
 import Button from '../Button'
 import Modal, { ModalProps } from '../Modal'
 import ModalActions from '../ModalActions'
@@ -14,7 +15,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 	const { account, ethereum, connect }: any = useWallet()
 
 	useEffect(() => {
-		if (account && ethereum.chainId === '0x89') {
+		if (account && ethereum.chainId === Config.defaultRpc.chainId) {
 			onDismiss()
 		}
 	}, [account, onDismiss])
@@ -46,11 +47,11 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 const StyledWalletsWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	@media (max-width: 414px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		height: 100vh;
 		overflow-y: scroll;
 	}
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
 		flex-direction: column;
 		flex-wrap: none;
 	}

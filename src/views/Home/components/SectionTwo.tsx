@@ -1,18 +1,18 @@
-import React from 'react'
-import {
-	InfoHeader,
-	InfoText,
-	InfoContainer,
-	InfoCol,
-	InfoSubHeader,
-	InfoImageContainer,
-	InfoImageCol,
-	InfoWrapper,
-	InfoImage,
-} from './styles'
+import dao from 'assets/img/dao.svg'
 import diversify from 'assets/img/diversify.svg'
 import passiveYield from 'assets/img/passive-yield.svg'
-import dao from 'assets/img/dao.svg'
+import React from 'react'
+import {
+	InfoCol,
+	InfoContainer,
+	InfoHeader,
+	InfoImage,
+	InfoImageCol,
+	InfoImageContainer,
+	InfoSubHeader,
+	InfoText,
+	InfoWrapper,
+} from './styles'
 
 const SectionTwo: React.FC = () => (
 	<>
