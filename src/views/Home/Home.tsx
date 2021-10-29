@@ -5,7 +5,9 @@ import Bubbles, { bubbleSpecs } from './components/Bubbles'
 import HomeAnalytics from './components/HomeAnalytics'
 import SectionOne from './components/SectionOne'
 import SectionTwo from './components/SectionTwo'
+import SecuritySection from './components/SecuritySection'
 import { BubbleContainer, BubbleWrap } from './components/styles'
+
 
 const Home: React.FC = () => {
 	const bubbleRef = useRef()
@@ -25,6 +27,7 @@ const Home: React.FC = () => {
 				<SectionTwo />
 				{/* <Spacer size="lg" />
 				<PriceGraphs /> */}
+				<SecuritySection />
 			</Container>
 		</Page>
 	)
