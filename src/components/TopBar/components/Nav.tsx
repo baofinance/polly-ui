@@ -76,6 +76,7 @@ const StyledLink = styled(NavLink)`
 `
 
 const StyledAbsoluteLink = styled.a`
+	font-family: 'Rubik', sans-serif;
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
 	padding-left: ${(props) => props.theme.spacing[3]}px;
