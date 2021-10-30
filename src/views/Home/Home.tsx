@@ -7,6 +7,7 @@ import SectionOne from './components/SectionOne'
 import SectionTwo from './components/SectionTwo'
 import SecuritySection from './components/SecuritySection'
 import { BubbleContainer, BubbleWrap } from './components/styles'
+import Spacer from 'components/Spacer'
 
 
 const Home: React.FC = () => {
@@ -24,10 +25,10 @@ const Home: React.FC = () => {
 				<BubbleWrap>
 					<BubbleContainer ref={bubbleRef} />
 				</BubbleWrap>
-				<SectionTwo />
-				{/* <Spacer size="lg" />
-				<PriceGraphs /> */}
 				<SecuritySection />
+				<Spacer size="lg" />
+				<SectionTwo />
+				{/* <PriceGraphs /> */}
 			</Container>
 		</Page>
 	)

@@ -44,6 +44,11 @@ const Nav: React.FC = () => {
 					<FontAwesomeIcon icon={['fab', 'github']} />
 				</StyledLink>
 			</Tooltipped>
+			<Tooltipped content="Bug Bounty Program" placement="top">
+				<StyledLink target="_blank" href="https://www.immunefi.com/bounty/baofinance">
+					<FontAwesomeIcon icon="bug" />
+				</StyledLink>
+			</Tooltipped>
 		</StyledNav>
 	)
 }
