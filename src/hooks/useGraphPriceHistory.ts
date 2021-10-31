@@ -13,6 +13,22 @@ const useGraphPriceHistory = (nest: Nest) => {
     const data: any = await GraphClient.getPriceHistory(
       nest.nestTokenAddress.toLowerCase(),
     )
+
+    // Workaround while nSTABLE has no price data, remove soon
+    if (!data.tokens[0].dayData[1]) {
+      setRes([
+        {
+          date: new Date().toString(),
+          close: 1,
+        },
+        {
+          date: new Date().toString(),
+          close: 1,
+        },
+      ])
+      return
+    }
+
     const formattedData: Array<TimeseriesData> = data.tokens[0].dayData.map(
       (dayData: any) => ({
         date: new Date(dayData.date * 1000).toISOString(),
