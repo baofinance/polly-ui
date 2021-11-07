@@ -16,6 +16,7 @@ export default {
   addressMap: {
     uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
     uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
+    lendingLogicKashi: '0xcBA495A74e23D5B42853e41334e26DDd322Af082',
     WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
     SUSHI: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
     GRT: '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
@@ -122,9 +123,9 @@ export default {
       },
       inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
       outputToken: '0x2Bb2eF50c53E406c80875663C2A2e5592F8a3ccc',
-      symbol: 'nSTABLE',
-      name: 'nSTABLE',
-      icon: '/ndefi.svg',
+      symbol: 'nSTBL',
+      name: 'nSTBL',
+      icon: '/nstbl.svg',
       pieColors: {
         DAI: '#F5AC37',
         USDT: '#50AF95',
