@@ -239,10 +239,10 @@ export default {
       symbol: 'RAI-ETH SUSHI LP',
       tokenSymbol: 'RAI',
       icon: '/RAI.png',
-      refUrl: 
-      'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x00e5646f60ac6fb446f621d146b6e1886f002905',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x00e5646f60ac6fb446f621d146b6e1886f002905',
       pairUrl:
-      'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x00e5646f60ac6fb446f621d146b6e1886f002905',
+        'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x00e5646f60ac6fb446f621d146b6e1886f002905',
     },
     {
       pid: 0,
