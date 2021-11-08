@@ -227,6 +227,24 @@ export default {
     },
     // Begin regular pools
     {
+      pid: 22,
+      lpAddresses: {
+        137: '0x67cf45e239793a72f4bd4d46303735aeedf5d2b4',
+      },
+      tokenAddresses: {
+        137: '0x00e5646f60ac6fb446f621d146b6e1886f002905',
+      },
+      tokenDecimals: 18,
+      name: 'RAI-ETH',
+      symbol: 'RAI-ETH SUSHI LP',
+      tokenSymbol: 'RAI',
+      icon: '/RAI.png',
+      refUrl: 
+      'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x00e5646f60ac6fb446f621d146b6e1886f002905',
+      pairUrl:
+      'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x00e5646f60ac6fb446f621d146b6e1886f002905',
+    },
+    {
       pid: 0,
       lpAddresses: {
         137: '0xdfa3ddd1807db8e4b4851d2e5421374e433a2983',
