@@ -11,9 +11,9 @@ const useNestRedeem = (nid: number, redeemToWeth = true) => {
 
   const handleNestRedeem = useCallback(
     (amount: string) => {
-      return redeemToWeth
+      return redeemToWeth && nid === 1 // TODO: per-nest redeem contracts, or one contract that can redeem all nests
         ? bao
-            .getContract('nDefiRedeem') // TODO: per-nest redeem contracts, or one contract that can redeem all nests
+            .getContract('nDefiRedeem')
             .methods.redeemNestToWeth(exponentiate(amount).toString())
             .send({ from: account })
         : nestRedeem(nestContract, amount, account)
