@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react'
 import Config from '../bao/lib/config'
 import { NestComponent } from '../contexts/Nests/types'
 import GraphUtil from '../utils/graph'
+import useBao from './useBao'
+import { decimate } from '../utils/numberFormat'
 
 const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
   const [nav, setNav] = useState<
     { nav: BigNumber; mainnetNav: BigNumber } | undefined
   >()
+  const bao = useBao()
 
   useEffect(() => {
-    if (!(composition && supply)) return
+    if (!(bao && composition && supply)) return
 
     const mainnetAddresses = composition.map(
       (component: NestComponent) => MAINNET_ADDRESS_MAP[component.address],
@@ -29,7 +32,18 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
             id: mainnetPrices.tokens[i].id,
             dayData: mainnetPrices.tokens[i].dayData,
           }
-          if (parseFloat(priceInfo.dayData[0].priceUSD) <= 0) {
+          // RAI Liquidity on SUSHI mainnet is very low, causing a skew in mainnet NAV
+          // comparison. This can be removed once RAI has a large enough pool on SUSHI's
+          // mainnet exchange.
+          if (mainnetPrices.tokens[i].id === MAINNET_ADDRESS_MAP[Config.addressMap.RAI]) {
+            const raiOracle = bao.getNewContract(
+              'chainoracle.json',
+              '0x7f45273fD7C644714825345670414Ea649b50b16'
+            )
+            const raiPrice = await raiOracle.methods.latestRoundData().call()
+            mainnetPrices.tokens[i].dayData[0].priceUSD =
+              decimate(raiPrice.answer, 8).toString()
+          } else if (parseFloat(priceInfo.dayData[0].priceUSD) <= 0) {
             mainnetPrices.tokens[i].dayData[0].priceUSD = (
               await GraphUtil.getPriceFromPair(
                 wethPrice,
@@ -79,7 +93,7 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
         })
       },
     )
-  }, [composition, supply])
+  }, [bao, composition, supply])
 
   return nav
 }

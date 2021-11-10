@@ -52,7 +52,13 @@ const IssueModal: React.FC<IssueModalProps> = ({
 
 	const navDifferenceTooHigh = useMemo(
 		() =>
-			nav && nav.nav.minus(nav.mainnetNav).div(nav.nav).times(100).abs().gt(5),
+			nav &&
+				nav.nav
+					.minus(nav.mainnetNav)
+					.div(nav.nav)
+					.times(100)
+					.abs()
+					.gt(5),
 		[nav],
 	)
 
@@ -149,22 +155,17 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			<ModalTitle text={`Issue ${nestName}`} />
 			<ModalContent>
 				<Disclaimer>
-					{/* TODO: Compare RAI mainnet liquidity to LINK oracle instead of SUSHI */}
-					{/* RAI on Sushi mainnet has low liquidity, causing the mainnet NAV to */}
-					{/* be very skewed. */}
-					{nestName === 'nDEFI' && (
-						<p>
-							{navDifferenceTooHigh
-								? `The difference between NAV on mainnet ($${getDisplayBalance(
-									nav.mainnetNav,
-									0,
-								)}) and NAV on MATIC ($${getDisplayBalance(
-									nav.nav,
-									0,
-								)}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
-								: ''}
-						</p>
-					)}
+					<p>
+						{navDifferenceTooHigh
+							? `The difference between NAV on mainnet ($${getDisplayBalance(
+								nav.mainnetNav,
+								0,
+							)}) and NAV on MATIC ($${getDisplayBalance(
+								nav.nav,
+								0,
+							)}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
+							: ''}
+					</p>
 					<p>
 						Polly uses your wETH to buy the underlying assets for you from
 						SushiSwap. Minting transactions send 5% more wETH to avoid
@@ -261,7 +262,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							parseFloat(wethNeeded) < 0 ||
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
 							!nav ||
-							(navDifferenceTooHigh && nestName === 'nDEFI')
+							navDifferenceTooHigh
 						}
 						text={
 							confNo

@@ -246,19 +246,15 @@ const Nest: React.FC = () => {
 									)}
 								</StyledBadge>
 							</Tooltipped>
-							{nestTokenAddress === Config.addressMap.nDEFI && (
-								<>
-									<span style={{ marginLeft: '5px' }} />
-									<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
-										<StyledBadge>
-											<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
-											{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
-												<SpinnerLoader />
-											)}
-										</StyledBadge>
-									</Tooltipped>
-								</>
-							)}
+							<span style={{ marginLeft: '5px' }} />
+							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
+								<StyledBadge>
+									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
+									{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
+										<SpinnerLoader />
+									)}
+								</StyledBadge>
+							</Tooltipped>
 						</StatCard>
 					</Col>
 					<Col>
