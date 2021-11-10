@@ -44,7 +44,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
 	const { onNestRedeem } = useNestRedeem(nid, redeemToWeth)
-	// TODO: per-nest redeem contracts in config, or just make one contract that can redeem all nests
+	// TODO: make one contract that can redeem all nests
 	const redeemAllowance = useAllowancev2(
 		nestContract.options.address,
 		bao.getContract('nDefiRedeem').options.address,
@@ -97,22 +97,26 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 				max={fullBalance}
 				symbol={nestName}
 			/>
-			<br />
-			{/* TODO: Add approval for weth redeem contract */}
-			<FloatingLabel controlId="floatingSelect" label="Redeem To">
-				<RedeemToChoice
-					aria-label="Redeem To"
-					onChange={(e: any) =>
-						setRedeemToWeth(e.currentTarget.value === 'wETH')
-					}
-				>
-					<option>wETH</option>
-					<option>Underlying Tokens</option>
-				</RedeemToChoice>
-			</FloatingLabel>
+			{/* TODO: Redeem to wETH for all nests */}
+			{nestName === 'nDEFI' && (
+				<>
+					<br />
+					<FloatingLabel controlId="floatingSelect" label="Redeem To">
+						<RedeemToChoice
+							aria-label="Redeem To"
+							onChange={(e: any) =>
+								setRedeemToWeth(e.currentTarget.value === 'wETH')
+							}
+						>
+							<option>wETH</option>
+							<option>Underlying Tokens</option>
+						</RedeemToChoice>
+					</FloatingLabel>
+				</>
+			)}
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
-				{redeemToWeth && redeemAllowance && !redeemAllowance.gt(0) ? (
+				{redeemToWeth && nestName === 'nDEFI' && redeemAllowance && !redeemAllowance.gt(0) ? (
 					<Button
 						disabled={requestedApproval}
 						onClick={() => {
