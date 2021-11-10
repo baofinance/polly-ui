@@ -45,8 +45,8 @@ const nSTBL: React.FC = () => (
 
 		<NestHeader>Criteria</NestHeader>
 		<p>
-			For a project to be included in the Polly Stable Index, it must fit the
-			below criteria in order to reduce the risk of the index and fit the
+			For a project to be included in the Polly Stable nest, it must fit the
+			below criteria in order to reduce the risk of the nest and fit the
 			desires of the community.
 		</p>
 		<NestSubHeader>Characteristics</NestSubHeader>
@@ -122,10 +122,10 @@ const nSTBL: React.FC = () => (
 			<NestSubHeader>Emergency Maintenance</NestSubHeader>
 		</p>
 		<p>
-			The multisig holders are authorized by the community to re-balance indexes
+			The multisig holders are authorized by the community to re-balance nests
 			outside the usual schedule during moments that they collectively deem to
 			be critical emergencies. This clause will allow for quick re-balancing in
-			the event of a protocol or index being in danger of failing.
+			the event of a protocol or nest being in danger of failing.
 		</p>
 		<p>
 			An example of when this would be utilized would be if a stable coin begins
