@@ -217,7 +217,7 @@ const SPECIAL_TOKEN_ADDRESSES: any = {
   '0x3fae5e5722c51cdb5b0afd8c7082e8a6af336ee8': Config.addressMap.MATIC, // crMATIC
   '0x468a7bf78f11da82c90b17a93adb7b14999af5ab': Config.addressMap.SUSHI, // crSUSHI
   '0xd4409b8d17d5d49a7ed9ae734b0e8edba29b9ffa': Config.addressMap.SNX, // crSNX
-  '0xd51b929792cfcde30f2619e50e91513dcec89b23': Config.addressMap.USDC, // kashi USDC
+  '0x1a13f4ca1d028320a707d99520abfefca3998b7f': Config.addressMap.USDC, // amUSDC (0xd51b929792cfcde30f2619e50e91513dcec89b23 kashi USDC)
   '0x60d55f02a771d515e077c9c2403a1ef324885cec': Config.addressMap.USDT, // amUSDT
   '0x27f8d03b3a2196956ed754badc28d73be8830a6e': Config.addressMap.DAI, // amDAI
 }
