@@ -25,6 +25,7 @@ import { getContract } from 'utils/erc20'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
 import NDEFI from './components/explanations/nDEFI'
+import NSTBL from './components/explanations/nSTBL'
 import IssueModal from './components/IssueModal'
 import NavModal from './components/NavModal'
 import { Progress } from './components/Progress'
@@ -494,9 +495,9 @@ const Nest: React.FC = () => {
 				<NestBoxBreak />
 				<NestExplanation>
 					{/* TODO: Store pointer to nest description in config, this is messy */}
-					{nestTokenAddress ===
-						Config.addressMap.nDEFI && <NDEFI />}
-				</NestExplanation>
+					{nestTokenAddress === Config.addressMap.nDEFI && <NDEFI />}
+					{nestTokenAddress === Config.addressMap.nSTBL && <NSTBL />}
+						</NestExplanation>
 			</NestBox>
 		</>
 	)
