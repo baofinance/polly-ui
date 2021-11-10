@@ -56,7 +56,7 @@ export default {
     },
     recipe: {
       137: {
-        address: '0x0b9C1C7b3dA98C6b98D90960754fF7CB975B7619',
+        address: '0x0C9DF041582741b9Ae384F31209A6Dc7ea6B9Bcb',
         abi: 'recipe.json',
       },
     },
@@ -66,10 +66,10 @@ export default {
         abi: 'chainoracle.json',
       },
     },
-    nDefiRedeem: {
+    nestRedeem: {
       137: {
-        address: '0x368dcc09e2ca43a0666ea505f58c41f0d053d43e',
-        abi: 'ndefiRedeem.json',
+        address: '0x174c726ED2E30560935247C410294DB5FfEa39D4',
+        abi: 'nestRedeem.json',
       },
     },
   },
@@ -119,10 +119,10 @@ export default {
     {
       nid: 2,
       nestAddresses: {
-        137: '0x2Bb2eF50c53E406c80875663C2A2e5592F8a3ccc',
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
       },
       inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-      outputToken: '0x2Bb2eF50c53E406c80875663C2A2e5592F8a3ccc',
+      outputToken: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
       symbol: 'nSTBL',
       name: 'nSTBL',
       icon: '/nstbl.svg',

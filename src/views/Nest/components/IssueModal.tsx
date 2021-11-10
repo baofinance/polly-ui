@@ -246,7 +246,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 								? `Confirmations: ${confNo}/15`
 								: pendingTx
 									? 'Pending Confirmation'
-									: `Approve ${nestName}`
+									: `Approve wETH`
 						}
 					/>
 				) : (
@@ -267,8 +267,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							confNo
 								? `Confirmations: ${confNo}/15`
 								: pendingTx
-								? 'Pending Confirmation'
-								: 'Confirm'
+									? 'Pending Confirmation'
+									: 'Confirm'
 						}
 						onClick={async () => {
 							setPendingTx(true)
