@@ -54,8 +54,6 @@ export const StyledCards = styled.div`
 
 export const StyledLoadingWrapper = styled.div`
   align-items: center;
-  display: flex;
-  flex: 1;
   justify-content: center;
 `
 
