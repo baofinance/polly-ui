@@ -317,64 +317,66 @@ const Nest: React.FC = () => {
 				<NestAnalytics in={analyticsOpen}>
 					<NestAnalyticsContainer>
 						<NestBoxBreak />
-						<PriceGraph>
-							<NestBoxHeader style={{ float: 'left' }}>
-								Nest Price
-							</NestBoxHeader>
-							<PrefButtons>
-								{_.map(['W', 'M', 'Y'], (timeFrame) => (
-									<BootButton
-										variant="outline-primary"
-										onClick={() => setPriceHistoryTimeFrame(timeFrame)}
-										active={priceHistoryTimeFrame === timeFrame}
-										key={timeFrame}
-										style={{ marginTop: '0px', borderColor: 'transparent' }}
-									>
-										{timeFrame}
-									</BootButton>
-								))}
-							</PrefButtons>
-							<NestBoxHeader style={{ float: 'right' }}>
-								{nestPriceChange24h ? (
-									<>
-										$
-										{priceHistory &&
+						{priceHistory && priceHistory[priceHistory.length - 1].close > 0 && (
+							<PriceGraph>
+								<NestBoxHeader style={{ float: 'left' }}>
+									Nest Price
+								</NestBoxHeader>
+								<PrefButtons>
+									{_.map(['W', 'M', 'Y'], (timeFrame) => (
+										<BootButton
+											variant="outline-primary"
+											onClick={() => setPriceHistoryTimeFrame(timeFrame)}
+											active={priceHistoryTimeFrame === timeFrame}
+											key={timeFrame}
+											style={{ marginTop: '0px', borderColor: 'transparent' }}
+										>
+											{timeFrame}
+										</BootButton>
+									))}
+								</PrefButtons>
+								<NestBoxHeader style={{ float: 'right' }}>
+									{nestPriceChange24h ? (
+										<>
+											$
+											{priceHistory &&
 											getDisplayBalance(
 												new BigNumber(
 													priceHistory[priceHistory.length - 1].close,
 												),
 												0,
 											)}
-										<span
-											className="smalltext"
-											style={{
-												color: nestPriceChange24h.gt(0) ? 'green' : 'red',
-											}}
-										>
+											<span
+												className="smalltext"
+												style={{
+													color: nestPriceChange24h.gt(0) ? 'green' : 'red',
+												}}
+											>
 											{priceHistory &&
-												getDisplayBalance(nestPriceChange24h, 0)}
-											{'%'}
+											getDisplayBalance(nestPriceChange24h, 0)}
+												{'%'}
 										</span>
-									</>
-								) : (
-									<SpinnerLoader />
-								)}
-							</NestBoxHeader>
-							<GraphContainer>
-								<ParentSize>
-									{(parent) =>
-										priceHistory && (
-											<AreaGraph
-												width={parent.width}
-												height={parent.height}
-												timeseries={priceHistory}
-												timeframe={priceHistoryTimeFrame}
-											/>
-										)
-									}
-								</ParentSize>
-							</GraphContainer>
-						</PriceGraph>
+										</>
+									) : (
+										<SpinnerLoader />
+									)}
+								</NestBoxHeader>
+								<GraphContainer>
+									<ParentSize>
+										{(parent) =>
+											priceHistory && (
+												<AreaGraph
+													width={parent.width}
+													height={parent.height}
+													timeseries={priceHistory}
+													timeframe={priceHistoryTimeFrame}
+												/>
+											)
+										}
+									</ParentSize>
+								</GraphContainer>
+							</PriceGraph>
+						)}
 						<NestBoxHeader style={{ float: 'left' }}>
 							Allocation Breakdown
 						</NestBoxHeader>
@@ -495,8 +497,9 @@ const Nest: React.FC = () => {
 				</NestAnalytics>
 				<NestBoxBreak />
 				<NestExplanation>
+					{/* TODO: Store pointer to nest description in config, this is messy */}
 					{nestTokenAddress ===
-						'0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B' && <NDEFI />}
+						Config.addressMap.nDEFI && <NDEFI />}
 				</NestExplanation>
 			</NestBox>
 		</>
