@@ -207,7 +207,7 @@ export default {
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
-        'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
+        '#',
     },
     {
       pid: 15,
@@ -244,6 +244,42 @@ export default {
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
         'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
+    },
+    {
+      pid: 23,
+      lpAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      tokenAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      tokenDecimals: 18,
+      name: 'nSTBL',
+      symbol: 'nSTBL',
+      tokenSymbol: 'nSTBL',
+      icon: '/nSTBL.png',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      pairUrl:
+        '#',
+    },
+    {
+      pid: 24,
+      lpAddresses: {
+        137: '0x0c98d36908dfbe11C9A4d1F3CD8A9b94bAbA7521',
+      },
+      tokenAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      tokenDecimals: 18,
+      name: 'nSTBL-ETH',
+      symbol: 'nSTBL-ETH SUSHI LP',
+      tokenSymbol: 'nSTBL',
+      icon: '/nSTBL.png',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      pairUrl:
+        'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
     },
     // Begin regular pools
     {
