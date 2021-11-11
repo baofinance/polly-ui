@@ -254,7 +254,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 			<Card>
 				<CardContent>
 					<StyledContent>
-						{(farm.tokenSymbol === 'POLLY' || farm.tokenSymbol === 'nDEFI') && (
+						{(farm.tokenSymbol === 'POLLY' || farm.tokenSymbol === 'nDEFI' || farm.tokenSymbol === 'nSTBL') && (
 							<StyledCardAccent />
 						)}
 						<CardIcon>
