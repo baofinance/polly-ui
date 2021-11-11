@@ -27,6 +27,7 @@ export const NestBox = styled.div`
   flex-direction: column;
   padding-top: ${(props) => props.theme.spacing[6]}px;
   text-align: center;
+  width: 100%;
 
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
     width: 100%;

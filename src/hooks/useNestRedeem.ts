@@ -13,8 +13,11 @@ const useNestRedeem = (nid: number, redeemToWeth = true) => {
     (amount: string) => {
       return redeemToWeth
         ? bao
-            .getContract('nDefiRedeem') // TODO: per-nest redeem contracts, or one contract that can redeem all nests
-            .methods.redeemNestToWeth(exponentiate(amount).toString())
+            .getContract('nestRedeem')
+            .methods.redeemNestToWeth(
+              nestContract.options.address,
+              exponentiate(amount).toString()
+            )
             .send({ from: account })
         : nestRedeem(nestContract, amount, account)
     },

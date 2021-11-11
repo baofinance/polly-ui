@@ -4,53 +4,69 @@ import { NestHeader, NestList, NestSubHeader } from '../styles'
 const nSTBL: React.FC = () => (
 	<>
 		<NestHeader>Description</NestHeader>
-		<p>The Polly Stable Nest...</p>
+		<p>
+			The Polly Stable Nest provides a way to diversify counterparty risk on
+			stable assets while the underlying assets put to work earning yield on
+			various trusted yield farming protocols. Decentralized and non pegged
+			stables will be used where yield is available.
+		</p>
 
 		<NestHeader>Objective</NestHeader>
 		<p>
-			To generate revenue a defi project needs value deposited into their
-			contracts. This makes Total Value Locked (TVL) a key metric for evaluating
-			a project's ability to generate revenue. Projects with a high TVL are also
-			likely to gain more traction in the market through the network effects the
-			existing capital provides - capital attracts more capital. A good example
-			of this is with Yearn Finance. Yearn was able to generate massive amounts
-			of revenue as a result of the large amount of capital they attracted. This
-			gave them the resources to further develop and innovate their products in
-			a positive feedback loop. Yearn’s success has led to many projects such as
-			Alchemix and Abracadabra using their products and liquidity as a base
-			layer to build on.
+			To provide exposure to a diversified basket of stable coins with a focus
+			on yield and decentralization.
 		</p>
 		<p>
-			nDEFI is composed of the strongest components in the DeFi ecosystem,
-			striving to provide core coverage of the key building blocks for the
-			future of finance. With nDEFI you’ll have exposure to infrastructure,
-			lending markets, decentralized exchanges, synthetics, and yield
-			aggregators. The unique weighting formula allows the nest to invest in
-			projects gaining traction earlier and with a greater weighting than market
-			cap weighted nests.
+			By spreading risk over a number of coins, you reduce the impact of
+			problems any single tokens face. Since the nest does not automatically
+			rebalance, one stable losing its peg would not affect the other tokens in
+			the nest.
 		</p>
 		<p>
-			The Polly DeFi Nest will provide the crypto industry's first automated
-			value investing, decentralized, tokenized portfolios. When you add the
-			prospect of the underlying tokens being put to work to earn yield.
+			By focusing on decentralized stables, you also reduce exposure to
+			regulatory risk and do not rely on central issuers to continually act as
+			they should.
+		</p>
+		<p>
+			The nest will start with a mixture of centrally issued and decentralized
+			stable coins and deposit them in a variety of protocols to earn yield on
+			them, swapping strategies regularly to maximize the yield earned.
+		</p>
+		<p>
+			At the start, yield options on polygon were limited for decentralised
+			stable tokens, so to provide a greater yield farming return, USDC and
+			USDT, which are centrally issued, are included.
+		</p>
+		<p>
+			Over time, we expect the weightings of these coins to be reduced in favor
+			of decentralized alternatives once they are sufficiently mature and have
+			yield strategies that are suitable for a stables nest on polygon.
 		</p>
 
 		<NestHeader>Criteria</NestHeader>
 		<p>
-			For a project to be included in the Polly Defi Nest, it must fit the below
-			criteria in order to reduce the risk of the nest and fit the desires of
-			the community.
+			For a project to be included in the Polly Stable nest, it must fit the
+			below criteria in order to reduce the risk of the nest and fit the
+			desires of the community.
 		</p>
 		<NestSubHeader>Characteristics</NestSubHeader>
 		<NestList>
-			<li>Be a DeFi project available on the Ethereum blockchain.</li>
-			<li>Listed on DefiLlama</li>
 			<li>
-				Have at least 7.5% of the total supply in circulation and have a
-				predictable token emission over the next 5 years.
+				Be a stable token project available on the Ethereum blockchain or
+				Polygon.
 			</li>
 			<li>
-				The protocols will be selected by TVL based on DeFiLlama’s website.
+				Be in liquid markets and being used in different lending protocols.
+			</li>
+			<li>
+				The protocol must be running for 6 months before qulaifying to be
+				included in the nest.
+			</li>
+			<li>
+				In the event of a safety incident, the team must have addressed the
+				problem responsibly and promptly, providing users of the protocol a
+				reliable solution and document a detailed, transparent breakdown of the
+				incident.
 			</li>
 			<li>
 				The protocol must be running for 3 months before qualifying to be
@@ -62,8 +78,7 @@ const nSTBL: React.FC = () => (
 				reliable solution and document a detailed, transparent breakdown of the
 				incident.
 			</li>
-			<li>Be Ethereum-focused</li>
-			<li>Must be sufficiently decentralised</li>
+			<li>Must be sufficiently decentralized and/or collateralized.</li>
 		</NestList>
 
 		<NestHeader>Strategy</NestHeader>
@@ -87,8 +102,9 @@ const nSTBL: React.FC = () => (
 			are determined.
 		</p>
 		<p>
-			The TVL and FDV of each project are recorded, including new projects that
-			qualify for the nest and meet the criteria.
+			Strategies and allocation % will be revisited in order to reach the
+			balance between decentralization and having the most optimal yet secure
+			yield possible for those stables.
 		</p>
 		<p>
 			Proposed changes will be published on the governance forum for 1 week then
@@ -101,6 +117,29 @@ const nSTBL: React.FC = () => (
 			In the two weeks following a successful vote, the nest components will be
 			adjusted as per the instructions published during the final 2 weeks of the
 			quarter.
+		</p>
+		<p>
+			<NestSubHeader>Emergency Maintenance</NestSubHeader>
+		</p>
+		<p>
+			The multisig holders are authorized by the community to re-balance nests
+			outside the usual schedule during moments that they collectively deem to
+			be critical emergencies. This clause will allow for quick re-balancing in
+			the event of a protocol or nest being in danger of failing.
+		</p>
+		<p>
+			An example of when this would be utilized would be if a stable coin begins
+			losing its peg/ becoming insolvent, or a protocol suffers an exploit that
+			is not dealt with sufficiently. These scenarios may be time sensitive and
+			require immediate resolution. Thus the team may decide to act without
+			warning and explain their actions in a governance forum post afterwards,
+			or if there is deemed to be time, an emergency governance vote will be
+			posted.
+		</p>
+		<p>
+			This is intended as a safety mechanism only, to prevent loss of users
+			funds and as such would be a power exclusively exercised under extreme
+			circumstances.
 		</p>
 	</>
 )

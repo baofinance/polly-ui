@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react'
 import Web3 from 'web3'
 import { AbiItem } from 'web3-utils'
 import erc20Abi from '../bao/lib/abi/erc20.json'
-// LP Contract ABI
 import lpAbi from '../bao/lib/abi/uni_v2_lp.json'
 import Config from '../bao/lib/config'
 import GraphUtil from '../utils/graph'
@@ -16,7 +15,7 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
     await multicall.call(
       Multicall.createCallContext(
         farms.map((farm) =>
-          farm.pid === 14 // single asset farms (TODO: make single asset a config field)
+          farm.pid === 14 || farm.pid === 23 // single asset farms (TODO: make single asset a config field)
             ? ({
                 ref: farm.lpAddresses[Config.networkId],
                 contract: new web3.eth.Contract(
@@ -60,7 +59,10 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, web3: Web3) => {
   return Object.keys(results).map((key: any) => {
     const res0 = results[key]
 
-    if (key.toLowerCase() === Config.addressMap.nDEFI.toLowerCase())
+    if (
+      key.toLowerCase() === Config.addressMap.nDEFI.toLowerCase() ||
+      key.toLowerCase() === Config.addressMap.nSTBL.toLowerCase()
+    )
       return {
         singleAsset: true,
         lpAddress: key,
@@ -104,6 +106,7 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
     const tokenPrices = await GraphUtil.getPriceFromPairMultiple(wethPrice, [
       Config.addressMap.RAI,
       Config.addressMap.nDEFI,
+      Config.addressMap.nSTBL,
     ])
 
     const tvls: any[] = []
@@ -111,12 +114,11 @@ const useAllFarmTVL = (web3: Web3, multicall: MC) => {
     lps.forEach((lpInfo: any) => {
       let lpStakedUSD
       if (lpInfo.singleAsset) {
-        // Only works for nDEFI, will need to be adjusted once other single asset farms are added.
         lpStakedUSD = decimate(lpInfo.lpStaked).times(
           Object.values(tokenPrices).find(
             (priceInfo) =>
               priceInfo.address.toLowerCase() ===
-              Config.addressMap.nDEFI.toLowerCase(),
+              lpInfo.lpAddress.toLowerCase(),
           ).price,
         )
         _tvl = _tvl.plus(lpStakedUSD)

@@ -16,13 +16,15 @@ export default {
   addressMap: {
     uniswapFactory: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
     uniswapFactoryV2: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
+    lendingLogicKashi: '0xcBA495A74e23D5B42853e41334e26DDd322Af082',
     WETH: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
     SUSHI: '0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
     GRT: '0x5fe2b58c013d7601147dcdd68c143a77499f5531',
     wBTC: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
+    DAI: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
+    USDC: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
     USDT: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
     LINK: '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
-    USDC: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
     AAVE: '0xd6df932a45c0f255f85145f286ea0b292b21c90b',
     SNX: '0x50b728d8d964fd00c2d0aad81718b71311fef68a',
     CRV: '0x172370d5cd63279efa6d502dab29171933a610af',
@@ -30,6 +32,7 @@ export default {
     BAO: '0xc81278a52ad0e1485b7c3cdf79079220ddd68b7d',
     POLLY: '0x4C392822D4bE8494B798cEA17B43d48B2308109C',
     nDEFI: '0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
+    nSTBL: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
     RAI: '0x00e5646f60ac6fb446f621d146b6e1886f002905',
     DEAD: '0x000000000000000000000000000000000000dead',
   },
@@ -54,7 +57,7 @@ export default {
     },
     recipe: {
       137: {
-        address: '0x2E62EE5005c4069e82d37479f42D1a7Aa2C1B8ba',
+        address: '0x0C9DF041582741b9Ae384F31209A6Dc7ea6B9Bcb',
         abi: 'recipe.json',
       },
     },
@@ -64,10 +67,10 @@ export default {
         abi: 'chainoracle.json',
       },
     },
-    nDefiRedeem: {
+    nestRedeem: {
       137: {
-        address: '0x368dcc09e2ca43a0666ea505f58c41f0d053d43e',
-        abi: 'ndefiRedeem.json',
+        address: '0x174c726ED2E30560935247C410294DB5FfEa39D4',
+        abi: 'nestRedeem.json',
       },
     },
   },
@@ -112,6 +115,23 @@ export default {
         UMA: '#FF494A',
         ALPHA: '#27B2FE',
         BAL: '#b9b9b9',
+      },
+    },
+    {
+      nid: 2,
+      nestAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+      outputToken: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      symbol: 'nSTBL',
+      name: 'nSTBL',
+      icon: '/nstbl.svg',
+      pieColors: {
+        DAI: '#F5AC37',
+        USDT: '#50AF95',
+        RAI: '#68FEE2',
+        USDC: '#2775CA',
       },
     },
   ],
@@ -187,7 +207,7 @@ export default {
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
-        'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
+        '#',
     },
     {
       pid: 15,
@@ -224,6 +244,42 @@ export default {
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
         'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
+    },
+    {
+      pid: 23,
+      lpAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      tokenAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      tokenDecimals: 18,
+      name: 'nSTBL',
+      symbol: 'nSTBL',
+      tokenSymbol: 'nSTBL',
+      icon: '/nSTBL.png',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      pairUrl:
+        '#',
+    },
+    {
+      pid: 24,
+      lpAddresses: {
+        137: '0x0c98d36908dfbe11C9A4d1F3CD8A9b94bAbA7521',
+      },
+      tokenAddresses: {
+        137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      },
+      tokenDecimals: 18,
+      name: 'nSTBL-ETH',
+      symbol: 'nSTBL-ETH SUSHI LP',
+      tokenSymbol: 'nSTBL',
+      icon: '/nSTBL.png',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      pairUrl:
+        'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
     },
     // Begin regular pools
     {

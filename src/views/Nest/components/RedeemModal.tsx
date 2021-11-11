@@ -44,15 +44,15 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
 	const { onNestRedeem } = useNestRedeem(nid, redeemToWeth)
-	// TODO: per-nest redeem contracts in config, or just make one contract that can redeem all nests
+	// TODO: make one contract that can redeem all nests
 	const redeemAllowance = useAllowancev2(
 		nestContract.options.address,
-		bao.getContract('nDefiRedeem').options.address,
+		bao.getContract('nestRedeem').options.address,
 		pendingTx
 	)
 	const { onApprove: onApproveRedeem } = useApprovev2(
 		nestContract,
-		bao.getContract('nDefiRedeem'),
+		bao.getContract('nestRedeem'),
 	)
 
 	const handleChange = useCallback(
@@ -98,7 +98,6 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 				symbol={nestName}
 			/>
 			<br />
-			{/* TODO: Add approval for weth redeem contract */}
 			<FloatingLabel controlId="floatingSelect" label="Redeem To">
 				<RedeemToChoice
 					aria-label="Redeem To"

@@ -82,16 +82,27 @@ const useComposition = (nest: Nest) => {
                   component.toLowerCase(),
                 )
               )
-                mcContracts.push({
-                  ref: 'creamContract',
-                  contract: getCreamContract(ethereum, component),
-                  calls: [{ method: 'exchangeRateCurrent' }],
-                })
+                mcContracts.push(
+                  {
+                    ref: 'creamContract',
+                    contract: getCreamContract(ethereum, component),
+                    calls: [{ method: 'exchangeRateCurrent' }],
+                  },
+                  {
+                    ref: 'lendingLogicKashi',
+                    contract: bao.getNewContract(
+                      'lendingLogicKashi.json',
+                      Config.addressMap.lendingLogicKashi
+                    ),
+                    calls: [{ method: 'exchangeRateView', params: [component] }]
+                  }
+                )
               const _multicallContext = MultiCall.createCallContext(mcContracts)
               const {
                 specialContract: results,
                 componentToken: componentResults,
                 creamContract: creamResults,
+                lendingLogicKashi: kashiResults,
               } = MultiCall.parseCallResults(
                 await bao.multicall.call(_multicallContext),
               )
@@ -100,17 +111,17 @@ const useComposition = (nest: Nest) => {
               componentBalance = componentResults[0].values[0].hex
 
               // Special corrections for the price of lending assets etc.
-              if (_getStrategy(specialSymbol) === 'CREAM') {
+              const _strategy = _getStrategy(specialSymbol)
+              if (_strategy === 'CREAM') {
                 const exchangeRate = new BigNumber(
                   creamResults[0].values[0].hex,
                 )
-                const underlying = getBalanceNumber(
-                  new BigNumber(exchangeRate).times(componentBalance),
-                  18,
+                const underlying = decimate(
+                  new BigNumber(exchangeRate).times(componentBalance)
                 )
                 baseBalance = decimate(underlying, 18)
                 basePrice = new BigNumber(price)
-                price = new BigNumber(price).times(
+                price = basePrice.times(
                   new BigNumber(
                     getBalanceNumber(new BigNumber(underlying).plus(1)),
                   ).div(
@@ -120,6 +131,15 @@ const useComposition = (nest: Nest) => {
                     ),
                   ),
                 )
+              } else if (_strategy === 'KASHI') {
+                const exchangeRate = decimate(kashiResults[0].values[0].hex)
+                const underlying = new BigNumber(componentBalance).times(exchangeRate)
+                baseBalance = decimate(
+                  underlying,
+                  specialDecimals
+                )
+                basePrice = new BigNumber(price)
+                price = basePrice.times(exchangeRate)
               }
             }
 
@@ -197,6 +217,9 @@ const SPECIAL_TOKEN_ADDRESSES: any = {
   '0x3fae5e5722c51cdb5b0afd8c7082e8a6af336ee8': Config.addressMap.MATIC, // crMATIC
   '0x468a7bf78f11da82c90b17a93adb7b14999af5ab': Config.addressMap.SUSHI, // crSUSHI
   '0xd4409b8d17d5d49a7ed9ae734b0e8edba29b9ffa': Config.addressMap.SNX, // crSNX
+  '0x1a13f4ca1d028320a707d99520abfefca3998b7f': Config.addressMap.USDC, // amUSDC (0xd51b929792cfcde30f2619e50e91513dcec89b23 kashi USDC)
+  '0x60d55f02a771d515e077c9c2403a1ef324885cec': Config.addressMap.USDT, // amUSDT
+  '0x27f8d03b3a2196956ed754badc28d73be8830a6e': Config.addressMap.DAI, // amDAI
 }
 
 // Special cases for token addresses (i.e. lending strategies)
@@ -204,7 +227,13 @@ const _getTokenAddress = (tokenAddress: string) =>
   SPECIAL_TOKEN_ADDRESSES[tokenAddress.toLowerCase()] || tokenAddress
 
 const _getStrategy = (symbol: string) =>
-  symbol.startsWith('cr') ? 'CREAM' : symbol.startsWith('am') ? 'AAVE' : 'NONE'
+  symbol.startsWith('cr')
+    ? 'CREAM'
+    : symbol.startsWith('am')
+      ? 'AAVE'
+      : symbol.startsWith('km')
+        ? 'KASHI'
+        : 'NONE'
 
 // Special cases for image URLS, i.e. wrapped assets
 const _getImageURL = (symbol: string) =>

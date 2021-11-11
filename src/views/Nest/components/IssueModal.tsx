@@ -11,8 +11,8 @@ import NestTokenInput from 'components/NestTokenInput'
 import NestTokenOutput from 'components/NestTokenOutput'
 import Spacer from 'components/Spacer'
 import useBao from 'hooks/useBao'
-import useInputAllowance from 'hooks/useInputAllowance'
-import useInputApprove from 'hooks/useInputApprove'
+import useAllowancev2 from '../../../hooks/useAllowancev2'
+import useApprovev2 from '../../../hooks/useApprovev2'
 import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
@@ -48,16 +48,17 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const [wethNeeded, setWethNeeded] = useState('')
 	const [pendingTx, setPendingTx] = useState(false)
 	const [confNo, setConfNo] = useState<number | undefined>()
-
 	const [requestedApproval, setRequestedApproval] = useState(false)
-
-	const allowance = useInputAllowance(inputTokenContract)
-	const { onApprove } = useInputApprove(inputTokenContract)
-	const { wethPerIndex } = useNestRate(nestAddress)
 
 	const navDifferenceTooHigh = useMemo(
 		() =>
-			nav && nav.nav.minus(nav.mainnetNav).div(nav.nav).times(100).abs().gt(5),
+			nav &&
+				nav.nav
+					.minus(nav.mainnetNav)
+					.div(nav.nav)
+					.times(100)
+					.abs()
+					.gt(5),
 		[nav],
 	)
 
@@ -131,20 +132,17 @@ const IssueModal: React.FC<IssueModalProps> = ({
 		[setWethNeeded],
 	)
 
-	const handleApprove = useCallback(async () => {
-		try {
-			setRequestedApproval(true)
-			const txHash = await onApprove()
-			// user rejected tx or didn't go thru
-			if (!txHash) {
-				setRequestedApproval(false)
-			}
-		} catch (e) {
-			console.log(e)
-		}
-	}, [onApprove, setRequestedApproval])
-
 	const bao = useBao()
+	const issueAllowance = useAllowancev2(
+		Config.addressMap.WETH,
+		bao.getContract('recipe').options.address,
+		pendingTx
+	)
+	const { onApprove: onApproveIssue } = useApprovev2(
+		bao.getNewContract('erc20.json', Config.addressMap.WETH),
+		bao.getContract('recipe'),
+	)
+	const { wethPerIndex } = useNestRate(nestAddress)
 	const recipeContract = getRecipeContract(bao)
 	const { onIssue } = useNestIssue(nestAddress)
 	const wethBalance = useTokenBalance(Config.addressMap.WETH)
@@ -160,12 +158,12 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					<p>
 						{navDifferenceTooHigh
 							? `The difference between NAV on mainnet ($${getDisplayBalance(
-									nav.mainnetNav,
-									0,
-							  )}) and NAV on MATIC ($${getDisplayBalance(
-									nav.nav,
-									0,
-							  )}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
+								nav.mainnetNav,
+								0,
+							)}) and NAV on MATIC ($${getDisplayBalance(
+								nav.nav,
+								0,
+							)}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
 							: ''}
 					</p>
 					<p>
@@ -223,11 +221,34 @@ const IssueModal: React.FC<IssueModalProps> = ({
 			/>
 			<ModalActions>
 				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
-				{!allowance.toNumber() ? (
+				{issueAllowance && !issueAllowance.gt(0) ? (
 					<Button
 						disabled={requestedApproval}
-						onClick={handleApprove}
-						text={`Approve ${inputTokenName}`}
+						onClick={() => {
+							setPendingTx(true)
+							setRequestedApproval(true)
+							onApproveIssue()
+								.on('confirmation', (_confNo: any) => {
+									if (_confNo < 15) {
+										setConfNo(_confNo)
+									} else if (_confNo >= 15) {
+										setConfNo(undefined)
+										setRequestedApproval(false)
+										setPendingTx(false)
+									}
+								})
+								.on('error', () => {
+									setRequestedApproval(false)
+									setPendingTx(false)
+								})
+						}}
+						text={
+							confNo
+								? `Confirmations: ${confNo}/15`
+								: pendingTx
+									? 'Pending Confirmation'
+									: `Approve wETH`
+						}
 					/>
 				) : (
 					<Button
@@ -247,8 +268,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							confNo
 								? `Confirmations: ${confNo}/15`
 								: pendingTx
-								? 'Pending Confirmation'
-								: 'Confirm'
+									? 'Pending Confirmation'
+									: 'Confirm'
 						}
 						onClick={async () => {
 							setPendingTx(true)

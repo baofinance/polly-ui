@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react'
 import Config from '../bao/lib/config'
 import { NestComponent } from '../contexts/Nests/types'
 import GraphUtil from '../utils/graph'
+import useBao from './useBao'
+import { decimate } from '../utils/numberFormat'
 
 const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
   const [nav, setNav] = useState<
     { nav: BigNumber; mainnetNav: BigNumber } | undefined
   >()
+  const bao = useBao()
 
   useEffect(() => {
-    if (!(composition && supply)) return
+    if (!(bao && composition && supply)) return
 
     const mainnetAddresses = composition.map(
       (component: NestComponent) => MAINNET_ADDRESS_MAP[component.address],
@@ -29,7 +32,18 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
             id: mainnetPrices.tokens[i].id,
             dayData: mainnetPrices.tokens[i].dayData,
           }
-          if (parseFloat(priceInfo.dayData[0].priceUSD) <= 0) {
+          // RAI Liquidity on SUSHI mainnet is very low, causing a skew in mainnet NAV
+          // comparison. This can be removed once RAI has a large enough pool on SUSHI's
+          // mainnet exchange.
+          if (mainnetPrices.tokens[i].id === MAINNET_ADDRESS_MAP[Config.addressMap.RAI]) {
+            const raiOracle = bao.getNewContract(
+              'chainoracle.json',
+              '0x7f45273fD7C644714825345670414Ea649b50b16'
+            )
+            const raiPrice = await raiOracle.methods.latestRoundData().call()
+            mainnetPrices.tokens[i].dayData[0].priceUSD =
+              decimate(raiPrice.answer, 8).toString()
+          } else if (parseFloat(priceInfo.dayData[0].priceUSD) <= 0) {
             mainnetPrices.tokens[i].dayData[0].priceUSD = (
               await GraphUtil.getPriceFromPair(
                 wethPrice,
@@ -79,7 +93,7 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
         })
       },
     )
-  }, [composition, supply])
+  }, [bao, composition, supply])
 
   return nav
 }
@@ -119,6 +133,14 @@ const MAINNET_ADDRESS_MAP: any = {
     '0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828', // UMA
   '0x3ae490db48d74b1bc626400135d4616377d0109f':
     '0xa1faa113cbe53436df28ff0aee54275c13b40975', // ALPHA
+  '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063':
+    '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
+  '0x00e5646f60ac6fb446f621d146b6e1886f002905':
+    '0x03ab458634910aad20ef5f1c8ee96f1d6ac54919', // RAI
+  '0xc2132d05d31c914a87c6611c10748aeb04b58e8f':
+    '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
+  '0x2791bca1f2de4661ed88a30c99a7a9449aa84174':
+    '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
 }
 
 export default useNav

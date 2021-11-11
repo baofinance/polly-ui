@@ -1,0 +1,163 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_weth",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_sushiRouter",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_recipe",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_lendingRegistry",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "lendingRegistry",
+    "outputs": [
+      {
+        "internalType": "contract ILendingRegistry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "recipe",
+    "outputs": [
+      {
+        "internalType": "contract IRecipe",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nestAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nestAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "redeemNestToWeth",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newLendingRegistry",
+        "type": "address"
+      }
+    ],
+    "name": "updateLendingRegistry",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newRecipe",
+        "type": "address"
+      }
+    ],
+    "name": "updateRecipe",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newSushiRouter",
+        "type": "address"
+      }
+    ],
+    "name": "updateSushiRouter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

@@ -163,7 +163,11 @@ const FarmCards: React.FC = () => {
 							))
 						) : (
 							<StyledLoadingWrapper>
-								<SpinnerLoader />
+								Experiencing long load times? Consider changing to Polygon's unified RPC,{' '}
+								<a href={"https://polygon-rpc.com"}>https://polygon-rpc.com</a>
+								<br />
+								<br />
+								<SpinnerLoader block />
 							</StyledLoadingWrapper>
 						)}
 					</StyledCards>
@@ -250,7 +254,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 			<Card>
 				<CardContent>
 					<StyledContent>
-						{(farm.tokenSymbol === 'POLLY' || farm.tokenSymbol === 'nDEFI') && (
+						{(farm.tokenSymbol === 'POLLY' || farm.tokenSymbol === 'nDEFI' || farm.tokenSymbol === 'nSTBL') && (
 							<StyledCardAccent />
 						)}
 						<CardIcon>
