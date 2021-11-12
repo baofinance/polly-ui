@@ -166,6 +166,12 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							)}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
 							: ''}
 					</p>
+					{nestName === 'nSTBL' && (
+						<p>
+							Due to low liquidity, there is a mint limit in place for 10 nSTBL.{' '}
+							As liquidity for RAI on Polygon goes up, the limit will increase.
+						</p>
+					)}
 					<p>
 						Polly uses your wETH to buy the underlying assets for you from
 						SushiSwap. Minting transactions send 5% more wETH to avoid
@@ -262,7 +268,8 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							parseFloat(wethNeeded) < 0 ||
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
 							!nav ||
-							navDifferenceTooHigh
+							navDifferenceTooHigh ||
+							(nestName === 'nSTBL' && parseFloat(nestAmount) > 10)
 						}
 						text={
 							confNo
