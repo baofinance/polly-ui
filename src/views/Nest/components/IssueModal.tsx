@@ -11,8 +11,6 @@ import NestTokenInput from 'components/NestTokenInput'
 import NestTokenOutput from 'components/NestTokenOutput'
 import Spacer from 'components/Spacer'
 import useBao from 'hooks/useBao'
-import useAllowancev2 from '../../../hooks/useAllowancev2'
-import useApprovev2 from '../../../hooks/useApprovev2'
 import useNestIssue from 'hooks/useNestIssue'
 import useNestRate from 'hooks/useNestRate'
 import useTokenBalance from 'hooks/useTokenBalance'
@@ -20,6 +18,8 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { getDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
 import Config from '../../../bao/lib/config'
+import useAllowancev2 from '../../../hooks/useAllowancev2'
+import useApprovev2 from '../../../hooks/useApprovev2'
 import { CloseButton, Disclaimer, HidePrice } from './styles'
 
 interface IssueModalProps extends ModalProps {
@@ -53,12 +53,12 @@ const IssueModal: React.FC<IssueModalProps> = ({
 	const navDifferenceTooHigh = useMemo(
 		() =>
 			nav &&
-				nav.nav
-					.minus(nav.mainnetNav)
-					.div(nav.nav)
-					.times(100)
-					.abs()
-					.gt(5),
+			nav.nav
+				.minus(nav.mainnetNav)
+				.div(nav.nav)
+				.times(100)
+				.abs()
+				.gt(5),
 		[nav],
 	)
 
@@ -168,7 +168,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 					</p>
 					{nestName === 'nSTBL' && (
 						<p>
-							Due to low liquidity, there is a mint limit in place for 10 nSTBL.{' '}
+							Due to low liquidity, there is a mint limit in place for 10,000 nSTBL.{' '}
 							As liquidity for RAI on Polygon goes up, the limit will increase.
 						</p>
 					)}
@@ -269,7 +269,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
 							!nav ||
 							navDifferenceTooHigh ||
-							(nestName === 'nSTBL' && parseFloat(nestAmount) > 10)
+							(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
 						}
 						text={
 							confNo
