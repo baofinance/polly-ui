@@ -58,7 +58,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				.div(nav.nav)
 				.times(100)
 				.abs()
-				.gt(5),
+				.gt(2),
 		[nav],
 	)
 
