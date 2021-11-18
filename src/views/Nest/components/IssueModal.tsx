@@ -58,19 +58,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 				.div(nav.nav)
 				.times(100)
 				.abs()
-				.gt(5),
-		[nav],
-	)
-
-	const nstblNavDifferenceTooHigh = useMemo(
-		() =>
-			nav &&
-			nav.nav
-				.minus(nav.mainnetNav)
-				.div(nav.nav)
-				.times(100)
-				.abs()
-				.gt(2),
+				.gt(nestName === 'nSTBL' && '2' || '5'),
 		[nav],
 	)
 
@@ -175,7 +163,7 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							)}) and NAV on MATIC ($${getDisplayBalance(
 								nav.nav,
 								0,
-							)}) is greater than 5%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 5% range in order to prevent loss of funds.`
+							)}) is greater than (${nestName === 'nSTBL' && '2%' || '5%'}). Minting from the UI is disabled until underlying asset prices are arbitraged within the (${nestName === 'nSTBL' && '2%' || '5%'}) range in order to prevent loss of funds.`
 							: ''}
 					</p>
 					{nestName === 'nSTBL' && (
@@ -183,17 +171,6 @@ const IssueModal: React.FC<IssueModalProps> = ({
 							<p>
 								Due to low liquidity, there is a mint limit in place for 10,000 nSTBL.{' '}
 								As liquidity for RAI on Polygon goes up, the limit will increase.
-							</p>
-							<p>
-								{nstblNavDifferenceTooHigh
-									? `The difference between NAV on mainnet ($${getDisplayBalance(
-										nav.mainnetNav,
-										0,
-									)}) and NAV on MATIC ($${getDisplayBalance(
-										nav.nav,
-										0,
-									)}) is greater than 2%. Minting from the UI is disabled until underlying asset prices are arbitraged within the 2% range in order to prevent loss of funds.`
-									: ''}
 							</p>
 						</>
 					)}
