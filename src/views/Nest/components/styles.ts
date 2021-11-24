@@ -132,7 +132,6 @@ export const GraphContainer = styled(Col)`
   border-radius: ${(props) => props.theme.borderRadius}px;
   overflow: hidden;
   background: ${(props) => props.theme.color.transparent[100]};
-  padding-top: 25px;
 
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
     height: 250px;
