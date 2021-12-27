@@ -48,7 +48,7 @@ const StyledText = styled.span`
 	letter-spacing: 0.03em;
 	margin-left: ${(props) => props.theme.spacing[2]}px;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
 		display: none;
 	}
 `

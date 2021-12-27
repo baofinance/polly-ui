@@ -25,10 +25,10 @@ const Home: React.FC = () => {
 				<BubbleWrap>
 					<BubbleContainer ref={bubbleRef} />
 				</BubbleWrap>
-				<SecuritySection />
-				<Spacer size="lg" />
 				<SectionTwo />
 				{/* <PriceGraphs /> */}
+				<SecuritySection />
+				<Spacer size="lg" />
 			</Container>
 		</Page>
 	)

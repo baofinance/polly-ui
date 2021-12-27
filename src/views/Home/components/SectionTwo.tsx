@@ -22,7 +22,6 @@ const SectionTwo: React.FC = () => (
 					<InfoImage src={diversify} />
 				</InfoImageContainer>
 			</InfoImageCol>
-
 			<InfoCol>
 				<InfoContainer>
 					<InfoHeader>
@@ -51,7 +50,6 @@ const SectionTwo: React.FC = () => (
 					</InfoText>
 				</InfoContainer>
 			</InfoCol>
-
 			<InfoImageCol xs={{ order: 1 }} lg={{ order: 2 }}>
 				<InfoImageContainer>
 					<InfoImage src={passiveYield} />
@@ -65,7 +63,6 @@ const SectionTwo: React.FC = () => (
 					<InfoImage src={dao} />
 				</InfoImageContainer>
 			</InfoImageCol>
-
 			<InfoCol>
 				<InfoContainer>
 					<InfoHeader>
