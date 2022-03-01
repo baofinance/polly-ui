@@ -149,7 +149,8 @@ export default {
       name: 'POLLY-ETH',
       symbol: 'POLLY-ETH SUSHI LP',
       tokenSymbol: 'POLLY',
-      icon: '/POLLY.png',
+      iconA: '/POLLY.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4C392822D4bE8494B798cEA17B43d48B2308109C',
       pairUrl:
@@ -167,7 +168,8 @@ export default {
       name: 'POLLY-nDEFI',
       symbol: 'POLLY-nDEFI SUSHI LP',
       tokenSymbol: 'POLLY',
-      icon: '/POLLY.png',
+      iconA: '/POLLY.png',
+      iconB: 'nDEFI.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4C392822D4bE8494B798cEA17B43d48B2308109C',
       pairUrl:
@@ -185,7 +187,8 @@ export default {
       name: 'POLLY-RAI',
       symbol: 'POLLY-RAI SUSHI LP',
       tokenSymbol: 'POLLY',
-      icon: '/POLLY.png',
+      iconA: '/POLLY.png',
+      iconB: 'RAI.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4C392822D4bE8494B798cEA17B43d48B2308109C',
       pairUrl:
@@ -203,7 +206,8 @@ export default {
       name: 'nDEFI',
       symbol: 'nDEFI',
       tokenSymbol: 'nDEFI',
-      icon: '/nDEFI.png',
+      iconA: '/nDEFI.png',
+      iconB: '',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
@@ -221,7 +225,8 @@ export default {
       name: 'nDEFI-RAI',
       symbol: 'nDEFI-RAI SUSHI LP',
       tokenSymbol: 'nDEFI',
-      icon: '/nDEFI.png',
+      iconA: '/nDEFI.png',
+      iconB: '/RAI.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
@@ -239,7 +244,8 @@ export default {
       name: 'nDEFI-ETH',
       symbol: 'nDEFI-ETH SUSHI LP',
       tokenSymbol: 'nDEFI',
-      icon: '/nDEFI.png',
+      iconA: '/nDEFI.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
@@ -257,7 +263,8 @@ export default {
       name: 'nSTBL',
       symbol: 'nSTBL',
       tokenSymbol: 'nSTBL',
-      icon: '/nSTBL.png',
+      iconA: '/nSTBL.png',
+      iconB: '',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
       pairUrl:
@@ -275,7 +282,8 @@ export default {
       name: 'nSTBL-ETH',
       symbol: 'nSTBL-ETH SUSHI LP',
       tokenSymbol: 'nSTBL',
-      icon: '/nSTBL.png',
+      iconA: '/nSTBL.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
       pairUrl:
@@ -294,7 +302,8 @@ export default {
       name: 'RAI-ETH',
       symbol: 'RAI-ETH SUSHI LP',
       tokenSymbol: 'RAI',
-      icon: '/RAI.png',
+      iconA: '/RAI.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x00e5646f60ac6fb446f621d146b6e1886f002905',
       pairUrl:
@@ -312,7 +321,8 @@ export default {
       name: 'YFI-ETH',
       symbol: 'YFI-ETH SUSHI LP',
       tokenSymbol: 'YFI',
-      icon: '/YFI.png',
+      iconA: '/YFI.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xda537104d6a5edd53c6fbba9a898708e465260b6',
       pairUrl:
@@ -330,7 +340,8 @@ export default {
       name: 'CVX-ETH',
       symbol: 'CVX-ETH SUSHI LP',
       tokenSymbol: 'CVX',
-      icon: '/CVX.png',
+      iconA: '/CVX.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4257EA7637c355F81616050CbB6a9b709fd72683',
       pairUrl:
@@ -348,7 +359,8 @@ export default {
       name: 'ALPHA-ETH',
       symbol: 'ALPHA-ETH SUSHI LP',
       tokenSymbol: 'ALPHA',
-      icon: '/ALPHA.png',
+      iconA: '/ALPHA.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3AE490db48d74B1bC626400135d4616377D0109f',
       pairUrl:
@@ -366,7 +378,8 @@ export default {
       name: 'UNI-ETH',
       symbol: 'UNI-ETH SUSHI LP',
       tokenSymbol: 'UNI',
-      icon: '/UNI.png',
+      iconA: '/UNI.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xb33eaad8d922b1083446dc23f610c2567fb5180f',
       pairUrl:
@@ -384,7 +397,8 @@ export default {
       name: 'SUSHI-ETH',
       symbol: 'SUSHI-ETH SUSHI LP',
       tokenSymbol: 'SUSHI',
-      icon: '/SUSHI.png',
+      iconA: '/SUSHI.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a',
       pairUrl:
@@ -402,7 +416,8 @@ export default {
       name: 'CRV-ETH',
       symbol: 'CRV-ETH SUSHI LP',
       tokenSymbol: 'CRV',
-      icon: '/CRV.png',
+      iconA: '/CRV.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x172370d5cd63279efa6d502dab29171933a610af',
       pairUrl:
@@ -420,7 +435,8 @@ export default {
       name: 'BAL-ETH',
       symbol: 'BAL-ETH SUSHI LP',
       tokenSymbol: 'BAL',
-      icon: '/BAL.png',
+      iconA: '/BAL.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3',
       pairUrl:
@@ -438,7 +454,8 @@ export default {
       name: 'COMP-ETH',
       symbol: 'COMP-ETH SUSHI LP',
       tokenSymbol: 'COMP',
-      icon: '/COMP.png',
+      iconA: '/COMP.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x8505b9d2254a7ae468c0e9dd10ccea3a837aef5c',
       pairUrl:
@@ -456,7 +473,8 @@ export default {
       name: 'MKR-ETH',
       symbol: 'MKR-ETH SUSHI LP',
       tokenSymbol: 'MKR',
-      icon: '/MKR.png',
+      iconA: '/MKR.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x6f7C932e7684666C9fd1d44527765433e01fF61d',
       pairUrl:
@@ -474,7 +492,8 @@ export default {
       name: 'ALCX-ETH',
       symbol: 'ALCX-ETH SUSHI LP',
       tokenSymbol: 'ALCX',
-      icon: '/ALCX.png',
+      iconA: '/ALCX.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x95c300e7740D2A88a44124B424bFC1cB2F9c3b89',
       pairUrl:
@@ -492,7 +511,8 @@ export default {
       name: 'LINK-ETH',
       symbol: 'LINK-ETH SUSHI LP',
       tokenSymbol: 'LINK',
-      icon: '/LINK.png',
+      iconA: '/LINK.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
       pairUrl:
@@ -510,7 +530,8 @@ export default {
       name: `SNX-ETH`,
       symbol: 'SNX-ETH SUSHI LP',
       tokenSymbol: 'SNX',
-      icon: '/SNX.png',
+      iconA: '/SNX.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x50b728d8d964fd00c2d0aad81718b71311fef68a',
       pairUrl:
@@ -528,7 +549,8 @@ export default {
       name: `UMA-ETH`,
       symbol: 'UMA-ETH SUSHI LP',
       tokenSymbol: 'UMA',
-      icon: '/UMA.png',
+      iconA: '/UMA.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x3066818837c5e6ed6601bd5a91b0762877a6b731',
       pairUrl:
@@ -546,7 +568,8 @@ export default {
       name: `BAO-ETH`,
       symbol: 'BAO-ETH SUSHI LP',
       tokenSymbol: 'BAO',
-      icon: '/BAO.png',
+      iconA: '/BAO.png',
+      iconB: '/WETH.png',
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xc81278a52AD0e1485B7C3cDF79079220Ddd68b7D',
       pairUrl:

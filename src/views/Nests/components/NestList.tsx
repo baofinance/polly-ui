@@ -1,7 +1,7 @@
 import Loader from 'components/Loader'
 import { Nest } from 'contexts/Nests'
 import { IndexType } from 'contexts/Nests/types'
-import useNests from 'hooks/useNests'
+import useNests from 'hooks/baskets/useNests'
 import React from 'react'
 import 'react-tabs/style/react-tabs.css'
 import { useWallet } from 'use-wallet'

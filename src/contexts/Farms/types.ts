@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js/bignumber'
 import { Contract } from 'web3-eth-contract'
 
 export enum PoolType {
-  SUSHI = 'sushi',
+  ACTIVE = 'active',
   POLLY = 'polly',
   ARCHIVED = 'archived',
 }
@@ -17,7 +17,8 @@ export interface Farm {
   tokenDecimals: number
   earnToken: string
   earnTokenAddress: string
-  icon: string
+  iconA: string
+  iconB: string
   id: string
   tokenSymbol: string
   refUrl: string

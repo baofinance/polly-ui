@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BigNumber from 'bignumber.js'
-import Button from 'components/Button'
+import { Button } from 'components/Button'
 import Modal, { ModalProps } from 'components/Modal'
 import ModalActions from 'components/ModalActions'
 import ModalTitle from 'components/ModalTitle'
@@ -10,11 +10,11 @@ import { getFullDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
 import { CloseButton } from './styles'
 import { Form, FloatingLabel } from 'react-bootstrap'
-import useNestRedeem from '../../../hooks/useNestRedeem'
+import useNestRedeem from '../../../hooks/baskets/useNestRedeem'
 import styled from 'styled-components'
-import useAllowancev2 from '../../../hooks/useAllowancev2'
-import useBao from '../../../hooks/useBao'
-import useApprovev2 from '../../../hooks/useApprovev2'
+import useAllowancev2 from '../../../hooks/base/useAllowancev2'
+import useBao from '../../../hooks/base/useBao'
+import useApprovev2 from '../../../hooks/base/useApprovev2'
 
 interface WithdrawModalProps extends ModalProps {
 	max: BigNumber

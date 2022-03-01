@@ -1,5 +1,5 @@
 import { SpinnerLoader } from 'components/Loader'
-import useHomeAnalytics from 'hooks/useHomeAnalytics'
+import useHomeAnalytics from 'hooks/base/useHomeAnalytics'
 import React from 'react'
 import { Analytic, AnalyticsContainer } from './styles'
 

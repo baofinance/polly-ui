@@ -3,8 +3,8 @@ import { ethers } from 'ethers'
 import _ from 'lodash'
 import { Contract } from 'web3-eth-contract'
 import { Farm } from '../contexts/Farms'
-import Multicall from '../utils/multicall'
-import { decimate, exponentiate } from '../utils/numberFormat'
+import Multicall from 'utils/multicall'
+import { decimate, exponentiate } from 'utils/numberFormat'
 import { Bao } from './Bao'
 import Config from './lib/config'
 
@@ -75,7 +75,8 @@ export const getFarms = (bao: Bao): Farm[] => {
           pid,
           name,
           symbol,
-          icon,
+          iconA,
+          iconB,
           tokenAddress,
           tokenDecimals,
           tokenSymbol,
@@ -97,7 +98,8 @@ export const getFarms = (bao: Bao): Farm[] => {
           tokenContract,
           earnToken: 'POLLY',
           earnTokenAddress: bao.getContract('polly').options.address,
-          icon,
+          iconA,
+          iconB,
           refUrl,
           pairUrl,
         }),

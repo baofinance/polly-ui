@@ -16,7 +16,7 @@ export const StyledAlert = styled(Alert)`
     vertical-align: middle;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 90%;
   }
 `
@@ -29,7 +29,7 @@ export const NestBox = styled.div`
   text-align: center;
   width: 100%;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
     width: 100%;
   }
 `
@@ -60,7 +60,7 @@ export const NestBoxHeader = styled.div`
     text-align: center;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 1.5rem;
   }
 `
@@ -77,7 +77,7 @@ export const CornerButtons = styled.a`
     cursor: pointer;
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.sm}px) {
     right: 10%;
   }
 `
@@ -93,7 +93,7 @@ export const NestBoxBreak = styled.hr.attrs((props: NestBreakProps) => ({
   width: 40%;
   background: transparent;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `
@@ -116,7 +116,7 @@ export const NestAnalytics = styled(Collapse)`
   margin-top: ${(props) => props.theme.spacing[4]}px;
   width: 80%;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 90%;
   }
 `
@@ -133,7 +133,7 @@ export const GraphContainer = styled(Col)`
   overflow: hidden;
   background: ${(props) => props.theme.color.transparent[100]};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     height: 250px;
   }
 `
@@ -167,7 +167,7 @@ export const StyledTable = styled(Table)`
     }
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 100%;
 
     th.strategy {
@@ -202,7 +202,7 @@ export const PrefButtons = styled.div`
     }
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `
@@ -213,7 +213,7 @@ export const StatsRow = styled(Row)`
   display: flex;
   flex-direction: row;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 90%;
     background: ${(props) => props.theme.color.transparent[100]};
     border-radius: ${(props) => props.theme.borderRadius}px;
@@ -231,7 +231,7 @@ export const StatCard = styled.div`
   text-align: center;
   color: ${(props) => props.theme.color.text[100]};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     padding: ${(props) => props.theme.spacing[2]}px;
     background: transparent;
   }
@@ -254,7 +254,7 @@ export const Icon = styled.img`
   height: 200px;
   margin-bottom: ${(props) => props.theme.spacing[4]}px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     margin-left: 0px;
   }
 `
@@ -310,7 +310,7 @@ export const NestExplanation = styled.div`
   padding: ${(props) => props.theme.spacing[6]}px;
   border-radius: ${(props) => props.theme.borderRadius}px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 90%;
     padding: ${(props) => props.theme.spacing[4]}px;
     margin-top: ${(props) => props.theme.spacing[4]}px;
@@ -346,7 +346,7 @@ export const CloseButton = styled.a`
 `
 
 export const HidePrice = styled.div`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `
@@ -354,7 +354,7 @@ export const HidePrice = styled.div`
 export const Disclaimer = styled.div`
   font-size: 1rem;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 0.75rem;
   }
 `

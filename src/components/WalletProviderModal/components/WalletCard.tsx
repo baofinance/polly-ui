@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
-import Config from '../../../bao/lib/config'
-import Button from '../../Button'
-import CardContent from '../../CardContent'
-import CardIcon from '../../CardIcon'
-import CardTitle from '../../CardTitle'
+import Config from 'bao/lib/config'
+import { Button } from '../../Button'
 import Spacer from '../../Spacer'
 import WalletModalCard from '../../WalletModalCard'
+import { Card } from 'react-bootstrap'
+import styled from 'styled-components'
 
 interface WalletCardProps {
 	icon: React.ReactNode
@@ -27,10 +26,9 @@ const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => {
 
 	return (
 		<WalletModalCard>
-			<CardContent>
-				<CardIcon>{icon}</CardIcon>
-				<CardTitle text={title} />
-				<Spacer />
+			<Card.Body>
+				<WalletIcon>{icon}</WalletIcon>
+				<WalletTitle>{title}</WalletTitle>
 				<Button
 					onClick={onConnect}
 					text={
@@ -41,7 +39,7 @@ const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => {
 						)
 					}
 				/>
-			</CardContent>
+			</Card.Body>
 		</WalletModalCard>
 	)
 }
@@ -67,3 +65,23 @@ const _getButtonText = async (ethereum: any, status: string): Promise<any> => {
 }
 
 export default WalletCard
+
+const WalletIcon = styled.div`
+	background-color: ${(props) => props.theme.color.primary[200]};
+	font-size: 36px;
+	height: 80px;
+	width: 80px;
+	border-radius: 40px;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto ${(props) => props.theme.spacing[3]}px;
+`
+
+const WalletTitle = styled.div`
+	color: ${(props) => props.theme.color.text[200]};
+	font-size: 18px;
+	font-weight: 700;
+	padding: ${(props) => props.theme.spacing[4]}px;
+	text-align: center;
+`

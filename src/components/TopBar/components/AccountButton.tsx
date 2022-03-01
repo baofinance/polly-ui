@@ -1,42 +1,47 @@
+import React, { useCallback, useMemo, useState } from 'react'
+import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BigNumber } from 'bignumber.js'
-import useModal from 'hooks/useModal'
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import Config from '../../../bao/lib/config'
-import useTokenBalance from '../../../hooks/useTokenBalance'
-import { getDisplayBalance } from '../../../utils/numberFormat'
-import Button from '../../Button'
+import useTokenBalance from 'hooks/base/useTokenBalance'
+import { getDisplayBalance } from 'utils/numberFormat'
+import { Button } from '../../Button'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
+import { SpinnerLoader } from '../../Loader'
+import useModal from 'hooks/base/useModal'
+import Config from 'bao/lib/config'
 
 interface AccountButtonProps {}
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
-	const [onPresentAccountModal] = useModal(<AccountModal />)
-	const [onPresentWalletProviderModal] = useModal(
-		<WalletProviderModal />,
-		'provider',
-	)
+	const [showAccountModal, setShowAccountModal] = useState(false)
 
+	const [showWalletProviderModal, setShowWalletProviderModal] = useState(false)
+
+	const { transactions } = useTransactionProvider()
 	const { account } = useWallet()
 	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
-	const handleUnlockClick = useCallback(() => {
-		onPresentWalletProviderModal()
-	}, [onPresentWalletProviderModal])
+	const pendingTxs = useMemo(
+		() =>
+			Object.keys(transactions).filter(
+				(txHash) => !transactions[txHash].receipt,
+			).length,
+		[transactions],
+	)
 
 	return (
 		<>
 			<StyledAccountButton>
 				{!account ? (
 					<Button
-						onClick={handleUnlockClick}
+						onClick={() => setShowWalletProviderModal(true)}
 						size="sm"
 						text={
 							<>
-								Connect Wallet{' '}
+								Connect{' '}
 								<FontAwesomeIcon
 									icon="link"
 									style={{
@@ -49,18 +54,17 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 					/>
 				) : (
 					<Button
-						onClick={onPresentAccountModal}
+						onClick={() => setShowAccountModal(true)}
 						size="sm"
 						text={
 							<>
 								{account.slice(0, 6)}...
-								{account.slice(account.length - 4, account.length)}
-								{' '}
+								{account.slice(account.length - 4, account.length)}{' '}
 								<FontAwesomeIcon
 									icon="angle-double-right"
 									style={{
 										margin: '0 4px',
-										color: 'white',
+										color: '#fff',
 									}}
 								/>{' '}
 								{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
@@ -70,6 +74,20 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 										marginLeft: '4px',
 									}}
 								/>
+								{pendingTxs > 0 && (
+									<>
+										{' '}
+										<FontAwesomeIcon
+											icon="angle-double-right"
+											style={{
+												margin: '0 4px',
+												color: '#b07a6e',
+											}}
+										/>{' '}
+										<SpinnerLoader />
+										<span style={{ marginLeft: '5px' }}>{pendingTxs}</span>
+									</>
+								)}
 							</>
 						}
 						border={true}
@@ -80,11 +98,11 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 			<MobileAccountButton>
 				{!account ? (
 					<Button
-						onClick={handleUnlockClick}
+						onClick={() => setShowAccountModal(true)}
 						size="sm"
 						text={
 							<>
-								Connect Wallet{' '}
+								Connect{' '}
 								<FontAwesomeIcon
 									icon="link"
 									style={{
@@ -97,7 +115,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 					/>
 				) : (
 					<Button
-						onClick={onPresentAccountModal}
+						onClick={() => setShowAccountModal(true)}
 						size="sm"
 						text={
 							<>
@@ -109,18 +127,28 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 					/>
 				)}
 			</MobileAccountButton>
+
+			<AccountModal
+				show={showAccountModal}
+				onHide={() => setShowAccountModal(false)}
+			/>
+
+			<WalletProviderModal
+				show={showWalletProviderModal}
+				onHide={() => setShowWalletProviderModal(false)}
+			/>
 		</>
 	)
 }
 
 const StyledAccountButton = styled.div`
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
 		display: none;
 	}
 `
 
 const MobileAccountButton = styled.div`
-	@media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (min-width: ${(props) => props.theme.breakpoints.sm}px) {
 		display: none;
 	}
 `

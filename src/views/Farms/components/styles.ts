@@ -1,3 +1,5 @@
+import { Button } from 'components/Button'
+import { Card } from 'react-bootstrap'
 import styled, { keyframes } from 'styled-components'
 
 export const RainbowLight = keyframes`
@@ -45,7 +47,8 @@ export const StyledCards = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
     width: 100%;
     flex-flow: column nowrap;
     align-items: center;
@@ -55,6 +58,8 @@ export const StyledCards = styled.div`
 export const StyledLoadingWrapper = styled.div`
   align-items: center;
   justify-content: center;
+  text-align: center;
+  color: ${(props) => props.theme.color.text[200]};
 `
 
 export const StyledCardWrapper = styled.div`
@@ -98,23 +103,26 @@ export const StyledInsight = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   border-radius: ${(props) => props.theme.borderRadius}px;
-  background: ${(props) => props.theme.color.transparent[200]};
+  background: ${(props) => props.theme.color.primary[300]};
   color: ${(props) => props.theme.color.text[100]};
   width: 100%;
   margin-top: ${(props) => props.theme.spacing[2]}px;
   line-height: 32px;
   font-size: 0.75rem;
-  border: 1px solid ${(props) => props.theme.color.darkGrey[800]};
   text-align: center;
   padding: 0 ${(props) => props.theme.spacing[2]}px;
 `
 
 export const Footnote = styled.div`
-  font-size: 1rem;
+  font-size: 0.875rem;
   padding: ${(props) => props.theme.spacing[2]}px
     ${(props) => props.theme.spacing[3]}px;
-  color: ${(props) => props.theme.color.text[100]};
-  border-top: solid 1px ${(props) => props.theme.color.darkGrey[900]};
+  color: ${(props) => props.theme.color.text[200]};
+  border-top: solid 1px ${(props) => props.theme.color.primary[300]};
+
+  :first-child {
+    border-top: none;
+  }
 `
 
 export const FootnoteValue = styled.div`
@@ -125,7 +133,8 @@ export const FootnoteValue = styled.div`
 export const StyledWrapper = styled.div`
   align-items: center;
   display: flex;
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+  margin: auto;
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
     width: 100%;
     flex-flow: column nowrap;
     align-items: stretch;
@@ -148,4 +157,86 @@ export const StyledInfo = styled.h3`
   font-weight: ${(props) => props.theme.fontWeight.regular};
   margin: 0;
   padding: 0;
+  text-align: center;
+`
+
+export const AccordionCard = styled(Card)`
+	background: none !important;
+  min-height: 250px;
+  border: none !important;
+  box-shadow: none !important;
+
+	.card-title {
+		text-align: center;
+	}
+
+	.card-body {
+	}
+	
+	.card-header {
+		background: none !important;
+		border: none !important;
+	}
+	
+	.card-footer {
+		background: none !important;
+		bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+	}
+
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+		font-size: 0.75rem;
+	}
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+    min-height: 200px;
+	}
+  `
+
+  export const AssetImageContainer = styled.div`
+  height: 100%;
+  align-items: center;
+  margin: 0 auto;
+  display: inline-block;
+  vertical-align: super;
+  color: ${(props) => props.theme.color.text[100]};
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+    display: none;
+  }
+  }
+`
+
+export const FarmImage = styled.img`
+  height: 50px;
+  margin-right: ${(props) => props.theme.spacing[3]}px;
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+    height: 40px;
+    margin-right: ${(props) => props.theme.spacing[3]}px;
+  }
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+    height: 35px;
+    margin-right: ${(props) => props.theme.spacing[3]}px;
+  }
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+    height: 50px;
+    margin-right: ${(props) => props.theme.spacing[3]}px;
+  }
+`
+
+export const AssetImage = styled(FarmImage)`
+  height: 40px;
+  margin: 0 0 -${(props) => props.theme.spacing[3]}px -${(props) =>
+      props.theme.spacing[3]}px;
+  vertical-align: super;
+  transition: 200ms;
+  user-select: none;
+  -webkit-user-drag: none;
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+    height: 30px;
+  }
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+    height: 25px;
+  }
 `

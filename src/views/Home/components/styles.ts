@@ -33,12 +33,12 @@ export const HeroHeader = styled.h6`
   margin-top: ${(props) => props.theme.spacing[6]}px;
   text-align: center;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     font-size: 5rem !important;
     line-height: 4.7rem;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 3.5rem !important;
     line-height: 3.2rem;
     text-align: left;
@@ -72,7 +72,7 @@ export const HeroSubHeader = styled.h6`
   -webkit-text-fill-color: transparent;
   animation: bounce 10s ease-in-out infinite alternate;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 2rem !important;
   }
 
@@ -90,7 +90,7 @@ export const HeroText = styled.p`
   margin: auto;
   text-align: center;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     text-align: left;
     font-size: 1.15rem;
   }
@@ -102,11 +102,11 @@ export const BubbleWrap = styled.div`
   margin-right: calc(-100vw / 2 + 500px / 2);
   overflow: hidden;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     display: none;
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}px) {
     display: none;
   }
 `
@@ -114,7 +114,7 @@ export const BubbleWrap = styled.div`
 export const BubbleContainer = styled.div`
   position: relative;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 
@@ -237,7 +237,7 @@ export const BubbleOverlayText = styled.div`
 
 export const StyledSectionContainer = styled.div`
   display: flex;
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     flex-direction: column;
   }
 `
@@ -252,7 +252,7 @@ export const StyledSectionTitle = styled.h2`
 export const StyledCardWrapper = styled.div`
   display: flex;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     flex-direction: column;
   }
 `
@@ -269,7 +269,7 @@ export const StyledCardContent = styled.div`
   height: 550px;
   width: 100%;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     padding: ${(props) => props.theme.spacing[2]}px;
     height: 250px;
   }
@@ -289,7 +289,7 @@ export const StyledCardTitle = styled.p`
   margin-bottom: ${(props) => props.theme.spacing[3]}px;
   text-align: center;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 1.5rem;
     margin-bottom: ${(props) => props.theme.spacing[1]}px;
   }
@@ -301,7 +301,7 @@ export const StyledCardIcon = styled.img`
   height: 80px;
   width: 80px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: block;
     margin: ${(props) => props.theme.spacing[3]}px auto;
     height: 50px;
@@ -313,7 +313,7 @@ export const StyledCardText = styled.p`
   font-size: 1.25rem;
   text-align: center;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 1rem;
   }
 `
@@ -322,7 +322,7 @@ export const InfoWrapper = styled(Row)`
   width: 80%;
   margin: auto;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     flex-direction: column;
     width: 100%;
   }
@@ -332,7 +332,7 @@ export const InfoImageCol = styled(Col)`
   margin-bottom: 5em;
   width: 30%;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     width: 90%;
     margin: auto;
     margin-bottom: ${(props) => props.theme.spacing[5]}px;
@@ -349,7 +349,7 @@ export const InfoCol = styled(InfoImageCol)`
   display: table;
   width: 70%;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     width: 100%;
   }
 `
@@ -368,12 +368,12 @@ export const InfoHeader = styled.h2`
   letter-spacing: -0.1rem;
   font-weight: ${(props) => props.theme.fontWeight.medium};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     font-size: 4rem !important;
     letter-spacing: -0.1rem;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 3rem !important;
     letter-spacing: -0.1rem;
   }
@@ -406,13 +406,13 @@ export const InfoImage = styled.img`
   margin-inline: auto;
   margin: 0 ${(props) => props.theme.spacing[3]}px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     margin-inline: 0;
     max-width: 70%;
     margin: auto;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     margin-inline: 0;
     max-width: 80%;
     margin: auto;
@@ -427,7 +427,7 @@ export const GraphContainer = styled(Col)`
   overflow: hidden;
   background: ${(props) => props.theme.color.transparent[100]};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     height: 250px;
   }
 `
@@ -455,7 +455,7 @@ export const AnalyticsContainer = styled(Row)`
   transform: translateX(-50%);
   height: 125px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     flex-direction: column;
     margin: ${(props) => props.theme.spacing[6]}px auto;
     position: relative;
@@ -464,7 +464,7 @@ export const AnalyticsContainer = styled(Row)`
     height: auto;
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}px) {
     position: relative;
     margin: ${(props) => props.theme.spacing[5]}px auto;
     left: 0;
@@ -497,7 +497,7 @@ export const Analytic = styled(Col)`
     font-weight: ${(props) => props.theme.fontWeight.medium};
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     border-right: none;
     border-bottom: 1px solid ${(props) => props.theme.color.transparent[200]};
     flex: auto !important;
@@ -539,7 +539,7 @@ export const NestBoxHeader = styled.div`
     text-align: center;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 1.5rem;
   }
 `
@@ -567,7 +567,7 @@ export const PrefButtons = styled.div`
     }
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `

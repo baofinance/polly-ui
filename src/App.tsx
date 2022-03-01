@@ -19,6 +19,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
+import GlobalStyle from 'GlobalStyle'
 library.add(fas, fab)
 
 const url = new URL(window.location.toString())
@@ -64,6 +65,7 @@ const App: React.FC = () => {
 const Providers: React.FC = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
+			<GlobalStyle />
 			<UseWalletProvider
 				chainId={137}
 				connectors={{

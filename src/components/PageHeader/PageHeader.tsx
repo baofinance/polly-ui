@@ -65,7 +65,7 @@ export const StyledTitle = styled.h1`
 	-webkit-text-fill-color: transparent;
 	animation: bounce 25s ease-in-out infinite alternate;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
 		font-size: 2.5rem !important;
 	}
 

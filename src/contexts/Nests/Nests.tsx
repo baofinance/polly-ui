@@ -1,5 +1,5 @@
 import { getNests } from 'bao/utils'
-import useBao from 'hooks/useBao'
+import useBao from 'hooks/base/useBao'
 import React, { useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import Context from './context'

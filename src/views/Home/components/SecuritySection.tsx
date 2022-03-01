@@ -19,12 +19,12 @@ display: block;
 margin-left: auto;
 margin-right: auto;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
 		max-width: 70%;
 		margin: auto;
 	}
 
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
 		max-width: 80%;
 		margin: auto;
 	}
