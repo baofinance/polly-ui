@@ -291,7 +291,7 @@ export const NestSubHeader = styled.h1`
   color: ${(props) => props.theme.color.text[100]};
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
   margin-top: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
 
   small {
     display: block;
@@ -353,6 +353,7 @@ export const HidePrice = styled.div`
 
 export const Disclaimer = styled.div`
   font-size: 1rem;
+  text-align: center;
 
   @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 0.75rem;

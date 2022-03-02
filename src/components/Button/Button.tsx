@@ -250,14 +250,16 @@ export const MaxButton = styled.a`
 	padding: ${(props) => props.theme.spacing[2]}px;
 	color: ${(props) => props.theme.color.text[100]};
 	background: ${(props) => props.theme.color.primary[100]};
-	border-radius: ${(props) => props.theme.borderRadius}px;
 	vertical-align: middle;
 	margin-right: ${(props) => props.theme.spacing[2]}px;
 	transition: 200ms;
 	user-select: none;
 	font-weight: ${(props) => props.theme.fontWeight.medium};
 	text-decoration: none;
+	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
 	font-weight: ${(props) => props.theme.fontWeight.strong};
 	font-size: ${(props) => props.theme.fontSize.sm};
 
@@ -332,7 +334,10 @@ const NavButton = styled.button`
 	padding-inline-end: 1rem;
 	border-radius: 8px;
 	overflow: hidden;
+	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
 
 	&:focus {
 		outline: 0;

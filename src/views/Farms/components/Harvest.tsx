@@ -46,7 +46,7 @@ export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
 			<AccordionCard>
 				<Card.Header>
 					<Card.Title>
-						<Label text="BAO Earned" />
+						<Label text="POLLY Earned" />
 					</Card.Title>
 				</Card.Header>
 				<Card.Body>
@@ -71,7 +71,7 @@ export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
 				<Card.Footer>
 					<Button
 						disabled={!earnings.toNumber() || pendingTx}
-						text={pendingTx ? 'Collecting BAO' : 'Harvest'}
+						text={pendingTx ? 'Collecting POLLY' : 'Harvest'}
 						onClick={async () => {
 							setPendingTx(true)
 							await onReward()

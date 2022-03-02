@@ -1,3 +1,5 @@
+import Separator from 'components/Separator'
+import Spacer from 'components/Spacer'
 import React from 'react'
 import { NestHeader, NestList, NestSubHeader } from '../styles'
 
@@ -10,7 +12,7 @@ const nDEFI: React.FC = () => (
 			Within those sectors, each project is weighted on the TVL divided by Fully
 			Diluted Valuation (FDV).
 		</p>
-
+		<Spacer />
 		<NestHeader>Objective</NestHeader>
 		<p>
 			To generate revenue a defi project needs value deposited into their
@@ -39,7 +41,7 @@ const nDEFI: React.FC = () => (
 			value investing, decentralized, tokenized portfolios. When you add the
 			prospect of the underlying tokens being put to work to earn yield.
 		</p>
-
+		<Spacer />
 		<NestHeader>Criteria</NestHeader>
 		<p>
 			For a project to be included in the Polly Defi Nest, it must fit the below
@@ -70,7 +72,7 @@ const nDEFI: React.FC = () => (
 			<li>Be Ethereum-focused</li>
 			<li>Must be sufficiently decentralised</li>
 		</NestList>
-
+		<Spacer />
 		<NestHeader>Strategy</NestHeader>
 		<p>
 			It is possible for the underlying tokens to utilize strategies that will
@@ -79,25 +81,19 @@ const nDEFI: React.FC = () => (
 			strategies will be changed over time to take advantage of new
 			opportunities or to maximise the yield earned.
 		</p>
-
+		<Spacer />
 		<NestHeader>Management</NestHeader>
 		<p>The Nest is maintained quarterly in two phases.</p>
-
 		<p>
 			<NestSubHeader>Determination Phase</NestSubHeader>
 		</p>
 		<p>
 			The determination phase takes place during the final 2 weeks of the
 			quarter. During this phase the changes needed for the next reconstitution
-			are determined.
-		</p>
-		<p>
-			The TVL and FDV of each project are recorded, including new projects that
-			qualify for the nest and meet the criteria.
-		</p>
-		<p>
-			Proposed changes will be published on the governance forum for 1 week then
-			a governance vote will run for the community to approve changes.
+			are determined. The TVL and FDV of each project are recorded, including
+			new projects that qualify for the nest and meet the criteria. Proposed
+			changes will be published on the governance forum for 1 week then a
+			governance vote will run for the community to approve changes.
 		</p>
 		<p>
 			<NestSubHeader>Reconstitution Phase</NestSubHeader>

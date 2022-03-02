@@ -40,17 +40,39 @@ const StyledInputWrapper = styled.div`
 `
 
 const StyledInput = styled.input`
-	background: none;
-	width: 60%;
-	border: 0;
-	color: ${(props) => props.theme.color.text[100]};
+	width: 100%;
+	min-width: 0px;
+	outline-offset: 2px;
+	position: relative;
+	appearance: none;
+	transition-property: all;
+	transition-duration: 200ms;
 	font-size: 1rem;
-	flex: 1;
-	height: 56px;
-	margin: 0;
-	padding: 0;
-	outline: none;
+	padding-inline-start: 1rem;
+	padding-inline-end: 1rem;
+	height: 50px;
+	text-align: start;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	padding-right: 0.5rem;
+	outline: transparent solid 2px;
+	border-radius: 8px;
+	border-style: solid;
+	border-image: initial;
+	border-color: inherit;
+	color: ${(props) => props.theme.color.text[100]};
+	background: none;
+	background-color: transparent;
+	border-width: 0px;
+
+	&:disabled {
+		color: ${(props) => props.theme.color.text[200]};
+	}
+
+	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+		font-size: 0.875rem;
+	}
 `
+
 
 export default Input
 
@@ -85,7 +107,7 @@ const BalanceInputContainer = styled.div`
 	display: flex;
 	align-items: center;
 	width: 100%;
-	background-color: ${(props) => props.theme.color.primary[200]};
+	background-color: ${(props) => props.theme.color.transparent[200]};
 	border-radius: 8px;
 	height: 50px;
 	border: none;

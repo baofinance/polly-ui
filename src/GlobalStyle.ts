@@ -170,7 +170,7 @@ body {
 }
 
   .card {
-    background-color: ${(props) => props.theme.color.primary[100]};
+    background-color: ${(props) => props.theme.color.transparent[100]};
     border-radius: ${(props) => props.theme.borderRadius}px;
     display: flex;
     flex: 1;

@@ -160,13 +160,13 @@ const Balances: React.FC = () => {
 						<Card>
 							<Card.Body>
 								<Footnote>
-									Your BAO Balance
+									Your POLLY Balance
 									<FootnoteValue>
 										{account ? getDisplayBalance(pollyBalance) : 'Locked'}{' '}
 									</FootnoteValue>
 								</Footnote>
 								<Footnote>
-									Your Locked BAO
+									Your Locked POLLY
 									<FootnoteValue>{getDisplayBalance(locks)}</FootnoteValue>
 								</Footnote>
 								<Footnote>
@@ -176,13 +176,13 @@ const Balances: React.FC = () => {
 									</FootnoteValue>
 								</Footnote>
 								<Footnote>
-									Total BAO Supply
+									Total POLLY Supply
 									<FootnoteValue>
 										{totalSupply ? getDisplayBalance(totalSupply) : 'Locked'}
 									</FootnoteValue>
 								</Footnote>
 								<Footnote>
-									BAO Price
+									POLLY Price
 									<FootnoteValue>
 										{pollyPrice ? (
 											`$${getDisplayBalance(pollyPrice, 0)}`
@@ -202,7 +202,7 @@ const Balances: React.FC = () => {
 
 export default Balances
 
-const BaoPrice = styled.div`
+const PollyPrice = styled.div`
 	margin: 0 auto;
 	text-align: center;
 `

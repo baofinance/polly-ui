@@ -16,7 +16,7 @@ const Farms: React.FC = () => {
 			<PageHeader
 				icon=""
 				title="Farms"
-				subtitle="Earn BAO by staking Sushiswap & Uniswap LP Tokens!"
+				subtitle="Earn POLLY by staking Sushiswap LP Tokens!"
 			/>
 			<ConnectedCheck>
 				<Container>

@@ -26,10 +26,8 @@ import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
 import NDEFI from './components/explanations/nDEFI'
 import NSTBL from './components/explanations/nSTBL'
-import IssueModal from './components/IssueModal'
-import NavModal from './components/NavModal'
+import { IssueModal, RedeemModal, NavModal } from './components/Modals'
 import { Progress } from './components/Progress'
-import RedeemModal from './components/RedeemModal'
 import Config from 'bao/lib/config'
 import {
 	CornerButtons,
@@ -53,6 +51,7 @@ import {
 	StyledBadge,
 	StyledTable,
 } from './components/styles'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
@@ -124,30 +123,11 @@ const Nest: React.FC = () => {
 	const _inputToken = inputTokenContract.options.address
 	const _outputToken = outputTokenContract.options.address
 
-	const [onNavModal] = useModal(<NavModal />)
+	const [showNavModal, setShowNavModal] = useState(false)
+	const [showIssueModal, setShowIssueModal] = useState(false)
+	const [showRedeemModal, setShowRedeemModal] = useState(false)
 
-	const [onPresentDeposit] = useModal(
-		<IssueModal
-			nestName={nestToken}
-			nestAddress={nestTokenAddress}
-			inputTokenName="WETH"
-			_inputToken={_inputToken}
-			_outputToken={_outputToken}
-			nestContract={nestContract}
-			inputTokenContract={inputTokenContract}
-			outputTokenContract={outputTokenContract}
-			nav={nav}
-		/>,
-	)
-
-	const [onPresentRedeem] = useModal(
-		<RedeemModal
-			max={tokenBalance}
-			nestName={nestToken}
-			nestContract={nestContract}
-			nid={nid}
-		/>,
-	)
+	const { handleTx } = useTransactionHandler()
 
 	useEffect(() => {
 		if (nestContract.options.address)
@@ -230,7 +210,10 @@ const Nest: React.FC = () => {
 								<br />
 								NAV &nbsp;
 							</span>
-							<QuestionIcon icon="question-circle" onClick={onNavModal} />
+							<QuestionIcon
+								icon="question-circle"
+								onClick={() => setShowNavModal(true)}
+							/>
 							<Spacer size={'sm'} />
 							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
 								<StyledBadge
@@ -292,7 +275,7 @@ const Nest: React.FC = () => {
 				<NestButtons>
 					<Button
 						text="Issue"
-						onClick={onPresentDeposit}
+						onClick={() => setShowIssueModal(true)}
 						width="20%"
 						disabled={!nav}
 					/>
@@ -300,7 +283,7 @@ const Nest: React.FC = () => {
 					<Button
 						disabled={tokenBalance.eq(new BigNumber(0))}
 						text="Redeem"
-						onClick={onPresentRedeem}
+						onClick={() => setShowRedeemModal(true)}
 						width="20%"
 					/>
 					<Spacer />
@@ -337,22 +320,22 @@ const Nest: React.FC = () => {
 										<>
 											$
 											{priceHistory &&
-											getDisplayBalance(
-												new BigNumber(
-													priceHistory[priceHistory.length - 1].close,
-												),
-												0,
-											)}
+												getDisplayBalance(
+													new BigNumber(
+														priceHistory[priceHistory.length - 1].close,
+													),
+													0,
+												)}
 											<span
 												className="smalltext"
 												style={{
 													color: nestPriceChange24h.gt(0) ? 'green' : 'red',
 												}}
 											>
-											{priceHistory &&
-											getDisplayBalance(nestPriceChange24h, 0)}
+												{priceHistory &&
+													getDisplayBalance(nestPriceChange24h, 0)}
 												{'%'}
-										</span>
+											</span>
 										</>
 									) : (
 										<SpinnerLoader />
@@ -497,8 +480,30 @@ const Nest: React.FC = () => {
 					{/* TODO: Store pointer to nest description in config, this is messy */}
 					{nestTokenAddress === Config.addressMap.nDEFI && <NDEFI />}
 					{nestTokenAddress === Config.addressMap.nSTBL && <NSTBL />}
-						</NestExplanation>
+				</NestExplanation>
 			</NestBox>
+			<IssueModal
+				nestName={nestToken}
+				nestAddress={nestTokenAddress}
+				inputTokenName="WETH"
+				_inputToken={_inputToken}
+				_outputToken={_outputToken}
+				nestContract={nestContract}
+				inputTokenContract={inputTokenContract}
+				outputTokenContract={outputTokenContract}
+				nav={nav}
+				show={showIssueModal}
+				onHide={() => setShowIssueModal(false)}
+			/>
+			<RedeemModal
+				max={tokenBalance}
+				nestName={nestToken}
+				nestContract={nestContract}
+				nid={nid}
+				show={showRedeemModal}
+				onHide={() => setShowRedeemModal(false)}
+			/>
+			<NavModal show={showNavModal} onHide={() => setShowNavModal(false)} />
 		</>
 	)
 }

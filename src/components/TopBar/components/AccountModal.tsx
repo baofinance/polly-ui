@@ -18,7 +18,6 @@ import Value from '../../Value'
 import { StatBlock } from 'components/Stats'
 import _ from 'lodash'
 import { AssetImage, AssetImageContainer } from 'views/Farms/components/styles'
-import { CloseButton } from 'components/Button/Button'
 
 const AccountModal = ({ onHide, show }: ModalProps) => {
 	const { account, reset } = useWallet()
@@ -39,7 +38,9 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 
 	return (
 		<Modal show={show} onHide={hideModal} centered>
-			<CloseButton onClick={onHide} onHide={hideModal} />
+			<CloseButton onClick={onHide}>
+				<FontAwesomeIcon icon="times" />
+			</CloseButton>
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
@@ -76,7 +77,9 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 									<WalletBalanceSpace />
 									<WalletBalanceText>
 										<WalletBalanceValue>
-											{new BigNumber(getDisplayBalance(pollyBalance)).toFixed(4)}
+											{new BigNumber(getDisplayBalance(pollyBalance)).toFixed(
+												4,
+											)}
 										</WalletBalanceValue>
 										<WalletBalanceTicker>POLLY Balance</WalletBalanceTicker>
 									</WalletBalanceText>
@@ -199,29 +202,41 @@ const WalletBalanceTicker = styled.div`
 `
 
 const HeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  min-width: 6rem;
-  font-size: ${(props) => props.theme.fontSize.large};
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	min-width: 6rem;
+	font-size: ${(props) => props.theme.fontSize.large};
 
-  img {
-    vertical-align: middle;
-    height: 2rem;
-    width: 2rem;
-  }
+	img {
+		vertical-align: middle;
+		height: 2rem;
+		width: 2rem;
+	}
 
-  p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin: 0px;
-    margin-top: 0px;
-    margin-inline: 0.5rem 0.5rem;
-    margin-bottom: 0px;
-    color: ${(props) => props.theme.color.text[100]};
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-  }
+	p {
+		display: block;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin: 0px;
+		margin-top: 0px;
+		margin-inline: 0.5rem 0.5rem;
+		margin-bottom: 0px;
+		color: ${(props) => props.theme.color.text[100]};
+		font-weight: ${(props) => props.theme.fontWeight.medium};
+	}
+`
+
+export const CloseButton = styled.a`
+	float: right;
+	top: ${(props) => props.theme.spacing[3]}px;
+	right: ${(props) => props.theme.spacing[4]}px;
+	font-size: 1.5rem;
+	position: absolute;
+	color: ${(props) => props.theme.color.text[100]};
+	&:hover {
+		cursor: pointer;
+	}
 `
 
 export default AccountModal
