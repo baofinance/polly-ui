@@ -1,13 +1,15 @@
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
-import { getRecipeContract, getWethPriceContract } from 'bao/utils'
+import { getRecipeContract, getWethContract, getWethPriceContract } from 'bao/utils'
 import MultiCall from 'utils/multicall'
 import { decimate, exponentiate } from 'utils/numberFormat'
 import useBao from 'hooks/base/useBao'
+import Config from 'bao/lib/config'
 
 const useNestRate = (nestAddress: string) => {
   const bao = useBao()
   const recipeContract = getRecipeContract(bao)
+  const wethAddress = Config.addressMap.WETH
 
   const [wethPerIndex, setWethPerIndex] = useState<BigNumber | undefined>()
   const [wethPrice, setWethPrice] = useState<BigNumber | undefined>()
@@ -23,8 +25,8 @@ const useNestRate = (nestAddress: string) => {
         contract: recipeContract,
         calls: [
           {
-            method: 'calcToPie',
-            params: [nestAddress, exponentiate(1).toString()],
+            method: 'getPrice',
+            params: [wethAddress, nestAddress, exponentiate(1).toString()],
           },
         ],
       },
@@ -47,11 +49,11 @@ const useNestRate = (nestAddress: string) => {
     setWethPerIndex(wethPerNest)
     setWethPrice(_wethPrice)
     setUsdPerIndex(_wethPrice.times(wethPerNest))
-  }, [bao, nestAddress])
+  }, [bao, wethAddress, nestAddress])
 
   useEffect(() => {
     nestRate()
-  }, [bao, nestAddress])
+  }, [bao, wethAddress, nestAddress])
 
   return {
     wethPerIndex,

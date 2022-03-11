@@ -333,9 +333,10 @@ export const fetchCalcToNest = async (
   nestAddress: string,
   nestAmount: string,
 ) => {
+  const wethAddress = Config.addressMap.WETH
   const amount = exponentiate(nestAmount)
   const amountEthNecessary = await recipeContract.methods
-    .calcToPie(nestAddress, amount.toFixed(0))
+    .getPrice(wethAddress, nestAddress, amount.toFixed(0))
     .call()
   return decimate(amountEthNecessary)
 }

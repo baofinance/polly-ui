@@ -33,6 +33,8 @@ export default {
     POLLY: '0x4C392822D4bE8494B798cEA17B43d48B2308109C',
     nDEFI: '0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
     nSTBL: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+    nINFRA: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+    nPOLY: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
     RAI: '0x00e5646f60ac6fb446f621d146b6e1886f002905',
     DEAD: '0x000000000000000000000000000000000000dead',
   },
@@ -57,7 +59,7 @@ export default {
     },
     recipe: {
       137: {
-        address: '0x0C9DF041582741b9Ae384F31209A6Dc7ea6B9Bcb',
+        address: '0x99da75571ff4db11ed4b674dfeae8f08e19e5061',
         abi: 'recipe.json',
       },
     },
@@ -132,6 +134,40 @@ export default {
         USDT: '#50AF95',
         RAI: '#68FEE2',
         USDC: '#2775CA',
+      },
+    },
+    {
+      nid: 3,
+      nestAddresses: {
+        137: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      },
+      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+      outputToken: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      symbol: 'nINFRA',
+      name: 'nINFRA',
+      icon: '/ninfra.png',
+      pieColors: {
+        WETH: '#d05555',
+        LINK: '#2A5AD9',
+        WMATIC: '#8247E5',
+        GRT: '#353993',
+      },
+    },
+    {
+      nid: 4,
+      nestAddresses: {
+        137: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      },
+      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+      outputToken: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      symbol: 'nPOLY',
+      name: 'nPOLY',
+      icon: '/npoly.png',
+      pieColors: {
+        KLIMA: '#0c3',
+        BIFI: '#F9F3EB',
+        QUICK: '#2172e5',
+        QI: '#f16e69',
       },
     },
   ],
