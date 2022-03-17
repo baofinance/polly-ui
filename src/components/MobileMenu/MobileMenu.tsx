@@ -33,18 +33,18 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
 					>
 						Farms
 					</StyledLink>
-					<ExternalLink
+					<StyledExternalLink
 						href="https://snapshot.page/#/baovotes.eth"
 						target="_blank"
 					>
 						Vote
-					</ExternalLink>
-					<ExternalLink href="https://gov.bao.finance" target="_blank">
+					</StyledExternalLink>
+					<StyledExternalLink href="https://gov.bao.finance" target="_blank">
 						Forum
-					</ExternalLink>
-					<ExternalLink href="https://docs.bao.finance" target="_blank">
+					</StyledExternalLink>
+					<StyledExternalLink href="https://docs.bao.finance" target="_blank">
 						Docs
-					</ExternalLink>
+					</StyledExternalLink>
 				</StyledMobileMenu>
 			</StyledMobileMenuWrapper>
 		)
@@ -99,6 +99,24 @@ const StyledMobileMenu = styled.div`
 `
 
 const StyledLink = styled(NavLink)`
+	box-sizing: border-box;
+	color: ${(props) => props.theme.color.text[100]};
+	font-size: 1.25rem;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
+	padding: ${(props) => props.theme.spacing[3]}px
+		${(props) => props.theme.spacing[4]}px;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+	&:hover {
+		color: ${(props) => props.theme.color.text[300]};
+	}
+	&.active {
+		color: ${(props) => props.theme.color.text[300]};
+	}
+`
+
+const StyledExternalLink = styled.a`
 	box-sizing: border-box;
 	color: ${(props) => props.theme.color.text[100]};
 	font-size: 1.25rem;
