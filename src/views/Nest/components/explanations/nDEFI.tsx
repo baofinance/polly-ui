@@ -5,39 +5,31 @@ const nDEFI: React.FC = () => (
 	<>
 		<NestHeader>Description</NestHeader>
 		<p>
-			The Polly DeFi Nest is divided into key DeFi sectors, which are given a
-			weighting reflecting their maturity and share of the overall market.
-			Within those sectors, each project is weighted on the TVL divided by Fully
-			Diluted Valuation (FDV).
+			The Polly DeFi Nest takes the top 5 projects by TVL on Defillama, which
+			have liquidity on Polygon. Each project is weighted on the TVL divided by
+			Fully Diluted Valuation (FDV).
 		</p>
 
 		<NestHeader>Objective</NestHeader>
 		<p>
 			To generate revenue a defi project needs value deposited into their
 			contracts. This makes Total Value Locked (TVL) a key metric for evaluating
-			a project's ability to generate revenue. Projects with a high TVL are also
-			likely to gain more traction in the market through the network effects the
-			existing capital provides - capital attracts more capital. A good example
-			of this is with Yearn Finance. Yearn was able to generate massive amounts
-			of revenue as a result of the large amount of capital they attracted. This
-			gave them the resources to further develop and innovate their products in
-			a positive feedback loop. Yearn’s success has led to many projects such as
-			Alchemix and Abracadabra using their products and liquidity as a base
-			layer to build on.
+			a project's ability to generate revenue.
 		</p>
 		<p>
-			nDEFI is composed of the strongest components in the DeFi ecosystem,
-			striving to provide core coverage of the key building blocks for the
-			future of finance. With nDEFI you’ll have exposure to infrastructure,
-			lending markets, decentralized exchanges, synthetics, and yield
-			aggregators. The unique weighting formula allows the nest to invest in
-			projects gaining traction earlier and with a greater weighting than market
-			cap weighted nests.
+			Projects with a high TVL are also likely to gain more traction in the
+			market through the network effects the existing capital provides - capital
+			attracts more capital.
 		</p>
 		<p>
-			The Polly DeFi Nest will provide the crypto industry's first automated
-			value investing, decentralized, tokenized portfolios. When you add the
-			prospect of the underlying tokens being put to work to earn yield.
+			The weighting formula allows the nest to invest in projects gaining
+			traction earlier and with a greater weighting than market cap weighted
+			competitors, attempting to invest more in projects that could be
+			undervalued by the market.
+		</p>
+		<p>
+			The Polly DeFi Nest will provide the crypto industry's first automated,
+			yield bearing, value investing, decentralized, tokenized portfolios.
 		</p>
 
 		<NestHeader>Criteria</NestHeader>
@@ -48,14 +40,14 @@ const nDEFI: React.FC = () => (
 		</p>
 		<NestSubHeader>Characteristics</NestSubHeader>
 		<NestList>
-			<li>Be a DeFi project available on the Ethereum blockchain.</li>
-			<li>Listed on DefiLlama</li>
+			<li>
+				The protocols will be selected by TVL based on DeFiLlama’s website.
+			</li>
+			<li>Have at least $250k liquidity on Polygon.</li>
+			<li>Have a Chainlink Price feed on Polygon.</li>
 			<li>
 				Have at least 7.5% of the total supply in circulation and have a
 				predictable token emission over the next 5 years.
-			</li>
-			<li>
-				The protocols will be selected by TVL based on DeFiLlama’s website.
 			</li>
 			<li>
 				The protocol must be running for 3 months before qualifying to be
