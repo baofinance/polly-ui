@@ -26,6 +26,8 @@ import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
 import NDEFI from './components/explanations/nDEFI'
 import NSTBL from './components/explanations/nSTBL'
+import NINFRA from './components/explanations/nINFRA'
+import NPOLY from './components/explanations/nPOLY'
 import { IssueModal, RedeemModal, NavModal } from './components/Modals'
 import { Progress } from './components/Progress'
 import Config from 'bao/lib/config'
@@ -231,14 +233,16 @@ const Nest: React.FC = () => {
 								</StyledBadge>
 							</Tooltipped>
 							<span style={{ marginLeft: '5px' }} />
-							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
-								<StyledBadge>
-									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
-									{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
-										<SpinnerLoader />
-									)}
-								</StyledBadge>
-							</Tooltipped>
+							{nestTokenAddress !== Config.addressMap.nPOLY && (
+								<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
+									<StyledBadge>
+										<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
+										{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
+											<SpinnerLoader />
+										)}
+									</StyledBadge>
+								</Tooltipped>
+							)}
 						</StatCard>
 					</Col>
 					<Col>
@@ -480,6 +484,8 @@ const Nest: React.FC = () => {
 					{/* TODO: Store pointer to nest description in config, this is messy */}
 					{nestTokenAddress === Config.addressMap.nDEFI && <NDEFI />}
 					{nestTokenAddress === Config.addressMap.nSTBL && <NSTBL />}
+					{nestTokenAddress === Config.addressMap.nINFRA && <NINFRA />}
+					{nestTokenAddress === Config.addressMap.nPOLY && <NPOLY />}
 				</NestExplanation>
 			</NestBox>
 			<IssueModal
