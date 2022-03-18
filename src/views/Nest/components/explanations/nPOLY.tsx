@@ -13,10 +13,14 @@ const nSTBL: React.FC = () => (
 		</p>
 		<p>
 			<Tex2SVG display="inline" latex="TvlFactor = {\frac{TVL}{FDV}}" />
+		</p>
+		<p>
 			<Tex2SVG
 				display="inline"
 				latex="PolyTvlFactor = \sqrt{100 x  {\frac{Token Polygon TVL}{Nest Polygon TVL}}}"
 			/>
+		</p>
+		<p>
 			<Tex2SVG
 				display="inline"
 				latex="Weighting = {\frac{TvlFactor + PolyTvlFactor}{allTokensTvlFactor + allTokensPolyTvlFactor}}"
@@ -49,19 +53,20 @@ const nSTBL: React.FC = () => (
 		<NestSubHeader>Characteristics</NestSubHeader>
 		<NestList>
 			<li>
-				Top 4 projects by TVL on Polygon that are not included in nDEFI and meet all criteria.
+				Top 4 projects by TVL on Polygon that are not included in nDEFI and meet
+				all criteria.
 			</li>
+			<li>Have at least $250k in liqudity on Polygon.</li>
 			<li>
-				Have at least $250k in liqudity on Polygon.
+				Have at least 7.5% of the total supply in circulation and have a
+				predictable token emission ovver the next 5 years.
 			</li>
+			<li>The protocol must be running on Polygon for over 3 months.</li>
 			<li>
-				Have at least 7.5% of the total supply in circulation and have a predictable token emission ovver the next 5 years.
-			</li>
-			<li>
-				The protocol must be running on Polygon for over 3 months.
-			</li>
-			<li>
-				In the event of a safety incident, the team must have addressed the prpoblem responsibly and promptly, providing users of the protocol a reliable solution and document a detailed, transparent breakdown of the incident.
+				In the event of a safety incident, the team must have addressed the
+				prpoblem responsibly and promptly, providing users of the protocol a
+				reliable solution and document a detailed, transparent breakdown of the
+				incident.
 			</li>
 			<li>Must be sufficiently decentralized.</li>
 		</NestList>
