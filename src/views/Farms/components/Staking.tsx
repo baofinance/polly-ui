@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js'
+import Config from 'bao/lib/config'
 import Label from 'components/Label'
 import { SpinnerLoader } from 'components/Loader'
 import { PoolType } from 'contexts/Farms/types'
@@ -24,6 +25,10 @@ import { FarmWithStakedValue } from './FarmList'
 import { AccordionCard } from './styles'
 import { BalanceInput } from 'components/Input'
 import { Button } from 'components/Button'
+import { SubmitButton } from 'components/Button/Button'
+import ExternalLink from 'components/ExternalLink'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 
 interface FarmListItemProps {
 	farm: FarmWithStakedValue
@@ -160,43 +165,55 @@ const Stake: React.FC<StakeProps> = ({
 				</Row>
 			</Card.Body>
 			<Card.Footer>
-				{!allowance.toNumber() ? (
-					<Button
-						disabled={requestedApproval}
-						onClick={handleApprove}
-						text={`Approve ${tokenName}`}
-					/>
-				) : (
-					<>
-						{poolType !== PoolType.ARCHIVED ? (
-							<Button
-								disabled={
-									!val ||
-									!bao ||
-									isNaN(val as any) ||
-									parseFloat(val) > max.toNumber() ||
-									pendingTx
-								}
-								text={pendingTx ? 'Pending Confirmation' : 'Deposit'}
-								onClick={async () => {
-									setPendingTx(true)
-									await onConfirm(val)
-									setPendingTx(false)
-								}}
-							/>
-						) : (
-							<Button
-								disabled={true}
-								text={'Pool Archived'}
-								onClick={async () => {
-									setPendingTx(true)
-									await onConfirm(val)
-									setPendingTx(false)
-								}}
-							/>
-						)}
-					</>
-				)}
+				<ButtonStack>
+					{!allowance.toNumber() ? (
+						<Button disabled={requestedApproval} onClick={handleApprove}>
+							Approve {tokenName}
+						</Button>
+					) : (
+						<>
+							{poolType !== PoolType.ARCHIVED ? (
+								<Button
+									disabled={
+										!val ||
+										!bao ||
+										isNaN(val as any) ||
+										parseFloat(val) > max.toNumber() ||
+										pendingTx
+									}
+									onClick={async () => {
+										setPendingTx(true)
+										await onConfirm(val)
+										setPendingTx(false)
+									}}
+								>
+									{pendingTx ? (
+										<ExternalLink
+											href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+											target="_blank"
+										>
+											Pending Transaction{' '}
+											<FontAwesomeIcon icon="external-link-alt" />
+										</ExternalLink>
+									) : (
+										`Deposit ${tokenName}`
+									)}
+								</Button>
+							) : (
+								<Button
+									disabled={true}
+									onClick={async () => {
+										setPendingTx(true)
+										await onConfirm(val)
+										setPendingTx(false)
+									}}
+								>
+									Pool Archived
+								</Button>
+							)}
+						</>
+					)}
+				</ButtonStack>
 			</Card.Footer>
 		</AccordionCard>
 	)
@@ -327,31 +344,36 @@ export const FeeLabel = styled.p`
 `
 
 export const LabelStack = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex-direction: row;
+	display: flex;
+	align-items: flex-end;
+	flex-direction: row;
 `
 
 export const MaxLabel = styled.p`
-  color: ${(props) => props.theme.color.text[200]};
-  font-size: 0.875rem;
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  margin-bottom: 0px;
+	color: ${(props) => props.theme.color.text[200]};
+	font-size: 0.875rem;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	margin-bottom: 0px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
 		font-size: 0.75rem;
 	}
 `
 
 export const AssetLabel = styled.p`
-  color: ${(props) => props.theme.color.text[100]};
-  font-size: 0.875rem;
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  margin-inline-start: 0.25rem;
-  margin-bottom: 0px;
+	color: ${(props) => props.theme.color.text[100]};
+	font-size: 0.875rem;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	margin-inline-start: 0.25rem;
+	margin-bottom: 0px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
 		font-size: 0.75rem;
 	}
 `
 
+const ButtonStack = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+`
