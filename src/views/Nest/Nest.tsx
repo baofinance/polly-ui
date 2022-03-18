@@ -20,7 +20,7 @@ import _ from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { useWallet } from 'use-wallet'
+import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
 import { getContract } from 'utils/erc20'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
@@ -74,19 +74,19 @@ const Nest: React.FC = () => {
 		window.scrollTo(0, 0)
 	}, [])
 
-	const { ethereum } = useWallet()
+	const { library } = useWeb3React()
 
 	const nestContract = useMemo(() => {
-		return getContract(ethereum as provider, nestTokenAddress)
-	}, [ethereum, nestTokenAddress])
+		return getContract(library, nestTokenAddress)
+	}, [library, nestTokenAddress])
 
 	const inputTokenContract = useMemo(() => {
-		return getContract(ethereum as provider, inputTokenAddress)
-	}, [ethereum, inputTokenAddress])
+		return getContract(library, inputTokenAddress)
+	}, [library, inputTokenAddress])
 
 	const outputTokenContract = useMemo(() => {
-		return getContract(ethereum as provider, nestTokenAddress)
-	}, [ethereum, nestTokenAddress])
+		return getContract(library, nestTokenAddress)
+	}, [library, nestTokenAddress])
 
 	const maxAllocationPercentage = useMemo(() => {
 		return (
@@ -135,7 +135,7 @@ const Nest: React.FC = () => {
 				.totalSupply()
 				.call()
 				.then((_supply: any) => setSupply(new BigNumber(_supply)))
-	}, [bao, ethereum])
+	}, [bao, library])
 
 	return (
 		<>

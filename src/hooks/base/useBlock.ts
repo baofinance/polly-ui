@@ -1,38 +1,45 @@
 import { useEffect, useState } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import { provider } from 'web3-core'
+import React from 'react'
 // import debounce from 'debounce'
 
 const useBlock = () => {
-  const [block, setBlock] = useState(0)
-  const { ethereum }: { ethereum: provider } = useWallet()
+  const { chainId, library } = useWeb3React()
 
-  useEffect(() => {
-    // const setBlockDebounced = debounce(setBlock, 300)
-    if (!ethereum) return
-    const web3 = new Web3(ethereum)
+  const [blockNumber, setBlockNumber] = React.useState<number>()
+  React.useEffect((): any => {
+    if (!!library) {
+      let stale = false
 
-    // const subscription = new Web3(ethereum).eth.subscribe(
-    //   'newBlockHeaders',
-    //   (error, result) => {
-    //     if (!error) {
-    //       setBlockDebounced(result.number)
-    //     }
-    //   },
-    // )
+      library
+        .getBlockNumber()
+        .then((blockNumber: number) => {
+          if (!stale) {
+            setBlockNumber(blockNumber)
+          }
+        })
+        .catch(() => {
+          if (!stale) {
+            setBlockNumber(null)
+          }
+        })
 
-    const interval = setInterval(async () => {
-      const latestBlockNumber = await web3.eth.getBlockNumber()
-      if (block !== latestBlockNumber) {
-        setBlock(latestBlockNumber)
+      const updateBlockNumber = (blockNumber: number) => {
+        setBlockNumber(blockNumber)
       }
-    }, 1000)
+      library.on('block', updateBlockNumber)
 
-    return () => clearInterval(interval)
-  }, [ethereum])
+      return () => {
+        stale = true
+        library.removeListener('block', updateBlockNumber)
+        setBlockNumber(undefined)
+      }
+    }
+  }, [library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
 
-  return block
+  return blockNumber
 }
 
 export default useBlock

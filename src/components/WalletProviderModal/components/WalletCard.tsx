@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { Button } from '../../Button'
 import Spacer from '../../Spacer'
@@ -15,7 +15,7 @@ interface WalletCardProps {
 }
 
 const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => {
-	const wallet: any = useWallet()
+	const wallet: any = useWeb3React()
 
 	const [buttonText, setButtonText] = useState<any>()
 	useEffect(() => {

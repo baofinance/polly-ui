@@ -9,7 +9,7 @@ import useTokenBalance from 'hooks/base/useTokenBalance'
 import useTransactionProvider from 'hooks/base/useTransactionProvider'
 import { Col, Modal, ModalProps, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { getDisplayBalance } from 'utils/numberFormat'
 import { Button } from '../../Button'
 
@@ -20,12 +20,12 @@ import _ from 'lodash'
 import { AssetImage, AssetImageContainer } from 'views/Farms/components/styles'
 
 const AccountModal = ({ onHide, show }: ModalProps) => {
-	const { account, reset } = useWallet()
+	const { account, deactivate } = useWeb3React()
 
 	const handleSignOutClick = useCallback(() => {
 		onHide!()
-		reset()
-	}, [onHide, reset])
+		deactivate()
+	}, [onHide, deactivate])
 
 	const { transactions } = useTransactionProvider()
 	const bao = useBao()

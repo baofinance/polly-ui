@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { Button } from 'components/Button'
 import WalletProviderModal from 'components/WalletProviderModal'
 import React, { useState } from 'react'
-import { useWallet } from 'use-wallet'
 
 const ConnectedCheck: React.FC = ({ children }) => {
-	const { account, ethereum }: any = useWallet()
+	const { account, ethereum }: any = useWeb3React()
 	const [showWalletProviderModal, setShowWalletProviderModal] = useState(false)
 
 	return account && ethereum.chainId === Config.defaultRpc.chainId ? (

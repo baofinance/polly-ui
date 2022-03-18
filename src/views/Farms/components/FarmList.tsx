@@ -12,7 +12,7 @@ import useFarms from 'hooks/farms/useFarms'
 import React, { useEffect, useState } from 'react'
 import { Accordion, Col, Container, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import GraphUtil from 'utils/graph'
 import Multicall from 'utils/multicall'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
@@ -29,7 +29,7 @@ export const FarmList: React.FC = () => {
 	const bao = useBao()
 	const [farms] = useFarms()
 	const farmsTVL = useAllFarmTVL(bao && bao.web3, bao && bao.multicall)
-	const { ethereum, account } = useWallet()
+	const { account, library } = useWeb3React()
 
 	const [pollyPrice, setPollyPrice] = useState<BigNumber | undefined>()
 	const [pools, setPools] = useState<any | undefined>({
@@ -50,7 +50,7 @@ export const FarmList: React.FC = () => {
 			[PoolType.ACTIVE]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(ethereum && farmsTVL && bao)) return setPools(_pools)
+		if (!(library && farmsTVL && bao)) return setPools(_pools)
 
 		bao.multicall
 			.call(

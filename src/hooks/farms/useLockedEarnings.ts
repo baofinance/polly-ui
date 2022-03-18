@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { provider } from 'web3-core'
 import { getLockedEarned, getPollyContract } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
@@ -8,8 +8,8 @@ import useBlock from 'hooks/base/useBlock'
 
 const useLockedEarnings = () => {
   const [balance, setBalance] = useState(new BigNumber(0))
-  const { account, ethereum }: { account: string; ethereum: provider } =
-    useWallet()
+  const { account, library } =
+    useWeb3React()
   const bao = useBao()
   const baoContract = getPollyContract(bao)
   const block = useBlock()

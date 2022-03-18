@@ -14,7 +14,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import CountUp from 'react-countup'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import GraphUtil from 'utils/graph'
 import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
 import { Footnote, FootnoteValue, StyledInfo } from './styles'
@@ -70,7 +70,7 @@ const Balances: React.FC = () => {
 	const pollyBalance = useTokenBalance(
 		bao && bao.getContract('polly').options.address,
 	)
-	const { account, ethereum }: { account: any; ethereum: any } = useWallet()
+	const { account } = useWeb3React()
 	const [pollyPrice, setPollyPrice] = useState<BigNumber | undefined>()
 	const locks = useLockedEarnings()
 

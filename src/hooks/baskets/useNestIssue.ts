@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js'
 import { useCallback } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { getRecipeContract, nestIssue } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
 
 const useNestIssue = (nestContractAddress: string) => {
-  const { account } = useWallet()
+  const { account } = useWeb3React()
   const bao = useBao()
   const recipeContract = getRecipeContract(bao)
 

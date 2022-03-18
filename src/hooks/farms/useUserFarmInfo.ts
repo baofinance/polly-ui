@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { getMasterChefContract, getUserInfoChef } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
 
 export const useUserFarmInfo = (pid: number) => {
   const [userInfo, setUserInfo] = useState<any | undefined>()
-  const { account, ethereum } = useWallet()
+  const { account, library } = useWeb3React()
   const bao = useBao()
 
   const fetchUserInfo = useCallback(async () => {
@@ -15,11 +15,11 @@ export const useUserFarmInfo = (pid: number) => {
       account,
     )
     setUserInfo(_userInfo)
-  }, [bao, ethereum])
+  }, [bao, library])
 
   useEffect(() => {
     fetchUserInfo()
-  }, [bao, ethereum])
+  }, [bao, library])
 
   return userInfo
 }

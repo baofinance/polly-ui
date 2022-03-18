@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { getMasterChefContract, getRefUrl, stake } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
 
 const useStake = (pid: number) => {
-  const { account } = useWallet()
+  const { account } = useWeb3React()
   const bao = useBao()
 
   const handleStake = useCallback(

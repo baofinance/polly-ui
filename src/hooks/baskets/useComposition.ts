@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { Nest, NestComponent } from 'contexts/Nests/types'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
@@ -13,7 +13,7 @@ import { getWethPriceLink } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
 
 const useComposition = (nest: Nest) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
+  const { library } = useWeb3React()
   const [composition, setComposition] = useState<
     Array<NestComponent> | undefined
   >()
@@ -59,7 +59,7 @@ const useComposition = (nest: Nest) => {
             let specialSymbol, specialDecimals, componentBalance
             if (component.toLowerCase() !== specialCaseToken) {
               const specialContract = getContract(
-                ethereum,
+                library,
                 component.toLowerCase(),
               )
 
@@ -71,7 +71,7 @@ const useComposition = (nest: Nest) => {
                 },
                 {
                   ref: 'componentToken',
-                  contract: getContract(ethereum, component),
+                  contract: getContract(library, component),
                   calls: [
                     { method: 'balanceOf', params: [nest.nestTokenAddress] },
                   ],
@@ -85,7 +85,7 @@ const useComposition = (nest: Nest) => {
                 mcContracts.push(
                   {
                     ref: 'creamContract',
-                    contract: getCreamContract(ethereum, component),
+                    contract: getCreamContract(library, component),
                     calls: [{ method: 'exchangeRateCurrent' }],
                   },
                   {
@@ -154,7 +154,7 @@ const useComposition = (nest: Nest) => {
               balance: new BigNumber(
                 componentBalance ||
                   (await getBalance(
-                    ethereum,
+                    library,
                     component,
                     nest.nestTokenAddress,
                   )),

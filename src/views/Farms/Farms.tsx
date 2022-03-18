@@ -18,12 +18,10 @@ const Farms: React.FC = () => {
 				title="Farms"
 				subtitle="Earn POLLY by staking Sushiswap LP Tokens!"
 			/>
-			<ConnectedCheck>
 				<Container>
 					<Balances />
 					{farms ? <FarmList /> : <SpinnerLoader block />}
 				</Container>
-			</ConnectedCheck>
 		</Page>
 	)
 }
