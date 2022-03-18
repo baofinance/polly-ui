@@ -36,6 +36,7 @@
     "react-countup": "^4.3.3",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.9",
+    "react-hook-mathjax": "^2.0.5",
     "react-lottie": "^1.2.3",
     "react-popper": "^2.2.5",
     "react-router-dom": "^5.2.0",

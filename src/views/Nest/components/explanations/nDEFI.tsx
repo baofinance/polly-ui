@@ -91,9 +91,11 @@ const nDEFI: React.FC = () => (
 			The determination phase takes place during the final 2 weeks of the
 			quarter. During this phase the changes needed for the next reconstitution
 			are determined. The TVL and FDV of each project are recorded, including
-			new projects that qualify for the nest and meet the criteria. Proposed
-			changes will be published on the governance forum for 1 week then a
-			governance vote will run for the community to approve changes.
+			new projects that qualify for the nest and meet the criteria.
+		</p>
+		<p>
+			Proposed changes will be published on the governance forum for 1 week then
+			a governance vote will run for the community to approve changes.
 		</p>
 		<p>
 			<NestSubHeader>Reconstitution Phase</NestSubHeader>
