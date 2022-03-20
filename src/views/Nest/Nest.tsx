@@ -26,7 +26,7 @@ import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
 import NDEFI from './components/explanations/nDEFI'
 import NSTBL from './components/explanations/nSTBL'
-import NINFRA from './components/explanations/nINFRA'
+import NINFR from './components/explanations/nINFR'
 import NPOLY from './components/explanations/nPOLY'
 import { IssueModal, RedeemModal, NavModal } from './components/Modals'
 import { Progress } from './components/Progress'
@@ -484,7 +484,7 @@ const Nest: React.FC = () => {
 					{/* TODO: Store pointer to nest description in config, this is messy */}
 					{nestTokenAddress === Config.addressMap.nDEFI && <NDEFI />}
 					{nestTokenAddress === Config.addressMap.nSTBL && <NSTBL />}
-					{nestTokenAddress === Config.addressMap.nINFRA && <NINFRA />}
+					{nestTokenAddress === Config.addressMap.nINFR && <NINFR />}
 					{nestTokenAddress === Config.addressMap.nPOLY && <NPOLY />}
 				</NestExplanation>
 			</NestBox>
