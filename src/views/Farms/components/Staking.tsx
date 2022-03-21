@@ -172,52 +172,66 @@ const Stake: React.FC<StakeProps> = ({
 			<Card.Footer>
 				<ButtonStack>
 					{!allowance.toNumber() ? (
-						<Button disabled={requestedApproval} onClick={handleApprove}>
+						<SubmitButton
+							disabled={requestedApproval}
+							onClick={async () => {
+								handleTx(handleApprove, `Approve ${tokenName}`)
+							}}
+						>
 							Approve {tokenName}
-						</Button>
+						</SubmitButton>
 					) : (
 						<>
 							{poolType !== PoolType.ARCHIVED ? (
-								<Button
-									disabled={
-										!val ||
-										!bao ||
-										isNaN(val as any) ||
-										parseFloat(val) > max.toNumber()
-									}
-									onClick={async () => {
-										let stakeTx
-										
-										stakeTx = masterChefContract.methods
-											.deposit(
-												pid,
-												ethers.utils.parseUnits(val.toString(), 18),
-												ref,
-											)
-											.send({ from: account })
-										handleTx(
-											stakeTx,
-											`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
-										)
-									}}
-								>
+								<>
 									{pendingTx ? (
-										<ExternalLink
-											href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-											target="_blank"
-										>
-											Pending Transaction{' '}
-											<FontAwesomeIcon icon="external-link-alt" />
-										</ExternalLink>
+										<SubmitButton disabled={true}>
+											{typeof pendingTx === 'string' ? (
+												<ExternalLink
+													href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+													target="_blank"
+												>
+													Pending Transaction{' '}
+													<FontAwesomeIcon icon="external-link-alt" />
+												</ExternalLink>
+											) : (
+												'Pending Transaction'
+											)}
+										</SubmitButton>
 									) : (
-										`Deposit ${tokenName}`
+										<SubmitButton
+											disabled={
+												!val ||
+												!bao ||
+												isNaN(val as any) ||
+												parseFloat(val) > max.toNumber()
+											}
+											onClick={async () => {
+												let stakeTx
+
+												stakeTx = masterChefContract.methods
+													.deposit(
+														pid,
+														ethers.utils.parseUnits(val.toString(), 18),
+														ref,
+													)
+													.send({ from: account })
+												handleTx(
+													stakeTx,
+													`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
+												)
+											}}
+										>
+											Deposit {tokenName}
+										</SubmitButton>
 									)}
-								</Button>
+								</>
 							) : (
-								<Button
+								<SubmitButton
 									disabled={true}
 									onClick={async () => {
 										let stakeTx
+
 										stakeTx = masterChefContract.methods
 											.deposit(
 												pid,
@@ -232,7 +246,7 @@ const Stake: React.FC<StakeProps> = ({
 									}}
 								>
 									Pool Archived
-								</Button>
+								</SubmitButton>
 							)}
 						</>
 					)}
@@ -315,39 +329,50 @@ const Unstake: React.FC<UnstakeProps> = ({
 				</Row>{' '}
 			</Card.Body>
 			<Card.Footer>
-				<Button
-					disabled={
-						!val ||
-						!bao ||
-						isNaN(val as any) ||
-						parseFloat(val) > parseFloat(fullBalance) ||
-						stakedBalance.eq(new BigNumber(0))
-					}
-					onClick={async () => {
-						let unstakeTx
+				<ButtonStack>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<ExternalLink
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</ExternalLink>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={
+									!val ||
+									!bao ||
+									isNaN(val as any) ||
+									parseFloat(val) > parseFloat(fullBalance) ||
+									stakedBalance.eq(new BigNumber(0))
+								}
+								onClick={async () => {
+									let unstakeTx
 
-						const amount =
-							val && isNaN(val as any)
-								? exponentiate(val, 18)
-								: new BigNumber(0).toFixed(4)
+									const amount =
+										val && isNaN(val as any)
+											? exponentiate(val, 18)
+											: new BigNumber(0).toFixed(4)
 
-						unstakeTx = masterChefContract.methods
-							.withdraw(pid, ethers.utils.parseUnits(val, 18), ref)
-							.send({ from: account })
-						handleTx(unstakeTx, `Withdraw ${amount} ${tokenName}`)
-					}}
-				>
-					{pendingTx ? (
-						<ExternalLink
-							href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-							target="_blank"
-						>
-							Pending Transaction <FontAwesomeIcon icon="external-link-alt" />
-						</ExternalLink>
-					) : (
-						`Withdraw ${tokenName}`
-					)}
-				</Button>
+									unstakeTx = masterChefContract.methods
+										.withdraw(pid, ethers.utils.parseUnits(val, 18), ref)
+										.send({ from: account })
+									handleTx(unstakeTx, `Withdraw ${amount} ${tokenName}`)
+								}}
+							>
+								Withdraw {tokenName}
+							</SubmitButton>
+						)}
+					</>
+				</ButtonStack>
 			</Card.Footer>
 		</AccordionCard>
 	)
