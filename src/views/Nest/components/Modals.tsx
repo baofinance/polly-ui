@@ -23,6 +23,7 @@ import useNestRedeem from 'hooks/baskets/useNestRedeem'
 import TokenInput from 'components/TokenInput'
 import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import ExternalLink from 'components/ExternalLink'
+import { SubmitButton } from 'components/Button/Button'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -251,94 +252,111 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				/>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button text="Cancel" onClick={onHide} />
+				<SubmitButton onClick={onHide}>Cancel</SubmitButton>
 				{issueAllowance && !issueAllowance.gt(0) ? (
-					<Button
+					<SubmitButton
 						disabled={requestedApproval}
 						onClick={() => {
 							handleTx(onApproveIssue(), `Approve ${inputTokenName}`)
 						}}
 					>
 						Approve {inputTokenName}
-					</Button>
+					</SubmitButton>
 				) : (
 					<>
 						{_outputToken === Config.addressMap.nPOLY ? (
-							<Button
-								disabled={
-									wethNeeded.slice(-1) === '.' ||
-									nestAmount.slice(-1) === '.' ||
-									isNaN(parseFloat(wethNeeded)) ||
-									isNaN(parseFloat(nestAmount)) ||
-									parseFloat(wethNeeded) === 0 ||
-									parseFloat(wethNeeded) < 0 ||
-									parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber()
-								}
-								onClick={async () => {
-									const encodedAmountData = await recipeContract.methods
-										.encodeData(
-											new BigNumber(nestAmount).times(10 ** 18).toString(),
-										)
-										.call()
-
-									handleTx(
-										onIssue(new BigNumber(wethNeeded), encodedAmountData),
-										`Issue ${nestAmount} ${nestName}`,
-									)
-								}}
-							>
+							<>
 								{pendingTx ? (
-									<ExternalLink
-										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-										target="_blank"
-									>
-										Pending Transaction{' '}
-										<FontAwesomeIcon icon="external-link-alt" />
-									</ExternalLink>
+									<SubmitButton disabled={true}>
+										{typeof pendingTx === 'string' ? (
+											<ExternalLink
+												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+												target="_blank"
+											>
+												Pending Transaction{' '}
+												<FontAwesomeIcon icon="external-link-alt" />
+											</ExternalLink>
+										) : (
+											'Pending Transaction'
+										)}
+									</SubmitButton>
 								) : (
-									`Issue ${nestName}`
+									<SubmitButton
+										disabled={
+											wethNeeded.slice(-1) === '.' ||
+											nestAmount.slice(-1) === '.' ||
+											isNaN(parseFloat(wethNeeded)) ||
+											isNaN(parseFloat(nestAmount)) ||
+											parseFloat(wethNeeded) === 0 ||
+											parseFloat(wethNeeded) < 0 ||
+											parseFloat(wethNeeded) >
+												wethBalance.div(10 ** 18).toNumber()
+										}
+										onClick={async () => {
+											const encodedAmountData = await recipeContract.methods
+												.encodeData(
+													new BigNumber(nestAmount).times(10 ** 18).toString(),
+												)
+												.call()
+
+											handleTx(
+												onIssue(new BigNumber(wethNeeded), encodedAmountData),
+												`Issue ${nestAmount} ${nestName}`,
+											)
+										}}
+									>
+										Issue {nestName}
+									</SubmitButton>
 								)}
-							</Button>
+							</>
 						) : (
-							<Button
-								disabled={
-									wethNeeded.slice(-1) === '.' ||
-									nestAmount.slice(-1) === '.' ||
-									isNaN(parseFloat(wethNeeded)) ||
-									isNaN(parseFloat(nestAmount)) ||
-									parseFloat(wethNeeded) === 0 ||
-									parseFloat(wethNeeded) < 0 ||
-									parseFloat(wethNeeded) >
-										wethBalance.div(10 ** 18).toNumber() ||
-									!nav ||
-									navDifferenceTooHigh ||
-									(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
-								}
-								onClick={async () => {
-									const encodedAmountData = await recipeContract.methods
-										.encodeData(
-											new BigNumber(nestAmount).times(10 ** 18).toString(),
-										)
-										.call()
-
-									handleTx(
-										onIssue(new BigNumber(wethNeeded), encodedAmountData),
-										`Issue ${nestAmount} ${nestName}`,
-									)
-								}}
-							>
+							<>
 								{pendingTx ? (
-									<ExternalLink
-										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-										target="_blank"
-									>
-										Pending Transaction{' '}
-										<FontAwesomeIcon icon="external-link-alt" />
-									</ExternalLink>
+									<SubmitButton disabled={true}>
+										{typeof pendingTx === 'string' ? (
+											<ExternalLink
+												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+												target="_blank"
+											>
+												Pending Transaction{' '}
+												<FontAwesomeIcon icon="external-link-alt" />
+											</ExternalLink>
+										) : (
+											'Pending Transaction'
+										)}
+									</SubmitButton>
 								) : (
-									`Issue ${nestName}`
+									<SubmitButton
+										disabled={
+											wethNeeded.slice(-1) === '.' ||
+											nestAmount.slice(-1) === '.' ||
+											isNaN(parseFloat(wethNeeded)) ||
+											isNaN(parseFloat(nestAmount)) ||
+											parseFloat(wethNeeded) === 0 ||
+											parseFloat(wethNeeded) < 0 ||
+											parseFloat(wethNeeded) >
+												wethBalance.div(10 ** 18).toNumber() ||
+											!nav ||
+											navDifferenceTooHigh ||
+											(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
+										}
+										onClick={async () => {
+											const encodedAmountData = await recipeContract.methods
+												.encodeData(
+													new BigNumber(nestAmount).times(10 ** 18).toString(),
+												)
+												.call()
+
+											handleTx(
+												onIssue(new BigNumber(wethNeeded), encodedAmountData),
+												`Issue ${nestAmount} ${nestName}`,
+											)
+										}}
+									>
+										Issue {nestName}
+									</SubmitButton>
 								)}
-							</Button>
+							</>
 						)}
 					</>
 				)}
@@ -458,50 +476,50 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 			<Modal.Footer>
 				<Button text="Cancel" onClick={onHide} />
 				{redeemToWeth && redeemAllowance && !redeemAllowance.gt(0) ? (
-					<Button
+					<SubmitButton
 						disabled={requestedApproval}
 						onClick={() => {
 							handleTx(onApproveRedeem(), `Approve ${nestName}`)
 						}}
 					>
-						{pendingTx ? (
-							<ExternalLink
-								href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-								target="_blank"
-							>
-								Pending Transaction <FontAwesomeIcon icon="external-link-alt" />
-							</ExternalLink>
-						) : (
-							`Approve ${nestName}`
-						)}
-					</Button>
+						Approve {nestName}
+					</SubmitButton>
 				) : (
-					<Button
-						disabled={
-							val.slice(-1) === '.' ||
-							isNaN(parseFloat(val)) ||
-							parseFloat(val) === 0 ||
-							parseFloat(val) < 0 ||
-							parseFloat(val) > max.div(10 ** 18).toNumber()
-						}
-						onClick={async () => {
-							handleTx(
-								onNestRedeem(val),
-								`Redeem ${parseFloat(val)} ${nestName}`,
-							)
-						}}
-					>
+					<>
 						{pendingTx ? (
-							<ExternalLink
-								href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-								target="_blank"
-							>
-								Pending Transaction <FontAwesomeIcon icon="external-link-alt" />
-							</ExternalLink>
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<ExternalLink
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</ExternalLink>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
 						) : (
-							`Redeem ${nestName}`
+							<SubmitButton
+								disabled={
+									val.slice(-1) === '.' ||
+									isNaN(parseFloat(val)) ||
+									parseFloat(val) === 0 ||
+									parseFloat(val) < 0 ||
+									parseFloat(val) > max.div(10 ** 18).toNumber()
+								}
+								onClick={async () => {
+									handleTx(
+										onNestRedeem(val),
+										`Redeem ${parseFloat(val)} ${nestName}`,
+									)
+								}}
+							>
+								Redeem {nestName}
+							</SubmitButton>
 						)}
-					</Button>
+					</>
 				)}
 			</Modal.Footer>
 		</Modal>
