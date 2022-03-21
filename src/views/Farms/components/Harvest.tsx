@@ -1,10 +1,13 @@
 import baoIcon from 'assets/img/logo.svg'
+import { getMasterChefContract } from 'bao/utils'
 import { Button } from 'components/Button'
 import Label from 'components/Label'
 import { SpinnerLoader } from 'components/Loader'
 import Tooltipped from 'components/Tooltipped'
 import Value from 'components/Value'
+import useBao from 'hooks/base/useBao'
 import useBlockDiff from 'hooks/base/useBlockDiff'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useEarnings from 'hooks/farms/useEarnings'
 import useFees from 'hooks/farms/useFees'
 import useLockedEarnings from 'hooks/farms/useLockedEarnings'
@@ -13,6 +16,7 @@ import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
 import React, { useState } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/numberFormat'
 import { AccordionCard } from './styles'
 
@@ -38,48 +42,54 @@ interface EarningsProps {
 }
 
 export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
+	const bao = useBao()
 	const earnings = useEarnings(pid)
-	const [pendingTx, setPendingTx] = useState(false)
-	const { onReward } = useReward(pid)
+	const { account } = useWallet()
+	const { pendingTx, handleTx } = useTransactionHandler()
+	const masterChefContract = getMasterChefContract(bao)
 
 	return (
-			<AccordionCard>
-				<Card.Header>
-					<Card.Title>
-						<Label text="POLLY Earned" />
-					</Card.Title>
-				</Card.Header>
-				<Card.Body>
-					<BalancesContainer>
-						<BalancesWrapper>
-							<BalanceContainer>
-								<BalanceWrapper>
-									<BalanceContent>
-										<BalanceImage>
-											<img src={baoIcon} />
-										</BalanceImage>
-										<BalanceSpacer />
-										<BalanceText>
-											<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
-										</BalanceText>
-									</BalanceContent>
-								</BalanceWrapper>
-							</BalanceContainer>
-						</BalancesWrapper>
-					</BalancesContainer>
-				</Card.Body>
-				<Card.Footer>
-					<Button
-						disabled={!earnings.toNumber() || pendingTx}
-						text={pendingTx ? 'Collecting POLLY' : 'Harvest'}
-						onClick={async () => {
-							setPendingTx(true)
-							await onReward()
-							setPendingTx(false)
-						}}
-					/>
-				</Card.Footer>
-			</AccordionCard>
+		<AccordionCard>
+			<Card.Header>
+				<Card.Title>
+					<Label text="POLLY Earned" />
+				</Card.Title>
+			</Card.Header>
+			<Card.Body>
+				<BalancesContainer>
+					<BalancesWrapper>
+						<BalanceContainer>
+							<BalanceWrapper>
+								<BalanceContent>
+									<BalanceImage>
+										<img src={baoIcon} />
+									</BalanceImage>
+									<BalanceSpacer />
+									<BalanceText>
+										<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
+									</BalanceText>
+								</BalanceContent>
+							</BalanceWrapper>
+						</BalanceContainer>
+					</BalancesWrapper>
+				</BalancesContainer>
+			</Card.Body>
+			<Card.Footer>
+				<Button
+					disabled={!earnings.toNumber()}
+					onClick={async () => {
+						let harvestTx
+
+						harvestTx = masterChefContract.methods
+							.claimReward(pid)
+							.send({ from: account })
+						handleTx(harvestTx, `Harvest ${getDisplayBalance(earnings)} POLLY`)
+					}}
+				>
+					Harvest POLLY
+				</Button>
+			</Card.Footer>
+		</AccordionCard>
 	)
 }
 
@@ -216,3 +226,7 @@ const BalanceValue = styled.div`
 	font-size: 24px;
 	font-weight: 700;
 `
+
+function handleTx(harvestTx: any, arg1: string) {
+	throw new Error('Function not implemented.')
+}
