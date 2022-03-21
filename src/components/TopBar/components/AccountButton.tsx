@@ -81,7 +81,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 											icon="angle-double-right"
 											style={{
 												margin: '0 4px',
-												color: '#b07a6e',
+												color: '#f8f8ff',
 											}}
 										/>{' '}
 										<SpinnerLoader />
