@@ -16,9 +16,10 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
   useEffect(() => {
     if (!(bao && composition && supply)) return
 
-    const mainnetAddresses = composition.map(
+    let mainnetAddresses = composition.map(
       (component: NestComponent) => MAINNET_ADDRESS_MAP[component.address],
     )
+    if (mainnetAddresses.includes(undefined)) mainnetAddresses = [] // If a component has no mainnet address, don't fetch mainnet NAV
     GraphUtil.getPriceHistoryMultiple(mainnetAddresses, 'mainnet', 1).then(
       async (_mainnetPrices: any) => {
         const mainnetPrices = JSON.parse(JSON.stringify(_mainnetPrices)) // Create mutable copy
@@ -77,16 +78,17 @@ const useNav = (composition: Array<NestComponent>, supply: BigNumber) => {
           })
           .forEach((usdVal) => (totalUSD = totalUSD.plus(usdVal)))
         // mainnet assets
-        composition
-          .map((component) => {
-            return mainnetPriceMap[
-              MAINNET_ADDRESS_MAP[component.address]
-            ].times(
-              component.baseBalance ||
+        if (mainnetAddresses.length > 0) // If a component has no mainnet address, don't fetch mainnet NAV
+          composition
+            .map((component) => {
+              return mainnetPriceMap[
+                MAINNET_ADDRESS_MAP[component.address]
+                ].times(
+                component.baseBalance ||
                 component.balance.div(10 ** component.balanceDecimals),
-            )
-          })
-          .forEach((usdVal) => (totalUSDMainnet = totalUSDMainnet.plus(usdVal)))
+              )
+            })
+            .forEach((usdVal) => (totalUSDMainnet = totalUSDMainnet.plus(usdVal)))
         setNav({
           nav: totalUSD.div(supply.div(10 ** 18)),
           mainnetNav: totalUSDMainnet.div(supply.div(10 ** 18)),
@@ -141,8 +143,8 @@ const MAINNET_ADDRESS_MAP: any = {
     '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
   '0x2791bca1f2de4661ed88a30c99a7a9449aa84174':
     '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
-  '0x5fe2B58c013d7601147DcdD68C143A77499f5531':
-    '0xc944E90C64B2c07662A292be6244BDf05Cda44a7', //GRT
+  '0x5fe2b58c013d7601147dcdd68c143a77499f5531':
+    '0xc944E90C64B2c07662A292be6244BDf05Cda44a7', // GRT
 }
 
 export default useNav
