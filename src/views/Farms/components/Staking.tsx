@@ -18,7 +18,12 @@ import { Card, Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import { getContract } from 'utils/erc20'
-import { getFullDisplayBalance } from 'utils/numberFormat'
+import {
+	decimate,
+	exponentiate,
+	getDisplayBalance,
+	getFullDisplayBalance,
+} from 'utils/numberFormat'
 import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
 import { FarmWithStakedValue } from './FarmList'
@@ -29,6 +34,8 @@ import { SubmitButton } from 'components/Button/Button'
 import ExternalLink from 'components/ExternalLink'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useTransactionHandler from 'hooks/base/useTransactionHandler'
+import { getMasterChefContract } from 'bao/utils'
+import { ethers } from 'ethers'
 
 interface FarmListItemProps {
 	farm: FarmWithStakedValue
@@ -50,9 +57,6 @@ export const Staking: React.FC<FarmListItemProps> = ({ farm, operation }) => {
 	const tokenBalance = useTokenBalance(lpContract.options.address)
 	const stakedBalance = useStakedBalance(pid)
 
-	const { onStake } = useStake(pid)
-	const { onUnstake } = useUnstake(pid)
-
 	return (
 		<>
 			{operation === 'Unstake' ? (
@@ -60,7 +64,6 @@ export const Staking: React.FC<FarmListItemProps> = ({ farm, operation }) => {
 					pid={farm.pid}
 					tokenName={farm.lpToken.toUpperCase()}
 					max={stakedBalance}
-					onConfirm={onUnstake}
 				/>
 			) : (
 				<Stake
@@ -70,7 +73,6 @@ export const Staking: React.FC<FarmListItemProps> = ({ farm, operation }) => {
 					tokenName={farm.lpToken.toUpperCase()}
 					poolType={farm.poolType}
 					max={tokenBalance}
-					onConfirm={onStake}
 				/>
 			)}
 		</>
@@ -82,9 +84,9 @@ interface StakeProps {
 	lpTokenAddress: string
 	pid: number
 	max: BigNumber
-	onConfirm: (amount: string) => void
 	tokenName?: string
 	poolType: PoolType
+	ref?: string
 }
 
 const Stake: React.FC<StakeProps> = ({
@@ -93,12 +95,13 @@ const Stake: React.FC<StakeProps> = ({
 	pid,
 	poolType,
 	max,
-	onConfirm,
 	tokenName = '',
+	ref = '0x0000000000000000000000000000000000000000',
 }) => {
 	const bao = useBao()
+	const { account } = useWallet()
 	const [val, setVal] = useState('')
-	const [pendingTx, setPendingTx] = useState(false)
+	const { pendingTx, handleTx } = useTransactionHandler()
 
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
@@ -134,6 +137,8 @@ const Stake: React.FC<StakeProps> = ({
 			console.log(e)
 		}
 	}, [onApprove, setRequestedApproval])
+
+	const masterChefContract = getMasterChefContract(bao)
 
 	return (
 		<AccordionCard>
@@ -178,13 +183,22 @@ const Stake: React.FC<StakeProps> = ({
 										!val ||
 										!bao ||
 										isNaN(val as any) ||
-										parseFloat(val) > max.toNumber() ||
-										pendingTx
+										parseFloat(val) > max.toNumber()
 									}
 									onClick={async () => {
-										setPendingTx(true)
-										await onConfirm(val)
-										setPendingTx(false)
+										let stakeTx
+										
+										stakeTx = masterChefContract.methods
+											.deposit(
+												pid,
+												ethers.utils.parseUnits(val.toString(), 18),
+												ref,
+											)
+											.send({ from: account })
+										handleTx(
+											stakeTx,
+											`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
+										)
 									}}
 								>
 									{pendingTx ? (
@@ -203,9 +217,18 @@ const Stake: React.FC<StakeProps> = ({
 								<Button
 									disabled={true}
 									onClick={async () => {
-										setPendingTx(true)
-										await onConfirm(val)
-										setPendingTx(false)
+										let stakeTx
+										stakeTx = masterChefContract.methods
+											.deposit(
+												pid,
+												ethers.utils.parseUnits(val.toString(), 18),
+												ref,
+											)
+											.send({ from: account })
+										handleTx(
+											stakeTx,
+											`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
+										)
 									}}
 								>
 									Pool Archived
@@ -221,20 +244,21 @@ const Stake: React.FC<StakeProps> = ({
 
 interface UnstakeProps {
 	max: BigNumber
-	onConfirm: (amount: string) => void
 	tokenName?: string
 	pid: number
+	ref?: string
 }
 
 const Unstake: React.FC<UnstakeProps> = ({
-	onConfirm,
 	max,
 	tokenName = '',
 	pid = null,
+	ref = '0x0000000000000000000000000000000000000000',
 }) => {
 	const bao = useBao()
+	const { account } = useWallet()
 	const [val, setVal] = useState('')
-	const [pendingTx, setPendingTx] = useState(false)
+	const { pendingTx, handleTx } = useTransactionHandler()
 
 	const stakedBalance = useStakedBalance(pid)
 
@@ -256,6 +280,8 @@ const Unstake: React.FC<UnstakeProps> = ({
 	const userInfo = useUserFarmInfo(pid)
 	const blockDiff = useBlockDiff(userInfo)
 	const fees = useFees(blockDiff)
+
+	const masterChefContract = getMasterChefContract(bao)
 
 	return (
 		<AccordionCard>
@@ -295,16 +321,33 @@ const Unstake: React.FC<UnstakeProps> = ({
 						!bao ||
 						isNaN(val as any) ||
 						parseFloat(val) > parseFloat(fullBalance) ||
-						stakedBalance.eq(new BigNumber(0)) ||
-						pendingTx
+						stakedBalance.eq(new BigNumber(0))
 					}
-					text={pendingTx ? 'Pending Confirmation' : 'Withdraw'}
 					onClick={async () => {
-						setPendingTx(true)
-						await onConfirm(val)
-						setPendingTx(false)
+						let unstakeTx
+
+						const amount =
+							val && isNaN(val as any)
+								? exponentiate(val, 18)
+								: new BigNumber(0).toFixed(4)
+
+						unstakeTx = masterChefContract.methods
+							.withdraw(pid, ethers.utils.parseUnits(val, 18), ref)
+							.send({ from: account })
+						handleTx(unstakeTx, `Withdraw ${amount} ${tokenName}`)
 					}}
-				/>
+				>
+					{pendingTx ? (
+						<ExternalLink
+							href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+							target="_blank"
+						>
+							Pending Transaction <FontAwesomeIcon icon="external-link-alt" />
+						</ExternalLink>
+					) : (
+						`Withdraw ${tokenName}`
+					)}
+				</Button>
 			</Card.Footer>
 		</AccordionCard>
 	)
