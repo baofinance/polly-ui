@@ -1,14 +1,30 @@
 import Spacer from 'components/Spacer'
 import React from 'react'
+import { Tex2SVG } from 'react-hook-mathjax'
 import { NestHeader, NestList, NestSubHeader } from '../styles'
 
-const nSTBL: React.FC = () => (
+const nPOLY: React.FC = () => (
 	<>
 		<NestHeader>Description</NestHeader>
 		<p>
 			Top 4 projects by TVL on Polygon that are not included in nDEFI. Each
 			project is weighted using the TVL on Polygon, overall TVL and Fully
 			Diluted Valuation (FDV), shown by the formula below.
+		</p>
+				<p>
+			<Tex2SVG display="inline" latex="TvlFactor = {\frac{TVL}{FDV}}" />
+		</p>
+		<p>
+			<Tex2SVG
+				display="inline"
+				latex="PolyTvlFactor = \sqrt{100 x  {\frac{Token Polygon TVL}{Nest Polygon TVL}}}"
+			/>
+		</p>
+		<p>
+			<Tex2SVG
+				display="inline"
+				latex="Weighting = {\frac{TvlFactor + PolyTvlFactor}{allTokensTvlFactor + allTokensPolyTvlFactor}}"
+			/>
 		</p>
 		<Spacer />
 		<NestHeader>Objective</NestHeader>
@@ -90,4 +106,4 @@ const nSTBL: React.FC = () => (
 	</>
 )
 
-export default nSTBL
+export default nPOLY
