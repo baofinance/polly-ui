@@ -3,7 +3,7 @@ import Spacer from 'components/Spacer'
 import React from 'react'
 import { NestHeader, NestList, NestSubHeader } from '../styles'
 
-const nDEFI: React.FC = () => (
+const nINFR: React.FC = () => (
 	<>
 		<NestHeader>Description</NestHeader>
 		<p>
@@ -84,4 +84,4 @@ const nDEFI: React.FC = () => (
 	</>
 )
 
-export default nDEFI
+export default nINFR
