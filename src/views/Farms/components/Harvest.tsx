@@ -1,6 +1,10 @@
+import Config from 'bao/lib/config'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import baoIcon from 'assets/img/logo.svg'
 import { getMasterChefContract } from 'bao/utils'
 import { Button } from 'components/Button'
+import { SubmitButton } from 'components/Button/Button'
+import ExternalLink from 'components/ExternalLink'
 import Label from 'components/Label'
 import { SpinnerLoader } from 'components/Loader'
 import Tooltipped from 'components/Tooltipped'
@@ -75,19 +79,42 @@ export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
 				</BalancesContainer>
 			</Card.Body>
 			<Card.Footer>
-				<Button
-					disabled={!earnings.toNumber()}
-					onClick={async () => {
-						let harvestTx
+				<ButtonStack>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<ExternalLink
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</ExternalLink>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={!earnings.toNumber()}
+								onClick={async () => {
+									let harvestTx
 
-						harvestTx = masterChefContract.methods
-							.claimReward(pid)
-							.send({ from: account })
-						handleTx(harvestTx, `Harvest ${getDisplayBalance(earnings)} POLLY`)
-					}}
-				>
-					Harvest POLLY
-				</Button>
+									harvestTx = masterChefContract.methods
+										.claimReward(pid)
+										.send({ from: account })
+									handleTx(
+										harvestTx,
+										`Harvest ${getDisplayBalance(earnings)} POLLY`,
+									)
+								}}
+							>
+								Harvest POLLY
+							</SubmitButton>
+						)}
+					</>
+				</ButtonStack>
 			</Card.Footer>
 		</AccordionCard>
 	)
@@ -227,6 +254,8 @@ const BalanceValue = styled.div`
 	font-weight: 700;
 `
 
-function handleTx(harvestTx: any, arg1: string) {
-	throw new Error('Function not implemented.')
-}
+const ButtonStack = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+`
