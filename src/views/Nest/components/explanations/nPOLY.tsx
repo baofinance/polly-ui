@@ -1,7 +1,7 @@
 import Spacer from 'components/Spacer'
 import React from 'react'
-import { Tex2SVG } from 'react-hook-mathjax'
 import { NestHeader, NestList, NestSubHeader } from '../styles'
+import Tex2SVG from 'react-hook-mathjax'
 
 const nPOLY: React.FC = () => (
 	<>
@@ -11,7 +11,7 @@ const nPOLY: React.FC = () => (
 			project is weighted using the TVL on Polygon, overall TVL and Fully
 			Diluted Valuation (FDV), shown by the formula below.
 		</p>
-				<p>
+		<p>
 			<Tex2SVG display="inline" latex="TvlFactor = {\frac{TVL}{FDV}}" />
 		</p>
 		<p>
