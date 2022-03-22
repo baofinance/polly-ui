@@ -1,14 +1,11 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider, createWeb3ReactRoot } from '@web3-react/core'
-import Web3ReactManager from 'components/Web3ReactManager'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Web3 from 'web3'
-import { provider } from 'web3-core'
 import App from './App'
 
-function getLibrary(provider: provider) {
-	return new Web3(provider)
+function getLibrary(provider: any) {
+	return new Web3Provider(provider)
 }
 
 const Web3ReactNetworkProvider = createWeb3ReactRoot('network')
