@@ -19,6 +19,7 @@ import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
 import GlobalStyle from 'GlobalStyle'
+import Web3ReactManager from 'components/Web3ReactManager'
 library.add(fas, fab)
 
 const url = new URL(window.location.toString())
@@ -65,6 +66,7 @@ const Providers: React.FC = ({ children }) => {
 	return (
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
+				<Web3ReactManager>
 				<BaoProvider>
 					<NestsProvider>
 						<TransactionProvider>
@@ -74,6 +76,7 @@ const Providers: React.FC = ({ children }) => {
 						</TransactionProvider>
 					</NestsProvider>
 				</BaoProvider>
+				</Web3ReactManager>
 			</ThemeProvider>
 	)
 }
