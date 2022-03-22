@@ -21,6 +21,9 @@ import { FloatingLabel, Form, Modal, ModalProps } from 'react-bootstrap'
 import styled from 'styled-components'
 import useNestRedeem from 'hooks/baskets/useNestRedeem'
 import TokenInput from 'components/TokenInput'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
+import ExternalLink from 'components/ExternalLink'
+import { SubmitButton } from 'components/Button/Button'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -49,7 +52,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 }) => {
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
-	const [pendingTx, setPendingTx] = useState(false)
+	const { pendingTx, handleTx } = useTransactionHandler()
 	const [confNo, setConfNo] = useState<number | undefined>()
 	const [requestedApproval, setRequestedApproval] = useState(false)
 	const [val, setVal] = useState<string>('')
@@ -145,7 +148,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	const issueAllowance = useAllowancev2(
 		Config.addressMap.WETH,
 		bao.getContract('recipe').options.address,
-		pendingTx,
 	)
 	const { onApprove: onApproveIssue } = useApprovev2(
 		bao.getNewContract('erc20.json', Config.addressMap.WETH),
@@ -250,127 +252,111 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				/>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button text="Cancel" variant="secondary" onClick={onHide} />
+				<SubmitButton onClick={onHide}>Cancel</SubmitButton>
 				{issueAllowance && !issueAllowance.gt(0) ? (
-					<Button
+					<SubmitButton
 						disabled={requestedApproval}
 						onClick={() => {
-							setPendingTx(true)
-							setRequestedApproval(true)
-							onApproveIssue()
-								.on('confirmation', (_confNo: any) => {
-									if (_confNo < 15) {
-										setConfNo(_confNo)
-									} else if (_confNo >= 15) {
-										setConfNo(undefined)
-										setRequestedApproval(false)
-										setPendingTx(false)
-									}
-								})
-								.on('error', () => {
-									setRequestedApproval(false)
-									setPendingTx(false)
-								})
+							handleTx(onApproveIssue(), `Approve ${inputTokenName}`)
 						}}
-						text={
-							confNo
-								? `Confirmations: ${confNo}/15`
-								: pendingTx
-								? 'Pending Confirmation'
-								: `Approve wETH`
-						}
-					/>
+					>
+						Approve {inputTokenName}
+					</SubmitButton>
 				) : (
 					<>
 						{_outputToken === Config.addressMap.nPOLY ? (
-							<Button
-								disabled={
-									pendingTx ||
-									wethNeeded.slice(-1) === '.' ||
-									nestAmount.slice(-1) === '.' ||
-									isNaN(parseFloat(wethNeeded)) ||
-									isNaN(parseFloat(nestAmount)) ||
-									parseFloat(wethNeeded) === 0 ||
-									parseFloat(wethNeeded) < 0 ||
-									parseFloat(wethNeeded) >
-										wethBalance.div(10 ** 18).toNumber()
-								}
-								text={
-									confNo
-										? `Confirmations: ${confNo}/15`
-										: pendingTx
-										? 'Pending Confirmation'
-										: 'Confirm'
-								}
-								onClick={async () => {
-									setPendingTx(true)
-									const encodedAmountData = await recipeContract.methods
-										.encodeData(
-											new BigNumber(nestAmount).times(10 ** 18).toString(),
-										)
-										.call()
-									onIssue(new BigNumber(wethNeeded), encodedAmountData)
-										.on('confirmation', (_confNo: any) => {
-											setConfNo(_confNo)
-											if (_confNo >= 15) {
-												setConfNo(undefined)
-												setPendingTx(false)
-												onHide()
-												window.location.reload()
-											}
-										})
-										.on('error', () => {
-											setConfNo(undefined)
-											setPendingTx(false)
-										})
-								}}
-							/>
+							<>
+								{pendingTx ? (
+									<SubmitButton disabled={true}>
+										{typeof pendingTx === 'string' ? (
+											<ExternalLink
+												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+												target="_blank"
+											>
+												Pending Transaction{' '}
+												<FontAwesomeIcon icon="external-link-alt" />
+											</ExternalLink>
+										) : (
+											'Pending Transaction'
+										)}
+									</SubmitButton>
+								) : (
+									<SubmitButton
+										disabled={
+											wethNeeded.slice(-1) === '.' ||
+											nestAmount.slice(-1) === '.' ||
+											isNaN(parseFloat(wethNeeded)) ||
+											isNaN(parseFloat(nestAmount)) ||
+											parseFloat(wethNeeded) === 0 ||
+											parseFloat(wethNeeded) < 0 ||
+											parseFloat(wethNeeded) >
+												wethBalance.div(10 ** 18).toNumber()
+										}
+										onClick={async () => {
+											const encodedAmountData = await recipeContract.methods
+												.encodeData(
+													new BigNumber(nestAmount).times(10 ** 18).toString(),
+												)
+												.call()
+
+											handleTx(
+												onIssue(new BigNumber(wethNeeded), encodedAmountData),
+												`Issue ${nestAmount} ${nestName}`,
+											)
+										}}
+									>
+										Issue {nestName}
+									</SubmitButton>
+								)}
+							</>
 						) : (
-							<Button
-								disabled={
-									pendingTx ||
-									wethNeeded.slice(-1) === '.' ||
-									nestAmount.slice(-1) === '.' ||
-									isNaN(parseFloat(wethNeeded)) ||
-									isNaN(parseFloat(nestAmount)) ||
-									parseFloat(wethNeeded) === 0 ||
-									parseFloat(wethNeeded) < 0 ||
-									parseFloat(wethNeeded) >
-										wethBalance.div(10 ** 18).toNumber() ||
-									!nav ||
-									navDifferenceTooHigh ||
-									(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
-								}
-								text={
-									confNo
-										? `Confirmations: ${confNo}/15`
-										: pendingTx
-										? 'Pending Confirmation'
-										: 'Confirm'
-								}
-								onClick={async () => {
-									setPendingTx(true)
-									const encodedAmountData = await recipeContract.methods
-										.encodeData(
-											new BigNumber(nestAmount).times(10 ** 18).toString(),
-										)
-										.call()
-									onIssue(new BigNumber(wethNeeded), encodedAmountData)
-										.on('confirmation', (_confNo: any) => {
-											setConfNo(_confNo)
-											if (_confNo >= 15) {
-												setConfNo(undefined)
-												setPendingTx(false)
-												onHide()
-												window.location.reload()
-											}
-										})
-										.on('error', () => {
-											setConfNo(undefined)
-											setPendingTx(false)
-										})
-								}}
-							/>
+							<>
+								{pendingTx ? (
+									<SubmitButton disabled={true}>
+										{typeof pendingTx === 'string' ? (
+											<ExternalLink
+												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+												target="_blank"
+											>
+												Pending Transaction{' '}
+												<FontAwesomeIcon icon="external-link-alt" />
+											</ExternalLink>
+										) : (
+											'Pending Transaction'
+										)}
+									</SubmitButton>
+								) : (
+									<SubmitButton
+										disabled={
+											wethNeeded.slice(-1) === '.' ||
+											nestAmount.slice(-1) === '.' ||
+											isNaN(parseFloat(wethNeeded)) ||
+											isNaN(parseFloat(nestAmount)) ||
+											parseFloat(wethNeeded) === 0 ||
+											parseFloat(wethNeeded) < 0 ||
+											parseFloat(wethNeeded) >
+												wethBalance.div(10 ** 18).toNumber() ||
+											!nav ||
+											navDifferenceTooHigh ||
+											(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
+										}
+										onClick={async () => {
+											const encodedAmountData = await recipeContract.methods
+												.encodeData(
+													new BigNumber(nestAmount).times(10 ** 18).toString(),
+												)
+												.call()
+
+											handleTx(
+												onIssue(new BigNumber(wethNeeded), encodedAmountData),
+												`Issue ${nestAmount} ${nestName}`,
+											)
+										}}
+									>
+										Issue {nestName}
+									</SubmitButton>
+								)}
+							</>
 						)}
 					</>
 				)}
@@ -397,7 +383,7 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 	onHide,
 }) => {
 	const [val, setVal] = useState('')
-	const [pendingTx, setPendingTx] = useState(false)
+	const { pendingTx, handleTx } = useTransactionHandler()
 	const [redeemToWeth, setRedeemToWeth] = useState(true)
 	const [confNo, setConfNo] = useState<number | undefined>()
 
@@ -414,7 +400,6 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 	const redeemAllowance = useAllowancev2(
 		nestContract.options.address,
 		bao.getContract('nestRedeem').options.address,
-		pendingTx,
 	)
 	const { onApprove: onApproveRedeem } = useApprovev2(
 		nestContract,
@@ -489,71 +474,52 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 				</FloatingLabel>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button text="Cancel" variant="secondary" onClick={onHide} />
+				<Button text="Cancel" onClick={onHide} />
 				{redeemToWeth && redeemAllowance && !redeemAllowance.gt(0) ? (
-					<Button
+					<SubmitButton
 						disabled={requestedApproval}
 						onClick={() => {
-							setPendingTx(true)
-							setRequestedApproval(true)
-							onApproveRedeem()
-								.on('confirmation', (_confNo: any) => {
-									if (_confNo < 15) {
-										setConfNo(_confNo)
-									} else if (_confNo >= 15) {
-										setConfNo(undefined)
-										setRequestedApproval(false)
-										setPendingTx(false)
-									}
-								})
-								.on('error', () => {
-									setRequestedApproval(false)
-									setPendingTx(false)
-								})
+							handleTx(onApproveRedeem(), `Approve ${nestName}`)
 						}}
-						text={
-							confNo
-								? `Confirmations: ${confNo}/15`
-								: pendingTx
-								? 'Pending Confirmation'
-								: `Approve ${nestName}`
-						}
-					/>
+					>
+						Approve {nestName}
+					</SubmitButton>
 				) : (
-					<Button
-						disabled={
-							pendingTx ||
-							val.slice(-1) === '.' ||
-							isNaN(parseFloat(val)) ||
-							parseFloat(val) === 0 ||
-							parseFloat(val) < 0 ||
-							parseFloat(val) > max.div(10 ** 18).toNumber()
-						}
-						text={
-							confNo
-								? `Confirmations: ${confNo}/15`
-								: pendingTx
-								? 'Pending Confirmation'
-								: 'Confirm'
-						}
-						onClick={async () => {
-							setPendingTx(true)
-							onNestRedeem(val)
-								.on('confirmation', (_confNo: any) => {
-									setConfNo(_confNo)
-									if (_confNo >= 15) {
-										setConfNo(undefined)
-										setPendingTx(false)
-										onHide()
-										window.location.reload()
-									}
-								})
-								.on('error', () => {
-									setConfNo(undefined)
-									setPendingTx(false)
-								})
-						}}
-					/>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<ExternalLink
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</ExternalLink>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={
+									val.slice(-1) === '.' ||
+									isNaN(parseFloat(val)) ||
+									parseFloat(val) === 0 ||
+									parseFloat(val) < 0 ||
+									parseFloat(val) > max.div(10 ** 18).toNumber()
+								}
+								onClick={async () => {
+									handleTx(
+										onNestRedeem(val),
+										`Redeem ${parseFloat(val)} ${nestName}`,
+									)
+								}}
+							>
+								Redeem {nestName}
+							</SubmitButton>
+						)}
+					</>
 				)}
 			</Modal.Footer>
 		</Modal>

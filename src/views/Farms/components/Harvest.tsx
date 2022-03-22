@@ -1,10 +1,17 @@
+import Config from 'bao/lib/config'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import baoIcon from 'assets/img/logo.svg'
+import { getMasterChefContract } from 'bao/utils'
 import { Button } from 'components/Button'
+import { SubmitButton } from 'components/Button/Button'
+import ExternalLink from 'components/ExternalLink'
 import Label from 'components/Label'
 import { SpinnerLoader } from 'components/Loader'
 import Tooltipped from 'components/Tooltipped'
 import Value from 'components/Value'
+import useBao from 'hooks/base/useBao'
 import useBlockDiff from 'hooks/base/useBlockDiff'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useEarnings from 'hooks/farms/useEarnings'
 import useFees from 'hooks/farms/useFees'
 import useLockedEarnings from 'hooks/farms/useLockedEarnings'
@@ -13,6 +20,7 @@ import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
 import React, { useState } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/numberFormat'
 import { AccordionCard } from './styles'
 
@@ -38,48 +46,77 @@ interface EarningsProps {
 }
 
 export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
+	const bao = useBao()
 	const earnings = useEarnings(pid)
-	const [pendingTx, setPendingTx] = useState(false)
-	const { onReward } = useReward(pid)
+	const { account } = useWallet()
+	const { pendingTx, handleTx } = useTransactionHandler()
+	const masterChefContract = getMasterChefContract(bao)
 
 	return (
-			<AccordionCard>
-				<Card.Header>
-					<Card.Title>
-						<Label text="POLLY Earned" />
-					</Card.Title>
-				</Card.Header>
-				<Card.Body>
-					<BalancesContainer>
-						<BalancesWrapper>
-							<BalanceContainer>
-								<BalanceWrapper>
-									<BalanceContent>
-										<BalanceImage>
-											<img src={baoIcon} />
-										</BalanceImage>
-										<BalanceSpacer />
-										<BalanceText>
-											<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
-										</BalanceText>
-									</BalanceContent>
-								</BalanceWrapper>
-							</BalanceContainer>
-						</BalancesWrapper>
-					</BalancesContainer>
-				</Card.Body>
-				<Card.Footer>
-					<Button
-						disabled={!earnings.toNumber() || pendingTx}
-						text={pendingTx ? 'Collecting POLLY' : 'Harvest'}
-						onClick={async () => {
-							setPendingTx(true)
-							await onReward()
-							setPendingTx(false)
-						}}
-					/>
-				</Card.Footer>
-			</AccordionCard>
+		<AccordionCard>
+			<Card.Header>
+				<Card.Title>
+					<Label text="POLLY Earned" />
+				</Card.Title>
+			</Card.Header>
+			<Card.Body>
+				<BalancesContainer>
+					<BalancesWrapper>
+						<BalanceContainer>
+							<BalanceWrapper>
+								<BalanceContent>
+									<BalanceImage>
+										<img src={baoIcon} />
+									</BalanceImage>
+									<BalanceSpacer />
+									<BalanceText>
+										<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
+									</BalanceText>
+								</BalanceContent>
+							</BalanceWrapper>
+						</BalanceContainer>
+					</BalancesWrapper>
+				</BalancesContainer>
+			</Card.Body>
+			<Card.Footer>
+				<ButtonStack>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<ExternalLink
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</ExternalLink>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={!earnings.toNumber()}
+								onClick={async () => {
+									let harvestTx
+
+									harvestTx = masterChefContract.methods
+										.claimReward(pid)
+										.send({ from: account })
+									handleTx(
+										harvestTx,
+										`Harvest ${getDisplayBalance(earnings)} POLLY`,
+									)
+								}}
+							>
+								Harvest POLLY
+							</SubmitButton>
+						)}
+					</>
+				</ButtonStack>
+			</Card.Footer>
+		</AccordionCard>
 	)
 }
 
@@ -215,4 +252,10 @@ const BalanceText = styled.div`
 const BalanceValue = styled.div`
 	font-size: 24px;
 	font-weight: 700;
+`
+
+const ButtonStack = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 `

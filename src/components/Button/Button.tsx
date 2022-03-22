@@ -207,8 +207,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-		cursor: ${(props) =>
-			props.disabled ? 'not-allowed' : 'pointer'} !important;
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
 	}
 `
 
@@ -273,7 +272,6 @@ export const MaxButton = styled.a`
 		font-size: 0.75rem;
 	}
 `
-
 
 export const StyledBorderButton = styled(StyledButton)`
 	background: ${(props) => props.theme.buttonGradient.a};
@@ -422,10 +420,12 @@ export const SubmitButton = styled.button`
 	font-size: ${(props) => props.theme.fontSize.default};
 	padding-inline-start: 1rem;
 	padding-inline-end: 1rem;
+	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
 	background-color: ${(props) => props.theme.color.primary[100]};
 	outline: transparent solid 2px;
-	border-radius: 8px;
 	color: ${(props) => props.theme.color.text[100]};
 	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 	transition: 200ms;
@@ -435,17 +435,52 @@ export const SubmitButton = styled.button`
 		outline: 0;
 	}
 
-	&:hover {
-		background: ${(props) => props.theme.color.primary[200]};
+	&:before{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[300]};
+		width: 60px;
+		height: 100%;
+		left: 0;
+		top: 0;
+		opacity: .5;
+		filter: blur(30px);
+		transform: translateX(-100px)  skewX(-15deg);
+	  }
+	  &:after{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[200]};
+		width: 30px;
+		height: 100%;
+		left: 30px;
+		top: 0;
+		opacity: 0;
+		filter: blur(5px);
+		transform: translateX(-100px) skewX(-15deg);
+	  }
+	  &:hover{
+		background: ${(props) => props.theme.color.primary[100]};
 		cursor: pointer;
-		color: ${(props) => props.theme.color.text[100]};
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
 	}
-
+	
 	&:hover,
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-		cursor: ${(props) =>
-			props.disabled ? 'not-allowed' : 'pointer'} !important;
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
 	}
 `
