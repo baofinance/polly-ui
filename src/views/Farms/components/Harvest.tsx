@@ -20,9 +20,9 @@ import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
 import React, { useState } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
 import { getDisplayBalance } from 'utils/numberFormat'
 import { AccordionCard } from './styles'
+import { useWeb3React } from '@web3-react/core'
 
 interface HarvestProps {
 	pid: number
@@ -48,7 +48,7 @@ interface EarningsProps {
 export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
 	const bao = useBao()
 	const earnings = useEarnings(pid)
-	const { account } = useWallet()
+	const { account } = useWeb3React()
 	const { pendingTx, handleTx } = useTransactionHandler()
 	const masterChefContract = getMasterChefContract(bao)
 

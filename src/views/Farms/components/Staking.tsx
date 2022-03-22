@@ -98,7 +98,7 @@ const Stake: React.FC<StakeProps> = ({
 	ref = '0x0000000000000000000000000000000000000000',
 }) => {
 	const bao = useBao()
-	const { account } = useWallet()
+	const { account } = useWeb3React()
 	const [val, setVal] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
 
@@ -290,7 +290,7 @@ const Unstake: React.FC<UnstakeProps> = ({
 	ref = '0x0000000000000000000000000000000000000000',
 }) => {
 	const bao = useBao()
-	const { account } = useWallet()
+	const { account } = useWeb3React()
 	const [val, setVal] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
 
