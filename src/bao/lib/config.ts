@@ -172,6 +172,7 @@ export default {
       name: 'POLLY-ETH',
       symbol: 'POLLY-ETH SUSHI LP',
       tokenSymbol: 'POLLY',
+      poolType: 'active',
       iconA: '/POLLY.png',
       iconB: '/WETH.png',
       refUrl:
@@ -191,6 +192,7 @@ export default {
       name: 'POLLY-nDEFI',
       symbol: 'POLLY-nDEFI SUSHI LP',
       tokenSymbol: 'POLLY',
+      poolType: 'active',
       iconA: '/POLLY.png',
       iconB: 'nDEFI.png',
       refUrl:
@@ -210,6 +212,7 @@ export default {
       name: 'POLLY-RAI',
       symbol: 'POLLY-RAI SUSHI LP',
       tokenSymbol: 'POLLY',
+      poolType: 'active',
       iconA: '/POLLY.png',
       iconB: 'RAI.png',
       refUrl:
@@ -229,6 +232,7 @@ export default {
       name: 'nDEFI',
       symbol: 'nDEFI',
       tokenSymbol: 'nDEFI',
+      poolType: 'active',
       iconA: '/nDEFI.png',
       iconB: '',
       refUrl:
@@ -248,6 +252,7 @@ export default {
       name: 'nDEFI-RAI',
       symbol: 'nDEFI-RAI SUSHI LP',
       tokenSymbol: 'nDEFI',
+      poolType: 'active',
       iconA: '/nDEFI.png',
       iconB: '/RAI.png',
       refUrl:
@@ -267,6 +272,7 @@ export default {
       name: 'nDEFI-ETH',
       symbol: 'nDEFI-ETH SUSHI LP',
       tokenSymbol: 'nDEFI',
+      poolType: 'active',
       iconA: '/nDEFI.png',
       iconB: '/WETH.png',
       refUrl:
@@ -286,6 +292,7 @@ export default {
       name: 'nSTBL',
       symbol: 'nSTBL',
       tokenSymbol: 'nSTBL',
+      poolType: 'active',
       iconA: '/nSTBL.png',
       iconB: '',
       refUrl:
@@ -305,6 +312,7 @@ export default {
       name: 'nSTBL-ETH',
       symbol: 'nSTBL-ETH SUSHI LP',
       tokenSymbol: 'nSTBL',
+      poolType: 'active',
       iconA: '/nSTBL.png',
       iconB: '/WETH.png',
       refUrl:
@@ -325,6 +333,7 @@ export default {
       name: 'RAI-ETH',
       symbol: 'RAI-ETH SUSHI LP',
       tokenSymbol: 'RAI',
+      poolType: 'active',
       iconA: '/RAI.png',
       iconB: '/WETH.png',
       refUrl:
@@ -344,6 +353,7 @@ export default {
       name: 'YFI-ETH',
       symbol: 'YFI-ETH SUSHI LP',
       tokenSymbol: 'YFI',
+      poolType: 'archived',
       iconA: '/YFI.png',
       iconB: '/WETH.png',
       refUrl:
@@ -363,6 +373,7 @@ export default {
       name: 'CVX-ETH',
       symbol: 'CVX-ETH SUSHI LP',
       tokenSymbol: 'CVX',
+      poolType: 'archived',
       iconA: '/CVX.png',
       iconB: '/WETH.png',
       refUrl:
@@ -382,6 +393,7 @@ export default {
       name: 'ALPHA-ETH',
       symbol: 'ALPHA-ETH SUSHI LP',
       tokenSymbol: 'ALPHA',
+      poolType: 'archived',
       iconA: '/ALPHA.png',
       iconB: '/WETH.png',
       refUrl:
@@ -401,6 +413,7 @@ export default {
       name: 'UNI-ETH',
       symbol: 'UNI-ETH SUSHI LP',
       tokenSymbol: 'UNI',
+      poolType: 'archived',
       iconA: '/UNI.png',
       iconB: '/WETH.png',
       refUrl:
@@ -420,6 +433,7 @@ export default {
       name: 'SUSHI-ETH',
       symbol: 'SUSHI-ETH SUSHI LP',
       tokenSymbol: 'SUSHI',
+      poolType: 'archived',
       iconA: '/SUSHI.png',
       iconB: '/WETH.png',
       refUrl:
@@ -439,6 +453,7 @@ export default {
       name: 'CRV-ETH',
       symbol: 'CRV-ETH SUSHI LP',
       tokenSymbol: 'CRV',
+      poolType: 'archived',
       iconA: '/CRV.png',
       iconB: '/WETH.png',
       refUrl:
@@ -458,6 +473,7 @@ export default {
       name: 'BAL-ETH',
       symbol: 'BAL-ETH SUSHI LP',
       tokenSymbol: 'BAL',
+      poolType: 'archived',
       iconA: '/BAL.png',
       iconB: '/WETH.png',
       refUrl:
@@ -477,6 +493,7 @@ export default {
       name: 'COMP-ETH',
       symbol: 'COMP-ETH SUSHI LP',
       tokenSymbol: 'COMP',
+      poolType: 'archived',
       iconA: '/COMP.png',
       iconB: '/WETH.png',
       refUrl:
@@ -496,6 +513,7 @@ export default {
       name: 'MKR-ETH',
       symbol: 'MKR-ETH SUSHI LP',
       tokenSymbol: 'MKR',
+      poolType: 'archived',
       iconA: '/MKR.png',
       iconB: '/WETH.png',
       refUrl:
@@ -515,6 +533,7 @@ export default {
       name: 'ALCX-ETH',
       symbol: 'ALCX-ETH SUSHI LP',
       tokenSymbol: 'ALCX',
+      poolType: 'archived',
       iconA: '/ALCX.png',
       iconB: '/WETH.png',
       refUrl:
@@ -534,6 +553,7 @@ export default {
       name: 'LINK-ETH',
       symbol: 'LINK-ETH SUSHI LP',
       tokenSymbol: 'LINK',
+      poolType: 'archived',
       iconA: '/LINK.png',
       iconB: '/WETH.png',
       refUrl:
@@ -553,6 +573,7 @@ export default {
       name: `SNX-ETH`,
       symbol: 'SNX-ETH SUSHI LP',
       tokenSymbol: 'SNX',
+      poolType: 'archived',
       iconA: '/SNX.png',
       iconB: '/WETH.png',
       refUrl:
@@ -572,6 +593,7 @@ export default {
       name: `UMA-ETH`,
       symbol: 'UMA-ETH SUSHI LP',
       tokenSymbol: 'UMA',
+      poolType: 'archived',
       iconA: '/UMA.png',
       iconB: '/WETH.png',
       refUrl:
@@ -591,6 +613,7 @@ export default {
       name: `BAO-ETH`,
       symbol: 'BAO-ETH SUSHI LP',
       tokenSymbol: 'BAO',
+      poolType: 'active',
       iconA: '/BAO.png',
       iconB: '/WETH.png',
       refUrl:
