@@ -281,50 +281,98 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 						}
 					/>
 				) : (
-					<Button
-						disabled={
-							pendingTx ||
-							wethNeeded.slice(-1) === '.' ||
-							nestAmount.slice(-1) === '.' ||
-							isNaN(parseFloat(wethNeeded)) ||
-							isNaN(parseFloat(nestAmount)) ||
-							parseFloat(wethNeeded) === 0 ||
-							parseFloat(wethNeeded) < 0 ||
-							parseFloat(wethNeeded) > wethBalance.div(10 ** 18).toNumber() ||
-							!nav ||
-							navDifferenceTooHigh ||
-							(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
-						}
-						text={
-							confNo
-								? `Confirmations: ${confNo}/15`
-								: pendingTx
-								? 'Pending Confirmation'
-								: 'Confirm'
-						}
-						onClick={async () => {
-							setPendingTx(true)
-							const encodedAmountData = await recipeContract.methods
-								.encodeData(
-									new BigNumber(nestAmount).times(10 ** 18).toString(),
-								)
-								.call()
-							onIssue(new BigNumber(wethNeeded), encodedAmountData)
-								.on('confirmation', (_confNo: any) => {
-									setConfNo(_confNo)
-									if (_confNo >= 15) {
-										setConfNo(undefined)
-										setPendingTx(false)
-										onHide()
-										window.location.reload()
-									}
-								})
-								.on('error', () => {
-									setConfNo(undefined)
-									setPendingTx(false)
-								})
-						}}
-					/>
+					<>
+						{_outputToken === Config.addressMap.nPOLY ? (
+							<Button
+								disabled={
+									pendingTx ||
+									wethNeeded.slice(-1) === '.' ||
+									nestAmount.slice(-1) === '.' ||
+									isNaN(parseFloat(wethNeeded)) ||
+									isNaN(parseFloat(nestAmount)) ||
+									parseFloat(wethNeeded) === 0 ||
+									parseFloat(wethNeeded) < 0 ||
+									parseFloat(wethNeeded) >
+										wethBalance.div(10 ** 18).toNumber()
+								}
+								text={
+									confNo
+										? `Confirmations: ${confNo}/15`
+										: pendingTx
+										? 'Pending Confirmation'
+										: 'Confirm'
+								}
+								onClick={async () => {
+									setPendingTx(true)
+									const encodedAmountData = await recipeContract.methods
+										.encodeData(
+											new BigNumber(nestAmount).times(10 ** 18).toString(),
+										)
+										.call()
+									onIssue(new BigNumber(wethNeeded), encodedAmountData)
+										.on('confirmation', (_confNo: any) => {
+											setConfNo(_confNo)
+											if (_confNo >= 15) {
+												setConfNo(undefined)
+												setPendingTx(false)
+												onHide()
+												window.location.reload()
+											}
+										})
+										.on('error', () => {
+											setConfNo(undefined)
+											setPendingTx(false)
+										})
+								}}
+							/>
+						) : (
+							<Button
+								disabled={
+									pendingTx ||
+									wethNeeded.slice(-1) === '.' ||
+									nestAmount.slice(-1) === '.' ||
+									isNaN(parseFloat(wethNeeded)) ||
+									isNaN(parseFloat(nestAmount)) ||
+									parseFloat(wethNeeded) === 0 ||
+									parseFloat(wethNeeded) < 0 ||
+									parseFloat(wethNeeded) >
+										wethBalance.div(10 ** 18).toNumber() ||
+									!nav ||
+									navDifferenceTooHigh ||
+									(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
+								}
+								text={
+									confNo
+										? `Confirmations: ${confNo}/15`
+										: pendingTx
+										? 'Pending Confirmation'
+										: 'Confirm'
+								}
+								onClick={async () => {
+									setPendingTx(true)
+									const encodedAmountData = await recipeContract.methods
+										.encodeData(
+											new BigNumber(nestAmount).times(10 ** 18).toString(),
+										)
+										.call()
+									onIssue(new BigNumber(wethNeeded), encodedAmountData)
+										.on('confirmation', (_confNo: any) => {
+											setConfNo(_confNo)
+											if (_confNo >= 15) {
+												setConfNo(undefined)
+												setPendingTx(false)
+												onHide()
+												window.location.reload()
+											}
+										})
+										.on('error', () => {
+											setConfNo(undefined)
+											setPendingTx(false)
+										})
+								}}
+							/>
+						)}
+					</>
 				)}
 			</Modal.Footer>
 		</Modal>
@@ -533,7 +581,9 @@ export const NavModal: React.FC<NavModalProps> = ({ show, onHide }) => {
 			</Modal.Header>
 			<Modal.Body>
 				<ModalStack>
-					<p style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 500 }}>
+					<p
+						style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 500 }}
+					>
 						NAV
 					</p>
 					<p style={{ textAlign: 'left' }}>
@@ -543,7 +593,9 @@ export const NavModal: React.FC<NavModalProps> = ({ show, onHide }) => {
 						dividing that value by the number of outstanding shares in the Nest.
 					</p>
 
-					<p style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 500 }}>
+					<p
+						style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 500 }}
+					>
 						Price
 					</p>
 					<p style={{ textAlign: 'left' }}>
