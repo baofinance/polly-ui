@@ -10,7 +10,7 @@ import useBao from 'hooks/base/useBao'
 import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useFarms from 'hooks/farms/useFarms'
 import React, { useEffect, useState } from 'react'
-import { Accordion, Col, Container, Row } from 'react-bootstrap'
+import { Accordion, Col, Container, Form, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import GraphUtil from 'utils/graph'
@@ -118,22 +118,61 @@ export const FarmList: React.FC = () => {
 
 	const BLOCKS_PER_YEAR = new BigNumber(2336000)
 
+	const [archived, showArchived] = useState(false)
+	const [staked, showStaked] = useState(false)
+
 	return (
 		<>
 			<Spacer size="md" />
+			<Container style={{ textAlign: 'right', fontSize: '0.875rem' }}>
+				{/* <Form.Check
+					inline
+					type="switch"
+					id="show-archived"
+					label="Show Staked Only"
+					checked={staked}
+					onChange={(e) => showStaked(e.currentTarget.checked)}
+				/> */}
+				<Form.Check
+					inline
+					type="switch"
+					id="show-archived"
+					label="Show Archived Farms"
+					checked={archived}
+					onChange={(e) => showArchived(e.currentTarget.checked)}
+				/>
+			</Container>
 			<Row>
 				<Col>
 					<FarmListHeader headers={['Pool', 'APR', 'LP Staked', 'TVL']} />
-					{pools[PoolType.ACTIVE] && pools[PoolType.ACTIVE].length ? (
-						pools[PoolType.ACTIVE].map((farm: any, i: number) => (
-							<React.Fragment key={i}>
-								<FarmListItem farm={farm} />
-							</React.Fragment>
-						))
+					{!archived ? (
+						<>
+							{pools[PoolType.ACTIVE].length ? (
+								pools[PoolType.ACTIVE].map((farm: any, i: number) => (
+									<React.Fragment key={i}>
+										<FarmListItem farm={farm} />
+									</React.Fragment>
+								))
+							) : (
+								<StyledLoadingWrapper>
+									<SpinnerLoader block />
+								</StyledLoadingWrapper>
+							)}
+						</>
 					) : (
-						<StyledLoadingWrapper>
-							<SpinnerLoader block />
-						</StyledLoadingWrapper>
+						<>
+							{pools[PoolType.ARCHIVED].length ? (
+								pools[PoolType.ARCHIVED].map((farm: any, i: number) => (
+									<React.Fragment key={i}>
+										<FarmListItem farm={farm} />
+									</React.Fragment>
+								))
+							) : (
+								<StyledLoadingWrapper>
+									<SpinnerLoader block />
+								</StyledLoadingWrapper>
+							)}
+						</>
 					)}
 				</Col>
 			</Row>
@@ -294,8 +333,8 @@ const StyledAccordionItem = styled(Accordion.Item)`
 `
 
 const StyledAccordionBody = styled(Accordion.Body)`
-background: ${(props) => props.theme.color.transparent[100]};
-border-bottom-left-radius: 8px;
+	background: ${(props) => props.theme.color.transparent[100]};
+	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 `
 

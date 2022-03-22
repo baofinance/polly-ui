@@ -1,25 +1,23 @@
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { getPollySupply } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import ExternalLink from 'components/ExternalLink'
 import { SpinnerLoader } from 'components/Loader'
-import Spacer from 'components/Spacer'
 import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
 import useAllEarnings from 'hooks/farms/useAllEarnings'
 import useAllStakedValue from 'hooks/farms/useAllStakedValue'
 import useFarms from 'hooks/farms/useFarms'
 import useLockedEarnings from 'hooks/farms/useLockedEarnings'
-import useStakedBalance from 'hooks/farms/useStakedBalance'
-import { setSaturation } from 'polished'
 import React, { Fragment, useEffect, useState } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import CountUp from 'react-countup'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import GraphUtil from 'utils/graph'
-import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
-import { Footnote, FootnoteValue, StyledInfo } from './styles'
+import { getDisplayBalance } from 'utils/numberFormat'
+import { StyledInfo } from './styles'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)
@@ -117,23 +115,6 @@ const Balances: React.FC = () => {
 						</ExternalLink>{' '}
 						before using the farms so you are familiar with protocol risks and
 						fees!
-					</StyledInfo>
-					<Spacer size="md" />
-					<StyledInfo>
-						❓{' '}
-						<span
-							style={{
-								fontWeight: 700,
-								color: '${(props) => props.theme.color.red}',
-							}}
-						>
-							Don't see your farm?
-						</span>{' '}
-						Visit{' '}
-						<ExternalLink href="https://old.bao.finance" target="_blank">
-							old.bao.finance
-						</ExternalLink>{' '}
-						to withdraw your LP from our archived farms.
 					</StyledInfo>
 				</Row>
 				<Row style={{ display: 'flex', flexWrap: 'wrap', marginTop: '2rem' }}>

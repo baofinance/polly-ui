@@ -145,18 +145,6 @@ body {
     }
   }
 
-  .form-check-input:checked {
-    background-color: ${(props: any) => props.theme.color.text[400]};
-    border-color: ${(props: any) => props.theme.color.text[400]};
-    cursor: pointer;
-  }
-
-  .form-check-input {
-    background-color: ${(props: any) => props.theme.color.text[200]};
-    border: 1px solid ${(props: any) => props.theme.color.text[200]};
-    cursor: pointer;
-  }
-
   .accordion-item:first-of-type .accordion-button {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -194,7 +182,19 @@ body {
     @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
       max-width: 720px;
     }
-  }  
+  } 
+
+  .form-check-input {
+    background-color: ${(props) => props.theme.color.transparent[200]};
+    border: none !important;
+    outline: none !important;
+
+    :checked {
+      background-color: ${(props) => props.theme.color.transparent[100]};
+      border: none !important;
+      outline: none !important;
+    }
+  }
   `
 
 export default GlobalStyle

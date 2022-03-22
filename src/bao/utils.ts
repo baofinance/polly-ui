@@ -68,7 +68,7 @@ export const getNests = (bao: Bao) => {
     : []
 }
 
-export const getFarms = (bao: Bao): Farm[] => {
+export const getFarms = (bao: Bao) => {
   return bao
     ? bao.contracts.pools.map(
         ({
@@ -85,6 +85,7 @@ export const getFarms = (bao: Bao): Farm[] => {
           lpContract,
           refUrl,
           pairUrl,
+          poolType,
         }) => ({
           pid,
           id: symbol,
@@ -102,6 +103,7 @@ export const getFarms = (bao: Bao): Farm[] => {
           iconB,
           refUrl,
           pairUrl,
+          poolType,
         }),
       )
     : []
