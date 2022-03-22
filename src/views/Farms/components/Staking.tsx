@@ -34,7 +34,7 @@ import { SubmitButton } from 'components/Button/Button'
 import ExternalLink from 'components/ExternalLink'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useTransactionHandler from 'hooks/base/useTransactionHandler'
-import { getMasterChefContract } from 'bao/utils'
+import { approvev2, getMasterChefContract } from 'bao/utils'
 import { ethers } from 'ethers'
 
 interface FarmListItemProps {
@@ -172,14 +172,35 @@ const Stake: React.FC<StakeProps> = ({
 			<Card.Footer>
 				<ButtonStack>
 					{!allowance.toNumber() ? (
-						<SubmitButton
-							disabled={requestedApproval}
-							onClick={async () => {
-								handleTx(handleApprove, `Approve ${tokenName}`)
-							}}
-						>
-							Approve {tokenName}
-						</SubmitButton>
+						<>
+							{pendingTx ? (
+								<SubmitButton disabled={true}>
+									{typeof pendingTx === 'string' ? (
+										<ExternalLink
+											href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+											target="_blank"
+										>
+											Pending Transaction{' '}
+											<FontAwesomeIcon icon="external-link-alt" />
+										</ExternalLink>
+									) : (
+										'Pending Transaction'
+									)}
+								</SubmitButton>
+							) : (
+								<SubmitButton
+									disabled={requestedApproval}
+									onClick={async () => {
+										handleTx(
+											approvev2(lpContract, masterChefContract, account),
+											`Approve ${tokenName}`,
+										)
+									}}
+								>
+									Approve {tokenName}
+								</SubmitButton>
+							)}
+						</>
 					) : (
 						<>
 							{poolType !== PoolType.ARCHIVED ? (
