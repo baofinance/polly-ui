@@ -1,3 +1,5 @@
+import { Web3Provider } from '@ethersproject/providers'
+import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js/bignumber'
 import Web3 from 'web3'
 import { provider } from 'web3-core/types'
@@ -12,7 +14,7 @@ import * as Types from './types'
 
 export class Contracts {
   networkId: number
-  web3: Web3
+  web3: Web3Provider
   defaultConfirmations: number
   autoGasMultiplier: number
   confirmationType: number
@@ -25,12 +27,13 @@ export class Contracts {
   notifier: any
 
   constructor(
-    provider: string | provider,
     networkId: number,
-    web3: Web3,
+    web3: Web3Provider,
     options: BaoOptions,
   ) {
-    this.networkId = networkId
+    const { library, chainId, connector, account } = useWeb3React()
+
+    this.networkId = chainId
     this.web3 = web3
     this.defaultConfirmations = options.defaultConfirmations
     this.autoGasMultiplier = options.autoGasMultiplier || 1.1
@@ -68,8 +71,7 @@ export class Contracts {
           )
         : undefined
 
-    this.setProvider(provider, networkId)
-    this.setDefaultAccount(this.web3.eth.defaultAccount)
+    this.setProvider(library, networkId)
   }
 
   setProvider(provider: provider, networkId: number): void {
@@ -113,7 +115,7 @@ export class Contracts {
   }
 
   getNewContract(abi: string | unknown, address?: string): Contract {
-    return new this.web3.eth.Contract(
+    return new Contract(
       (typeof abi === 'string' ? require(`./abi/${abi}`) : abi) as AbiItem[],
       address,
     )
@@ -286,7 +288,8 @@ export class Contracts {
   }
 
   async setGasLimit() {
-    const block = await this.web3.eth.getBlock('latest')
+    const { library } = useWeb3React()
+    const block = await library?.getBlock('latest')
     this.blockGasLimit = block.gasLimit - 100000
   }
 }
