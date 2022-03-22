@@ -12,7 +12,7 @@ const Nav: React.FC = () => {
 				</StyledLink>
 			</Tooltipped>
 			<Tooltipped content="Twitter" placement="top">
-				<StyledLink target="_blank" href="https://twitter.com/thebaoman">
+				<StyledLink target="_blank" href="https://twitter.com/BaoCommunity">
 					<FontAwesomeIcon icon={['fab', 'twitter']} />
 				</StyledLink>
 			</Tooltipped>
