@@ -5,7 +5,7 @@ import {
 	NoEthereumProviderError,
 	UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector'
-import { injected, network } from 'bao/lib/connectors'
+import { coinbaseWallet, injected, network, walletConnect } from 'bao/lib/connectors'
 import { useEagerConnect, useInactiveListener } from 'bao/lib/hooks'
 import { Button, CloseButton } from 'components/Button'
 import Loader from 'components/Loader'
@@ -15,7 +15,8 @@ import styled from 'styled-components'
 
 const connectorsByName: { [name: string]: AbstractConnector } = {
 	Injected: injected,
-	Network: network
+	CoinbaseWallet: coinbaseWallet,
+	WalletConnect: walletConnect, 
 }
 
 function getErrorMessage(error: Error) {
@@ -52,10 +53,8 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 		}
 	}, [activatingConnector, connector])
 
-	// handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
 	const triedEager = useEagerConnect()
 
-	// handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
 	useInactiveListener(!triedEager || !!activatingConnector)
 
 	useEffect(() => {
