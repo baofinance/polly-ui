@@ -25,7 +25,7 @@ const BaoProvider: React.FC = ({ children }) => {
 	const { library, activate }: any = wallet
 	const [bao, setBao] = useState<any>()
 
-	if (library) library.on('chainChanged', () => window.location.reload())
+	// if (library) library.on('chainChanged', () => window.location.reload())
 
 	window.bao = bao
 
