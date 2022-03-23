@@ -484,3 +484,60 @@ export const SubmitButton = styled.button`
 		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
 	}
 `
+
+export const WalletButton = styled.button`
+	display: inline-flex;
+	appearance: none;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	position: relative;
+	white-space: nowrap;
+	vertical-align: middle;
+	outline-offset: 2px;
+	width: 100%;
+	line-height: 1.2;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	transition-property: all;
+	height: 50px;
+	min-width: 2.5rem;
+	font-size: ${(props) => props.theme.fontSize.default};
+	padding-inline-start: 1rem;
+	padding-inline-end: 1rem;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: none;
+	background-color: ${(props) => props.theme.color.transparent[100]};
+	outline: transparent solid 2px;
+	color: ${(props) => props.theme.color.text[100]};
+	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	transition: 200ms;
+	overflow: hidden;
+	margin-bottom: 10px;
+
+	&:focus {
+		outline: 0;
+	}
+
+	  &:hover{
+		background: ${(props) => props.theme.color.transparent[200]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
+	}
+	
+	&:hover,
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
+	}
+`

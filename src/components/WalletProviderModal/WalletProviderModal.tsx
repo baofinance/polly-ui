@@ -3,20 +3,23 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import {
 	NoEthereumProviderError,
-	UserRejectedRequestError as UserRejectedRequestErrorInjected,
+	UserRejectedRequestError as UserRejectedRequestErrorInjected
 } from '@web3-react/injected-connector'
-import { coinbaseWallet, injected, network, walletConnect } from 'bao/lib/connectors'
+import {
+	coinbaseWallet,
+	injected, walletConnect
+} from 'bao/lib/connectors'
 import { useEagerConnect, useInactiveListener } from 'bao/lib/hooks'
 import { Button, CloseButton } from 'components/Button'
-import Loader from 'components/Loader'
+import { WalletButton } from 'components/Button/Button'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Modal, ModalProps } from 'react-bootstrap'
+import { Col, Modal, ModalProps, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 
 const connectorsByName: { [name: string]: AbstractConnector } = {
-	Injected: injected,
+	Metamask: injected,
 	CoinbaseWallet: coinbaseWallet,
-	WalletConnect: walletConnect, 
+	WalletConnect: walletConnect,
 }
 
 function getErrorMessage(error: Error) {
@@ -82,7 +85,7 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 						!triedEager || !!activatingConnector || connected || !!error
 
 					return (
-						<Button
+						<WalletButton
 							disabled={disabled}
 							key={name}
 							onClick={() => {
@@ -94,27 +97,22 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 								})
 							}}
 						>
-							<div
-								style={{
-									position: 'absolute',
-									top: '0',
-									left: '0',
-									height: '100%',
-									display: 'flex',
-									alignItems: 'center',
-									color: 'black',
-									margin: '0 0 0 1rem',
-								}}
-							>
-								{activating && ('Connecting...')}
-								{connected && (
-									<span role="img" aria-label="check">
-										✅
-									</span>
-								)}
-							</div>
-							{name}
-						</Button>
+							<Row>
+								<Col>
+									<ConnectorIconContainer>
+										<img
+											src={`${name}.png`}
+											style={{
+												height: '24px',
+												marginRight: '0.75rem',
+												verticalAlign: 'middle',
+											}}
+										/>
+									</ConnectorIconContainer>
+									{activating ? 'Connecting...' : `${name}`}
+								</Col>
+							</Row>
+						</WalletButton>
 					)
 				})}
 			</Modal.Body>
@@ -141,6 +139,19 @@ const StyledWalletsWrapper = styled.div`
 
 const StyledWalletCard = styled.div`
 	flex-basis: calc(50% - ${(props) => props.theme.spacing[2]}px);
+`
+
+export const ConnectorIconContainer = styled.div`
+	height: 100%;
+	align-items: center;
+	margin: 0 auto;
+	display: inline-block;
+	vertical-align: middle;
+	color: ${(props) => props.theme.color.text[100]};
+
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+		display: none;
+	}
 `
 
 export default WalletProviderModal
