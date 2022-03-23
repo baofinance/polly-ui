@@ -72,6 +72,7 @@ export const Staking: React.FC<FarmListItemProps> = ({ farm, operation }) => {
 					tokenName={farm.lpToken.toUpperCase()}
 					poolType={farm.poolType}
 					max={tokenBalance}
+					pairUrl={farm.pairUrl}
 				/>
 			)}
 		</>
@@ -86,6 +87,7 @@ interface StakeProps {
 	tokenName?: string
 	poolType: PoolType
 	ref?: string
+	pairUrl: string
 }
 
 const Stake: React.FC<StakeProps> = ({
@@ -96,6 +98,7 @@ const Stake: React.FC<StakeProps> = ({
 	max,
 	tokenName = '',
 	ref = '0x0000000000000000000000000000000000000000',
+	pairUrl = '',
 }) => {
 	const bao = useBao()
 	const { account } = useWeb3React()
@@ -153,7 +156,7 @@ const Stake: React.FC<StakeProps> = ({
 						<LabelEnd>
 							<LabelStack>
 								<MaxLabel>Balance:</MaxLabel>
-								<AssetLabel>{`${fullBalance} ${tokenName}`}</AssetLabel>
+								<AssetLabel>{fullBalance} <ExternalLink href={pairUrl}> {tokenName} <FontAwesomeIcon icon="external-link-alt" style={{ height: '.75rem' }} /></ExternalLink></AssetLabel>
 							</LabelStack>
 						</LabelEnd>
 					</Col>
@@ -454,6 +457,7 @@ export const AssetLabel = styled.p`
 	font-weight: ${(props) => props.theme.fontWeight.medium};
 	margin-inline-start: 0.25rem;
 	margin-bottom: 0px;
+	vertical-align: middle;
 
 	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
 		font-size: 0.75rem;
