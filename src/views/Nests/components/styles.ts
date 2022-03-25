@@ -7,7 +7,7 @@ export const ListLabelCol = styled.span`
   text-align: ${(props: ColProps) => props.align};
   color: ${(props) => props.theme.color.text[100]};
   vertical-align: middle;
-  font-weight: ${(props) => props.theme.fontWeight.medium};
+  font-weight: ${(props) => props.theme.fontWeight.strong};
   padding: 0;
   width: ${(props: ColProps) => props.width};
 

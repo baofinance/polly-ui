@@ -1,24 +1,21 @@
-import React, { useCallback } from 'react'
-import { BigNumber } from 'bignumber.js'
-import Config from 'bao/lib/config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useWeb3React } from '@web3-react/core'
 import wethIcon from 'assets/img/assets/WETH.png'
 import baoIcon from 'assets/img/logo.svg'
+import Config from 'bao/lib/config'
+import { BigNumber } from 'bignumber.js'
+import { SpinnerLoader } from 'components/Loader'
 import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
 import useTransactionProvider from 'hooks/base/useTransactionProvider'
-import { Col, Modal, ModalProps, Row } from 'react-bootstrap'
-import styled from 'styled-components'
-import { useWeb3React } from '@web3-react/core'
-import { getDisplayBalance } from 'utils/numberFormat'
-import { Button } from '../../Button'
-
-import Spacer from '../../Spacer'
-import Value from '../../Value'
-import { StatBlock } from 'components/Stats'
 import _ from 'lodash'
-import { AssetImage, AssetImageContainer } from 'views/Farms/components/styles'
-import { SpinnerLoader } from 'components/Loader'
+import React, { useCallback } from 'react'
+import { Col, Modal, ModalProps } from 'react-bootstrap'
+import styled from 'styled-components'
+import { getDisplayBalance } from 'utils/numberFormat'
+import { MaxLabel } from 'views/Farms/components/Actions'
+import { Button } from '../../Button'
+import Spacer from '../../Spacer'
 
 const AccountModal = ({ onHide, show }: ModalProps) => {
 	const { account, deactivate } = useWeb3React()
@@ -63,7 +60,7 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 										<WalletBalanceValue>
 											{new BigNumber(getDisplayBalance(wethBalance)).toFixed(4)}
 										</WalletBalanceValue>
-										<WalletBalanceTicker>ETH Balance</WalletBalanceTicker>
+										<WalletBalanceTicker>wETH Balance</WalletBalanceTicker>
 									</WalletBalanceText>
 								</InnerInnerWalletBalance>
 							</InnerWalletBalance>
@@ -89,25 +86,36 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 						</WalletBalance>
 					</WalletBalancesInner>
 				</WalletBalances>
-				{Object.keys(transactions).length > 0 && (
-					<>
-						<Spacer size="sm" />
-						<StatWrapper>
-							<p>
-								<span style={{ float: 'left' }}>Recent Transactions</span>
+				<>
+					<Spacer size="sm" />
+					<StatWrapper>
+						<span>
+							<span style={{ float: 'left', fontSize: '0.875rem' }}>
+								Recent Transactions
+							</span>
+							{Object.keys(transactions).length > 0 && (
 								<small>
-									<a
-										href="#"
-										style={{ float: 'right', verticalAlign: 'middle' }}
-										onClick={() => {
-											localStorage.setItem('transactions', '{}')
-											window.location.reload()
-										}}
-									>
-										<FontAwesomeIcon icon="times" style={{ verticalAlign: 'middle' }} /> Clear
-									</a>
+									<span>
+										<a
+											href="#"
+											style={{ float: 'right', verticalAlign: 'middle' }}
+											onClick={() => {
+												localStorage.setItem('transactions', '{}')
+												window.location.reload()
+											}}
+										>
+											<FontAwesomeIcon
+												icon="times"
+												style={{ verticalAlign: 'middle' }}
+											/>{' '}
+											Clear
+										</a>
+									</span>
 								</small>
-							</p>
+							)}
+						</span>
+						<Spacer size="sm" />
+						{Object.keys(transactions).length > 0 ? (
 							<>
 								{_.reverse(Object.keys(transactions))
 									.slice(0, 5)
@@ -131,9 +139,15 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 										</StatText>
 									))}
 							</>
-						</StatWrapper>
-					</>
-				)}
+						) : (
+							<StatText>
+								<MaxLabel>
+									Your completed transactions will show here...
+								</MaxLabel>
+							</StatText>
+						)}
+					</StatWrapper>
+				</>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button
@@ -266,7 +280,6 @@ const StatWrapper = styled.div`
 	background: ${(props) => props.theme.color.transparent[100]};
 	padding: 16px;
 	border-radius: 8px;
-	margin-bottom: 1rem;
 
 	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
 		padding: 15px 30px;

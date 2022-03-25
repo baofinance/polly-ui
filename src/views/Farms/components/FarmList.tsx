@@ -146,7 +146,11 @@ export const FarmList: React.FC = () => {
 			</Container>
 			<Row>
 				<Col>
-					<FarmListHeader headers={['Pool', 'APR', 'TVL']} />
+					{!account ? (
+						<FarmListHeader headers={['Pool', 'APR', 'TVL']} />
+					) : (
+						<FarmListHeader headers={['Pool', 'APR', 'LP Staked', 'TVL']} />
+					)}
 					{!archived ? (
 						<>
 							{pools[PoolType.ACTIVE].length ? (
