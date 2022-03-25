@@ -7,7 +7,6 @@ import { Container } from 'react-bootstrap'
 import ConnectedCheck from 'components/ConnectedCheck'
 import Balances from './components/Balances'
 import { FarmList } from './components/FarmList'
-import { NetworkFarmList } from './components/NetworkFarmList'
 import { useWeb3React } from '@web3-react/core'
 
 const Farms: React.FC = () => {
@@ -23,7 +22,7 @@ const Farms: React.FC = () => {
 			/>
 			<Container>
 				<Balances />
-				<>{account ? <FarmList /> : <NetworkFarmList />}</>
+				<FarmList />
 			</Container>
 		</Page>
 	)

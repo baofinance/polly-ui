@@ -23,7 +23,7 @@ const ExternalLink: FC<ExternalLinkProps> = ({
 
 const StyledLink = styled.a`
 color: ${(props) => props.theme.color.text[100]};
-font-weight: ${(props) => props.theme.fontWeight.medium};
+font-weight: ${(props) => props.theme.fontWeight.strong};
 text-decoration: none;
 &:hover {
   color: ${(props) => props.theme.color.text[300]};

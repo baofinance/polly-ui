@@ -35,7 +35,7 @@ const StatWrapper = styled.div`
 	padding-top: ${(props) => props.theme.spacing[2]};
 	margin-inline: 0px;
 	margin-bottom: 0px;
-	background: ${(props) => props.theme.color.primary[200]};
+	background: ${(props) => props.theme.color.transparent[100]};
 	padding: 16px;
 	border-radius: 8px;
 	margin-bottom: 1rem;
@@ -86,9 +86,5 @@ const StatText = styled.div`
 		margin-top: 0px;
 		margin-inline: 0.5rem 0px;
 		margin-bottom: 0px;
-	}
-
-	&:nth-child(odd) {
-		background-color: ${(props) => props.theme.color.primary[300]};
 	}
 `

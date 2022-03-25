@@ -10,15 +10,14 @@ import useBao from 'hooks/base/useBao'
 import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useFarms from 'hooks/farms/useFarms'
 import React, { useEffect, useState } from 'react'
-import { Accordion, Col, Container, Form, Row } from 'react-bootstrap'
+import { Accordion, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
 import GraphUtil from 'utils/graph'
 import Multicall from 'utils/multicall'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
-import { Harvest } from './Harvest'
-import { Staking } from './Staking'
 import { StyledLoadingWrapper } from './styles'
+import { FarmModal } from './Modal'
 
 export interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
@@ -58,23 +57,13 @@ export const FarmList: React.FC = () => {
 					{
 						ref: 'masterChef',
 						contract: getMasterChefContract(bao),
-						calls: farms
-							.map((farm, i) => {
-								return {
-									ref: i.toString(),
-									method: 'getNewRewardPerBlock',
-									params: [farm.pid + 1],
-								}
-							})
-							.concat(
-								farms.map((farm, i) => {
-									return {
-										ref: (farms.length + i).toString(),
-										method: 'userInfo',
-										params: [farm.pid, account],
-									}
-								}) as any,
-							),
+						calls: farms.map((farm, i) => {
+							return {
+								ref: i.toString(),
+								method: 'getNewRewardPerBlock',
+								params: [farm.pid + 1],
+							}
+						}),
 					},
 				]),
 			)
@@ -92,11 +81,6 @@ export const FarmList: React.FC = () => {
 						...farm,
 						poolType: farm.poolType || PoolType.ACTIVE,
 						tvl: tvlInfo.tvl,
-						stakedUSD: decimate(
-							result.masterChef[farms.length + i].values[0].hex,
-						)
-							.div(decimate(tvlInfo.lpStaked))
-							.times(tvlInfo.tvl),
 						apy:
 							pollyPrice && farmsTVL
 								? pollyPrice
@@ -144,7 +128,7 @@ export const FarmList: React.FC = () => {
 			</Container>
 			<Row>
 				<Col>
-					<FarmListHeader headers={['Pool', 'APR', 'LP Staked', 'TVL']} />
+					<FarmListHeader headers={['Pool', 'APR', 'TVL']} />
 					{!archived ? (
 						<>
 							{pools[PoolType.ACTIVE].length ? (
@@ -192,7 +176,7 @@ const FarmListHeader: React.FC<FarmListHeaderProps> = ({
 			<Row style={{ padding: '0.5rem 12px' }}>
 				{headers.map((header: string) => (
 					<FarmListHeaderCol style={{ paddingBottom: '0px' }} key={header}>
-						<b>{header}</b>
+						{header}
 					</FarmListHeaderCol>
 				))}
 			</Row>
@@ -207,13 +191,20 @@ interface FarmListItemProps {
 const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
 	const operations = ['Stake', 'Unstake']
 	const [operation, setOperation] = useState(operations[0])
+	const { account } = useWeb3React()
+
+	const [showFarmModal, setShowFarmModal] = useState(false)
 
 	return (
-		<Accordion>
-			<StyledAccordionItem eventKey="0" style={{ padding: '12px' }}>
+		<>
+			<StyledAccordionItem
+				style={{ padding: '12px' }}
+				onClick={() => setShowFarmModal(true)}
+				disabled={!account}
+			>
 				<StyledAccordionHeader>
 					<Row lg={7} style={{ width: '100%' }}>
-						<Col>
+						<Col style={{ fontWeight: 700 }}>
 							<FarmIconContainer>
 								<FarmIcon src={farm.iconA} />
 								<FarmIcon src={farm.iconB} />
@@ -235,29 +226,16 @@ const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
 								<SpinnerLoader />
 							)}
 						</Col>
-						<Col>{`$${getDisplayBalance(farm.stakedUSD, 0)}`}</Col>
 						<Col>{`$${getDisplayBalance(farm.tvl, 0)}`}</Col>
 					</Row>
 				</StyledAccordionHeader>
-				<StyledAccordionBody>
-					<Row style={{ marginBottom: '32px' }}>
-						<NavButtons
-							options={operations}
-							active={operation}
-							onClick={setOperation}
-						/>
-					</Row>
-					<Row>
-						<Col md={6}>
-							<Harvest pid={farm.pid} operation={operation} />
-						</Col>
-						<Col md={6}>
-							<Staking farm={farm} operation={operation} />
-						</Col>
-					</Row>
-				</StyledAccordionBody>
 			</StyledAccordionItem>
-		</Accordion>
+			<FarmModal
+				farm={farm}
+				show={showFarmModal}
+				onHide={() => setShowFarmModal(false)}
+			/>
+		</>
 	)
 }
 
@@ -316,6 +294,8 @@ export const FarmIcon = styled(FarmImage)`
 `
 
 const FarmListHeaderCol = styled(Col)`
+	font-family: 'Rubik', sans-serif;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 	text-align: right;
 
 	&:first-child {
@@ -323,33 +303,17 @@ const FarmListHeaderCol = styled(Col)`
 	}
 
 	&:last-child {
-		margin-right: 46px;
+		margin-right: 20px;
 	}
 `
 
-const StyledAccordionItem = styled(Accordion.Item)`
+const StyledAccordionItem = styled.button`
 	background-color: transparent;
 	border-color: transparent;
+	width: 100%;
 `
 
-const StyledAccordionBody = styled(Accordion.Body)`
-	background: ${(props) => props.theme.color.transparent[100]};
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
-`
-
-const StyledAccordionHeader = styled(Accordion.Header)`
-	&:active {
-		border-radius: 8px 8px 0px 0px;
-	}
-
-	img {
-		height: 32px;
-		margin-right: 0.75rem;
-		vertical-align: middle;
-	}
-
-	> button {
+const StyledAccordionHeader = styled.div`
 		background: ${(props) => props.theme.color.transparent[100]};
 		color: ${(props) => props.theme.color.text[100]};
 		padding: 1.25rem;
@@ -358,45 +322,13 @@ const StyledAccordionHeader = styled(Accordion.Header)`
 
 		&:hover,
 		&:focus,
-		&:active,
-		&:not(.collapsed) {
-			background: ${(props) => props.theme.color.transparent[100]};
+		&:active {
+			background: ${(props) => props.theme.color.transparent[200]};
 			color: ${(props) => props.theme.color.text[100]};
 			border: none;
 			box-shadow: none;
-			border-radius: 8px 8px 0px 0px;
 		}
-
-		&:not(.collapsed) {
-			transition: none;
-
-			&:focus,
-			&:active {
-				border-color: ${(props) => props.theme.color.primary[300]};
-			}
-
-			::after {
-				background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='${(
-					props,
-				) =>
-					props.theme.color.text[100].replace(
-						'#',
-						'%23',
-					)}'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-			}
-		}
-
-		::after {
-			// don't turn arrow blue
-			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='${(
-				props,
-			) =>
-				props.theme.color.text[100].replace(
-					'#',
-					'%23',
-				)}'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-		}
-
+		
 		.row > .col {
 			margin: auto 0;
 			text-align: right;
@@ -406,8 +338,17 @@ const StyledAccordionHeader = styled(Accordion.Header)`
 			}
 
 			&:last-child {
-				margin-right: 25px;
 			}
+		}
+		
+		&:active {
+			border-radius: 8px 8px 0px 0px;
+		}
+	
+		img {
+			height: 32px;
+			margin-right: 0.75rem;
+			vertical-align: middle;
 		}
 	}
 `

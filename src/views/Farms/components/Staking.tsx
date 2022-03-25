@@ -13,8 +13,8 @@ import useStake from 'hooks/farms/useStake'
 import useStakedBalance from 'hooks/farms/useStakedBalance'
 import useUnstake from 'hooks/farms/useUnstake'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
-import React, { useCallback, useMemo, useState } from 'react'
-import { Card, Col, Row } from 'react-bootstrap'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Card, Col, Modal, ModalBody, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
 import { getContract } from 'utils/erc20'
@@ -27,7 +27,6 @@ import {
 import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
 import { FarmWithStakedValue } from './FarmList'
-import { AccordionCard } from './styles'
 import { BalanceInput } from 'components/Input'
 import { Button } from 'components/Button'
 import { SubmitButton } from 'components/Button/Button'
@@ -36,47 +35,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import { approvev2, getMasterChefContract } from 'bao/utils'
 import { ethers } from 'ethers'
+import { size } from 'lodash'
+import Tooltipped from 'components/Tooltipped'
+import { QuestionIcon } from 'views/Nest/components/styles'
+import { FeeModal } from './Harvest'
+import Multicall from 'utils/multicall'
+import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 
 interface FarmListItemProps {
 	farm: FarmWithStakedValue
 	operation: string
-}
-
-export const Staking: React.FC<FarmListItemProps> = ({ farm, operation }) => {
-	const { account, library } = useWeb3React()
-	const { pid } = farm
-	const bao = useBao()
-
-	const lpTokenAddress = farm.lpTokenAddress
-
-	const lpContract = useMemo(() => {
-		return getContract(library as provider, lpTokenAddress)
-	}, [library, lpTokenAddress])
-
-	const tokenBalance = useTokenBalance(lpContract.options.address)
-	const stakedBalance = useStakedBalance(pid)
-
-	return (
-		<>
-			{operation === 'Unstake' ? (
-				<Unstake
-					pid={farm.pid}
-					tokenName={farm.lpToken.toUpperCase()}
-					max={stakedBalance}
-				/>
-			) : (
-				<Stake
-					lpContract={lpContract}
-					lpTokenAddress={lpTokenAddress}
-					pid={farm.pid}
-					tokenName={farm.lpToken.toUpperCase()}
-					poolType={farm.poolType}
-					max={tokenBalance}
-					pairUrl={farm.pairUrl}
-				/>
-			)}
-		</>
-	)
 }
 
 interface StakeProps {
@@ -90,7 +58,7 @@ interface StakeProps {
 	pairUrl: string
 }
 
-const Stake: React.FC<StakeProps> = ({
+export const Stake: React.FC<StakeProps> = ({
 	lpContract,
 	lpTokenAddress,
 	pid,
@@ -143,9 +111,9 @@ const Stake: React.FC<StakeProps> = ({
 	const masterChefContract = getMasterChefContract(bao)
 
 	return (
-		<AccordionCard>
-			<Card.Body>
-				<Row>
+		<>
+			<FarmModalBody>
+				<BalanceWrapper>
 					<Col xs={4}>
 						<LabelStart>
 							<MaxLabel>Fee:</MaxLabel>
@@ -156,11 +124,21 @@ const Stake: React.FC<StakeProps> = ({
 						<LabelEnd>
 							<LabelStack>
 								<MaxLabel>Balance:</MaxLabel>
-								<AssetLabel>{fullBalance} <ExternalLink href={pairUrl}> {tokenName} <FontAwesomeIcon icon="external-link-alt" style={{ height: '.75rem' }} /></ExternalLink></AssetLabel>
+								<AssetLabel>
+									{fullBalance}{' '}
+									<ExternalLink href={pairUrl}>
+										{' '}
+										{tokenName}{' '}
+										<FontAwesomeIcon
+											icon="external-link-alt"
+											style={{ height: '.75rem' }}
+										/>
+									</ExternalLink>
+								</AssetLabel>
 							</LabelStack>
 						</LabelEnd>
 					</Col>
-				</Row>
+				</BalanceWrapper>
 				<Row>
 					<Col xs={12}>
 						<BalanceInput
@@ -170,8 +148,8 @@ const Stake: React.FC<StakeProps> = ({
 						/>
 					</Col>
 				</Row>
-			</Card.Body>
-			<Card.Footer>
+			</FarmModalBody>
+			<Modal.Footer>
 				<ButtonStack>
 					{!allowance.toNumber() ? (
 						<>
@@ -274,23 +252,29 @@ const Stake: React.FC<StakeProps> = ({
 						</>
 					)}
 				</ButtonStack>
-			</Card.Footer>
-		</AccordionCard>
+			</Modal.Footer>
+		</>
 	)
 }
 
 interface UnstakeProps {
+	farm: FarmWithStakedValue
 	max: BigNumber
 	tokenName?: string
 	pid: number
 	ref?: string
+	pairUrl: string
+	lpTokenAddress: string
 }
 
-const Unstake: React.FC<UnstakeProps> = ({
+export const Unstake: React.FC<UnstakeProps> = ({
+	farm,
 	max,
 	tokenName = '',
 	pid = null,
 	ref = '0x0000000000000000000000000000000000000000',
+	pairUrl = '',
+	lpTokenAddress = '',
 }) => {
 	const bao = useBao()
 	const { account } = useWeb3React()
@@ -320,27 +304,47 @@ const Unstake: React.FC<UnstakeProps> = ({
 
 	const masterChefContract = getMasterChefContract(bao)
 
+	const [showFeeModal, setShowFeeModal] = useState(false)
+
 	return (
-		<AccordionCard>
-			<Card.Body>
-				<Row>
+		<>
+			<FarmModalBody>
+				<BalanceWrapper>
 					<Col xs={4}>
 						<LabelStart>
-							<MaxLabel>Fee:</MaxLabel>
-							<AssetLabel>
-								{fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />}
-							</AssetLabel>
+							<LabelStack>
+								<MaxLabel>Fee:</MaxLabel>{' '}
+								<AssetLabel>
+									{fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />}{' '}
+									<span>
+										<QuestionIcon
+											icon="question-circle"
+											onClick={() => setShowFeeModal(true)}
+										/>
+									</span>
+								</AssetLabel>
+							</LabelStack>
 						</LabelStart>
 					</Col>
 					<Col xs={8}>
 						<LabelEnd>
 							<LabelStack>
 								<MaxLabel>Balance:</MaxLabel>
-								<AssetLabel>{`${fullBalance} ${tokenName}`}</AssetLabel>
+								<AssetLabel>
+									{fullBalance}{' '}
+									<ExternalLink href={pairUrl}>
+										{' '}
+										{tokenName}{' '}
+										<FontAwesomeIcon
+											icon="external-link-alt"
+											style={{ height: '.75rem' }}
+										/>
+									</ExternalLink>
+								</AssetLabel>
 							</LabelStack>
 						</LabelEnd>
 					</Col>
-				</Row>
+				</BalanceWrapper>
 				<Row>
 					<Col xs={12}>
 						<BalanceInput
@@ -350,8 +354,8 @@ const Unstake: React.FC<UnstakeProps> = ({
 						/>
 					</Col>
 				</Row>{' '}
-			</Card.Body>
-			<Card.Footer>
+			</FarmModalBody>
+			<Modal.Footer>
 				<ButtonStack>
 					<>
 						{pendingTx ? (
@@ -396,8 +400,13 @@ const Unstake: React.FC<UnstakeProps> = ({
 						)}
 					</>
 				</ButtonStack>
-			</Card.Footer>
-		</AccordionCard>
+			</Modal.Footer>
+			<FeeModal
+				pid={pid}
+				show={showFeeModal}
+				onHide={() => setShowFeeModal(false)}
+			/>
+		</>
 	)
 }
 
@@ -434,13 +443,13 @@ export const FeeLabel = styled.p`
 	}
 `
 
-export const LabelStack = styled.div`
+export const LabelStack = styled.span`
 	display: flex;
 	align-items: flex-end;
 	flex-direction: row;
 `
 
-export const MaxLabel = styled.p`
+export const MaxLabel = styled.span`
 	color: ${(props) => props.theme.color.text[200]};
 	font-size: 0.875rem;
 	font-weight: ${(props) => props.theme.fontWeight.medium};
@@ -451,7 +460,7 @@ export const MaxLabel = styled.p`
 	}
 `
 
-export const AssetLabel = styled.p`
+export const AssetLabel = styled.span`
 	color: ${(props) => props.theme.color.text[100]};
 	font-size: 0.875rem;
 	font-weight: ${(props) => props.theme.fontWeight.medium};
@@ -468,4 +477,12 @@ const ButtonStack = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+`
+
+const BalanceWrapper = styled(Row)`
+	padding: 0.25rem;
+`
+
+const FarmModalBody = styled(ModalBody)`
+	height: 120px;
 `

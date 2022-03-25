@@ -17,28 +17,17 @@ import useFees from 'hooks/farms/useFees'
 import useLockedEarnings from 'hooks/farms/useLockedEarnings'
 import useReward from 'hooks/farms/useReward'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
-import React, { useState } from 'react'
-import { Card, Col, Row } from 'react-bootstrap'
+import React, { useCallback, useState } from 'react'
+import { Card, Col, Modal, ModalBody, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import { getDisplayBalance } from 'utils/numberFormat'
-import { AccordionCard } from './styles'
+import { AccordionCard, CloseButton, HeaderWrapper } from './styles'
 import { useWeb3React } from '@web3-react/core'
+import { StatBlock } from 'components/Stats'
 
 interface HarvestProps {
 	pid: number
 	operation: string
-}
-
-export const Harvest: React.FC<HarvestProps> = ({ pid, operation }) => {
-	return (
-		<>
-			{operation === 'Stake' ? (
-				<Earnings pid={pid} />
-			) : (
-				<FeeWarning pid={pid} />
-			)}
-		</>
-	)
 }
 
 interface EarningsProps {
@@ -53,32 +42,21 @@ export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
 	const masterChefContract = getMasterChefContract(bao)
 
 	return (
-		<AccordionCard>
-			<Card.Header>
-				<Card.Title>
-					<Label text="POLLY Earned" />
-				</Card.Title>
-			</Card.Header>
-			<Card.Body>
-				<BalancesContainer>
-					<BalancesWrapper>
-						<BalanceContainer>
-							<BalanceWrapper>
-								<BalanceContent>
-									<BalanceImage>
-										<img src={baoIcon} />
-									</BalanceImage>
-									<BalanceSpacer />
-									<BalanceText>
-										<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
-									</BalanceText>
-								</BalanceContent>
-							</BalanceWrapper>
-						</BalanceContainer>
-					</BalancesWrapper>
-				</BalancesContainer>
-			</Card.Body>
-			<Card.Footer>
+		<>
+			<FarmModalBody>
+				<BalanceWrapper>
+					<BalanceContent>
+						<BalanceImage>
+							<img src={baoIcon} />
+						</BalanceImage>
+						<BalanceSpacer />
+						<BalanceText>
+							<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
+						</BalanceText>
+					</BalanceContent>
+				</BalanceWrapper>
+			</FarmModalBody>
+			<Modal.Footer>
 				<ButtonStack>
 					<>
 						{pendingTx ? (
@@ -115,16 +93,18 @@ export const Earnings: React.FC<EarningsProps> = ({ pid }) => {
 						)}
 					</>
 				</ButtonStack>
-			</Card.Footer>
-		</AccordionCard>
+			</Modal.Footer>
+		</>
 	)
 }
 
-interface FeeProps {
+interface FeeModalProps {
 	pid: number
+	show: boolean
+	onHide: () => void
 }
 
-const FeeWarning: React.FC<FeeProps> = ({ pid }) => {
+export const FeeModal: React.FC<FeeModalProps> = ({ pid, show, onHide }) => {
 	const userInfo = useUserFarmInfo(pid)
 	const blockDiff = useBlockDiff(userInfo)
 	const fees = useFees(blockDiff)
@@ -132,44 +112,48 @@ const FeeWarning: React.FC<FeeProps> = ({ pid }) => {
 		blockDiff &&
 		new Date(new Date().getTime() - 1000 * (blockDiff * 3)).toLocaleString()
 
+	const hideModal = useCallback(() => {
+		onHide()
+	}, [onHide])
+
 	return (
-		<AccordionCard>
-			<Card.Header>
-				<Card.Title>
-					<Label text="❗BE AWARE OF WITHDRAWAL FEES❗" /> <br />
-					<Label
-						text="Disclaimer - The first deposit activates and each withdraw
-					resets the timer for penalities and fees, this is pool based."
-					/>
-				</Card.Title>
-			</Card.Header>
-			<Card.Body style={{ paddingTop: '0' }}>
-				<Row>
-					<Col>
-						<p style={{ marginBottom: '0' }}>
-							<b>Current Fee:</b> <br />
-							<b>Last interaction:</b> <br />
-							<b>Blocks passed:</b> <br />
-							<b>Last withdraw block:</b>
-						</p>
-					</Col>
-					<Col style={{ alignContent: 'flex-end', marginBottom: '0' }}>
-						<p style={{ textAlign: 'right' }}>
-							{fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />}
-							<br />
-							{lastInteraction ? (
-								lastInteraction.toString()
-							) : (
-								<SpinnerLoader />
-							)}{' '}
-							<Tooltipped
-								content="This date is an estimation, it grows more innaccurate as time passes due to block times being inconsistent. Please use blocks as a metric in order to correctly determine your current withdraw fee."
-								placement="right"
-							/>
-							<br />
-							{blockDiff ? blockDiff : <SpinnerLoader />}
-							<br />
-							{userInfo ? (
+		<Modal show={show} onHide={hideModal} centered>
+			<CloseButton onClick={onHide}>
+				<FontAwesomeIcon icon="times" />
+			</CloseButton>
+			<Modal.Header>
+				<Modal.Title id="contained-modal-title-vcenter">
+					<HeaderWrapper>
+						<p style={{ fontWeight: 700 }}>Fee Details</p>
+					</HeaderWrapper>
+				</Modal.Title>
+			</Modal.Header>
+			<Modal.Body style={{ paddingTop: '0' }}>
+				<p style={{ textAlign: 'center' }}>❗BE AWARE OF WITHDRAWAL FEES❗</p>
+				<StatBlock
+					label=""
+					stats={[
+						{
+							label: 'Current Fee:',
+							value: `${
+								fees ? `${(fees * 100).toFixed(2)}%` : <SpinnerLoader />
+							}`,
+						},
+						{
+							label: 'Last interaction:',
+							value: `
+						${lastInteraction ? lastInteraction.toString() : <SpinnerLoader />}
+						`,
+						},
+						{
+							label: 'Blocks passed:',
+							value: `${blockDiff ? blockDiff : <SpinnerLoader />}`,
+						},
+						{
+							label: 'Last withdraw block:',
+							value: `
+						${
+							userInfo ? (
 								userInfo.lastWithdrawBlock === '0' ? (
 									'Never Withdrawn'
 								) : (
@@ -177,13 +161,25 @@ const FeeWarning: React.FC<FeeProps> = ({ pid }) => {
 								)
 							) : (
 								<SpinnerLoader />
-							)}
-							<br />
-						</p>
-					</Col>
+							)
+						}
+						`,
+						},
+					]}
+				/>
+				<Row>
+					<p style={{ textAlign: 'center' }}>
+						Your first deposit activates and each withdraw resets the timer for
+						penalities and fees, this is pool based. Be sure to read the{' '}
+						<ExternalLink href="https://docs.bao.finance/" target="_blank">
+							docs
+						</ExternalLink>{' '}
+						before using the farms so you are familiar with protocol risks and
+						fees!
+					</p>
 				</Row>
-			</Card.Body>
-		</AccordionCard>
+			</Modal.Body>
+		</Modal>
 	)
 }
 
@@ -195,6 +191,10 @@ const BalancesContainer = styled(Col)`
 const BalancesWrapper = styled.div`
 	display: flex;
 	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
 `
 
 const BalanceContainer = styled.div`
@@ -203,8 +203,10 @@ const BalanceContainer = styled.div`
 `
 
 const BalanceWrapper = styled.div`
-	display: flex;
-	justify-content: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
 `
 
 const BalanceContent = styled.div`
@@ -258,4 +260,14 @@ const ButtonStack = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+`
+
+const FeeWrapper = styled(Row)`
+	background: ${(props) => props.theme.color.transparent[100]};
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	padding: 1rem;
+`
+
+const FarmModalBody = styled(ModalBody)`
+	height: 120px;
 `

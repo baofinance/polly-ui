@@ -58,6 +58,8 @@ import useTransactionHandler from 'hooks/base/useTransactionHandler'
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
 
+	const { account } = useWeb3React()
+
 	const [supply, setSupply] = useState<BigNumber | undefined>()
 	const [analyticsOpen, setAnalyticsOpen] = useState(true)
 	const [priceHistoryTimeFrame, setPriceHistoryTimeFrame] = useState('M')
@@ -281,11 +283,11 @@ const Nest: React.FC = () => {
 						text="Issue"
 						onClick={() => setShowIssueModal(true)}
 						width="20%"
-						disabled={!nav}
+						disabled={!account || !nav}
 					/>
 					<Spacer />
 					<Button
-						disabled={tokenBalance.eq(new BigNumber(0))}
+						disabled={!account || tokenBalance.eq(new BigNumber(0))}
 						text="Redeem"
 						onClick={() => setShowRedeemModal(true)}
 						width="20%"
@@ -296,6 +298,7 @@ const Nest: React.FC = () => {
 						target="_blank"
 						text="Swap"
 						width="20%"
+						disabled={!account}
 					/>
 				</NestButtons>
 				<NestAnalytics in={analyticsOpen}>

@@ -97,45 +97,26 @@ const Balances: React.FC = () => {
 	return (
 		<Fragment>
 			<Container>
-				<Row style={{ display: 'flex', flexWrap: 'wrap' }}>
-					<StyledInfo>
-						❗️{' '}
-						<span
-							style={{
-								fontWeight: 700,
-								color: '${(props) => props.theme.color.red}',
-							}}
-						>
-							Attention:
-						</span>{' '}
-						Be sure to read the{' '}
-						<ExternalLink href="https://docs.bao.finance/" target="_blank">
-							docs
-						</ExternalLink>{' '}
-						before using the farms so you are familiar with protocol risks and
-						fees!
-					</StyledInfo>
-				</Row>
 				<Row style={{ display: 'flex', flexWrap: 'wrap', marginTop: '2rem' }}>
 					<UserStatsContainer>
 						<UserStatsWrapper>
 							<StatWrapper>
 								<UserStat>
 									<h1>Your POLLY Balance</h1>
-									<p>{account ? getDisplayBalance(pollyBalance) : 'Locked'} </p>
+									<p>{account ? getDisplayBalance(pollyBalance) : '-'} </p>
 								</UserStat>
 							</StatWrapper>
 							<StatWrapper>
 								<UserStat>
 									<h1>Your Locked POLLY</h1>
-									<p>{account ? getDisplayBalance(locks) : 'Locked'} </p>
+									<p>{account ? getDisplayBalance(locks) : '-'} </p>
 								</UserStat>
 							</StatWrapper>
 							<StatWrapper>
 								<UserStat>
 									<h1>Pending Harvest</h1>
 									<p>
-										<PendingRewards />
+									{account ?  <PendingRewards /> : '-'}
 									</p>
 								</UserStat>
 							</StatWrapper>
@@ -143,7 +124,7 @@ const Balances: React.FC = () => {
 								<UserStat>
 									<h1>Total POLLY Supply</h1>
 									<p>
-										{totalSupply ? getDisplayBalance(totalSupply) : 'Locked'}
+										{totalSupply ? getDisplayBalance(totalSupply) : <SpinnerLoader />}
 									</p>
 								</UserStat>
 							</StatWrapper>

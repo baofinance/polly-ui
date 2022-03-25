@@ -240,3 +240,136 @@ export const AssetImage = styled(FarmImage)`
     height: 25px;
   }
 `
+
+export const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-width: 6rem;
+  font-size: ${(props) => props.theme.fontSize.xl};
+  font-family: 'Rubik', sans-serif;
+  font-weight: ${(props) => props.theme.fontWeight.strong};
+
+  img {
+    vertical-align: middle;
+    height: 30px;
+    width: 30px;
+  }
+
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin: 0px;
+    margin-top: 0px;
+    margin-inline: 0.5rem 0.5rem;
+    margin-bottom: 0px;
+    color: ${(props) => props.theme.color.text[100]};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
+`
+
+export const ModalStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+`
+
+export const InputStack = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-inline: 0px;
+  margin-bottom: 0px;
+`
+
+export const LabelFlex = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+`
+
+export const LabelStack = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+`
+
+export const MaxLabel = styled.p`
+  color: ${(props) => props.theme.color.text[200]};
+  font-size: 0.875rem;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  margin-bottom: 0px;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		font-size: 0.75rem;
+	}
+`
+
+export const AssetLabel = styled.p`
+  color: ${(props) => props.theme.color.text[100]};
+  font-size: 0.875rem;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  margin-inline-start: 0.25rem;
+  margin-bottom: 0px;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		font-size: 0.75rem;
+	}
+`
+
+export const AssetStack = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+
+  p {
+    margin-top: 0px;
+    margin-inline: 0.5rem 0px;
+    margin-bottom: 0px;
+    color: ${(props) => props.theme.color.text[100]};
+    text-align: center;
+    font-size: 1rem;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
+`
+
+export const IconFlex = styled.div`
+  display: flex;
+  width: 1.5rem;
+
+  img {
+    display: block;
+    vertical-align: middle;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+`
+
+export const SectionHeader = styled.div`
+  color: ${(props) => props.theme.color.text[100]};
+  font-size: 1.25rem;
+  font-weight: ${(props) => props.theme.fontWeight.strong};
+  margin: 0;
+  text-align: center;
+  align-content: center;
+  padding-bottom: ${(props) => props.theme.spacing[2]}px;
+`
+
+export const CloseButton = styled.a`
+  float: right;
+  top: ${(props) => props.theme.spacing[3]}px;
+  right: ${(props) => props.theme.spacing[4]}px;
+  font-size: 1.5rem;
+  position: absolute;
+  color: ${(props) => props.theme.color.text[100]};
+  &:hover {
+    cursor: pointer;
+  }
+`

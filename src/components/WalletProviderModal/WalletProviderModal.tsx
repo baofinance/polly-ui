@@ -3,18 +3,16 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import {
 	NoEthereumProviderError,
-	UserRejectedRequestError as UserRejectedRequestErrorInjected
+	UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector'
-import {
-	coinbaseWallet,
-	injected, walletConnect
-} from 'bao/lib/connectors'
+import { coinbaseWallet, injected, walletConnect } from 'bao/lib/connectors'
 import { useEagerConnect, useInactiveListener } from 'bao/lib/hooks'
 import { Button, CloseButton } from 'components/Button'
 import { WalletButton } from 'components/Button/Button'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Col, Modal, ModalProps, Row } from 'react-bootstrap'
 import styled from 'styled-components'
+import Config from 'bao/lib/config'
 
 const connectorsByName: { [name: string]: AbstractConnector } = {
 	Metamask: injected,
@@ -22,21 +20,7 @@ const connectorsByName: { [name: string]: AbstractConnector } = {
 	WalletConnect: walletConnect,
 }
 
-function getErrorMessage(error: Error) {
-	if (error instanceof NoEthereumProviderError) {
-		return 'No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.'
-	} else if (error instanceof UnsupportedChainIdError) {
-		return "You're connected to an unsupported network."
-	} else if (error instanceof UserRejectedRequestErrorInjected) {
-		return 'Please authorize this website to access your Ethereum account.'
-	} else {
-		console.error(error)
-		return 'An unknown error occurred. Check the console for more details.'
-	}
-}
-
 const WalletProviderModal = ({ onHide, show }: ModalProps) => {
-	const context = useWeb3React<Web3Provider>()
 	const {
 		connector,
 		library,
@@ -46,10 +30,16 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 		deactivate,
 		active,
 		error,
-	} = context
+	} = useWeb3React()
 
-	// handle logic to recognize the connector currently being activated
+	useEffect(() => {
+		if (account && chainId === Config.networkId) {
+			onHide()
+		}
+	}, [account, onHide])
+
 	const [activatingConnector, setActivatingConnector] = useState<any>()
+
 	useEffect(() => {
 		if (activatingConnector && activatingConnector === connector) {
 			setActivatingConnector(undefined)
@@ -69,6 +59,25 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 	const hideModal = useCallback(() => {
 		onHide()
 	}, [onHide])
+
+	if (
+		window.ethereum &&
+		window.ethereum.chainId !== Config.defaultRpc.chainId
+	) {
+		try {
+			window.ethereum.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: Config.defaultRpc.chainId }],
+			})
+		} catch (error) {
+			if (error.code === 4902) {
+				window.ethereum.request({
+					method: 'wallet_addEthereumChain',
+					params: [Config.defaultRpc],
+				})
+			}
+		}
+	}
 
 	return (
 		<Modal show={show} onHide={hideModal} centered>
