@@ -2,7 +2,6 @@ import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { getPollySupply } from 'bao/utils'
 import BigNumber from 'bignumber.js'
-import ExternalLink from 'components/ExternalLink'
 import { SpinnerLoader } from 'components/Loader'
 import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
@@ -16,7 +15,6 @@ import CountUp from 'react-countup'
 import styled from 'styled-components'
 import GraphUtil from 'utils/graph'
 import { getDisplayBalance } from 'utils/numberFormat'
-import { StyledInfo } from './styles'
 
 const PendingRewards: React.FC = () => {
 	const [start, setStart] = useState(0)
@@ -115,16 +113,18 @@ const Balances: React.FC = () => {
 							<StatWrapper>
 								<UserStat>
 									<h1>Pending Harvest</h1>
-									<p>
-									{account ?  <PendingRewards /> : '-'}
-									</p>
+									<p>{account ? <PendingRewards /> : '-'}</p>
 								</UserStat>
 							</StatWrapper>
 							<StatWrapper>
 								<UserStat>
 									<h1>Total POLLY Supply</h1>
 									<p>
-										{totalSupply ? getDisplayBalance(totalSupply) : <SpinnerLoader />}
+										{totalSupply ? (
+											getDisplayBalance(totalSupply)
+										) : (
+											<SpinnerLoader />
+										)}
 									</p>
 								</UserStat>
 							</StatWrapper>

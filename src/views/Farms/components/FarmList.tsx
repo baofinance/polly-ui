@@ -1,7 +1,7 @@
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { getMasterChefContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
-import { NavButtons } from 'components/Button'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import { Farm } from 'contexts/Farms'
@@ -10,14 +10,13 @@ import useBao from 'hooks/base/useBao'
 import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useFarms from 'hooks/farms/useFarms'
 import React, { useEffect, useState } from 'react'
-import { Accordion, Card, Col, Container, Form, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { useWeb3React } from '@web3-react/core'
 import GraphUtil from 'utils/graph'
 import Multicall from 'utils/multicall'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
+import { FarmModal } from './Modals'
 import { StyledLoadingWrapper } from './styles'
-import { FarmModal } from './Modal'
 
 export interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
@@ -101,7 +100,7 @@ export const FarmList: React.FC = () => {
 							.div(decimate(tvlInfo.lpStaked))
 							.times(tvlInfo.tvl),
 						apy:
-						pollyPrice && farmsTVL
+							pollyPrice && farmsTVL
 								? pollyPrice
 										.times(BLOCKS_PER_YEAR)
 										.times(

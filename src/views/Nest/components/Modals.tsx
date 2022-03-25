@@ -1,37 +1,37 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Config from 'bao/lib/config'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import { Button } from 'components/Button'
+import { SubmitButton } from 'components/Button/Button'
+import ExternalLink from 'components/ExternalLink'
 import { SpinnerLoader } from 'components/Loader'
 import NestTokenInput from 'components/NestTokenInput'
 import NestTokenOutput from 'components/NestTokenOutput'
 import Spacer from 'components/Spacer'
-import useBao from 'hooks/base/useBao'
-import useNestIssue from 'hooks/baskets/useNestIssue'
-import useNestRate from 'hooks/baskets/useNestRate'
-import useTokenBalance from 'hooks/base/useTokenBalance'
-import React, { useCallback, useMemo, useState } from 'react'
-import { getDisplayBalance, getFullDisplayBalance } from 'utils/numberFormat'
-import { Contract } from 'web3-eth-contract'
-import Config from 'bao/lib/config'
+import TokenInput from 'components/TokenInput'
+import Tooltipped from 'components/Tooltipped'
 import useAllowancev2 from 'hooks/base/useAllowancev2'
 import useApprovev2 from 'hooks/base/useApprovev2'
-import { Disclaimer, HidePrice } from './styles'
+import useBao from 'hooks/base/useBao'
+import useTokenBalance from 'hooks/base/useTokenBalance'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
+import useNestIssue from 'hooks/baskets/useNestIssue'
+import useNestRate from 'hooks/baskets/useNestRate'
+import useNestRedeem from 'hooks/baskets/useNestRedeem'
+import React, { useCallback, useMemo, useState } from 'react'
 import {
 	Col,
 	FloatingLabel,
 	Form,
 	Modal,
 	ModalProps,
-	Row,
+	Row
 } from 'react-bootstrap'
 import styled from 'styled-components'
-import useNestRedeem from 'hooks/baskets/useNestRedeem'
-import TokenInput from 'components/TokenInput'
-import useTransactionHandler from 'hooks/base/useTransactionHandler'
-import ExternalLink from 'components/ExternalLink'
-import { SubmitButton } from 'components/Button/Button'
-import Tooltipped from 'components/Tooltipped'
+import { getDisplayBalance, getFullDisplayBalance } from 'utils/numberFormat'
+import { Contract } from 'web3-eth-contract'
+import { Disclaimer } from './styles'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -187,32 +187,32 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-					{navDifferenceTooHigh ? (
+				{navDifferenceTooHigh ? (
+					<Disclaimer>
+						<p>
+							`The difference between NAV on mainnet ($$
+							{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($$
+							{getDisplayBalance(nav.nav, 0)}) is greater than ($
+							{(nestName === 'nSTBL' && '2%') || '5%'}). Minting from the UI is
+							disabled until underlying asset prices are arbitraged within the
+							(${(nestName === 'nSTBL' && '2%') || '5%'}) range in order to
+							prevent loss of funds.`
+						</p>
+					</Disclaimer>
+				) : (
+					''
+				)}
+				{nestName === 'nSTBL' && (
+					<>
 						<Disclaimer>
 							<p>
-								`The difference between NAV on mainnet ($$
-								{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($$
-								{getDisplayBalance(nav.nav, 0)}) is greater than ($
-								{(nestName === 'nSTBL' && '2%') || '5%'}). Minting from the UI
-								is disabled until underlying asset prices are arbitraged within
-								the (${(nestName === 'nSTBL' && '2%') || '5%'}) range in order
-								to prevent loss of funds.`
+								Due to low liquidity, there is a mint limit in place for 10,000
+								nSTBL. As liquidity for RAI on Polygon goes up, the limit will
+								increase.
 							</p>
-						</Disclaimer>
-					) : (
-						''
-					)}
-					{nestName === 'nSTBL' && (
-						<>
-							<Disclaimer>
-								<p>
-									Due to low liquidity, there is a mint limit in place for
-									10,000 nSTBL. As liquidity for RAI on Polygon goes up, the
-									limit will increase.
-								</p>
-							</Disclaimer>{' '}
-						</>
-					)}
+						</Disclaimer>{' '}
+					</>
+				)}
 				<BalanceWrapper>
 					<Col xs={4}>
 						<LabelStart>
@@ -650,31 +650,31 @@ const RedeemToChoice = styled(Form.Select)`
 `
 
 export const HeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  min-width: 6rem;
-  font-size: ${(props) => props.theme.fontSize.xl};
-  font-family: 'Rubik', sans-serif;
-  font-weight: ${(props) => props.theme.fontWeight.strong};
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	min-width: 6rem;
+	font-size: ${(props) => props.theme.fontSize.xl};
+	font-family: 'Rubik', sans-serif;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
 
-  img {
-    vertical-align: middle;
-    height: 30px;
-    width: 30px;
-  }
+	img {
+		vertical-align: middle;
+		height: 30px;
+		width: 30px;
+	}
 
-  p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin: 0px;
-    margin-top: 0px;
-    margin-inline: 0.5rem 0.5rem;
-    margin-bottom: 0px;
-    color: ${(props) => props.theme.color.text[100]};
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-  }
+	p {
+		display: block;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin: 0px;
+		margin-top: 0px;
+		margin-inline: 0.5rem 0.5rem;
+		margin-bottom: 0px;
+		color: ${(props) => props.theme.color.text[100]};
+		font-weight: ${(props) => props.theme.fontWeight.medium};
+	}
 `
 
 export const CloseButton = styled.a`
