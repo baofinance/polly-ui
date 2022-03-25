@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { fetchCalcToNest, getRecipeContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
@@ -60,6 +61,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	show,
 	onHide,
 }) => {
+	const { library, account } = useWeb3React()
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
