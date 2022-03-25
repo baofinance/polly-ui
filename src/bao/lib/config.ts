@@ -132,7 +132,7 @@ export default {
       outputToken: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
       symbol: 'nINFR',
       name: 'nINFR',
-      icon: '/ninfra.png',
+      icon: '/nINFRA.png',
       pieColors: {
         WETH: '#d05555',
         LINK: '#2A5AD9',
@@ -149,7 +149,7 @@ export default {
       outputToken: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
       symbol: 'nPOLY',
       name: 'nPOLY',
-      icon: '/npoly.png',
+      icon: '/nPOLY.png',
       pieColors: {
         KLIMA: '#0c3',
         BIFI: '#F9F3EB',
