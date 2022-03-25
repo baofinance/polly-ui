@@ -19,6 +19,10 @@ const theme = () => ({
     lg: 991.98,
     xl: 1199.98,
     xxl: 1399.98,
+    mobile: 575.98,
+    tablet: 767.98,
+    fhd: 991.98,
+    uhd: 2160,
   },
   color: {
     monochrome,
