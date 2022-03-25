@@ -63,21 +63,42 @@ const StyledInputWrapper = styled.div`
 	background: ${(props) => props.theme.color.transparent[100]};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	display: flex;
-	height: 56px;
+	height: 72px;
 	padding: 0 ${(props) => props.theme.spacing[3]}px;
 `
 
 const StyledInput = styled.input`
-	background: none;
-	border: 0;
+	width: 100%;
+	min-width: 0px;
+	outline-offset: 2px;
+	position: relative;
+	appearance: none;
+	transition-property: all;
+	transition-duration: 200ms;
+	font-size: 1rem;
+	padding-inline-start: 1rem;
+	padding-inline-end: 1rem;
+	height: 50px;
+	text-align: start;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	padding-right: 0.5rem;
+	outline: transparent solid 2px;
+	border-radius: 8px;
+	border-style: solid;
+	border-image: initial;
+	border-color: inherit;
 	color: ${(props) => props.theme.color.text[100]};
-	font-size: 1.25rem;
-	flex: 1;
-	height: 56px;
-	margin: 0;
-	padding: 0;
-	outline: none;
-	width: 60%;
+	background: none;
+	background-color: transparent;
+	border-width: 0px;
+
+	&:disabled {
+		color: ${(props) => props.theme.color.text[200]};
+	}
+
+	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+		font-size: 0.875rem;
+	}
 `
 
 export default NestInput

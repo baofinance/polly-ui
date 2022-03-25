@@ -6,6 +6,7 @@ import { InputProps } from '../NestInput'
 import NestOutput from '../NestOutput'
 
 interface NestTokenOutputProps extends InputProps {
+	icon: string
 	symbol: string
 	_inputToken?: string
 	_outputToken?: string
@@ -15,6 +16,7 @@ interface NestTokenOutputProps extends InputProps {
 }
 
 const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
+	icon,
 	symbol,
 	onChange,
 	value,
@@ -24,12 +26,6 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 	return (
 		<StyledTokenInput>
 			<NestOutput
-				startAdornment={
-					<StyledTokenAdornmentWrapper>
-						<StyledTokenSymbol>MINT</StyledTokenSymbol>
-						<StyledSpacer />
-					</StyledTokenAdornmentWrapper>
-				}
 				endAdornment={
 					<>
 						<MaxButton onClick={() => addInput(1)}>
@@ -39,7 +35,7 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 							<FontAwesomeIcon icon="arrow-down" />
 						</MaxButton>
 						<StyledTokenAdornmentWrapper>
-							<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
+							<StyledTokenSymbol><img src={icon} /></StyledTokenSymbol>
 						</StyledTokenAdornmentWrapper>
 					</>
 				}
@@ -70,6 +66,10 @@ const StyledTokenAdornmentWrapper = styled.div`
 const StyledTokenSymbol = styled.span`
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
+
+	img {
+		height: 40px;
+	}
 `
 
 export default NestTokenOutput

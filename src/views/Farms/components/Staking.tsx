@@ -1,46 +1,31 @@
-import BigNumber from 'bignumber.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
-import Label from 'components/Label'
+import { approvev2, getMasterChefContract } from 'bao/utils'
+import BigNumber from 'bignumber.js'
+import { SubmitButton } from 'components/Button/Button'
+import ExternalLink from 'components/ExternalLink'
 import { SpinnerLoader } from 'components/Loader'
+import TokenInput from 'components/TokenInput'
 import { PoolType } from 'contexts/Farms/types'
+import { ethers } from 'ethers'
 import useAllowance from 'hooks/base/useAllowance'
 import useApprove from 'hooks/base/useApprove'
 import useBao from 'hooks/base/useBao'
 import useBlockDiff from 'hooks/base/useBlockDiff'
 import useTokenBalance from 'hooks/base/useTokenBalance'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useFees from 'hooks/farms/useFees'
-import useStake from 'hooks/farms/useStake'
 import useStakedBalance from 'hooks/farms/useStakedBalance'
-import useUnstake from 'hooks/farms/useUnstake'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Card, Col, Modal, ModalBody, Row } from 'react-bootstrap'
+import React, { useCallback, useMemo, useState } from 'react'
+import { Col, Modal, ModalBody, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { useWeb3React } from '@web3-react/core'
-import { getContract } from 'utils/erc20'
-import {
-	decimate,
-	exponentiate,
-	getDisplayBalance,
-	getFullDisplayBalance,
-} from 'utils/numberFormat'
-import { provider } from 'web3-core'
+import { exponentiate, getFullDisplayBalance } from 'utils/numberFormat'
+import { QuestionIcon } from 'views/Nest/components/styles'
 import { Contract } from 'web3-eth-contract'
 import { FarmWithStakedValue } from './FarmList'
-import { BalanceInput } from 'components/Input'
-import { Button } from 'components/Button'
-import { SubmitButton } from 'components/Button/Button'
-import ExternalLink from 'components/ExternalLink'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useTransactionHandler from 'hooks/base/useTransactionHandler'
-import { approvev2, getMasterChefContract } from 'bao/utils'
-import { ethers } from 'ethers'
-import { size } from 'lodash'
-import Tooltipped from 'components/Tooltipped'
-import { QuestionIcon } from 'views/Nest/components/styles'
 import { FeeModal } from './Harvest'
-import Multicall from 'utils/multicall'
-import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 
 interface FarmListItemProps {
 	farm: FarmWithStakedValue
@@ -88,6 +73,15 @@ export const Stake: React.FC<StakeProps> = ({
 
 	const handleSelectMax = useCallback(() => {
 		setVal(fullBalance)
+	}, [fullBalance, setVal])
+
+	const handleSelectHalf = useCallback(() => {
+		setVal(
+			max
+				.div(10 ** 18)
+				.div(2)
+				.toString(),
+		)
 	}, [fullBalance, setVal])
 
 	const [requestedApproval, setRequestedApproval] = useState(false)
@@ -141,10 +135,13 @@ export const Stake: React.FC<StakeProps> = ({
 				</BalanceWrapper>
 				<Row>
 					<Col xs={12}>
-						<BalanceInput
-							onMaxClick={handleSelectMax}
+						<TokenInput
+							onSelectMax={handleSelectMax}
+							onSelectHalf={handleSelectHalf}
 							onChange={handleChange}
 							value={val}
+							max={fullBalance}
+							symbol={tokenName}
 						/>
 					</Col>
 				</Row>
@@ -298,6 +295,15 @@ export const Unstake: React.FC<UnstakeProps> = ({
 		setVal(fullBalance)
 	}, [fullBalance, setVal])
 
+	const handleSelectHalf = useCallback(() => {
+		setVal(
+			max
+				.div(10 ** 18)
+				.div(2)
+				.toString(),
+		)
+	}, [fullBalance, setVal])
+
 	const userInfo = useUserFarmInfo(pid)
 	const blockDiff = useBlockDiff(userInfo)
 	const fees = useFees(blockDiff)
@@ -347,13 +353,16 @@ export const Unstake: React.FC<UnstakeProps> = ({
 				</BalanceWrapper>
 				<Row>
 					<Col xs={12}>
-						<BalanceInput
-							onMaxClick={handleSelectMax}
+						<TokenInput
+							onSelectMax={handleSelectMax}
+							onSelectHalf={handleSelectHalf}
 							onChange={handleChange}
 							value={val}
+							max={fullBalance}
+							symbol={tokenName}
 						/>
 					</Col>
-				</Row>{' '}
+				</Row>
 			</FarmModalBody>
 			<Modal.Footer>
 				<ButtonStack>

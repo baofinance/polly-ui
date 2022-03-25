@@ -503,6 +503,7 @@ const Nest: React.FC = () => {
 				nav={nav}
 				show={showIssueModal}
 				onHide={() => setShowIssueModal(false)}
+				nestIcon={icon}
 			/>
 			<RedeemModal
 				max={tokenBalance}
@@ -511,6 +512,7 @@ const Nest: React.FC = () => {
 				nid={nid}
 				show={showRedeemModal}
 				onHide={() => setShowRedeemModal(false)}
+				nestIcon={icon}
 			/>
 			<NavModal show={showNavModal} onHide={() => setShowNavModal(false)} />
 		</>

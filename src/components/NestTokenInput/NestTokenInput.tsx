@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js'
 import React from 'react'
 import styled from 'styled-components'
 import NestInput, { InputProps } from '../NestInput'
+import wethIcon from 'assets/img/assets/WETH.png'
 
 interface NestTokenInputProps extends InputProps {
 	symbol: string
@@ -23,15 +24,11 @@ const NestTokenInput: React.FC<NestTokenInputProps> = ({
 	return (
 		<StyledTokenInput>
 			<NestInput
-				startAdornment={
-					<StyledTokenAdornmentWrapper>
-						<StyledTokenSymbol>WITH</StyledTokenSymbol>
-						<StyledSpacer />
-					</StyledTokenAdornmentWrapper>
-				}
 				endAdornment={
 					<StyledTokenAdornmentWrapper>
-						<StyledTokenSymbol>{symbol}</StyledTokenSymbol>
+						<StyledTokenSymbol>
+							<img src={wethIcon} />
+						</StyledTokenSymbol>
 					</StyledTokenAdornmentWrapper>
 				}
 				value={value}
@@ -63,6 +60,10 @@ const StyledTokenAdornmentWrapper = styled.div`
 const StyledTokenSymbol = styled.span`
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
+
+	img {
+		height: 40px;
+	}
 `
 
 export default NestTokenInput

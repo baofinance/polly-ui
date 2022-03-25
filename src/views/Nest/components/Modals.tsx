@@ -17,18 +17,27 @@ import Config from 'bao/lib/config'
 import useAllowancev2 from 'hooks/base/useAllowancev2'
 import useApprovev2 from 'hooks/base/useApprovev2'
 import { Disclaimer, HidePrice } from './styles'
-import { FloatingLabel, Form, Modal, ModalProps } from 'react-bootstrap'
+import {
+	Col,
+	FloatingLabel,
+	Form,
+	Modal,
+	ModalProps,
+	Row,
+} from 'react-bootstrap'
 import styled from 'styled-components'
 import useNestRedeem from 'hooks/baskets/useNestRedeem'
 import TokenInput from 'components/TokenInput'
 import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import ExternalLink from 'components/ExternalLink'
 import { SubmitButton } from 'components/Button/Button'
+import Tooltipped from 'components/Tooltipped'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
 	nestContract: Contract
 	nestName: string
+	nestIcon: string
 	inputTokenContract: Contract
 	inputTokenName: string
 	outputTokenContract: Contract
@@ -42,6 +51,7 @@ interface IssueModalProps extends ModalProps {
 export const IssueModal: React.FC<IssueModalProps> = ({
 	nestName,
 	nestAddress,
+	nestIcon,
 	inputTokenName,
 	_inputToken,
 	_outputToken,
@@ -166,64 +176,67 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						<p>Issue {nestName}</p>
+						Issue <img src={nestIcon} style={{ marginLeft: '10px' }} />{' '}
+						<p style={{ fontSize: '0.875rem', verticalAlign: 'top' }}>
+							<Tooltipped
+								placement="right"
+								content="Polly uses your wETH to buy the underlying assets for you from SushiSwap. Minting transactions send 5% more wETH to avoid unexpected errors like slippage, any unused WETH is returned."
+							/>
+						</p>
 					</HeaderWrapper>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<ModalStack>
-					<Disclaimer>
-						<p>
-							{navDifferenceTooHigh
-								? `The difference between NAV on mainnet ($${getDisplayBalance(
-										nav.mainnetNav,
-										0,
-								  )}) and NAV on MATIC ($${getDisplayBalance(
-										nav.nav,
-										0,
-								  )}) is greater than (${
-										(nestName === 'nSTBL' && '2%') || '5%'
-								  }). Minting from the UI is disabled until underlying asset prices are arbitraged within the (${
-										(nestName === 'nSTBL' && '2%') || '5%'
-								  }) range in order to prevent loss of funds.`
-								: ''}
-						</p>
-						{nestName === 'nSTBL' && (
-							<>
+					{navDifferenceTooHigh ? (
+						<Disclaimer>
+							<p>
+								`The difference between NAV on mainnet ($$
+								{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($$
+								{getDisplayBalance(nav.nav, 0)}) is greater than ($
+								{(nestName === 'nSTBL' && '2%') || '5%'}). Minting from the UI
+								is disabled until underlying asset prices are arbitraged within
+								the (${(nestName === 'nSTBL' && '2%') || '5%'}) range in order
+								to prevent loss of funds.`
+							</p>
+						</Disclaimer>
+					) : (
+						''
+					)}
+					{nestName === 'nSTBL' && (
+						<>
+							<Disclaimer>
 								<p>
 									Due to low liquidity, there is a mint limit in place for
 									10,000 nSTBL. As liquidity for RAI on Polygon goes up, the
 									limit will increase.
 								</p>
-							</>
-						)}
-						<p>
-							Polly uses your wETH to buy the underlying assets for you from
-							SushiSwap. Minting transactions send 5% more wETH to avoid
-							unexpected errors like slippage, any unused WETH is returned.
-						</p>
-						<HidePrice>
-							<b>
-								Your wETH Balance:{' '}
-								{(wethBalance && getDisplayBalance(wethBalance)) || (
-									<SpinnerLoader />
-								)}{' '}
-								<FontAwesomeIcon icon={['fab', 'ethereum']} />
-							</b>
-							<br />
-							<b>
-								1 {nestName} ={' '}
-								<>
-									{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
-										<SpinnerLoader />
-									)}{' '}
-									<FontAwesomeIcon icon={['fab', 'ethereum']} />
-								</>
-							</b>
-						</HidePrice>
-					</Disclaimer>
-				</ModalStack>
+							</Disclaimer>{' '}
+						</>
+					)}
+				<BalanceWrapper>
+					<Col xs={4}>
+						<LabelStart>
+							<MaxLabel>Mint nDEFI</MaxLabel>
+						</LabelStart>
+					</Col>
+					<Col xs={8}>
+						<LabelEnd>
+							<LabelStack>
+								<AssetLabel>
+									1 {nestName} ={' '}
+									<>
+										{(wethPerIndex && getDisplayBalance(wethPerIndex, 0)) || (
+											<SpinnerLoader />
+										)}{' '}
+										<FontAwesomeIcon icon={['fab', 'ethereum']} />
+									</>
+								</AssetLabel>
+							</LabelStack>
+						</LabelEnd>
+					</Col>
+				</BalanceWrapper>
 				<NestTokenOutput
+					icon={nestIcon}
 					value={nestAmount}
 					onChange={handleOutputChange}
 					symbol={nestName}
@@ -239,6 +252,25 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 					}}
 				/>
 				<Spacer />
+				<BalanceWrapper>
+					<Col xs={4}>
+						<LabelStart>
+							<MaxLabel>wETH Needed</MaxLabel>
+						</LabelStart>
+					</Col>
+					<Col xs={8}>
+						<LabelEnd>
+							<LabelStack>
+								<MaxLabel>Balance:</MaxLabel>
+								<AssetLabel>
+									{(wethBalance && getDisplayBalance(wethBalance)) || (
+										<SpinnerLoader />
+									)}
+								</AssetLabel>
+							</LabelStack>
+						</LabelEnd>
+					</Col>
+				</BalanceWrapper>
 				<NestTokenInput
 					setValue={(num: string) => {
 						setWethNeeded(num)
@@ -368,6 +400,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 interface RedeemModalProps extends ModalProps {
 	max: BigNumber
 	nestName: string
+	nestIcon: string
 	nestContract: Contract
 	nid: number
 	show: boolean
@@ -378,6 +411,7 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 	max,
 	nid,
 	nestName,
+	nestIcon,
 	nestContract,
 	show,
 	onHide,
@@ -447,21 +481,16 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						<p>Redeem {nestName}</p>
+						Redeem <img src={nestIcon} style={{ marginLeft: '10px' }} />
 					</HeaderWrapper>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<TokenInput
-					onSelectMax={handleSelectMax}
-					onSelectHalf={handleSelectHalf}
-					onChange={handleChange}
-					value={val}
-					max={fullBalance}
-					symbol={nestName}
-				/>
-				<br />
-				<FloatingLabel controlId="floatingSelect" label="Redeem To">
+				<FloatingLabel
+					controlId="floatingSelect"
+					label="Redeem To"
+					style={{ marginBottom: '16px', fontSize: '0.875rem' }}
+				>
 					<RedeemToChoice
 						aria-label="Redeem To"
 						onChange={(e: any) =>
@@ -472,6 +501,29 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 						<option>Underlying Tokens</option>
 					</RedeemToChoice>
 				</FloatingLabel>
+				<BalanceWrapper>
+					<Col xs={4}>
+						<LabelStart></LabelStart>
+					</Col>
+					<Col xs={8}>
+						<LabelEnd>
+							<LabelStack>
+								<MaxLabel>Balance:</MaxLabel>
+								<AssetLabel>
+									{fullBalance} {nestName}{' '}
+								</AssetLabel>
+							</LabelStack>
+						</LabelEnd>
+					</Col>
+				</BalanceWrapper>
+				<TokenInput
+					onSelectMax={handleSelectMax}
+					onSelectHalf={handleSelectHalf}
+					onChange={handleChange}
+					value={val}
+					max={fullBalance}
+					symbol={nestName}
+				/>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button text="Cancel" onClick={onHide} />
@@ -597,31 +649,32 @@ const RedeemToChoice = styled(Form.Select)`
 	}
 `
 
-const HeaderWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	min-width: 6rem;
-	font-size: ${(props) => props.theme.fontSize.xl};
-	font-weight: ${(props) => props.theme.fontWeight.strong};
+export const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-width: 6rem;
+  font-size: ${(props) => props.theme.fontSize.xl};
+  font-family: 'Rubik', sans-serif;
+  font-weight: ${(props) => props.theme.fontWeight.strong};
 
-	img {
-		vertical-align: middle;
-		height: 2rem;
-		width: 2rem;
-	}
+  img {
+    vertical-align: middle;
+    height: 30px;
+    width: 30px;
+  }
 
-	p {
-		display: block;
-		margin-block-start: 1em;
-		margin-block-end: 1em;
-		margin: 0px;
-		margin-top: 0px;
-		margin-inline: 0.5rem 0.5rem;
-		margin-bottom: 0px;
-		color: ${(props) => props.theme.color.text[100]};
-		font-weight: ${(props) => props.theme.fontWeight.medium};
-	}
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin: 0px;
+    margin-top: 0px;
+    margin-inline: 0.5rem 0.5rem;
+    margin-bottom: 0px;
+    color: ${(props) => props.theme.color.text[100]};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
 `
 
 export const CloseButton = styled.a`
@@ -641,4 +694,77 @@ export const ModalStack = styled.div`
 	flex-direction: column;
 	padding: 1rem;
 	width: 100%;
+`
+
+export const LabelEnd = styled.div`
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	width: 100%;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		font-size: 0.75rem !important;
+	}
+`
+
+export const LabelStart = styled.div`
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: 100%;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		font-size: 0.75rem !important;
+	}
+`
+
+export const FeeLabel = styled.p`
+	color: ${(props) => props.theme.color.text[200]};
+	font-size: 0.875rem;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	margin-bottom: 0px;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+		font-size: 0.75rem;
+	}
+`
+
+export const LabelStack = styled.span`
+	display: flex;
+	align-items: flex-end;
+	flex-direction: row;
+`
+
+export const MaxLabel = styled.span`
+	color: ${(props) => props.theme.color.text[200]};
+	font-size: 0.875rem;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	margin-bottom: 0px;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		font-size: 0.75rem;
+	}
+`
+
+export const AssetLabel = styled.span`
+	color: ${(props) => props.theme.color.text[100]};
+	font-size: 0.875rem;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	margin-inline-start: 0.25rem;
+	margin-bottom: 0px;
+	vertical-align: middle;
+
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		font-size: 0.75rem;
+	}
+`
+
+const ButtonStack = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+`
+
+const BalanceWrapper = styled(Row)`
+	padding: 0.25rem;
 `
