@@ -1,3 +1,5 @@
+import Separator from 'components/Separator'
+import Spacer from 'components/Spacer'
 import React from 'react'
 import { NestHeader, NestList, NestSubHeader } from '../styles'
 
@@ -9,7 +11,7 @@ const nDEFI: React.FC = () => (
 			have liquidity on Polygon. Each project is weighted on the TVL divided by
 			Fully Diluted Valuation (FDV).
 		</p>
-
+		<Spacer />
 		<NestHeader>Objective</NestHeader>
 		<p>
 			To generate revenue a defi project needs value deposited into their
@@ -31,7 +33,7 @@ const nDEFI: React.FC = () => (
 			The Polly DeFi Nest will provide the crypto industry's first automated,
 			yield bearing, value investing, decentralized, tokenized portfolios.
 		</p>
-
+		<Spacer />
 		<NestHeader>Criteria</NestHeader>
 		<p>
 			For a project to be included in the Polly Defi Nest, it must fit the below
@@ -62,7 +64,7 @@ const nDEFI: React.FC = () => (
 			<li>Be Ethereum-focused</li>
 			<li>Must be sufficiently decentralised</li>
 		</NestList>
-
+		<Spacer />
 		<NestHeader>Strategy</NestHeader>
 		<p>
 			It is possible for the underlying tokens to utilize strategies that will
@@ -71,21 +73,17 @@ const nDEFI: React.FC = () => (
 			strategies will be changed over time to take advantage of new
 			opportunities or to maximise the yield earned.
 		</p>
-
+		<Spacer />
 		<NestHeader>Management</NestHeader>
 		<p>The Nest is maintained quarterly in two phases.</p>
-
 		<p>
 			<NestSubHeader>Determination Phase</NestSubHeader>
 		</p>
 		<p>
 			The determination phase takes place during the final 2 weeks of the
 			quarter. During this phase the changes needed for the next reconstitution
-			are determined.
-		</p>
-		<p>
-			The TVL and FDV of each project are recorded, including new projects that
-			qualify for the nest and meet the criteria.
+			are determined. The TVL and FDV of each project are recorded, including
+			new projects that qualify for the nest and meet the criteria.
 		</p>
 		<p>
 			Proposed changes will be published on the governance forum for 1 week then

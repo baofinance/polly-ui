@@ -12,7 +12,9 @@ export interface SupportedPool {
   name: string
   symbol: string
   tokenSymbol: string
-  icon: string
+  poolType: any
+  iconA: string
+  iconB: string
   refUrl: string
   pairUrl: string
 }

@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MenuIcon from 'components/icons/MenuIcon'
 import Logo from 'components/Logo'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import styled from 'styled-components'
+import { Button } from '../Button'
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
 
@@ -10,7 +12,9 @@ interface TopBarProps {
 	onPresentMobileMenu: () => void
 }
 
-const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
+const TopBar: React.FC<TopBarProps> = ({
+	onPresentMobileMenu,
+}) => {
 	return (
 		<StyledTopBar>
 			<StyledTopBarInner>
@@ -33,7 +37,7 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 
 const StyledLogoWrapper = styled.div`
 	width: 200px;
-	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.xl}px) {
 		width: auto;
 	}
 `
@@ -45,7 +49,7 @@ const StyledNavWrapper = styled.div`
 	display: flex;
 	flex: 1;
 	justify-content: center;
-	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.xl}px) {
 		display: none;
 	}
 `
@@ -65,7 +69,7 @@ const StyledAccountButtonWrapper = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	width: 200px;
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
 		justify-content: center;
 		width: auto;
 	}
@@ -79,13 +83,21 @@ const StyledMenuButton = styled.button`
 	padding: 0;
 	display: none;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.xl}px) {
 		align-items: center;
 		display: flex;
 		height: 44px;
 		justify-content: center;
 		width: 44px;
 		margin-left: ${(props) => props.theme.spacing[2]}px;
+	}
+`
+
+const StyledThemeButton = styled.div`
+	> button {
+		height: 40px;
+		width: 40px;
+		margin-left: 1rem;
 	}
 `
 

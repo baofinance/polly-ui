@@ -1,85 +1,28 @@
-import pollyNests from 'assets/img/polly-nests.png'
-import Button from 'components/Button'
-import Container from 'components/Container'
+import { useWeb3React } from '@web3-react/core'
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
-import Spacer from 'components/Spacer'
-import WalletProviderModal from 'components/WalletProviderModal'
-import useModal from 'hooks/useModal'
+import useFarms from 'hooks/farms/useFarms'
 import React from 'react'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
-import { useWallet } from 'use-wallet'
-import Config from '../../bao/lib/config'
-import Farm from '../Farm'
+import { Container } from 'react-bootstrap'
 import Balances from './components/Balances'
-import FarmCards from './components/FarmCards'
-import { StyledInfo } from './components/styles'
-import ExternalLink from 'components/ExternalLink'
+import { FarmList } from './components/FarmList'
 
 const Farms: React.FC = () => {
-	const { path } = useRouteMatch()
-	const { account, ethereum }: any = useWallet()
-	const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
+	const farms = useFarms()
+	const { account, library } = useWeb3React()
 
 	return (
-		<Switch>
-			<Page>
-				{account && ethereum.chainId === Config.defaultRpc.chainId ? (
-					<>
-						<Route exact path={path}>
-							<PageHeader
-								icon={pollyNests}
-								title="Farms"
-								subtitle="Earn POLLY by staking SushiSwap LP and Nest Tokens!"
-							/>
-							<Container>
-								<StyledInfo>
-									❗️{' '}
-									<span
-										style={{
-											fontWeight: 700,
-											color: '${(props) => props.theme.color.red}',
-										}}
-									>
-										Attention:
-									</span>{' '}
-									Be sure to read the{' '}
-									<ExternalLink
-										href="https://docs.bao.finance/franchises/polly"
-										target="_blank"
-									>
-										docs
-									</ExternalLink>{' '}
-									before using the farms so you are familiar with protocol risks
-									and fees!
-								</StyledInfo>
-								<Spacer size="md" />
-								<Balances />
-								<Spacer size="md" />
-							</Container>
-							<FarmCards />
-						</Route>
-						<Route path={`${path}/:farmId`}>
-							<Farm />
-						</Route>
-					</>
-				) : (
-					<div
-						style={{
-							alignItems: 'center',
-							display: 'flex',
-							flex: 1,
-							justifyContent: 'center',
-						}}
-					>
-						<Button
-							onClick={onPresentWalletProviderModal}
-							text="🔓 Unlock Wallet"
-						/>
-					</div>
-				)}
-			</Page>
-		</Switch>
+		<Page>
+			<PageHeader
+				icon=""
+				title="Farms"
+				subtitle="Earn POLLY by staking Sushiswap LP Tokens!"
+			/>
+			<Container>
+				<Balances />
+				<FarmList />
+			</Container>
+		</Page>
 	)
 }
 

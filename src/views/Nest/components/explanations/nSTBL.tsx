@@ -1,3 +1,4 @@
+import Spacer from 'components/Spacer'
 import React from 'react'
 import { NestHeader, NestList, NestSubHeader } from '../styles'
 
@@ -10,7 +11,7 @@ const nSTBL: React.FC = () => (
 			various trusted yield farming protocols. Decentralized and non pegged
 			stables will be used where yield is available.
 		</p>
-
+		<Spacer />
 		<NestHeader>Objective</NestHeader>
 		<p>
 			To provide exposure to a diversified basket of stable coins with a focus
@@ -42,12 +43,12 @@ const nSTBL: React.FC = () => (
 			of decentralized alternatives once they are sufficiently mature and have
 			yield strategies that are suitable for a stables nest on polygon.
 		</p>
-
+		<Spacer />
 		<NestHeader>Criteria</NestHeader>
 		<p>
 			For a project to be included in the Polly Stable nest, it must fit the
-			below criteria in order to reduce the risk of the nest and fit the
-			desires of the community.
+			below criteria in order to reduce the risk of the nest and fit the desires
+			of the community.
 		</p>
 		<NestSubHeader>Characteristics</NestSubHeader>
 		<NestList>
@@ -80,7 +81,7 @@ const nSTBL: React.FC = () => (
 			</li>
 			<li>Must be sufficiently decentralized and/or collateralized.</li>
 		</NestList>
-
+		<Spacer />
 		<NestHeader>Strategy</NestHeader>
 		<p>
 			It is possible for the underlying tokens to utilize strategies that will
@@ -89,7 +90,7 @@ const nSTBL: React.FC = () => (
 			strategies will be changed over time to take advantage of new
 			opportunities or to maximise the yield earned.
 		</p>
-
+		<Spacer />
 		<NestHeader>Management</NestHeader>
 		<p>The Nest is maintained quarterly in two phases.</p>
 
@@ -99,16 +100,11 @@ const nSTBL: React.FC = () => (
 		<p>
 			The determination phase takes place during the final 2 weeks of the
 			quarter. During this phase the changes needed for the next reconstitution
-			are determined.
-		</p>
-		<p>
-			Strategies and allocation % will be revisited in order to reach the
-			balance between decentralization and having the most optimal yet secure
-			yield possible for those stables.
-		</p>
-		<p>
-			Proposed changes will be published on the governance forum for 1 week then
-			a governance vote will run for the community to approve changes.
+			are determined. Strategies and allocation % will be revisited in order to
+			reach the balance between decentralization and having the most optimal yet
+			secure yield possible for those stables. Proposed changes will be
+			published on the governance forum for 1 week then a governance vote will
+			run for the community to approve changes.
 		</p>
 		<p>
 			<NestSubHeader>Reconstitution Phase</NestSubHeader>

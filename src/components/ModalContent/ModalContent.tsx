@@ -11,7 +11,7 @@ const StyledModalContent = styled.div`
 	font-weight: ${(props) => props.theme.fontWeight.medium};
 	text-align: center;
 
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
 		flex: 1;
 		overflow: auto;
 		padding: ${(props) => props.theme.spacing[2]}px;

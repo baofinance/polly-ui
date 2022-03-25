@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { ThemeContext } from 'styled-components'
-import ExternalLink from 'components/ExternalLink'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface ButtonProps {
 	children?: React.ReactNode
@@ -18,7 +18,7 @@ interface ButtonProps {
 	border?: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
 	children,
 	disabled,
 	href,
@@ -207,8 +207,7 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-		cursor: ${(props) =>
-			props.disabled ? 'not-allowed' : 'pointer'} !important;
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
 	}
 `
 
@@ -246,23 +245,26 @@ const ButtonLink = styled.a`
 	}
 `
 
-export const MaxButton = styled.a`
-	padding: ${(props) => props.theme.spacing[1]}px;
+export const MaxButton = styled.button`
+	padding: ${(props) => props.theme.spacing[2]}px;
 	color: ${(props) => props.theme.color.text[100]};
-	background: ${(props) => props.theme.buttonGradient.a};
-	border-radius: ${(props) => props.theme.borderRadius}px;
-	border: 1.75px solid transparent;
+	background: ${(props) => props.theme.color.primary[200]};
 	vertical-align: middle;
 	margin-right: ${(props) => props.theme.spacing[2]}px;
-	transition: 100ms;
+	transition: 200ms;
 	user-select: none;
-	font-weight: ${(props) => props.theme.fontWeight.medium};
 	text-decoration: none;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
+	font-weight: ${(props) => props.theme.fontWeight.strong};
+	font-size: ${(props) => props.theme.fontSize.sm};
 
-	&:hover {
-		background: ${(props) => props.theme.buttonGradient.hover};
-		color: ${(props) => props.theme.color.text[100]};
+	  &:hover{
+		background: ${(props) => props.theme.color.primary[100]};
 		cursor: pointer;
+	  }
 	}
 `
 
@@ -280,4 +282,259 @@ export const StyledBorderButton = styled(StyledButton)`
 	}
 `
 
-export default Button
+type NavButtonProps = {
+	onClick: (s: any) => void
+	active: string
+	options: string[]
+}
+
+export const NavButtons = ({ options, active, onClick }: NavButtonProps) => (
+	<NavButtonWrapper>
+		{options.map((option: string) => (
+			<NavButton
+				key={option}
+				className={option === active ? 'buttonActive' : 'buttonInactive'}
+				onClick={() => onClick(option)}
+			>
+				{option}
+			</NavButton>
+		))}
+	</NavButtonWrapper>
+)
+
+const NavButtonWrapper = styled.div`
+	display: flex;
+	width: 100%;
+	cursor: pointer;
+	padding: 12px;
+`
+
+const NavButton = styled.button`
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 0.5rem;
+	margin: 0.25rem;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
+	font-size: ${(props) => props.theme.fontSize.default};
+	transition: 200ms;
+	height: 48px;
+	align-items: center;
+	vertical-align: middle;
+	line-height: 1;
+	transition-property: all;
+	min-width: 2.5rem;
+	padding-inline-start: 1rem;
+	padding-inline-end: 1rem;
+	border-radius: 8px;
+	overflow: hidden;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: none;
+	border-bottom: none;
+	box-shadow: ${(props) => props.theme.boxShadow.default};
+	background: ${(props) => props.theme.color.transparent[100]};
+
+	&:focus {
+		outline: 0;
+	}
+
+	&:hover {
+		cursor: pointer;
+		color: ${(props) => props.theme.color.text[100]};
+	}
+
+	&:hover,
+	&:focus,
+	&:active {
+		cursor: ${(props) =>
+			props.disabled ? 'not-allowed' : 'pointer'} !important;
+		color: ${(props) => props.theme.color.text[100]};
+		background: ${(props) => props.theme.color.primary[100]};
+	}
+`
+
+type CloseButtonProps = {
+	onClick: (s: any) => void
+	onHide: () => void
+}
+
+export const CloseButton = ({ onHide }: CloseButtonProps) => (
+	<StyledCloseButton onClick={onHide}>
+		<FontAwesomeIcon icon="times" />
+	</StyledCloseButton>
+)
+
+export const CloseButtonLeft = ({ onHide }: CloseButtonProps) => (
+	<StyledCloseButtonLeft onClick={onHide}>
+		<FontAwesomeIcon icon="times" />
+	</StyledCloseButtonLeft>
+)
+
+export const StyledCloseButton = styled.a`
+	float: right;
+	top: ${(props) => props.theme.spacing[3]}px;
+	right: ${(props) => props.theme.spacing[4]}px;
+	font-size: 1.5rem;
+	position: absolute;
+	color: ${(props) => props.theme.color.text[100]};
+
+	&:hover {
+		cursor: pointer;
+		color: ${(props) => props.theme.color.text[100]};
+	}
+`
+
+export const StyledCloseButtonLeft = styled.a`
+	float: left;
+	top: ${(props) => props.theme.spacing[3]}px;
+	left: ${(props) => props.theme.spacing[4]}px;
+	font-size: 1.5rem;
+	position: absolute;
+	color: ${(props) => props.theme.color.text[100]};
+
+	&:hover {
+		cursor: pointer;
+		color: ${(props) => props.theme.color.text[100]};
+	}
+`
+
+export const SubmitButton = styled.button`
+	display: inline-flex;
+	appearance: none;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	position: relative;
+	white-space: nowrap;
+	vertical-align: middle;
+	outline-offset: 2px;
+	width: 100%;
+	line-height: 1.2;
+	font-weight: ${(props) => props.theme.fontWeight.strong};
+	transition-property: all;
+	height: 50px;
+	min-width: 2.5rem;
+	font-size: ${(props) => props.theme.fontSize.default};
+	padding-inline-start: 1rem;
+	padding-inline-end: 1rem;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: none;
+	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
+	box-shadow: ${(props) => props.theme.boxShadow.default};
+	background-color: ${(props) => props.theme.color.primary[200]};
+	outline: transparent solid 2px;
+	color: ${(props) => props.theme.color.text[100]};
+	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	transition: 200ms;
+	overflow: hidden;
+
+	&:focus {
+		outline: 0;
+	}
+
+	&:before{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[300]};
+		width: 60px;
+		height: 100%;
+		left: 0;
+		top: 0;
+		opacity: .5;
+		filter: blur(30px);
+		transform: translateX(-100px)  skewX(-15deg);
+	  }
+	  &:after{
+		content: '';
+		display: block;
+		position: absolute;
+		background: ${(props) => props.theme.color.transparent[200]};
+		width: 30px;
+		height: 100%;
+		left: 30px;
+		top: 0;
+		opacity: 0;
+		filter: blur(5px);
+		transform: translateX(-100px) skewX(-15deg);
+	  }
+	  &:hover{
+		background: ${(props) => props.theme.color.primary[100]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
+	}
+	
+	&:hover,
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
+	}
+`
+
+export const WalletButton = styled.button`
+	display: inline-flex;
+	appearance: none;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	position: relative;
+	white-space: nowrap;
+	vertical-align: middle;
+	outline-offset: 2px;
+	width: 100%;
+	line-height: 1.2;
+	font-weight: ${(props) => props.theme.fontWeight.medium};
+	transition-property: all;
+	height: 50px;
+	min-width: 2.5rem;
+	font-size: ${(props) => props.theme.fontSize.default};
+	padding-inline-start: 1rem;
+	padding-inline-end: 1rem;
+	border-radius: ${(props) => props.theme.borderRadius}px;
+	border: none;
+	background-color: ${(props) => props.theme.color.transparent[100]};
+	outline: transparent solid 2px;
+	color: ${(props) => props.theme.color.text[100]};
+	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+	transition: 200ms;
+	overflow: hidden;
+	margin-bottom: 10px;
+
+	&:focus {
+		outline: 0;
+	}
+
+	  &:hover{
+		background: ${(props) => props.theme.color.transparent[200]};
+		cursor: pointer;
+		&:before{
+		  transform: translateX(500px)  skewX(-15deg);  
+		  opacity: 0.6;
+		  transition: .7s;
+		}
+		&:after{
+		  transform: translateX(500px) skewX(-15deg);  
+		  opacity: 1;
+		  transition: .7s;
+		}
+	  }
+	}
+	
+	&:hover,
+	&:focus,
+	&:active {
+		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
+	}
+`

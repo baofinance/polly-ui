@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useCallback, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { UseWalletProvider } from 'use-wallet'
 import MobileMenu from './components/MobileMenu'
 import TopBar from './components/TopBar'
 import BaoProvider from './contexts/BaoProvider'
@@ -19,6 +18,8 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
+import GlobalStyle from 'GlobalStyle'
+import Web3ReactManager from 'components/Web3ReactManager'
 library.add(fas, fab)
 
 const url = new URL(window.location.toString())
@@ -63,13 +64,9 @@ const App: React.FC = () => {
 
 const Providers: React.FC = ({ children }) => {
 	return (
-		<ThemeProvider theme={theme}>
-			<UseWalletProvider
-				chainId={137}
-				connectors={{
-					walletconnect: { rpcUrl: 'https://polygon-rpc.com/' },
-				}}
-			>
+			<ThemeProvider theme={theme}>
+				<GlobalStyle />
+				<Web3ReactManager>
 				<BaoProvider>
 					<NestsProvider>
 						<TransactionProvider>
@@ -79,8 +76,8 @@ const Providers: React.FC = ({ children }) => {
 						</TransactionProvider>
 					</NestsProvider>
 				</BaoProvider>
-			</UseWalletProvider>
-		</ThemeProvider>
+				</Web3ReactManager>
+			</ThemeProvider>
 	)
 }
 

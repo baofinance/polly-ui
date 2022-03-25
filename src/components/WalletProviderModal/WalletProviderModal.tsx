@@ -1,45 +1,134 @@
-import metamaskLogo from 'assets/img/metamask-fox.svg'
-import React, { useEffect } from 'react'
+import { Web3Provider } from '@ethersproject/providers'
+import { AbstractConnector } from '@web3-react/abstract-connector'
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import {
+	NoEthereumProviderError,
+	UserRejectedRequestError as UserRejectedRequestErrorInjected,
+} from '@web3-react/injected-connector'
+import { coinbaseWallet, injected, walletConnect } from 'bao/lib/connectors'
+import { useEagerConnect, useInactiveListener } from 'bao/lib/hooks'
+import { Button, CloseButton } from 'components/Button'
+import { WalletButton } from 'components/Button/Button'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Col, Modal, ModalProps, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
-import Config from '../../bao/lib/config'
-import Button from '../Button'
-import Modal, { ModalProps } from '../Modal'
-import ModalActions from '../ModalActions'
-import ModalContent from '../ModalContent'
-import ModalTitle from '../ModalTitle'
-import Spacer from '../Spacer'
-import WalletCard from './components/WalletCard'
+import Config from 'bao/lib/config'
 
-const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
-	const { account, ethereum, connect }: any = useWallet()
+const connectorsByName: { [name: string]: AbstractConnector } = {
+	Metamask: injected,
+	CoinbaseWallet: coinbaseWallet,
+	WalletConnect: walletConnect,
+}
+
+const WalletProviderModal = ({ onHide, show }: ModalProps) => {
+	const {
+		connector,
+		library,
+		chainId,
+		account,
+		activate,
+		deactivate,
+		active,
+		error,
+	} = useWeb3React()
 
 	useEffect(() => {
-		if (account && ethereum.chainId === Config.defaultRpc.chainId) {
-			onDismiss()
+		if (account && chainId === Config.networkId) {
+			onHide()
 		}
-	}, [account, onDismiss])
+	}, [account, onHide])
+
+	const [activatingConnector, setActivatingConnector] = useState<any>()
+
+	useEffect(() => {
+		if (activatingConnector && activatingConnector === connector) {
+			setActivatingConnector(undefined)
+		}
+	}, [activatingConnector, connector])
+
+	const triedEager = useEagerConnect()
+
+	useInactiveListener(!triedEager || !!activatingConnector)
+
+	useEffect(() => {
+		if (account && active) {
+			onHide()
+		}
+	}, [account, onHide])
+
+	const hideModal = useCallback(() => {
+		onHide()
+	}, [onHide])
+
+	if (
+		window.ethereum &&
+		window.ethereum.chainId !== Config.defaultRpc.chainId
+	) {
+		try {
+			window.ethereum.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: Config.defaultRpc.chainId }],
+			})
+		} catch (error) {
+			if (error.code === 4902) {
+				window.ethereum.request({
+					method: 'wallet_addEthereumChain',
+					params: [Config.defaultRpc],
+				})
+			}
+		}
+	}
 
 	return (
-		<Modal>
-			<ModalTitle text="Select a wallet provider." />
+		<Modal show={show} onHide={hideModal} centered>
+			<CloseButton onClick={onHide} onHide={hideModal} />
+			<Modal.Header>
+				<Modal.Title>Select a wallet provider.</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				{Object.keys(connectorsByName).map((name) => {
+					const currentConnector = connectorsByName[name]
+					const activating = currentConnector === activatingConnector
+					const connected = currentConnector === connector
+					const disabled =
+						!triedEager || !!activatingConnector || connected || !!error
 
-			<ModalContent>
-				<StyledWalletsWrapper>
-					<StyledWalletCard>
-						<WalletCard
-							icon={<img src={metamaskLogo} style={{ height: 32 }} />}
-							onConnect={() => connect('injected')}
-							title="Metamask"
-						/>
-					</StyledWalletCard>
-					<Spacer size="sm" />
-				</StyledWalletsWrapper>
-			</ModalContent>
+					return (
+						<WalletButton
+							disabled={disabled}
+							key={name}
+							onClick={() => {
+								setActivatingConnector(currentConnector)
+								activate(connectorsByName[name], (error) => {
+									if (error) {
+										setActivatingConnector(undefined)
+									}
+								})
+							}}
+						>
+							<Row>
+								<Col>
+									<ConnectorIconContainer>
+										<img
+											src={`${name}.png`}
+											style={{
+												height: '24px',
+												marginRight: '0.75rem',
+												verticalAlign: 'middle',
+											}}
+										/>
+									</ConnectorIconContainer>
+									{activating ? 'Connecting...' : `${name}`}
+								</Col>
+							</Row>
+						</WalletButton>
+					)
+				})}
+			</Modal.Body>
 
-			<ModalActions>
-				<Button text="Cancel" variant="secondary" onClick={onDismiss} />
-			</ModalActions>
+			<Modal.Footer>
+				<Button text="Cancel" variant="secondary" onClick={onHide} />
+			</Modal.Footer>
 		</Modal>
 	)
 }
@@ -47,11 +136,11 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 const StyledWalletsWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	@media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
 		height: 100vh;
 		overflow-y: scroll;
 	}
-	@media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
 		flex-direction: column;
 		flex-wrap: none;
 	}
@@ -59,6 +148,19 @@ const StyledWalletsWrapper = styled.div`
 
 const StyledWalletCard = styled.div`
 	flex-basis: calc(50% - ${(props) => props.theme.spacing[2]}px);
+`
+
+export const ConnectorIconContainer = styled.div`
+	height: 100%;
+	align-items: center;
+	margin: 0 auto;
+	display: inline-block;
+	vertical-align: middle;
+	color: ${(props) => props.theme.color.text[100]};
+
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+		display: none;
+	}
 `
 
 export default WalletProviderModal

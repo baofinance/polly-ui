@@ -11,13 +11,14 @@ import {
   transparent,
 } from './colors'
 
-const theme = {
+const theme = () => ({
   borderRadius: 12,
   breakpoints: {
-    mobile: 576,
-    tablet: 767,
-    fhd: 992,
-    uhd: 2160,
+    sm: 575.98,
+    md: 767.98,
+    lg: 991.98,
+    xl: 1199.98,
+    xxl: 1399.98,
   },
   color: {
     monochrome,
@@ -30,6 +31,15 @@ const theme = {
     transparent,
     accent,
     darkGrey,
+  },
+  fontSize: {
+    xs: '.75rem',
+    sm: '.875rem',
+    default: '1rem',
+    md: '1.15rem',
+    large: '1.25rem',
+    xl: '1.5rem',
+    xxl: '2rem',
   },
   fontWeight: {
     thin: 100,
@@ -61,6 +71,6 @@ const theme = {
   heroGradient:
     'linear-gradient(to left, #6b9aef 0%, #65c48c 33%, #1fa6e0 66%, #6b9aef 100%)',
   topBarSize: 72,
-}
+})
 
 export default theme

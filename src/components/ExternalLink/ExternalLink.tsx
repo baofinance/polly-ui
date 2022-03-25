@@ -22,18 +22,15 @@ const ExternalLink: FC<ExternalLinkProps> = ({
 }
 
 const StyledLink = styled.a`
-	box-sizing: border-box;
-	color: ${(props) => props.theme.color.text[100]};
-	font-weight: ${(props) => props.theme.fontWeight.strong};
-	text-align: center;
-	text-decoration: none;
-	width: 100%;
-	&:hover {
-		color: ${(props) => props.theme.color.text[300]};
-	}
-	&.active {
-		color: ${(props) => props.theme.color.text[300]};
-	}
+color: ${(props) => props.theme.color.text[100]};
+font-weight: ${(props) => props.theme.fontWeight.strong};
+text-decoration: none;
+&:hover {
+  color: ${(props) => props.theme.color.text[300]};
+}
+&.active {
+  color: ${(props) => props.theme.color.text[400]};
+}
 `
 
 export default ExternalLink

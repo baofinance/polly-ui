@@ -1,36 +1,36 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ParentSize } from '@visx/responsive'
 import BigNumber from 'bignumber.js'
-import Button from 'components/Button'
+import { Button } from 'components/Button'
 import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import DonutGraph from 'components/Graphs/PieGraph'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import Tooltipped from 'components/Tooltipped'
-import useBao from 'hooks/useBao'
-import useComposition from 'hooks/useComposition'
-import useGraphPriceHistory from 'hooks/useGraphPriceHistory'
-import useModal from 'hooks/useModal'
-import useNav from 'hooks/useNav'
-import useNest from 'hooks/useNest'
-import useNestRate from 'hooks/useNestRate'
-import usePairPrice from 'hooks/usePairPrice'
-import useTokenBalance from 'hooks/useTokenBalance'
+import useBao from 'hooks/base/useBao'
+import useComposition from 'hooks/baskets/useComposition'
+import useGraphPriceHistory from 'hooks/baskets/useGraphPriceHistory'
+import useModal from 'hooks/base/useModal'
+import useNav from 'hooks/baskets/useNav'
+import useNest from 'hooks/baskets/useNest'
+import useNestRate from 'hooks/baskets/useNestRate'
+import usePairPrice from 'hooks/baskets/usePairPrice'
+import useTokenBalance from 'hooks/base/useTokenBalance'
 import _ from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Badge, Button as BootButton, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { useWallet } from 'use-wallet'
+import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
 import { getContract } from 'utils/erc20'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { provider } from 'web3-core'
 import NDEFI from './components/explanations/nDEFI'
 import NSTBL from './components/explanations/nSTBL'
-import IssueModal from './components/IssueModal'
-import NavModal from './components/NavModal'
+import NINFR from './components/explanations/nINFR'
+import NPOLY from './components/explanations/nPOLY'
+import { IssueModal, RedeemModal, NavModal } from './components/Modals'
 import { Progress } from './components/Progress'
-import RedeemModal from './components/RedeemModal'
-import Config from '../../bao/lib/config'
+import Config from 'bao/lib/config'
 import {
 	CornerButtons,
 	GraphContainer,
@@ -53,9 +53,12 @@ import {
 	StyledBadge,
 	StyledTable,
 } from './components/styles'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
+
+	const { account } = useWeb3React()
 
 	const [supply, setSupply] = useState<BigNumber | undefined>()
 	const [analyticsOpen, setAnalyticsOpen] = useState(true)
@@ -75,19 +78,19 @@ const Nest: React.FC = () => {
 		window.scrollTo(0, 0)
 	}, [])
 
-	const { ethereum } = useWallet()
+	const { library } = useWeb3React()
 
 	const nestContract = useMemo(() => {
-		return getContract(ethereum as provider, nestTokenAddress)
-	}, [ethereum, nestTokenAddress])
+		return getContract(library, nestTokenAddress)
+	}, [library, nestTokenAddress])
 
 	const inputTokenContract = useMemo(() => {
-		return getContract(ethereum as provider, inputTokenAddress)
-	}, [ethereum, inputTokenAddress])
+		return getContract(library, inputTokenAddress)
+	}, [library, inputTokenAddress])
 
 	const outputTokenContract = useMemo(() => {
-		return getContract(ethereum as provider, nestTokenAddress)
-	}, [ethereum, nestTokenAddress])
+		return getContract(library, nestTokenAddress)
+	}, [library, nestTokenAddress])
 
 	const maxAllocationPercentage = useMemo(() => {
 		return (
@@ -124,30 +127,11 @@ const Nest: React.FC = () => {
 	const _inputToken = inputTokenContract.options.address
 	const _outputToken = outputTokenContract.options.address
 
-	const [onNavModal] = useModal(<NavModal />)
+	const [showNavModal, setShowNavModal] = useState(false)
+	const [showIssueModal, setShowIssueModal] = useState(false)
+	const [showRedeemModal, setShowRedeemModal] = useState(false)
 
-	const [onPresentDeposit] = useModal(
-		<IssueModal
-			nestName={nestToken}
-			nestAddress={nestTokenAddress}
-			inputTokenName="WETH"
-			_inputToken={_inputToken}
-			_outputToken={_outputToken}
-			nestContract={nestContract}
-			inputTokenContract={inputTokenContract}
-			outputTokenContract={outputTokenContract}
-			nav={nav}
-		/>,
-	)
-
-	const [onPresentRedeem] = useModal(
-		<RedeemModal
-			max={tokenBalance}
-			nestName={nestToken}
-			nestContract={nestContract}
-			nid={nid}
-		/>,
-	)
+	const { handleTx } = useTransactionHandler()
 
 	useEffect(() => {
 		if (nestContract.options.address)
@@ -155,7 +139,7 @@ const Nest: React.FC = () => {
 				.totalSupply()
 				.call()
 				.then((_supply: any) => setSupply(new BigNumber(_supply)))
-	}, [bao, ethereum])
+	}, [bao, library])
 
 	return (
 		<>
@@ -230,7 +214,10 @@ const Nest: React.FC = () => {
 								<br />
 								NAV &nbsp;
 							</span>
-							<QuestionIcon icon="question-circle" onClick={onNavModal} />
+							<QuestionIcon
+								icon="question-circle"
+								onClick={() => setShowNavModal(true)}
+							/>
 							<Spacer size={'sm'} />
 							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
 								<StyledBadge
@@ -248,14 +235,16 @@ const Nest: React.FC = () => {
 								</StyledBadge>
 							</Tooltipped>
 							<span style={{ marginLeft: '5px' }} />
-							<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
-								<StyledBadge>
-									<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
-									{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
-										<SpinnerLoader />
-									)}
-								</StyledBadge>
-							</Tooltipped>
+							{nestTokenAddress !== Config.addressMap.nPOLY && (
+								<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
+									<StyledBadge>
+										<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
+										{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
+											<SpinnerLoader />
+										)}
+									</StyledBadge>
+								</Tooltipped>
+							)}
 						</StatCard>
 					</Col>
 					<Col>
@@ -292,15 +281,15 @@ const Nest: React.FC = () => {
 				<NestButtons>
 					<Button
 						text="Issue"
-						onClick={onPresentDeposit}
+						onClick={() => setShowIssueModal(true)}
 						width="20%"
-						disabled={!nav}
+						disabled={!account || !nav}
 					/>
 					<Spacer />
 					<Button
-						disabled={tokenBalance.eq(new BigNumber(0))}
+						disabled={!account || tokenBalance.eq(new BigNumber(0))}
 						text="Redeem"
-						onClick={onPresentRedeem}
+						onClick={() => setShowRedeemModal(true)}
 						width="20%"
 					/>
 					<Spacer />
@@ -309,6 +298,7 @@ const Nest: React.FC = () => {
 						target="_blank"
 						text="Swap"
 						width="20%"
+						disabled={!account}
 					/>
 				</NestButtons>
 				<NestAnalytics in={analyticsOpen}>
@@ -337,22 +327,22 @@ const Nest: React.FC = () => {
 										<>
 											$
 											{priceHistory &&
-											getDisplayBalance(
-												new BigNumber(
-													priceHistory[priceHistory.length - 1].close,
-												),
-												0,
-											)}
+												getDisplayBalance(
+													new BigNumber(
+														priceHistory[priceHistory.length - 1].close,
+													),
+													0,
+												)}
 											<span
 												className="smalltext"
 												style={{
 													color: nestPriceChange24h.gt(0) ? 'green' : 'red',
 												}}
 											>
-											{priceHistory &&
-											getDisplayBalance(nestPriceChange24h, 0)}
+												{priceHistory &&
+													getDisplayBalance(nestPriceChange24h, 0)}
 												{'%'}
-										</span>
+											</span>
 										</>
 									) : (
 										<SpinnerLoader />
@@ -497,8 +487,34 @@ const Nest: React.FC = () => {
 					{/* TODO: Store pointer to nest description in config, this is messy */}
 					{nestTokenAddress === Config.addressMap.nDEFI && <NDEFI />}
 					{nestTokenAddress === Config.addressMap.nSTBL && <NSTBL />}
-						</NestExplanation>
+					{nestTokenAddress === Config.addressMap.nINFR && <NINFR />}
+					{nestTokenAddress === Config.addressMap.nPOLY && <NPOLY />}
+				</NestExplanation>
 			</NestBox>
+			<IssueModal
+				nestName={nestToken}
+				nestAddress={nestTokenAddress}
+				inputTokenName="WETH"
+				_inputToken={_inputToken}
+				_outputToken={_outputToken}
+				nestContract={nestContract}
+				inputTokenContract={inputTokenContract}
+				outputTokenContract={outputTokenContract}
+				nav={nav}
+				show={showIssueModal}
+				onHide={() => setShowIssueModal(false)}
+				nestIcon={icon}
+			/>
+			<RedeemModal
+				max={tokenBalance}
+				nestName={nestToken}
+				nestContract={nestContract}
+				nid={nid}
+				show={showRedeemModal}
+				onHide={() => setShowRedeemModal(false)}
+				nestIcon={icon}
+			/>
+			<NavModal show={showNavModal} onHide={() => setShowNavModal(false)} />
 		</>
 	)
 }

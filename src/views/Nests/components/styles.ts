@@ -7,11 +7,11 @@ export const ListLabelCol = styled.span`
   text-align: ${(props: ColProps) => props.align};
   color: ${(props) => props.theme.color.text[100]};
   vertical-align: middle;
-  font-weight: ${(props) => props.theme.fontWeight.medium};
+  font-weight: ${(props) => props.theme.fontWeight.strong};
   padding: 0;
   width: ${(props: ColProps) => props.width};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `
@@ -19,7 +19,7 @@ export const ListLabelCol = styled.span`
 export const ListLabelContainer = styled.div`
   padding: ${(props) => props.theme.spacing[3]}px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `
@@ -31,14 +31,14 @@ export const ListItemContainer = styled.div`
   display: block;
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
 `
 
 export const MobileListItemWrapper = styled.div`
   display: none;
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     background: ${(props) => props.theme.color.transparent[100]};
     border-radius: ${(props) => props.theme.borderRadius}px;
     width: 100%;
@@ -48,7 +48,7 @@ export const MobileListItemWrapper = styled.div`
 `
 
 export const MobileListItemContainer = styled.div`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 100%;
     padding: ${(props) => props.theme.spacing[3]}px;
     align-items: center;
@@ -62,7 +62,7 @@ export const MobileNestLink = styled(NavLink)`
 `
 
 export const MobileListText = styled.span`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     max-width: 55%;
     justify-content: space-around;
     flex-direction: column;
@@ -71,7 +71,7 @@ export const MobileListText = styled.span`
 `
 
 export const MobileListTitle = styled.span`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     line-height: 1.25rem;
     font-size: 1.25rem;
     font-weight: ${(props) => props.theme.fontWeight.strong};
@@ -79,14 +79,14 @@ export const MobileListTitle = styled.span`
 `
 
 export const MobileListDesc = styled.div`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     font-size: 0.9rem;
     font-weight: 4000;
   }
 `
 
 export const MobileListPrice = styled.div`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     text-align: right;
     margin-left: auto;
     justify-content: flex-end;
@@ -97,7 +97,7 @@ export const MobileListPrice = styled.div`
 `
 
 export const MobileListChange = styled.div`
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     color: ${(props) => props.theme.color.accent[500]};
     width: fit-content;
     justify-content: space-around;
@@ -110,17 +110,17 @@ export const NestImage = styled.img`
   height: 50px;
   margin-right: ${(props) => props.theme.spacing[3]}px;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     height: 40px;
     margin-right: ${(props) => props.theme.spacing[3]}px;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
     height: 35px;
     margin-right: ${(props) => props.theme.spacing[3]}px;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     height: 50px;
     margin-right: ${(props) => props.theme.spacing[3]}px;
   }
@@ -134,7 +134,7 @@ export const AssetImageContainer = styled.div`
   vertical-align: middle;
   color: ${(props) => props.theme.color.text[100]};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     display: none;
   }
   }
@@ -149,11 +149,11 @@ export const AssetImage = styled(NestImage)`
   user-select: none;
   -webkit-user-drag: none;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
     height: 30px;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
     height: 25px;
   }
 `
@@ -171,7 +171,7 @@ export const ColumnText = styled.span`
 export const NestListContainer = styled.div`
   width: 80%;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
     width: 90%;
   }
 `

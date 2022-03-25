@@ -1,10 +1,10 @@
 import Loader from 'components/Loader'
 import { Nest } from 'contexts/Nests'
 import { IndexType } from 'contexts/Nests/types'
-import useNests from 'hooks/useNests'
+import useNests from 'hooks/baskets/useNests'
 import React from 'react'
 import 'react-tabs/style/react-tabs.css'
-import { useWallet } from 'use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import NestListItem from './NestListItem'
 import {
 	ListLabelCol,
@@ -16,7 +16,7 @@ import {
 
 const NestList: React.FC = () => {
 	const [nests] = useNests()
-	const { account } = useWallet()
+	const { account } = useWeb3React()
 
 	const indexes: { [key: string]: Nest[] } = {
 		[IndexType.NESTS]: [],

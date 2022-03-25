@@ -3,8 +3,8 @@ import { ethers } from 'ethers'
 import _ from 'lodash'
 import { Contract } from 'web3-eth-contract'
 import { Farm } from '../contexts/Farms'
-import Multicall from '../utils/multicall'
-import { decimate, exponentiate } from '../utils/numberFormat'
+import Multicall from 'utils/multicall'
+import { decimate, exponentiate } from 'utils/numberFormat'
 import { Bao } from './Bao'
 import Config from './lib/config'
 
@@ -68,14 +68,15 @@ export const getNests = (bao: Bao) => {
     : []
 }
 
-export const getFarms = (bao: Bao): Farm[] => {
+export const getFarms = (bao: Bao) => {
   return bao
     ? bao.contracts.pools.map(
         ({
           pid,
           name,
           symbol,
-          icon,
+          iconA,
+          iconB,
           tokenAddress,
           tokenDecimals,
           tokenSymbol,
@@ -84,6 +85,7 @@ export const getFarms = (bao: Bao): Farm[] => {
           lpContract,
           refUrl,
           pairUrl,
+          poolType,
         }) => ({
           pid,
           id: symbol,
@@ -97,9 +99,11 @@ export const getFarms = (bao: Bao): Farm[] => {
           tokenContract,
           earnToken: 'POLLY',
           earnTokenAddress: bao.getContract('polly').options.address,
-          icon,
+          iconA,
+          iconB,
           refUrl,
           pairUrl,
+          poolType,
         }),
       )
     : []
@@ -331,9 +335,10 @@ export const fetchCalcToNest = async (
   nestAddress: string,
   nestAmount: string,
 ) => {
+  const wethAddress = Config.addressMap.WETH
   const amount = exponentiate(nestAmount)
   const amountEthNecessary = await recipeContract.methods
-    .calcToPie(nestAddress, amount.toFixed(0))
+    .getPrice(wethAddress, nestAddress, amount.toFixed(0))
     .call()
   return decimate(amountEthNecessary)
 }
