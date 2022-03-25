@@ -189,7 +189,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{navDifferenceTooHigh && (
+				{navDifferenceTooHigh && nestName !== 'nPOLY' && (
 					<Disclaimer>
 						<p style={{ fontSize: '0.875rem' }}>
 							`The difference between NAV on mainnet ($$
@@ -325,14 +325,8 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 												wethBalance.div(10 ** 18).toNumber()
 										}
 										onClick={async () => {
-											const encodedAmountData = await recipeContract.methods
-												.encodeData(
-													new BigNumber(nestAmount).times(10 ** 18).toString(),
-												)
-												.call()
-
 											handleTx(
-												onIssue(new BigNumber(wethNeeded), encodedAmountData),
+												onIssue(new BigNumber(wethNeeded), new BigNumber(nestAmount).times(10 ** 18).toString()),
 												`Issue ${nestAmount} ${nestName}`,
 											)
 										}}
@@ -373,14 +367,8 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 											(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
 										}
 										onClick={async () => {
-											const encodedAmountData = await recipeContract.methods
-												.encodeData(
-													new BigNumber(nestAmount).times(10 ** 18).toString(),
-												)
-												.call()
-
 											handleTx(
-												onIssue(new BigNumber(wethNeeded), encodedAmountData),
+												onIssue(new BigNumber(wethNeeded), new BigNumber(nestAmount).times(10 ** 18).toString()),
 												`Issue ${nestAmount} ${nestName}`,
 											)
 										}}
