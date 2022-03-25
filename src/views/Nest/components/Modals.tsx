@@ -26,7 +26,7 @@ import {
 	Form,
 	Modal,
 	ModalProps,
-	Row
+	Row,
 } from 'react-bootstrap'
 import styled from 'styled-components'
 import { getDisplayBalance, getFullDisplayBalance } from 'utils/numberFormat'
@@ -187,9 +187,9 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{navDifferenceTooHigh ? (
+				{navDifferenceTooHigh && (
 					<Disclaimer>
-						<p>
+						<p style={{ fontSize: '0.875rem' }}>
 							`The difference between NAV on mainnet ($$
 							{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($$
 							{getDisplayBalance(nav.nav, 0)}) is greater than ($
@@ -199,13 +199,11 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 							prevent loss of funds.`
 						</p>
 					</Disclaimer>
-				) : (
-					''
 				)}
 				{nestName === 'nSTBL' && (
 					<>
 						<Disclaimer>
-							<p>
+							<p style={{ fontSize: '0.875rem' }}>
 								Due to low liquidity, there is a mint limit in place for 10,000
 								nSTBL. As liquidity for RAI on Polygon goes up, the limit will
 								increase.
@@ -216,7 +214,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				<BalanceWrapper>
 					<Col xs={4}>
 						<LabelStart>
-							<MaxLabel>Mint nDEFI</MaxLabel>
+							<MaxLabel>Mint {nestName}</MaxLabel>
 						</LabelStart>
 					</Col>
 					<Col xs={8}>
