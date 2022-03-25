@@ -36,6 +36,10 @@ export const FarmList: React.FC = () => {
 		[PoolType.ARCHIVED]: [],
 	})
 
+	const tempAddress = '0x0000000000000000000000000000000000000000'
+
+	const userAddress = account ? account : tempAddress
+
 	useEffect(() => {
 		GraphUtil.getPrice(Config.addressMap.WETH).then(async (wethPrice) => {
 			const pollyPrice = await GraphUtil.getPriceFromPair(
@@ -57,13 +61,23 @@ export const FarmList: React.FC = () => {
 					{
 						ref: 'masterChef',
 						contract: getMasterChefContract(bao),
-						calls: farms.map((farm, i) => {
-							return {
-								ref: i.toString(),
-								method: 'getNewRewardPerBlock',
-								params: [farm.pid + 1],
-							}
-						}),
+						calls: farms
+							.map((farm, i) => {
+								return {
+									ref: i.toString(),
+									method: 'getNewRewardPerBlock',
+									params: [farm.pid + 1],
+								}
+							})
+							.concat(
+								farms.map((farm, i) => {
+									return {
+										ref: (farms.length + i).toString(),
+										method: 'userInfo',
+										params: [farm.pid, userAddress],
+									}
+								}) as any,
+							),
 					},
 				]),
 			)
@@ -81,8 +95,13 @@ export const FarmList: React.FC = () => {
 						...farm,
 						poolType: farm.poolType || PoolType.ACTIVE,
 						tvl: tvlInfo.tvl,
+						stakedUSD: decimate(
+							result.masterChef[farms.length + i].values[0].hex,
+						)
+							.div(decimate(tvlInfo.lpStaked))
+							.times(tvlInfo.tvl),
 						apy:
-							pollyPrice && farmsTVL
+						pollyPrice && farmsTVL
 								? pollyPrice
 										.times(BLOCKS_PER_YEAR)
 										.times(
@@ -226,6 +245,7 @@ const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
 								<SpinnerLoader />
 							)}
 						</Col>
+						{account && <Col>{`$${getDisplayBalance(farm.stakedUSD, 0)}`}</Col>}
 						<Col>{`$${getDisplayBalance(farm.tvl, 0)}`}</Col>
 					</Row>
 				</StyledAccordionHeader>
