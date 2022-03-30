@@ -286,14 +286,32 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 			<Modal.Footer>
 				<SubmitButton onClick={onHide}>Cancel</SubmitButton>
 				{issueAllowance && !issueAllowance.gt(0) ? (
-					<SubmitButton
-						disabled={requestedApproval}
-						onClick={() => {
-							handleTx(onApproveIssue(), `Approve ${inputTokenName}`)
-						}}
-					>
-						Approve {inputTokenName}
-					</SubmitButton>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<ExternalLink
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</ExternalLink>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={requestedApproval}
+								onClick={() => {
+									handleTx(onApproveIssue(), `Approve ${inputTokenName}`)
+								}}
+							>
+								Approve {inputTokenName}
+							</SubmitButton>
+						)}
+					</>
 				) : (
 					<>
 						{_outputToken === Config.addressMap.nPOLY ? (
@@ -326,7 +344,10 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 										}
 										onClick={async () => {
 											handleTx(
-												onIssue(new BigNumber(wethNeeded), new BigNumber(nestAmount).times(10 ** 18).toString()),
+												onIssue(
+													new BigNumber(wethNeeded),
+													new BigNumber(nestAmount).times(10 ** 18).toString(),
+												),
 												`Issue ${nestAmount} ${nestName}`,
 											)
 										}}
@@ -368,7 +389,10 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 										}
 										onClick={async () => {
 											handleTx(
-												onIssue(new BigNumber(wethNeeded), new BigNumber(nestAmount).times(10 ** 18).toString()),
+												onIssue(
+													new BigNumber(wethNeeded),
+													new BigNumber(nestAmount).times(10 ** 18).toString(),
+												),
 												`Issue ${nestAmount} ${nestName}`,
 											)
 										}}
@@ -581,14 +605,14 @@ export const NavModal: React.FC<NavModalProps> = ({ show, onHide }) => {
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						<p>NAV vs. Price</p>
+						NAV vs. Price
 					</HeaderWrapper>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<ModalStack>
 					<p
-						style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 500 }}
+						style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 700 }}
 					>
 						NAV
 					</p>
@@ -600,7 +624,7 @@ export const NavModal: React.FC<NavModalProps> = ({ show, onHide }) => {
 					</p>
 
 					<p
-						style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 500 }}
+						style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: 700 }}
 					>
 						Price
 					</p>
@@ -614,7 +638,6 @@ export const NavModal: React.FC<NavModalProps> = ({ show, onHide }) => {
 					</p>
 				</ModalStack>
 			</Modal.Body>
-			<Modal.Footer></Modal.Footer>
 		</Modal>
 	)
 }

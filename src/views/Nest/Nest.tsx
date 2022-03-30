@@ -69,7 +69,7 @@ const Nest: React.FC = () => {
 	const { nid, nestToken, nestTokenAddress, inputTokenAddress, icon } = nest
 
 	const composition = useComposition(nest)
-	const { wethPrice } = useNestRate(nestTokenAddress)
+	const { wethPrice, usdPerIndex } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
 	const nav = useNav(composition, supply)
 	const sushiPairPrice = usePairPrice(nest)
@@ -229,7 +229,7 @@ const Nest: React.FC = () => {
 										src={require('assets/img/assets/MATIC.png')}
 										style={{ height: '1em' }}
 									/>{' '}
-									{(nav && `$${getDisplayBalance(nav.nav, 0)}`) || (
+									{(nav && `$${getDisplayBalance(usdPerIndex, 0)}`) || (
 										<SpinnerLoader />
 									)}
 								</StyledBadge>
