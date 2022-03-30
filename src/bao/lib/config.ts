@@ -234,7 +234,7 @@ export default {
       tokenSymbol: 'nDEFI',
       poolType: 'active',
       iconA: '/nDEFI.png',
-      iconB: '',
+      iconB: null,
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       pairUrl:
@@ -294,7 +294,7 @@ export default {
       tokenSymbol: 'nSTBL',
       poolType: 'active',
       iconA: '/nSTBL.png',
-      iconB: '',
+      iconB: null,
       refUrl:
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
       pairUrl:

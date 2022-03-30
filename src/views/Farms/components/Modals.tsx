@@ -67,7 +67,7 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 							<>
 								<FarmIconContainer style={{ marginLeft: '10px' }}>
 									<FarmIcon src={farm.iconA} />
-									<FarmIcon src={farm.iconB} />
+									{farm.iconB !== null && <FarmIcon src={farm.iconB} />}
 								</FarmIconContainer>
 							</>
 						) : (
