@@ -219,7 +219,7 @@ const Nest: React.FC = () => {
 								onClick={() => setShowNavModal(true)}
 							/>
 							<Spacer size={'sm'} />
-							<Tooltipped content={"Based on SushiSwap's Polygon prices"}>
+							<Tooltipped content={"Based on aggregated prices across Polygon exchanges"}>
 								<StyledBadge
 									style={{
 										marginRight: '${(props) => props.theme.spacing[2]}px',
