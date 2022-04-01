@@ -7,6 +7,8 @@ const useTransactionHandler = () => {
   const [pendingTx, setPendingTx] = useState<string | boolean>(false)
   const [txSuccess, setTxSuccess] = useState<boolean>(false)
 
+  const handleSuccess = (receipt: TransactionReceipt) => {}
+
   const clearPendingTx = () => {
     setPendingTx(false)
   }
@@ -24,11 +26,19 @@ const useTransactionHandler = () => {
     setPendingTx(false)
   }
 
-  const handleTx = (tx: any, description: string) => {
+  const handleTx = (tx: any, description: string, cb?: () => void) => {
     tx.on('transactionHash', (txHash: string) =>
       handlePendingTx(txHash, description),
     )
-      .on('receipt', (receipt: TransactionReceipt) => handleReceipt(receipt))
+      .on('receipt', (receipt: TransactionReceipt) => {
+        handleReceipt(receipt)
+        if (cb) cb()
+        setTxSuccess(false)
+        if (receipt.status === true) {
+          setTxSuccess(true)
+        }
+        return txSuccess
+      })
       .on('error', clearPendingTx)
     setPendingTx(true)
   }
@@ -36,6 +46,7 @@ const useTransactionHandler = () => {
   return {
     pendingTx,
     handleTx,
+    handleSuccess,
     txSuccess,
   }
 }

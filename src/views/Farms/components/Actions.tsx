@@ -163,29 +163,12 @@ export const Stake: React.FC<StakeProps> = ({
 	const allowance = useAllowance(lpContract)
 	const { onApprove } = useApprove(lpContract)
 
-	const handleApprove = useCallback(async () => {
-		try {
-			setRequestedApproval(true)
-			const txHash = await onApprove()
-			// user rejected tx or didn't go thru
-			if (!txHash) {
-				setRequestedApproval(false)
-			}
-		} catch (e) {
-			console.log(e)
-		}
-	}, [onApprove, setRequestedApproval])
-
 	const masterChefContract = getMasterChefContract(bao)
 
 	const hideModal = useCallback(() => {
 		onHide()
 		setVal('')
 	}, [onHide])
-
-	if (allowance.toNumber()) {
-		typeof pendingTx === 'string' && setTimeout(() => hideModal(), 3000)
-	}
 
 	return (
 		<>
@@ -297,6 +280,7 @@ export const Stake: React.FC<StakeProps> = ({
 												handleTx(
 													stakeTx,
 													`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
+													() => hideModal(),
 												)
 											}}
 										>

@@ -33,7 +33,6 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 	const [val, setVal] = useState<string>('')
 	const bao = useBao()
 	const { account, library } = useWeb3React()
-	const { txSuccess } = useTransactionHandler()
 
 	const lpTokenAddress = farm.lpTokenAddress
 
