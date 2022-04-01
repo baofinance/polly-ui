@@ -92,6 +92,7 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 					poolType={farm.poolType}
 					max={tokenBalance}
 					pairUrl={farm.pairUrl}
+					onHide={onHide}
 				/>
 			)}
 			{operation === 'Unstake' && (
@@ -102,6 +103,7 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 					max={stakedBalance}
 					pairUrl={farm.pairUrl}
 					lpTokenAddress={farm.lpTokenAddress}
+					onHide={onHide}
 				/>
 			)}
 			{operation === 'Rewards' && <Rewards pid={farm.pid} />}

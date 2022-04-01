@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWeb3React } from '@web3-react/core'
 import baoIcon from 'assets/img/logo.svg'
 import Config from 'bao/lib/config'
-import { approvev2, getMasterChefContract } from 'bao/utils'
+import { approvev2, getMasterChefContract, getRefUrl } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import { SubmitButton } from 'components/Button/Button'
 import ExternalLink from 'components/ExternalLink'
@@ -14,7 +14,6 @@ import useAllowance from 'hooks/base/useAllowance'
 import useApprove from 'hooks/base/useApprove'
 import useBao from 'hooks/base/useBao'
 import useBlockDiff from 'hooks/base/useBlockDiff'
-import useTokenBalance from 'hooks/base/useTokenBalance'
 import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useEarnings from 'hooks/farms/useEarnings'
 import useFees from 'hooks/farms/useFees'
@@ -24,9 +23,9 @@ import { default as React, useCallback, useMemo, useState } from 'react'
 import { Col, Modal, ModalBody, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import {
-    exponentiate,
-    getDisplayBalance,
-    getFullDisplayBalance
+	exponentiate,
+	getDisplayBalance,
+	getFullDisplayBalance,
 } from 'utils/numberFormat'
 import { QuestionIcon } from 'views/Nest/components/styles'
 import { Contract } from 'web3-eth-contract'
@@ -85,6 +84,7 @@ export const Rewards: React.FC<RewardsProps> = ({ pid }) => {
 									harvestTx = masterChefContract.methods
 										.claimReward(pid)
 										.send({ from: account })
+
 									handleTx(
 										harvestTx,
 										`Harvest ${getDisplayBalance(earnings)} POLLY`,
@@ -101,53 +101,6 @@ export const Rewards: React.FC<RewardsProps> = ({ pid }) => {
 	)
 }
 
-const EarningsWrapper = styled.div`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-`
-
-const BalanceContent = styled.div`
-	-webkit-box-align: center;
-	align-items: center;
-	display: flex;
-`
-
-const BalanceImage = styled.div`
-	display: flex;
-	-webkit-box-pack: center;
-	justify-content: center;
-	min-width: 48px;
-	min-height: 48px;
-	border-radius: 40px;
-	background-color: ${(props) => props.theme.color.primary[200]};
-
-	img {
-		height: 34px;
-		text-align: center;
-		min-width: 34px;
-		margin: auto;
-	}
-`
-
-const BalanceSpacer = styled.div`
-	height: 8px;
-	min-height: 8px;
-	min-width: 8px;
-	width: 8px;
-`
-
-const BalanceText = styled.div`
-	display: block;
-	flex: 1 1 0%;
-`
-
-const BalanceValue = styled.div`
-	font-size: 24px;
-	font-weight: 700;
-`
-
 interface FarmListItemProps {
 	farm: FarmWithStakedValue
 	operation: string
@@ -162,6 +115,7 @@ interface StakeProps {
 	poolType: PoolType
 	ref?: string
 	pairUrl: string
+	onHide?: () => void
 }
 
 export const Stake: React.FC<StakeProps> = ({
@@ -171,8 +125,9 @@ export const Stake: React.FC<StakeProps> = ({
 	poolType,
 	max,
 	tokenName = '',
-	ref = '0x0000000000000000000000000000000000000000',
+	ref = '',
 	pairUrl = '',
+	onHide,
 }) => {
 	const bao = useBao()
 	const { account } = useWeb3React()
@@ -182,8 +137,6 @@ export const Stake: React.FC<StakeProps> = ({
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
 	}, [max])
-
-	const walletBalance = useTokenBalance(lpTokenAddress)
 
 	const handleChange = useCallback(
 		(e: React.FormEvent<HTMLInputElement>) => {
@@ -332,9 +285,10 @@ export const Stake: React.FC<StakeProps> = ({
 													.deposit(
 														pid,
 														ethers.utils.parseUnits(val.toString(), 18),
-														ref,
+														getRefUrl(),
 													)
 													.send({ from: account })
+
 												handleTx(
 													stakeTx,
 													`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
@@ -355,7 +309,7 @@ export const Stake: React.FC<StakeProps> = ({
 											.deposit(
 												pid,
 												ethers.utils.parseUnits(val.toString(), 18),
-												ref,
+												getRefUrl(),
 											)
 											.send({ from: account })
 										handleTx(
@@ -383,6 +337,7 @@ interface UnstakeProps {
 	ref?: string
 	pairUrl: string
 	lpTokenAddress: string
+	onHide?: () => void
 }
 
 export const Unstake: React.FC<UnstakeProps> = ({
@@ -390,9 +345,10 @@ export const Unstake: React.FC<UnstakeProps> = ({
 	max,
 	tokenName = '',
 	pid = null,
-	ref = '0x0000000000000000000000000000000000000000',
+	ref = '',
 	pairUrl = '',
 	lpTokenAddress = '',
+	onHide,
 }) => {
 	const bao = useBao()
 	const { account } = useWeb3React()
@@ -520,8 +476,13 @@ export const Unstake: React.FC<UnstakeProps> = ({
 											: new BigNumber(0).toFixed(4)
 
 									unstakeTx = masterChefContract.methods
-										.withdraw(pid, ethers.utils.parseUnits(val, 18), ref)
+										.withdraw(
+											pid,
+											ethers.utils.parseUnits(val, 18),
+											getRefUrl(),
+										)
 										.send({ from: account })
+
 									handleTx(unstakeTx, `Withdraw ${amount} ${tokenName}`)
 								}}
 							>
@@ -615,4 +576,51 @@ const BalanceWrapper = styled(Row)`
 
 const FarmModalBody = styled(ModalBody)`
 	height: 120px;
+`
+
+const EarningsWrapper = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+`
+
+const BalanceContent = styled.div`
+	-webkit-box-align: center;
+	align-items: center;
+	display: flex;
+`
+
+const BalanceImage = styled.div`
+	display: flex;
+	-webkit-box-pack: center;
+	justify-content: center;
+	min-width: 48px;
+	min-height: 48px;
+	border-radius: 40px;
+	background-color: ${(props) => props.theme.color.primary[200]};
+
+	img {
+		height: 34px;
+		text-align: center;
+		min-width: 34px;
+		margin: auto;
+	}
+`
+
+const BalanceSpacer = styled.div`
+	height: 8px;
+	min-height: 8px;
+	min-width: 8px;
+	width: 8px;
+`
+
+const BalanceText = styled.div`
+	display: block;
+	flex: 1 1 0%;
+`
+
+const BalanceValue = styled.div`
+	font-size: 24px;
+	font-weight: 700;
 `
