@@ -5,6 +5,7 @@ import useTransactionProvider from './useTransactionProvider'
 const useTransactionHandler = () => {
   const { onAddTransaction, onTxReceipt } = useTransactionProvider()
   const [pendingTx, setPendingTx] = useState<string | boolean>(false)
+  const [txSuccess, setTxSuccess] = useState<boolean>(false)
 
   const clearPendingTx = () => {
     setPendingTx(false)
@@ -35,6 +36,7 @@ const useTransactionHandler = () => {
   return {
     pendingTx,
     handleTx,
+    txSuccess,
   }
 }
 

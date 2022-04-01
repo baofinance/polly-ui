@@ -20,7 +20,7 @@ import useFees from 'hooks/farms/useFees'
 import useStakedBalance from 'hooks/farms/useStakedBalance'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
 import { default as React, useCallback, useMemo, useState } from 'react'
-import { Col, Modal, ModalBody, Row } from 'react-bootstrap'
+import { Col, Modal, ModalBody, Row, Spinner } from 'react-bootstrap'
 import styled from 'styled-components'
 import {
 	exponentiate,
@@ -132,7 +132,7 @@ export const Stake: React.FC<StakeProps> = ({
 	const bao = useBao()
 	const { account } = useWeb3React()
 	const [val, setVal] = useState('')
-	const { pendingTx, handleTx } = useTransactionHandler()
+	const { pendingTx, handleTx, txSuccess } = useTransactionHandler()
 
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
@@ -177,6 +177,15 @@ export const Stake: React.FC<StakeProps> = ({
 	}, [onApprove, setRequestedApproval])
 
 	const masterChefContract = getMasterChefContract(bao)
+
+	const hideModal = useCallback(() => {
+		onHide()
+		setVal('')
+	}, [onHide])
+
+	if (allowance.toNumber()) {
+		typeof pendingTx === 'string' && setTimeout(() => hideModal(), 3000)
+	}
 
 	return (
 		<>
@@ -226,17 +235,13 @@ export const Stake: React.FC<StakeProps> = ({
 						<>
 							{pendingTx ? (
 								<SubmitButton disabled={true}>
-									{typeof pendingTx === 'string' ? (
-										<ExternalLink
-											href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-											target="_blank"
-										>
-											Pending Transaction{' '}
-											<FontAwesomeIcon icon="external-link-alt" />
-										</ExternalLink>
-									) : (
-										'Pending Transaction'
-									)}
+									<Spinner
+										as="span"
+										animation="grow"
+										size="sm"
+										role="status"
+										aria-hidden="true"
+									/>
 								</SubmitButton>
 							) : (
 								<SubmitButton

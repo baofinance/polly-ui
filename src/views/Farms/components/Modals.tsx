@@ -8,6 +8,7 @@ import { StatBlock } from 'components/Stats'
 import useBao from 'hooks/base/useBao'
 import useBlockDiff from 'hooks/base/useBlockDiff'
 import useTokenBalance from 'hooks/base/useTokenBalance'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useFees from 'hooks/farms/useFees'
 import useStakedBalance from 'hooks/farms/useStakedBalance'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
@@ -32,6 +33,7 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 	const [val, setVal] = useState<string>('')
 	const bao = useBao()
 	const { account, library } = useWeb3React()
+	const { txSuccess } = useTransactionHandler()
 
 	const lpTokenAddress = farm.lpTokenAddress
 
