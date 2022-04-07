@@ -192,13 +192,13 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				{navDifferenceTooHigh && nestName !== 'nPOLY' && (
 					<Disclaimer>
 						<p style={{ fontSize: '0.875rem' }}>
-							`The difference between NAV on mainnet ($$
-							{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($$
-							{getDisplayBalance(nav.nav, 0)}) is greater than ($
+							The difference between NAV on mainnet ($
+							{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($
+							{getDisplayBalance(nav.nav, 0)}) is greater than (
 							{(nestName === 'nSTBL' && '2%') || '5%'}). Minting from the UI is
-							disabled until underlying asset prices are arbitraged within the
-							(${(nestName === 'nSTBL' && '2%') || '5%'}) range in order to
-							prevent loss of funds.`
+							disabled until underlying asset prices are arbitraged within the (
+							{(nestName === 'nSTBL' && '2%') || '5%'}) range in order to
+							prevent loss of funds.
 						</p>
 					</Disclaimer>
 				)}
@@ -349,6 +349,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 													new BigNumber(nestAmount).times(10 ** 18).toString(),
 												),
 												`Issue ${nestAmount} ${nestName}`,
+												() => hideModal(),
 											)
 										}}
 									>
@@ -394,6 +395,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 													new BigNumber(nestAmount).times(10 ** 18).toString(),
 												),
 												`Issue ${nestAmount} ${nestName}`,
+												() => hideModal(),
 											)
 										}}
 									>
@@ -577,6 +579,7 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 									handleTx(
 										onNestRedeem(val),
 										`Redeem ${parseFloat(val)} ${nestName}`,
+										() => hideModal(),
 									)
 								}}
 							>
@@ -604,9 +607,7 @@ export const NavModal: React.FC<NavModalProps> = ({ show, onHide }) => {
 			</CloseButton>
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
-					<HeaderWrapper>
-						NAV vs. Price
-					</HeaderWrapper>
+					<HeaderWrapper>NAV vs. Price</HeaderWrapper>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>

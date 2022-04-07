@@ -304,6 +304,7 @@ export const Stake: React.FC<StakeProps> = ({
 										handleTx(
 											stakeTx,
 											`Deposit ${parseFloat(val).toFixed(4)} ${tokenName}`,
+											() => hideModal(),
 										)
 									}}
 								>
@@ -377,6 +378,11 @@ export const Unstake: React.FC<UnstakeProps> = ({
 	const masterChefContract = getMasterChefContract(bao)
 
 	const [showFeeModal, setShowFeeModal] = useState(false)
+
+	const hideModal = useCallback(() => {
+		onHide()
+		setVal('')
+	}, [onHide])
 
 	return (
 		<>
@@ -472,7 +478,9 @@ export const Unstake: React.FC<UnstakeProps> = ({
 										)
 										.send({ from: account })
 
-									handleTx(unstakeTx, `Withdraw ${amount} ${tokenName}`)
+									handleTx(unstakeTx, `Withdraw ${amount} ${tokenName}`, () =>
+										hideModal(),
+									)
 								}}
 							>
 								Withdraw {tokenName}
