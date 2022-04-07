@@ -11,6 +11,7 @@ import { provider } from 'web3-core'
 import Config from 'bao/lib/config'
 import { getWethPriceLink } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
+import { symbol } from 'd3-shape'
 
 const useComposition = (nest: Nest) => {
   const { library } = useWeb3React()
@@ -92,10 +93,22 @@ const useComposition = (nest: Nest) => {
                     ref: 'lendingLogicKashi',
                     contract: bao.getNewContract(
                       'lendingLogicKashi.json',
-                      Config.addressMap.lendingLogicKashi
+                      Config.addressMap.lendingLogicKashi,
                     ),
-                    calls: [{ method: 'exchangeRateView', params: [component] }]
-                  }
+                    calls: [
+                      { method: 'exchangeRateView', params: [component] },
+                    ],
+                  },
+                  {
+                    ref: 'lendingLogicKLIMA',
+                    contract: bao.getNewContract(
+                      'lendingLogicKLIMA.json',
+                      Config.addressMap.lendingLogicKLIMA,
+                    ),
+                    calls: [
+                      { method: 'exchangeRateView', params: [component] },
+                    ],
+                  },
                 )
               const _multicallContext = MultiCall.createCallContext(mcContracts)
               const {
@@ -103,6 +116,7 @@ const useComposition = (nest: Nest) => {
                 componentToken: componentResults,
                 creamContract: creamResults,
                 lendingLogicKashi: kashiResults,
+                lendingLogicKLIMA: klimaResults,
               } = MultiCall.parseCallResults(
                 await bao.multicall.call(_multicallContext),
               )
@@ -117,7 +131,7 @@ const useComposition = (nest: Nest) => {
                   creamResults[0].values[0].hex,
                 )
                 const underlying = decimate(
-                  new BigNumber(exchangeRate).times(componentBalance)
+                  new BigNumber(exchangeRate).times(componentBalance),
                 )
                 baseBalance = decimate(underlying, 18)
                 basePrice = new BigNumber(price)
@@ -133,11 +147,10 @@ const useComposition = (nest: Nest) => {
                 )
               } else if (_strategy === 'KASHI') {
                 const exchangeRate = decimate(kashiResults[0].values[0].hex)
-                const underlying = new BigNumber(componentBalance).times(exchangeRate)
-                baseBalance = decimate(
-                  underlying,
-                  specialDecimals
+                const underlying = new BigNumber(componentBalance).times(
+                  exchangeRate,
                 )
+                baseBalance = decimate(underlying, specialDecimals)
                 basePrice = new BigNumber(price)
                 price = basePrice.times(exchangeRate)
               }
@@ -153,11 +166,7 @@ const useComposition = (nest: Nest) => {
               color: nest.pieColors[graphData.symbol],
               balance: new BigNumber(
                 componentBalance ||
-                  (await getBalance(
-                    library,
-                    component,
-                    nest.nestTokenAddress,
-                  )),
+                  (await getBalance(library, component, nest.nestTokenAddress)),
               ),
               balanceDecimals: specialDecimals || graphData.decimals,
               imageUrl,
@@ -220,6 +229,7 @@ const SPECIAL_TOKEN_ADDRESSES: any = {
   '0x1a13f4ca1d028320a707d99520abfefca3998b7f': Config.addressMap.USDC, // amUSDC (0xd51b929792cfcde30f2619e50e91513dcec89b23 kashi USDC)
   '0x60d55f02a771d515e077c9c2403a1ef324885cec': Config.addressMap.USDT, // amUSDT
   '0x27f8d03b3a2196956ed754badc28d73be8830a6e': Config.addressMap.DAI, // amDAI
+  '0xb0c22d8d350c67420f06f48936654f567c73e8c8': Config.addressMap.KLIMA, //sKLIMA
 }
 
 // Special cases for token addresses (i.e. lending strategies)
@@ -230,13 +240,17 @@ const _getStrategy = (symbol: string) =>
   symbol.startsWith('cr')
     ? 'CREAM'
     : symbol.startsWith('am')
-      ? 'AAVE'
-      : symbol.startsWith('km')
-        ? 'KASHI'
-        : 'NONE'
+    ? 'AAVE'
+    : symbol.startsWith('km')
+    ? 'KASHI'
+    : symbol.startsWith('sKLIMA')
+    ? 'sKLIMA'
+    : 'NONE'
 
 // Special cases for image URLS, i.e. wrapped assets
 const _getImageURL = (symbol: string) =>
-  symbol.toLowerCase() === 'wmatic' ? 'MATIC' : symbol
+  symbol.toLowerCase() === 'wmatic' ? 'MATIC'
+  : symbol.toLowerCase() === 'sklima' ? 'KLIMA'
+  : symbol
 
 export default useComposition
