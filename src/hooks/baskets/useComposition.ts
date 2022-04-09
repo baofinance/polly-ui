@@ -21,7 +21,7 @@ const useComposition = (nest: Nest) => {
   const bao = useBao()
 
   useEffect(() => {
-    if (!(nest && nest.nestContract)) return
+    if (!(nest && nest.nestContract && nest.pieColors)) return
 
     nest.nestContract.methods
       .getTokens()

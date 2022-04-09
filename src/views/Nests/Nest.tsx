@@ -117,15 +117,13 @@ const Nest: React.FC = () => {
 
 	const { handleTx } = useTransactionHandler()
 
-	console.log(nestContract)
-
 	useEffect(() => {
-		if (nestTokenAddress)
+		if (nestContract && bao)
 			nestContract.methods
 				.totalSupply()
 				.call()
 				.then((_supply: any) => setSupply(new BigNumber(_supply)))
-	}, [bao, library])
+	}, [bao, nestContract])
 
 	return (
 		<>
