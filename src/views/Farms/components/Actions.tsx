@@ -21,7 +21,6 @@ import {
 	LabelStart,
 	MaxLabel,
 } from 'components/Label'
-import { ExternalLink } from 'components/Link'
 import { SpinnerLoader } from 'components/Loader'
 import TokenInput from 'components/TokenInput'
 import { PoolType } from 'contexts/Farms/types'
@@ -79,13 +78,13 @@ export const Rewards: React.FC<RewardsProps> = ({ pid }) => {
 						{pendingTx ? (
 							<SubmitButton disabled={true}>
 								{typeof pendingTx === 'string' ? (
-									<ExternalLink
+									<a
 										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 										target="_blank"
 									>
 										Pending Transaction{' '}
 										<FontAwesomeIcon icon="external-link-alt" />
-									</ExternalLink>
+									</a>
 								) : (
 									'Pending Transaction'
 								)}
@@ -201,14 +200,14 @@ export const Stake: React.FC<StakeProps> = ({
 								<MaxLabel>Balance:</MaxLabel>
 								<AssetLabel>
 									{fullBalance}{' '}
-									<ExternalLink href={pairUrl}>
+									<a href={pairUrl}>
 										{' '}
 										{tokenName}{' '}
 										<FontAwesomeIcon
 											icon="external-link-alt"
 											style={{ height: '.75rem' }}
 										/>
-									</ExternalLink>
+									</a>
 								</AssetLabel>
 							</LabelStack>
 						</LabelEnd>
@@ -262,13 +261,13 @@ export const Stake: React.FC<StakeProps> = ({
 									{pendingTx ? (
 										<SubmitButton disabled={true}>
 											{typeof pendingTx === 'string' ? (
-												<ExternalLink
+												<a
 													href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 													target="_blank"
 												>
 													Pending Transaction{' '}
 													<FontAwesomeIcon icon="external-link-alt" />
-												</ExternalLink>
+												</a>
 											) : (
 												'Pending Transaction'
 											)}
@@ -425,14 +424,14 @@ export const Unstake: React.FC<UnstakeProps> = ({
 								<MaxLabel>Balance:</MaxLabel>
 								<AssetLabel>
 									{fullBalance}{' '}
-									<ExternalLink href={pairUrl}>
+									<a href={pairUrl}>
 										{' '}
 										{tokenName}{' '}
 										<FontAwesomeIcon
 											icon="external-link-alt"
 											style={{ height: '.75rem' }}
 										/>
-									</ExternalLink>
+									</a>
 								</AssetLabel>
 							</LabelStack>
 						</LabelEnd>
@@ -457,13 +456,13 @@ export const Unstake: React.FC<UnstakeProps> = ({
 						{pendingTx ? (
 							<SubmitButton disabled={true}>
 								{typeof pendingTx === 'string' ? (
-									<ExternalLink
+									<a
 										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 										target="_blank"
 									>
 										Pending Transaction{' '}
 										<FontAwesomeIcon icon="external-link-alt" />
-									</ExternalLink>
+									</a>
 								) : (
 									'Pending Transaction'
 								)}
