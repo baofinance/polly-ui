@@ -1,6 +1,7 @@
 import { ParentSize } from '@visx/responsive'
 import Config from 'bao/lib/config'
 import BigNumber from 'bignumber.js'
+import { PriceGraphContainer, StyledGraphContainer } from 'components/Graphs'
 import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
@@ -12,8 +13,6 @@ import { getDisplayBalance } from 'utils/numberFormat'
 import {
 	NestBoxHeader,
 	PrefButtons,
-	PriceGraphContainer,
-	StyledGraphContainer,
 } from './styles'
 
 const PriceGraphs: React.FC = () => {
@@ -71,7 +70,7 @@ const PriceGraphs: React.FC = () => {
 						key={nest.symbol}
 						style={{
 							margin:
-								'${(props) => props.theme.spacing[1]}px ${(props) => props.theme.spacing[2]}px',
+								`${(props: { theme: { spacing: any[] } }) => props.theme.spacing[1]}px ${(props: { theme: { spacing: any[] } }) => props.theme.spacing[2]}px`,
 						}}
 					>
 						{nest.symbol}

@@ -4,8 +4,24 @@ import baoIcon from 'assets/img/logo.svg'
 import Config from 'bao/lib/config'
 import { approvev2, getMasterChefContract, getRefUrl } from 'bao/utils'
 import BigNumber from 'bignumber.js'
-import { SubmitButton } from 'components/Button/Button'
-import ExternalLink from 'components/ExternalLink'
+import {
+	BalanceContent,
+	BalanceImage,
+	BalanceSpacer,
+	BalanceText,
+	BalanceValue,
+	BalanceWrapper,
+} from 'components/Balance'
+import { ButtonStack, SubmitButton } from 'components/Button'
+import { QuestionIcon } from 'components/Icon'
+import {
+	AssetLabel,
+	LabelEnd,
+	LabelStack,
+	LabelStart,
+	MaxLabel,
+} from 'components/Label'
+import { ExternalLink } from 'components/Link'
 import { SpinnerLoader } from 'components/Loader'
 import TokenInput from 'components/TokenInput'
 import { PoolType } from 'contexts/Farms/types'
@@ -20,17 +36,16 @@ import useFees from 'hooks/farms/useFees'
 import useStakedBalance from 'hooks/farms/useStakedBalance'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
 import { default as React, useCallback, useMemo, useState } from 'react'
-import { Col, Modal, ModalBody, Row, Spinner } from 'react-bootstrap'
-import styled from 'styled-components'
+import { Col, Modal, Row, Spinner } from 'react-bootstrap'
 import {
 	exponentiate,
 	getDisplayBalance,
 	getFullDisplayBalance,
 } from 'utils/numberFormat'
-import { QuestionIcon } from 'views/Nest/components/styles'
 import { Contract } from 'web3-eth-contract'
 import { FarmWithStakedValue } from './FarmList'
 import { FeeModal } from './Modals'
+import { EarningsWrapper, FarmModalBody } from './styles'
 
 interface RewardsProps {
 	pid: number
@@ -497,127 +512,3 @@ export const Unstake: React.FC<UnstakeProps> = ({
 		</>
 	)
 }
-
-export const LabelEnd = styled.div`
-	display: flex;
-	align-items: flex-end;
-	justify-content: flex-end;
-	width: 100%;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		font-size: 0.75rem !important;
-	}
-`
-
-export const LabelStart = styled.div`
-	display: flex;
-	align-items: flex-start;
-	justify-content: flex-start;
-	width: 100%;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		font-size: 0.75rem !important;
-	}
-`
-
-export const FeeLabel = styled.p`
-	color: ${(props) => props.theme.color.text[200]};
-	font-size: 0.875rem;
-	font-weight: ${(props) => props.theme.fontWeight.medium};
-	margin-bottom: 0px;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		font-size: 0.75rem;
-	}
-`
-
-export const LabelStack = styled.span`
-	display: flex;
-	align-items: flex-end;
-	flex-direction: row;
-`
-
-export const MaxLabel = styled.span`
-	color: ${(props) => props.theme.color.text[200]};
-	font-size: 0.875rem;
-	font-weight: ${(props) => props.theme.fontWeight.medium};
-	margin-bottom: 0px;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		font-size: 0.75rem;
-	}
-`
-
-export const AssetLabel = styled.span`
-	color: ${(props) => props.theme.color.text[100]};
-	font-size: 0.875rem;
-	font-weight: ${(props) => props.theme.fontWeight.medium};
-	margin-inline-start: 0.25rem;
-	margin-bottom: 0px;
-	vertical-align: middle;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		font-size: 0.75rem;
-	}
-`
-
-const ButtonStack = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-`
-
-const BalanceWrapper = styled(Row)`
-	padding: 0.25rem;
-`
-
-const FarmModalBody = styled(ModalBody)`
-	height: 120px;
-`
-
-const EarningsWrapper = styled.div`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-`
-
-const BalanceContent = styled.div`
-	-webkit-box-align: center;
-	align-items: center;
-	display: flex;
-`
-
-const BalanceImage = styled.div`
-	display: flex;
-	-webkit-box-pack: center;
-	justify-content: center;
-	min-width: 48px;
-	min-height: 48px;
-	border-radius: 40px;
-	background-color: ${(props) => props.theme.color.primary[200]};
-
-	img {
-		height: 34px;
-		text-align: center;
-		min-width: 34px;
-		margin: auto;
-	}
-`
-
-const BalanceSpacer = styled.div`
-	height: 8px;
-	min-height: 8px;
-	min-width: 8px;
-	width: 8px;
-`
-
-const BalanceText = styled.div`
-	display: block;
-	flex: 1 1 0%;
-`
-
-const BalanceValue = styled.div`
-	font-size: 24px;
-	font-weight: 700;
-`

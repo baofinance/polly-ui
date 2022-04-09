@@ -39,13 +39,4 @@ const StyledTokenAdornmentWrapper = styled.div`
 	display: flex;
 `
 
-const StyledTokenSymbol = styled.span`
-	color: ${(props) => props.theme.color.text[100]};
-	font-weight: ${(props) => props.theme.fontWeight.medium};
-
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		display: none;
-	}
-`
-
 export default TokenInput

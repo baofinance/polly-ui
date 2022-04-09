@@ -1,14 +1,13 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWeb3React } from '@web3-react/core'
 import pollyIcon from 'assets/img/polly.svg'
-import { NavButtons } from 'components/Button'
-import ExternalLink from 'components/ExternalLink'
+import { CloseButton, NavButtons } from 'components/Button'
+import { ExternalLink } from 'components/Link'
+import { IconContainer, StyledIcon } from 'components/Icon'
 import { SpinnerLoader } from 'components/Loader'
 import { StatBlock } from 'components/Stats'
 import useBao from 'hooks/base/useBao'
 import useBlockDiff from 'hooks/base/useBlockDiff'
 import useTokenBalance from 'hooks/base/useTokenBalance'
-import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useFees from 'hooks/farms/useFees'
 import useStakedBalance from 'hooks/farms/useStakedBalance'
 import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
@@ -17,8 +16,7 @@ import { Modal, ModalProps, Row } from 'react-bootstrap'
 import { getContract } from 'utils/erc20'
 import { provider } from 'web3-core'
 import { Rewards, Stake, Unstake } from './Actions'
-import { FarmIcon, FarmIconContainer, FarmWithStakedValue } from './FarmList'
-import { CloseButton, HeaderWrapper } from './styles'
+import { FarmWithStakedValue } from './FarmList'
 
 type FarmModalProps = ModalProps & {
 	farm: FarmWithStakedValue
@@ -57,26 +55,22 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 
 	return (
 		<Modal show={show} onHide={hideModal} centered dialogClassName="modal-50h">
-			<CloseButton onClick={onHide}>
-				<FontAwesomeIcon icon="times" />
-			</CloseButton>
+			<CloseButton onHide={hideModal} onClick={onHide} />
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
-					<HeaderWrapper>
-						{operation}{' '}
-						{operation !== 'Rewards' ? (
-							<>
-								<FarmIconContainer style={{ marginLeft: '10px' }}>
-									<FarmIcon src={farm.iconA} />
-									{farm.iconB !== null && <FarmIcon src={farm.iconB} />}
-								</FarmIconContainer>
-							</>
-						) : (
-							<FarmIconContainer style={{ marginLeft: '10px' }}>
-								<FarmIcon src={pollyIcon} />
-							</FarmIconContainer>
-						)}
-					</HeaderWrapper>
+					{operation}{' '}
+					{operation !== 'Rewards' ? (
+						<>
+							<IconContainer style={{ marginLeft: '10px' }}>
+								<StyledIcon src={farm.iconA} />
+								{farm.iconB !== null && <StyledIcon src={farm.iconB} />}
+							</IconContainer>
+						</>
+					) : (
+						<IconContainer style={{ marginLeft: '10px' }}>
+							<StyledIcon src={pollyIcon} />
+						</IconContainer>
+					)}
 				</Modal.Title>
 			</Modal.Header>
 			<NavButtons
@@ -132,14 +126,10 @@ export const FeeModal: React.FC<FeeModalProps> = ({ pid, show, onHide }) => {
 
 	return (
 		<Modal show={show} onHide={hideModal} centered>
-			<CloseButton onClick={onHide}>
-				<FontAwesomeIcon icon="times" />
-			</CloseButton>
+			<CloseButton onHide={hideModal} onClick={onHide} />
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
-					<HeaderWrapper>
-						<p style={{ fontWeight: 700 }}>Fee Details</p>
-					</HeaderWrapper>
+					<p style={{ fontWeight: 700 }}>Fee Details</p>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body style={{ paddingTop: '0' }}>

@@ -35,7 +35,9 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 							<FontAwesomeIcon icon="arrow-down" />
 						</MaxButton>
 						<StyledTokenAdornmentWrapper>
-							<StyledTokenSymbol><img src={icon} /></StyledTokenSymbol>
+							<StyledTokenSymbol>
+								<img src={icon} />
+							</StyledTokenSymbol>
 						</StyledTokenAdornmentWrapper>
 					</>
 				}
@@ -53,10 +55,6 @@ const NestTokenOutput: React.FC<NestTokenOutputProps> = ({
 */
 
 const StyledTokenInput = styled.div``
-
-const StyledSpacer = styled.div`
-	width: ${(props) => props.theme.spacing[3]}px;
-`
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;

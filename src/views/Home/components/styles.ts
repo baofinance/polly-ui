@@ -97,10 +97,10 @@ export const HeroText = styled.p`
 `
 
 export const BubbleWrap = styled.div`
-  height: 600px;
-  margin-left: calc(-100vw / 2 + 500px / 2);
-  margin-right: calc(-100vw / 2 + 500px / 2);
-  overflow: hidden;
+height: 600px;
+margin-left: calc(-50vw + 250px);
+margin-right: calc(-50vw + 250px);
+overflow: hidden;
 
   @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     display: none;
@@ -235,89 +235,6 @@ export const BubbleOverlayText = styled.div`
   text-align: left;
 `
 
-export const StyledSectionContainer = styled.div`
-  display: flex;
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    flex-direction: column;
-  }
-`
-
-export const StyledSectionTitle = styled.h2`
-  font-size: 2rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.grey[100]};
-  padding-bottom: ${(props) => props.theme.spacing[4]}px;
-  margin-bottom: ${(props) => props.theme.spacing[4]}px;
-`
-
-export const StyledCardWrapper = styled.div`
-  display: flex;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    flex-direction: column;
-  }
-`
-
-export const StyledCardContainer = styled.div`
-  flex: 1;
-`
-
-export const StyledCardContent = styled.div`
-  color: ${(props) => props.theme.color.text[100]};
-  padding: ${(props) => props.theme.spacing[4]}px;
-  background: ${(props) => props.theme.color.transparent[100]};
-  border-radius: ${(props) => props.theme.borderRadius}px;
-  height: 550px;
-  width: 100%;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    padding: ${(props) => props.theme.spacing[2]}px;
-    height: 250px;
-  }
-`
-
-export const StyledCardParralax = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transform: translateZ(60px);
-`
-
-export const StyledCardTitle = styled.p`
-  font-size: 2rem;
-  font-weight: ${(props) => props.theme.fontWeight.strong};
-  margin-bottom: ${(props) => props.theme.spacing[3]}px;
-  text-align: center;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    font-size: 1.5rem;
-    margin-bottom: ${(props) => props.theme.spacing[1]}px;
-  }
-`
-
-export const StyledCardIcon = styled.img`
-  margin: ${(props) => props.theme.spacing[4]}px auto;
-  display: block;
-  height: 80px;
-  width: 80px;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    display: block;
-    margin: ${(props) => props.theme.spacing[3]}px auto;
-    height: 50px;
-    width: 50px;
-  }
-`
-
-export const StyledCardText = styled.p`
-  font-size: 1.25rem;
-  text-align: center;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    font-size: 1rem;
-  }
-`
-
 export const InfoWrapper = styled(Row)`
   width: 80%;
   margin: auto;
@@ -416,100 +333,6 @@ export const InfoImage = styled.img`
     margin-inline: 0;
     max-width: 80%;
     margin: auto;
-  }
-`
-
-export const GraphContainer = styled(Col)`
-  width: 100%;
-  height: 350px;
-  margin: 0 auto ${(props) => props.theme.spacing[6]}px;
-  border-radius: ${(props) => props.theme.borderRadius}px;
-  overflow: hidden;
-  background: ${(props) => props.theme.color.transparent[100]};
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    height: 250px;
-  }
-`
-
-export const PriceGraphContainer = styled.div`
-  width: 80%;
-  margin: 0 auto;
-`
-
-export const StyledGraphContainer = styled(GraphContainer)`
-  width: 100%;
-  margin: ${(props) => props.theme.spacing[5]}px auto 0;
-`
-
-export const AnalyticsContainer = styled(Row)`
-  display: flex;
-  flex-direction: row;
-  border-radius: ${(props) => props.theme.borderRadius}px;
-  background-color: ${(props) => props.theme.color.transparent[100]};
-  backdrop-filter: blur(5px);
-  margin-top: 200px; // bubble container is 600px high with 100 px margin top/bottom
-  position: absolute;
-  width: 80%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 125px;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
-    flex-direction: column;
-    margin: ${(props) => props.theme.spacing[6]}px auto;
-    position: relative;
-    width: auto;
-    min-height: 133px;
-    height: auto;
-  }
-
-  @media (min-width: ${(props) => props.theme.breakpoints.uhd}px) {
-    position: relative;
-    margin: ${(props) => props.theme.spacing[5]}px auto;
-    left: 0;
-    transform: none;
-  }
-`
-
-export const Analytic = styled(Col)`
-  margin: auto;
-  text-align: center;
-  height: 75%;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  flex: 1 1;
-  padding: ${(props) => props.theme.spacing[5]}px;
-  border-right: 1px solid ${(props) => props.theme.color.transparent[200]};
-
-  &:first-child {
-  }
-
-  &:last-child {
-    border-right: none;
-  }
-
-  span > h2 {
-    font-family: 'Rubik', sans-serif;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-  }
-
-  @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
-    border-right: none;
-    border-bottom: 1px solid ${(props) => props.theme.color.transparent[200]};
-    flex: auto !important;
-    padding-bottom: ${(props) => props.theme.spacing[3]}px;
-    padding-top: ${(props) => props.theme.spacing[3]}px;
-
-    &:first-child {
-    }
-
-    &:last-child {
-      border-bottom: none;
-    }
   }
 `
 

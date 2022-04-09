@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MenuIcon from 'components/icons/MenuIcon'
+import { MenuIcon } from 'components/Icon'
 import Logo from 'components/Logo'
 import React from 'react'
 import { Container } from 'react-bootstrap'

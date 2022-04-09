@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
-import { Button } from '../../Button'
-import Spacer from '../../Spacer'
-import WalletModalCard from '../../WalletModalCard'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
 import styled from 'styled-components'
+import { Button } from '../../Button'
+import WalletModalCard from '../../WalletModalCard'
 
 interface WalletCardProps {
 	icon: React.ReactNode

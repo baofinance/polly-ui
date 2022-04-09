@@ -41,6 +41,10 @@ export const getRecipeContract = (bao: Bao) => {
   return bao && bao.contracts && bao.getContract('recipe')
 }
 
+export const getRedeemContract = (bao: Bao) => {
+  return bao && bao.contracts && bao.getContract('nestRedeem')
+}
+
 export const getNests = (bao: Bao) => {
   return bao
     ? bao.contracts.nests.map(

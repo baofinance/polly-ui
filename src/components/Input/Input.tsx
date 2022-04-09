@@ -120,3 +120,12 @@ const BalanceInputWrapper = styled.div`
 	position: relative;
 `
 
+export const InputStack = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-inline: 0px;
+  margin-bottom: 0px;
+`

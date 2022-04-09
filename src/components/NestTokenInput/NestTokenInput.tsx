@@ -1,8 +1,8 @@
+import wethIcon from 'assets/img/assets/WETH.png'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import styled from 'styled-components'
 import NestInput, { InputProps } from '../NestInput'
-import wethIcon from 'assets/img/assets/WETH.png'
 
 interface NestTokenInputProps extends InputProps {
 	symbol: string
@@ -47,10 +47,6 @@ const NestTokenInput: React.FC<NestTokenInputProps> = ({
 */
 
 const StyledTokenInput = styled.div``
-
-const StyledSpacer = styled.div`
-	width: ${(props) => props.theme.spacing[3]}px;
-`
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;

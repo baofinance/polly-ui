@@ -1,4 +1,3 @@
-import { lighten } from 'polished'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -76,8 +75,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 	&:focus,
 	&:active {
 		color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
-		cursor: ${(props) =>
-			props.disabled ? 'not-allowed' : 'pointer'} !important;
+		cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')} !important;
 	}
 `
 

@@ -1,17 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { BigNumber } from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
+import Config from 'bao/lib/config'
+import { BigNumber } from 'bignumber.js'
 import useTokenBalance from 'hooks/base/useTokenBalance'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
+import React, { useMemo, useState } from 'react'
+import styled from 'styled-components'
 import { getDisplayBalance } from 'utils/numberFormat'
 import { Button } from '../../Button'
+import { SpinnerLoader } from '../../Loader'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
-import useTransactionProvider from 'hooks/base/useTransactionProvider'
-import { SpinnerLoader } from '../../Loader'
-import useModal from 'hooks/base/useModal'
-import Config from 'bao/lib/config'
 
 interface AccountButtonProps {}
 

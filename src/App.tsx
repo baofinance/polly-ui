@@ -4,9 +4,12 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Web3ReactManager from 'components/Web3ReactManager'
+import GlobalStyle from 'GlobalStyle'
 import React, { useCallback, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
+import Nest from 'views/Nests/Nest'
 import MobileMenu from './components/MobileMenu'
 import TopBar from './components/TopBar'
 import BaoProvider from './contexts/BaoProvider'
@@ -18,17 +21,8 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
-import GlobalStyle from 'GlobalStyle'
-import Web3ReactManager from 'components/Web3ReactManager'
-library.add(fas, fab)
 
-const url = new URL(window.location.toString())
-if (url.searchParams.has('ref')) {
-	document.querySelectorAll('a[href]').forEach((el) => {
-		const attrUrl = new URL(el.getAttribute('href'))
-		attrUrl.searchParams.set('ref', url.searchParams.get('ref'))
-	})
-}
+library.add(fas, fab)
 
 const App: React.FC = () => {
 	const [mobileMenu, setMobileMenu] = useState(false)
@@ -50,10 +44,13 @@ const App: React.FC = () => {
 					<Route path="/" exact>
 						<Home />
 					</Route>
-					<Route path="/Nests">
+					<Route path="/nests">
 						<Nests />
 					</Route>
-					<Route path="/Farms">
+					<Route path="/nests/:marketId">
+						<Nest />
+					</Route>
+					<Route path="/farms">
 						<Farms />
 					</Route>
 				</Switch>
@@ -64,9 +61,9 @@ const App: React.FC = () => {
 
 const Providers: React.FC = ({ children }) => {
 	return (
-			<ThemeProvider theme={theme}>
-				<GlobalStyle />
-				<Web3ReactManager>
+		<ThemeProvider theme={theme}>
+			<GlobalStyle />
+			<Web3ReactManager>
 				<BaoProvider>
 					<NestsProvider>
 						<TransactionProvider>
@@ -76,8 +73,8 @@ const Providers: React.FC = ({ children }) => {
 						</TransactionProvider>
 					</NestsProvider>
 				</BaoProvider>
-				</Web3ReactManager>
-			</ThemeProvider>
+			</Web3ReactManager>
+		</ThemeProvider>
 	)
 }
 

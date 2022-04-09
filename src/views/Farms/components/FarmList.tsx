@@ -2,6 +2,8 @@ import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { getMasterChefContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
+import { IconContainer, StyledIcon } from 'components/Icon'
+import { ListHeader, ListItemHeader, ListItem } from 'components/List'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import { Farm } from 'contexts/Farms'
@@ -11,12 +13,10 @@ import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useFarms from 'hooks/farms/useFarms'
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Form, Row } from 'react-bootstrap'
-import styled from 'styled-components'
 import GraphUtil from 'utils/graph'
 import Multicall from 'utils/multicall'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { FarmModal } from './Modals'
-import { StyledLoadingWrapper } from './styles'
 
 export interface FarmWithStakedValue extends Farm {
 	apy: BigNumber
@@ -147,9 +147,9 @@ export const FarmList: React.FC = () => {
 			<Row>
 				<Col>
 					{!account ? (
-						<FarmListHeader headers={['Pool', 'APR', 'TVL']} />
+						<ListHeader headers={['Pool', 'APR', 'TVL']} />
 					) : (
-						<FarmListHeader headers={['Pool', 'APR', 'LP Staked', 'TVL']} />
+						<ListHeader headers={['Pool', 'APR', 'LP Staked', 'TVL']} />
 					)}
 					{!archived ? (
 						<>
@@ -160,9 +160,7 @@ export const FarmList: React.FC = () => {
 									</React.Fragment>
 								))
 							) : (
-								<StyledLoadingWrapper>
-									<SpinnerLoader block />
-								</StyledLoadingWrapper>
+								<SpinnerLoader block />
 							)}
 						</>
 					) : (
@@ -174,9 +172,7 @@ export const FarmList: React.FC = () => {
 									</React.Fragment>
 								))
 							) : (
-								<StyledLoadingWrapper>
-									<SpinnerLoader block />
-								</StyledLoadingWrapper>
+								<SpinnerLoader block />
 							)}
 						</>
 					)}
@@ -186,51 +182,29 @@ export const FarmList: React.FC = () => {
 	)
 }
 
-type FarmListHeaderProps = {
-	headers: string[]
-}
-
-const FarmListHeader: React.FC<FarmListHeaderProps> = ({
-	headers,
-}: FarmListHeaderProps) => {
-	return (
-		<Container fluid>
-			<Row style={{ padding: '0.5rem 12px' }}>
-				{headers.map((header: string) => (
-					<FarmListHeaderCol style={{ paddingBottom: '0px' }} key={header}>
-						{header}
-					</FarmListHeaderCol>
-				))}
-			</Row>
-		</Container>
-	)
-}
-
 interface FarmListItemProps {
 	farm: FarmWithStakedValue
 }
 
 const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
-	const operations = ['Stake', 'Unstake']
-	const [operation, setOperation] = useState(operations[0])
 	const { account } = useWeb3React()
 
 	const [showFarmModal, setShowFarmModal] = useState(false)
 
 	return (
 		<>
-			<StyledAccordionItem
+			<ListItem
 				style={{ padding: '12px' }}
 				onClick={() => setShowFarmModal(true)}
 				disabled={!account}
 			>
-				<StyledAccordionHeader>
+				<ListItemHeader>
 					<Row lg={7} style={{ width: '100%' }}>
 						<Col style={{ fontWeight: 700 }}>
-							<FarmIconContainer>
-								<FarmIcon src={farm.iconA} />
-								<FarmIcon src={farm.iconB} />
-							</FarmIconContainer>
+							<IconContainer>
+								<StyledIcon src={farm.iconA} />
+								<StyledIcon src={farm.iconB} />
+							</IconContainer>
 							{farm.name}
 						</Col>
 						<Col>
@@ -251,8 +225,8 @@ const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
 						{account && <Col>{`$${getDisplayBalance(farm.stakedUSD, 0)}`}</Col>}
 						<Col>{`$${getDisplayBalance(farm.tvl, 0)}`}</Col>
 					</Row>
-				</StyledAccordionHeader>
-			</StyledAccordionItem>
+				</ListItemHeader>
+			</ListItem>
 			<FarmModal
 				farm={farm}
 				show={showFarmModal}
@@ -261,117 +235,3 @@ const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
 		</>
 	)
 }
-
-export const FarmImage = styled.img`
-	height: 50px;
-	margin-right: ${(props) => props.theme.spacing[3]}px;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		height: 40px;
-		margin-right: ${(props) => props.theme.spacing[3]}px;
-	}
-
-	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
-		height: 35px;
-		margin-right: ${(props) => props.theme.spacing[3]}px;
-	}
-
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		height: 50px;
-		margin-right: ${(props) => props.theme.spacing[3]}px;
-	}
-`
-
-export const FarmIconContainer = styled.div`
-	height: 100%;
-	align-items: center;
-	margin: 0 auto;
-	display: inline-block;
-	vertical-align: middle;
-	color: ${(props) => props.theme.color.text[100]};
-
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		display: none;
-	}
-`
-
-export const FarmIcon = styled(FarmImage)`
-	height: 40px;
-	vertical-align: super;
-	transition: 200ms;
-	user-select: none;
-	-webkit-user-drag: none;
-	margin-left: -${(props) => props.theme.spacing[3]}px;
-
-	&:first-child {
-		margin-left: 0;
-	}
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		height: 30px;
-	}
-
-	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
-		height: 25px;
-	}
-`
-
-const FarmListHeaderCol = styled(Col)`
-	font-family: 'Rubik', sans-serif;
-	font-weight: ${(props) => props.theme.fontWeight.strong};
-	text-align: right;
-
-	&:first-child {
-		text-align: left;
-	}
-
-	&:last-child {
-		margin-right: 20px;
-	}
-`
-
-const StyledAccordionItem = styled.button`
-	background-color: transparent;
-	border-color: transparent;
-	width: 100%;
-`
-
-const StyledAccordionHeader = styled.div`
-		background: ${(props) => props.theme.color.transparent[100]};
-		color: ${(props) => props.theme.color.text[100]};
-		padding: 1.25rem;
-		border: none;
-		border-radius: 8px;
-
-		&:hover,
-		&:focus,
-		&:active {
-			background: ${(props) => props.theme.color.transparent[200]};
-			color: ${(props) => props.theme.color.text[100]};
-			border: none;
-			box-shadow: none;
-		}
-		
-		.row > .col {
-			margin: auto 0;
-			text-align: right;
-
-			&:first-child {
-				text-align: left;
-			}
-
-			&:last-child {
-			}
-		}
-		
-		&:active {
-			border-radius: 8px 8px 0px 0px;
-		}
-	
-		img {
-			height: 32px;
-			margin-right: 0.75rem;
-			vertical-align: middle;
-		}
-	}
-`

@@ -8,8 +8,6 @@ import Balances from './components/Balances'
 import { FarmList } from './components/FarmList'
 
 const Farms: React.FC = () => {
-	const farms = useFarms()
-	const { account, library } = useWeb3React()
 
 	return (
 		<Page>

@@ -11,11 +11,12 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #ffffff;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-x: hidden;
   }
   
   html {
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   html,
@@ -111,6 +112,34 @@ body {
 
   .modal-header {
     border-bottom: none;
+  }
+
+  .modal-title {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-width: 6rem;
+  font-size: ${(props) => props.theme.fontSize.xl};
+  font-family: 'Rubik', sans-serif;
+  font-weight: ${(props) => props.theme.fontWeight.strong};
+
+    img {
+      vertical-align: middle;
+      height: 30px;
+      width: 30px;
+    }
+
+    p {
+      display: block;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      margin: 0px;
+      margin-top: 0px;
+      margin-inline: 0.5rem 0.5rem;
+      margin-bottom: 0px;
+      color: ${(props) => props.theme.color.text[100]};
+      font-weight: ${(props) => props.theme.fontWeight.medium};
+    }
   }
 
   .modal-footer {

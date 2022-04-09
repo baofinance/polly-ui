@@ -1,7 +1,6 @@
 import React from 'react'
 import { Spinner } from 'react-bootstrap'
 import styled, { keyframes } from 'styled-components'
-import CardIcon from '../CardIcon'
 
 interface LoaderProps {
 	text?: string
@@ -10,34 +9,17 @@ interface LoaderProps {
 const Loader: React.FC<LoaderProps> = ({ text }) => {
 	return (
 		<StyledLoader>
-			<CardIcon>
-				<StyledBao>🦜</StyledBao>
-			</CardIcon>
+			<SpinnerLoader />
 			{!!text && <StyledText>{text}</StyledText>}
 		</StyledLoader>
 	)
 }
-
-const spin = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`
 
 const StyledLoader = styled.div`
 	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-`
-
-const StyledBao = styled.div`
-	font-size: 2rem;
-	position: relative;
-	animation: 1s ${spin} infinite;
 `
 
 const StyledText = styled.div`
@@ -61,5 +43,30 @@ export const SpinnerLoader: React.FC<SpinnerProps> = ({ block }) => {
 
 	return <Spinner animation="grow" size="sm" style={style} />
 }
+
+export const PageLoader: React.FC<SpinnerProps> = ({ block }) => {
+	let style: any = {
+		color: `${(props: any) => props.theme.color.text[100]}`,
+	}
+	if (block)
+		style = {
+			...style,
+			display: 'block',
+			margin: 'auto',
+		}
+
+	return (
+		<StyledLoadingWrapper>
+			<Spinner animation="grow" size="sm" style={style} />
+		</StyledLoadingWrapper>
+	)
+}
+
+export const StyledLoadingWrapper = styled.div`
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: ${(props) => props.theme.color.text[200]};
+`
 
 export default Loader

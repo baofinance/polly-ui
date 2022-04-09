@@ -1,10 +1,6 @@
-import { Web3Provider } from '@ethersproject/providers'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
-import {
-	NoEthereumProviderError,
-	UserRejectedRequestError as UserRejectedRequestErrorInjected,
-} from '@web3-react/injected-connector'
+import { useWeb3React } from '@web3-react/core'
+import Config from 'bao/lib/config'
 import { coinbaseWallet, injected, walletConnect } from 'bao/lib/connectors'
 import { useEagerConnect, useInactiveListener } from 'bao/lib/hooks'
 import { Button, CloseButton } from 'components/Button'
@@ -12,7 +8,6 @@ import { WalletButton } from 'components/Button/Button'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Col, Modal, ModalProps, Row } from 'react-bootstrap'
 import styled from 'styled-components'
-import Config from 'bao/lib/config'
 
 const connectorsByName: { [name: string]: AbstractConnector } = {
 	Metamask: injected,
@@ -132,23 +127,6 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 		</Modal>
 	)
 }
-
-const StyledWalletsWrapper = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		height: 100vh;
-		overflow-y: scroll;
-	}
-	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
-		flex-direction: column;
-		flex-wrap: none;
-	}
-`
-
-const StyledWalletCard = styled.div`
-	flex-basis: calc(50% - ${(props) => props.theme.spacing[2]}px);
-`
 
 export const ConnectorIconContainer = styled.div`
 	height: 100%;

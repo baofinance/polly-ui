@@ -1,6 +1,6 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 import styled from 'styled-components'
-import Container from '../Container'
 
 interface PageHeaderProps {
 	icon: any
@@ -12,7 +12,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 	const titletext = title.toString()
 	if (titletext.toString() === 'PollyChef is Ready') {
 		return (
-			<Container size="sm">
+			<Container>
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
 				</StyledPageHeader>
@@ -20,7 +20,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 		)
 	} else if (titletext.toString() === 'Select Your Fav Dim Sum Entrees!') {
 		return (
-			<Container size="sm">
+			<Container>
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
 				</StyledPageHeader>
@@ -28,7 +28,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
 		)
 	} else {
 		return (
-			<Container size="sm">
+			<Container>
 				<StyledPageHeader>
 					<StyledTitle>{title}</StyledTitle>
 				</StyledPageHeader>

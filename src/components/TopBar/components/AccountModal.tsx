@@ -4,7 +4,9 @@ import wethIcon from 'assets/img/assets/WETH.png'
 import baoIcon from 'assets/img/logo.svg'
 import Config from 'bao/lib/config'
 import { BigNumber } from 'bignumber.js'
+import { MaxLabel } from 'components/Label/Label'
 import { SpinnerLoader } from 'components/Loader'
+import { StatText, StatWrapper } from 'components/Stats'
 import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
 import useTransactionProvider from 'hooks/base/useTransactionProvider'
@@ -13,8 +15,7 @@ import React, { useCallback } from 'react'
 import { Col, Modal, ModalProps } from 'react-bootstrap'
 import styled from 'styled-components'
 import { getDisplayBalance } from 'utils/numberFormat'
-import { MaxLabel } from 'views/Farms/components/Actions'
-import { Button } from '../../Button'
+import { Button, CloseButton } from '../../Button'
 import Spacer from '../../Spacer'
 
 const AccountModal = ({ onHide, show }: ModalProps) => {
@@ -36,14 +37,10 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 
 	return (
 		<Modal show={show} onHide={hideModal} centered>
-			<CloseButton onClick={onHide}>
-				<FontAwesomeIcon icon="times" />
-			</CloseButton>
+			<CloseButton onHide={hideModal} onClick={onHide} />
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
-					<HeaderWrapper>
-						<p>My Account</p>
-					</HeaderWrapper>
+					<p>My Account</p>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
@@ -230,90 +227,6 @@ const WalletBalanceValue = styled.div`
 const WalletBalanceTicker = styled.div`
 	color: ${(props) => props.theme.color.text[200]};
 	font-size: 0.875rem;
-`
-
-const HeaderWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	min-width: 6rem;
-	font-size: ${(props) => props.theme.fontSize.large};
-
-	img {
-		vertical-align: middle;
-		height: 2rem;
-		width: 2rem;
-	}
-
-	p {
-		display: block;
-		margin-block-start: 1em;
-		margin-block-end: 1em;
-		margin: 0px;
-		margin-top: 0px;
-		margin-inline: 0.5rem 0.5rem;
-		margin-bottom: 0px;
-		color: ${(props) => props.theme.color.text[100]};
-		font-weight: ${(props) => props.theme.fontWeight.medium};
-	}
-`
-
-export const CloseButton = styled.a`
-	float: right;
-	top: ${(props) => props.theme.spacing[3]}px;
-	right: ${(props) => props.theme.spacing[4]}px;
-	font-size: 1.5rem;
-	position: absolute;
-	color: ${(props) => props.theme.color.text[100]};
-	&:hover {
-		cursor: pointer;
-	}
-`
-
-const StatWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	padding-top: ${(props) => props.theme.spacing[2]};
-	margin-inline: 0px;
-	margin-bottom: 0px;
-	background: ${(props) => props.theme.color.transparent[100]};
-	padding: 16px;
-	border-radius: 8px;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-		padding: 15px 30px;
-	}
-`
-
-const StatText = styled.div`
-	transition-property: all;
-	transition-duration: 200ms;
-	transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	font-weight: ${(props) => props.theme.fontWeight.medium};
-	font-size: ${(props) => props.theme.fontSize.sm};
-	padding-top: ${(props) => props.theme.spacing[1]}px;
-	padding-bottom: ${(props) => props.theme.spacing[1]}px;
-	padding-left: ${(props) => props.theme.spacing[2]}px;
-	padding-right: ${(props) => props.theme.spacing[2]}px;
-	border-radius: 8px;
-
-	p {
-		color: ${(props) => props.theme.color.text[100]};
-		font-size: ${(props) => props.theme.fontSize.sm};
-		font-weight: ${(props) => props.theme.fontWeight.medium};
-		display: block;
-		margin-block-start: 1em;
-		margin-block-end: 1em;
-		margin: 0px;
-		margin-top: 0px;
-		margin-inline: 0.5rem 0px;
-		margin-bottom: 0px;
-	}
 `
 
 export default AccountModal
