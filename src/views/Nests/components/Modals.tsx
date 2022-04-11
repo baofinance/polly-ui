@@ -129,7 +129,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 			setNestAmount(inputAmount)
 			updateInput(inputAmount)
 		},
-		[setNestAmount],
+		[bao, setNestAmount],
 	)
 
 	const handleInputChange = useCallback(
@@ -290,13 +290,13 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 						{pendingTx ? (
 							<SubmitButton disabled={true}>
 								{typeof pendingTx === 'string' ? (
-									<ExternalLink
+									<a
 										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 										target="_blank"
 									>
 										Pending Transaction{' '}
 										<FontAwesomeIcon icon="external-link-alt" />
-									</ExternalLink>
+									</a>
 								) : (
 									'Pending Transaction'
 								)}
@@ -319,13 +319,13 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 								{pendingTx ? (
 									<SubmitButton disabled={true}>
 										{typeof pendingTx === 'string' ? (
-											<ExternalLink
+											<a
 												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 												target="_blank"
 											>
 												Pending Transaction{' '}
 												<FontAwesomeIcon icon="external-link-alt" />
-											</ExternalLink>
+											</a>
 										) : (
 											'Pending Transaction'
 										)}
@@ -362,13 +362,13 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 								{pendingTx ? (
 									<SubmitButton disabled={true}>
 										{typeof pendingTx === 'string' ? (
-											<ExternalLink
+											<a
 												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 												target="_blank"
 											>
 												Pending Transaction{' '}
 												<FontAwesomeIcon icon="external-link-alt" />
-											</ExternalLink>
+											</a>
 										) : (
 											'Pending Transaction'
 										)}
@@ -558,13 +558,13 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 						{pendingTx ? (
 							<SubmitButton disabled={true}>
 								{typeof pendingTx === 'string' ? (
-									<ExternalLink
+									<a
 										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 										target="_blank"
 									>
 										Pending Transaction{' '}
 										<FontAwesomeIcon icon="external-link-alt" />
-									</ExternalLink>
+									</a>
 								) : (
 									'Pending Transaction'
 								)}
