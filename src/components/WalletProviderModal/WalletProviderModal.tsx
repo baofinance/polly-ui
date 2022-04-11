@@ -18,11 +18,9 @@ const connectorsByName: { [name: string]: AbstractConnector } = {
 const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 	const {
 		connector,
-		library,
 		chainId,
 		account,
 		activate,
-		deactivate,
 		active,
 		error,
 	} = useWeb3React()

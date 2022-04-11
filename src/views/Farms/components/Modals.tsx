@@ -30,13 +30,12 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 	const { pid } = farm
 	const [val, setVal] = useState<string>('')
 	const bao = useBao()
-	const { account, library } = useWeb3React()
 
 	const lpTokenAddress = farm.lpTokenAddress
 
 	const lpContract = useMemo(() => {
-		return getContract(library as provider, lpTokenAddress)
-	}, [library, lpTokenAddress])
+		return getContract(bao, lpTokenAddress)
+	}, [bao, lpTokenAddress])
 
 	const tokenBalance = useTokenBalance(lpContract.options.address)
 	const stakedBalance = useStakedBalance(pid)

@@ -74,8 +74,6 @@ const Nest: React.FC = () => {
 		window.scrollTo(0, 0)
 	}, [])
 
-	const { library } = useWeb3React()
-
 	const maxAllocationPercentage = useMemo(() => {
 		return (
 			composition &&

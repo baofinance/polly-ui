@@ -184,6 +184,7 @@ export const Stake: React.FC<StakeProps> = ({
 		setVal('')
 	}, [onHide])
 
+	console.log(max)
 	return (
 		<>
 			<FarmModalBody>

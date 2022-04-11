@@ -61,13 +61,27 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	show,
 	onHide,
 }) => {
-	const { library, account } = useWeb3React()
+	const bao = useBao()
+	const { wethPerIndex } = useNestRate(nestAddress)
+	const recipeContract = getRecipeContract(bao)
+	const wethContract = getWethContract(bao)
+	const { onIssue } = useNestIssue(nestAddress)
+	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
 	const [confNo, setConfNo] = useState<number | undefined>()
 	const [requestedApproval, setRequestedApproval] = useState(false)
 	const [val, setVal] = useState<string>('')
+
+	const issueAllowance = useAllowancev2(
+		Config.addressMap.WETH,
+		Config.contracts.recipe[Config.networkId].address,
+	)
+	const { onApprove: onApproveIssue } = useApprovev2(
+		wethContract,
+		recipeContract,
+	)
 
 	const navDifferenceTooHigh = useMemo(
 		() =>
@@ -155,22 +169,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 		onHide()
 		setVal('')
 	}, [onHide])
-
-	const bao = useBao()
-	const { wethPerIndex } = useNestRate(nestAddress)
-	const recipeContract = getRecipeContract(bao)
-	const wethContract = getWethContract(bao)
-	const { onIssue } = useNestIssue(nestAddress)
-	const wethBalance = useTokenBalance(Config.addressMap.WETH)
-
-	const issueAllowance = useAllowancev2(
-		Config.addressMap.WETH,
-		Config.contracts.recipe[Config.networkId].address,
-	)
-	const { onApprove: onApproveIssue } = useApprovev2(
-		wethContract,
-		recipeContract,
-	)
 
 	return (
 		<Modal show={show} onHide={hideModal} centered>

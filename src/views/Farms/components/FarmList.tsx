@@ -27,7 +27,7 @@ export const FarmList: React.FC = () => {
 	const bao = useBao()
 	const [farms] = useFarms()
 	const farmsTVL = useAllFarmTVL(bao && bao.web3, bao && bao.multicall)
-	const { account, library } = useWeb3React()
+	const { account } = useWeb3React()
 
 	const [pollyPrice, setPollyPrice] = useState<BigNumber | undefined>()
 	const [pools, setPools] = useState<any | undefined>({
@@ -52,7 +52,7 @@ export const FarmList: React.FC = () => {
 			[PoolType.ACTIVE]: [],
 			[PoolType.ARCHIVED]: [],
 		}
-		if (!(library && farmsTVL && bao)) return setPools(_pools)
+		if (!(farmsTVL && bao)) return setPools(_pools)
 
 		bao.multicall
 			.call(

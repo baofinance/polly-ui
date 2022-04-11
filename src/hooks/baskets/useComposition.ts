@@ -1,20 +1,16 @@
+import Config from 'bao/lib/config'
+import { getWethPriceLink } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import { Nest, NestComponent } from 'contexts/Nests/types'
+import useBao from 'hooks/base/useBao'
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
 import { getBalance, getContract, getCreamContract } from 'utils/erc20'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
 import { decimate, getBalanceNumber } from 'utils/numberFormat'
-import { provider } from 'web3-core'
-import Config from 'bao/lib/config'
-import { getWethPriceLink } from 'bao/utils'
-import useBao from 'hooks/base/useBao'
-import { symbol } from 'd3-shape'
 
 const useComposition = (nest: Nest) => {
-  const { library } = useWeb3React()
   const [composition, setComposition] = useState<
     Array<NestComponent> | undefined
   >()
@@ -59,10 +55,7 @@ const useComposition = (nest: Nest) => {
 
             let specialSymbol, specialDecimals, componentBalance
             if (component.toLowerCase() !== specialCaseToken) {
-              const specialContract = getContract(
-                library,
-                component.toLowerCase(),
-              )
+              const specialContract = getContract(bao, component.toLowerCase())
 
               const mcContracts = [
                 {
@@ -72,7 +65,7 @@ const useComposition = (nest: Nest) => {
                 },
                 {
                   ref: 'componentToken',
-                  contract: getContract(library, component),
+                  contract: getContract(bao, component),
                   calls: [
                     { method: 'balanceOf', params: [nest.nestTokenAddress] },
                   ],
@@ -86,7 +79,7 @@ const useComposition = (nest: Nest) => {
                 mcContracts.push(
                   {
                     ref: 'creamContract',
-                    contract: getCreamContract(library, component),
+                    contract: getCreamContract(bao, component),
                     calls: [{ method: 'exchangeRateCurrent' }],
                   },
                   {
@@ -116,7 +109,6 @@ const useComposition = (nest: Nest) => {
                 componentToken: componentResults,
                 creamContract: creamResults,
                 lendingLogicKashi: kashiResults,
-                lendingLogicKLIMA: klimaResults,
               } = MultiCall.parseCallResults(
                 await bao.multicall.call(_multicallContext),
               )
@@ -166,7 +158,7 @@ const useComposition = (nest: Nest) => {
               color: nest.pieColors[graphData.symbol],
               balance: new BigNumber(
                 componentBalance ||
-                  (await getBalance(library, component, nest.nestTokenAddress)),
+                  (await getBalance(bao, component, nest.nestTokenAddress)),
               ),
               balanceDecimals: specialDecimals || graphData.decimals,
               imageUrl,
@@ -249,8 +241,10 @@ const _getStrategy = (symbol: string) =>
 
 // Special cases for image URLS, i.e. wrapped assets
 const _getImageURL = (symbol: string) =>
-  symbol.toLowerCase() === 'wmatic' ? 'MATIC'
-  : symbol.toLowerCase() === 'sklima' ? 'KLIMA'
-  : symbol
+  symbol.toLowerCase() === 'wmatic'
+    ? 'MATIC'
+    : symbol.toLowerCase() === 'sklima'
+    ? 'KLIMA'
+    : symbol
 
 export default useComposition

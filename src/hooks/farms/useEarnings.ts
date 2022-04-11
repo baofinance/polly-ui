@@ -8,7 +8,7 @@ import useBlock from 'hooks/base/useBlock'
 
 const useEarnings = (pid: number) => {
   const [balance, setBalance] = useState(new BigNumber(0))
-  const { account, library } =
+  const { account } =
     useWeb3React()
   const bao = useBao()
   const masterChefContract = getMasterChefContract(bao)

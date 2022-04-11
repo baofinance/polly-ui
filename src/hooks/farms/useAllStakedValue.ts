@@ -22,7 +22,7 @@ export interface StakedValue {
 
 const useAllStakedValue = (): StakedValue[] => {
   const [balances, setBalance] = useState([] as Array<StakedValue>)
-  const { account, library } = useWeb3React<provider>()
+  const { account } = useWeb3React<provider>()
   const bao = useBao()
   const farms = getFarms(bao)
   const masterChefContract = getMasterChefContract(bao)
@@ -36,7 +36,7 @@ const useAllStakedValue = (): StakedValue[] => {
           masterChefContract,
           wethContract,
           lpContract,
-          getContract(library, tokenAddress),
+          getContract(bao, tokenAddress),
           tokenDecimals,
           pid,
         ),
