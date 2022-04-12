@@ -73,7 +73,7 @@ export default {
     },
     nestRedeem: {
       137: {
-        address: '0x174c726ED2E30560935247C410294DB5FfEa39D4',
+        address: '0xCDdEcEC6fccaD613328F56D48Afb2d92dea9A96f',
         abi: 'nestRedeem.json',
       },
     },
