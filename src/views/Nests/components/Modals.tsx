@@ -1,7 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
-import { fetchCalcToNest, getRecipeContract, getRedeemContract, getWethContract } from 'bao/utils'
+import {
+	fetchCalcToNest,
+	getRecipeContract,
+	getRedeemContract,
+	getWethContract,
+} from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import { Button } from 'components/Button'
 import { SubmitButton } from 'components/Button/Button'
@@ -28,6 +33,7 @@ import {
 	Modal,
 	ModalProps,
 	Row,
+	Spinner,
 } from 'react-bootstrap'
 import styled from 'styled-components'
 import { getDisplayBalance, getFullDisplayBalance } from 'utils/numberFormat'
@@ -545,14 +551,20 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 			<Modal.Footer>
 				<Button text="Cancel" onClick={onHide} />
 				{redeemToWeth && redeemAllowance && !redeemAllowance.gt(0) ? (
-					<SubmitButton
-						disabled={requestedApproval}
-						onClick={() => {
-							handleTx(onApproveRedeem(), `Approve ${nestName}`)
-						}}
-					>
-						Approve {nestName}
-					</SubmitButton>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>Approving {nestName}</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={requestedApproval}
+								onClick={() => {
+									handleTx(onApproveRedeem(), `Approve ${nestName}`)
+								}}
+							>
+								Approve {nestName}
+							</SubmitButton>
+						)}
+					</>
 				) : (
 					<>
 						{pendingTx ? (

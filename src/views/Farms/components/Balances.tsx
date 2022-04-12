@@ -124,25 +124,21 @@ const Balances: React.FC = () => {
 							<StatWrapper>
 								<UserStat>
 									<h1>Total POLLY Supply</h1>
-									<p>
-										{totalSupply ? (
-											getDisplayBalance(totalSupply)
-										) : (
-											<SpinnerLoader />
-										)}
-									</p>
+									{totalSupply ? (
+										getDisplayBalance(totalSupply)
+									) : (
+										<SpinnerLoader />
+									)}
 								</UserStat>
 							</StatWrapper>
 							<StatWrapper>
 								<UserStat>
 									<h1>POLLY Price</h1>
-									<p>
-										{pollyPrice ? (
-											`$${getDisplayBalance(pollyPrice, 0)}`
-										) : (
-											<SpinnerLoader />
-										)}
-									</p>
+									{pollyPrice ? (
+										`$${getDisplayBalance(pollyPrice, 0)}`
+									) : (
+										<SpinnerLoader />
+									)}
 								</UserStat>
 							</StatWrapper>
 						</UserStatsWrapper>

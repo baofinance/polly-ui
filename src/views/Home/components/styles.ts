@@ -24,7 +24,7 @@ import YFI from 'assets/img/assets/YFI.png'
 import { Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 
-export const HeroHeader = styled.h6`
+export const HeroHeader = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 7rem;
   letter-spacing: -0.1rem;
@@ -279,7 +279,7 @@ export const InfoContainer = styled.div`
   height: 100%;
 `
 
-export const InfoHeader = styled.h2`
+export const InfoHeader = styled.div`
   font-family: 'Rubik', sans-serif;
   font-size: 5rem;
   letter-spacing: -0.1rem;

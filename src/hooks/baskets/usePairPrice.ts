@@ -4,10 +4,12 @@ import { useCallback, useEffect, useState } from 'react'
 import GraphClient from 'utils/graph'
 import { getWethPriceLink } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
+import useBlock from 'hooks/base/useBlock'
 
 const usePairPrice = (nest: Nest) => {
   const [res, setRes] = useState<BigNumber | undefined>()
   const bao = useBao()
+  const block = useBlock()
 
   const querySubgraph = useCallback(async () => {
     if (!(nest && nest.nestTokenAddress && bao)) return
@@ -22,7 +24,7 @@ const usePairPrice = (nest: Nest) => {
 
   useEffect(() => {
     querySubgraph()
-  }, [bao, nest])
+  }, [bao, nest, block])
 
   return res
 }

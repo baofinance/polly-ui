@@ -184,7 +184,6 @@ export const Stake: React.FC<StakeProps> = ({
 		setVal('')
 	}, [onHide])
 
-	console.log(max)
 	return (
 		<>
 			<FarmModalBody>
@@ -233,13 +232,7 @@ export const Stake: React.FC<StakeProps> = ({
 						<>
 							{pendingTx ? (
 								<SubmitButton disabled={true}>
-									<Spinner
-										as="span"
-										animation="grow"
-										size="sm"
-										role="status"
-										aria-hidden="true"
-									/>
+									Approving {tokenName}
 								</SubmitButton>
 							) : (
 								<SubmitButton

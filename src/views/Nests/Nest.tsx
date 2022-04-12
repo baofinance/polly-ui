@@ -14,7 +14,6 @@ import Spacer from 'components/Spacer'
 import Tooltipped from 'components/Tooltipped'
 import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
-import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import useComposition from 'hooks/baskets/useComposition'
 import useGraphPriceHistory from 'hooks/baskets/useGraphPriceHistory'
 import useNav from 'hooks/baskets/useNav'
@@ -112,8 +111,6 @@ const Nest: React.FC = () => {
 	const [showNavModal, setShowNavModal] = useState(false)
 	const [showIssueModal, setShowIssueModal] = useState(false)
 	const [showRedeemModal, setShowRedeemModal] = useState(false)
-
-	const { handleTx } = useTransactionHandler()
 
 	useEffect(() => {
 		if (nestContract && bao)

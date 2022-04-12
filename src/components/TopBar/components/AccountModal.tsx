@@ -117,7 +117,7 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 								{_.reverse(Object.keys(transactions))
 									.slice(0, 5)
 									.map((txHash) => (
-										<StatText>
+										<StatText key={txHash}>
 											<p>
 												{transactions[txHash].receipt ? (
 													<FontAwesomeIcon
