@@ -82,9 +82,7 @@ const nPOLY: React.FC = () => (
 		<Spacer />
 		<NestHeader>Management</NestHeader>
 		<p>The Nest is maintained quarterly in two phases.</p>
-		<p>
-			<NestSubHeader>Determination Phase</NestSubHeader>
-		</p>
+		<NestSubHeader>Determination Phase</NestSubHeader>
 		<p>
 			The determination phase takes place during the final 2 weeks of the
 			quarter. During this phase the changes needed for the next reconstitution
@@ -95,9 +93,7 @@ const nPOLY: React.FC = () => (
 			Proposed changes will be published on the governance forum for 1 week then
 			a governance vote will run for the community to approve changes.
 		</p>
-		<p>
-			<NestSubHeader>Reconstitution Phase</NestSubHeader>
-		</p>
+		<NestSubHeader>Reconstitution Phase</NestSubHeader>
 		<p>
 			In the two weeks following a successful vote, the nest components will be
 			adjusted as per the instructions published during the final 2 weeks of the

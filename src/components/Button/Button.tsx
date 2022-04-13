@@ -545,7 +545,7 @@ export const ButtonStack = styled.div`
 	width: 100%;
 `
 
-export const CornerButtons = styled.a`
+export const CornerButtons = styled.div`
   float: right;
   top: ${(props) => props.theme.spacing[3]}px;
   right: ${(props) => props.theme.spacing[4]}px;
