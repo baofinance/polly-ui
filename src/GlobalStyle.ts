@@ -37,6 +37,7 @@ body {
   a {
     color: #f7f4f2;
     text-decoration: none;
+    font-weight: ${(props) => props.theme.fontWeight.strong};
   }
   
   a:hover,

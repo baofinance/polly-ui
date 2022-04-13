@@ -21,7 +21,7 @@ const useLockedEarnings = () => {
     if (account && baoContract && bao) {
       fetchBalance()
     }
-  }, [account, block, baoContract, setBalance])
+  }, [account, block, baoContract, setBalance, bao])
 
   return balance
 }

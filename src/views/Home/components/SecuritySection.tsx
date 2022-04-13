@@ -1,5 +1,4 @@
 import immunefi from 'assets/img/immunefi.png'
-import Spacer from 'components/Spacer'
 import React from 'react'
 import styled from 'styled-components'
 

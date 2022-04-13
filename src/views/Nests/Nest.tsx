@@ -205,12 +205,13 @@ const Nest: React.FC = () => {
 							>
 								<StyledBadge
 									style={{
-										marginRight: '${(props) => props.theme.spacing[2]}px',
+										marginRight: `${(props: { theme: { spacing: any[] } }) => props.theme.spacing[2]}px`,
 									}}
 								>
 									<img
 										src={require('assets/img/assets/MATIC.png')}
 										style={{ height: '1em' }}
+										alt="matic"
 									/>{' '}
 									{(nav && `$${getDisplayBalance(usdPerIndex, 0)}`) || (
 										<SpinnerLoader />
@@ -387,6 +388,7 @@ const Nest: React.FC = () => {
 														<img
 															src={component.imageUrl}
 															style={{ height: '32px' }}
+															alt="component"
 														/>
 													</Tooltipped>
 												</td>

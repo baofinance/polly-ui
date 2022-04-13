@@ -21,7 +21,7 @@ const useNestRedeem = (nid: number, redeemToWeth = true) => {
             .send({ from: account })
         : nestRedeem(nestContract, amount, account)
     },
-    [account, nid, bao, redeemToWeth],
+    [account, bao, redeemToWeth, nestContract],
   )
 
   return { onNestRedeem: handleNestRedeem }

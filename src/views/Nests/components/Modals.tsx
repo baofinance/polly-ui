@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import {
 	fetchCalcToNest,
@@ -10,7 +9,7 @@ import {
 import BigNumber from 'bignumber.js'
 import { Button } from 'components/Button'
 import { SubmitButton } from 'components/Button/Button'
-import { ExternalLink } from 'components/Link'
+import { Disclaimer } from 'components/Disclaimer'
 import { SpinnerLoader } from 'components/Loader'
 import NestTokenInput from 'components/NestTokenInput'
 import NestTokenOutput from 'components/NestTokenOutput'
@@ -33,12 +32,10 @@ import {
 	Modal,
 	ModalProps,
 	Row,
-	Spinner,
 } from 'react-bootstrap'
 import styled from 'styled-components'
 import { getDisplayBalance, getFullDisplayBalance } from 'utils/numberFormat'
 import { Contract } from 'web3-eth-contract'
-import { Disclaimer } from 'components/Disclaimer'
 
 interface IssueModalProps extends ModalProps {
 	nestAddress: string
@@ -76,7 +73,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	const [nestAmount, setNestAmount] = useState('')
 	const [wethNeeded, setWethNeeded] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
-	const [confNo, setConfNo] = useState<number | undefined>()
 	const [requestedApproval, setRequestedApproval] = useState(false)
 	const [val, setVal] = useState<string>('')
 
@@ -98,7 +94,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				.times(100)
 				.abs()
 				.gt((nestName === 'nSTBL' && '2') || '5'),
-		[nav],
+		[nestName, nav],
 	)
 
 	const fetchRate = async () => {
@@ -184,7 +180,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						Issue <img src={nestIcon} style={{ marginLeft: '10px' }} />{' '}
+						Issue <img src={nestIcon} style={{ marginLeft: '10px' }} ref="Nest Icon" />{' '}
 						<p style={{ fontSize: '0.875rem', verticalAlign: 'top' }}>
 							<Tooltipped
 								placement="right"
@@ -299,6 +295,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 									<a
 										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 										target="_blank"
+										rel="noopener noreferrer"
 									>
 										Pending Transaction{' '}
 										<FontAwesomeIcon icon="external-link-alt" />
@@ -328,6 +325,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 											<a
 												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 												target="_blank"
+												rel="noopener noreferrer"
 											>
 												Pending Transaction{' '}
 												<FontAwesomeIcon icon="external-link-alt" />
@@ -371,6 +369,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 											<a
 												href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 												target="_blank"
+												rel="noopener noreferrer"
 											>
 												Pending Transaction{' '}
 												<FontAwesomeIcon icon="external-link-alt" />
@@ -504,7 +503,7 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						Redeem <img src={nestIcon} style={{ marginLeft: '10px' }} />
+						Redeem <img src={nestIcon} style={{ marginLeft: '10px' }} alt="Nest Icon" />
 					</HeaderWrapper>
 				</Modal.Title>
 			</Modal.Header>
@@ -573,6 +572,7 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 									<a
 										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
 										target="_blank"
+										rel="noopener noreferrer"
 									>
 										Pending Transaction{' '}
 										<FontAwesomeIcon icon="external-link-alt" />

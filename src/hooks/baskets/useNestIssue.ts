@@ -20,7 +20,7 @@ const useNestIssue = (nestContractAddress: string) => {
         nestAmount,
         account,
       ),
-    [account, nestContractAddress, bao],
+    [account, nestContractAddress, recipeContract],
   )
 
   return { onIssue: handleIssue }

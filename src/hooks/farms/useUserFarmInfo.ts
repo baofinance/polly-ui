@@ -15,11 +15,11 @@ export const useUserFarmInfo = (pid: number) => {
       account,
     )
     setUserInfo(_userInfo)
-  }, [bao])
+  }, [bao, account, pid])
 
   useEffect(() => {
     fetchUserInfo()
-  }, [bao])
+  }, [bao, account])
 
   return userInfo
 }

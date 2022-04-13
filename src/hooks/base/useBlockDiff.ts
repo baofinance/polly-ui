@@ -24,7 +24,7 @@ const useBlockDiff = (userInfo: any) => {
           : lastWithdrawBlock,
       ).toNumber()
     setBlockDiff(blockDiff)
-  }, [bao, block, userInfo])
+  }, [bao, account, block, userInfo])
 
   useEffect(() => {
     fetchBlockDiff()

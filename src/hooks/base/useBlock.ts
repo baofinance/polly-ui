@@ -26,7 +26,7 @@ const useBlock = () => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [bao])
+  }, [bao, block])
 
   return block
 }

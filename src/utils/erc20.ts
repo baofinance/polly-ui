@@ -1,5 +1,3 @@
-import Web3 from 'web3'
-import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
 import { AbiItem } from 'web3-utils'
 import CreamABI from 'bao/lib/abi/creamLending.json'

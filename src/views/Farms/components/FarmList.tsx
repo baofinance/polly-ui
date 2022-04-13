@@ -26,7 +26,7 @@ export interface FarmWithStakedValue extends Farm {
 export const FarmList: React.FC = () => {
 	const bao = useBao()
 	const [farms] = useFarms()
-	const farmsTVL = useAllFarmTVL(bao && bao.web3, bao && bao.multicall)
+	const farmsTVL = useAllFarmTVL(bao, bao && bao.multicall)
 	const { account } = useWeb3React()
 
 	const [pollyPrice, setPollyPrice] = useState<BigNumber | undefined>()
@@ -38,6 +38,11 @@ export const FarmList: React.FC = () => {
 	const tempAddress = '0x0000000000000000000000000000000000000000'
 
 	const userAddress = account ? account : tempAddress
+
+	const BLOCKS_PER_YEAR = new BigNumber(2336000)
+
+	const [archived, showArchived] = useState(false)
+	const [staked, showStaked] = useState(false)
 
 	useEffect(() => {
 		GraphUtil.getPrice(Config.addressMap.WETH).then(async (wethPrice) => {
@@ -117,11 +122,6 @@ export const FarmList: React.FC = () => {
 				setPools(_pools)
 			})
 	}, [farmsTVL, bao])
-
-	const BLOCKS_PER_YEAR = new BigNumber(2336000)
-
-	const [archived, showArchived] = useState(false)
-	const [staked, showStaked] = useState(false)
 
 	return (
 		<>

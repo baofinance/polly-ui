@@ -1,7 +1,5 @@
-import { useWeb3React } from '@web3-react/core'
 import pollyIcon from 'assets/img/polly.svg'
 import { CloseButton, NavButtons } from 'components/Button'
-import { ExternalLink } from 'components/Link'
 import { IconContainer, StyledIcon } from 'components/Icon'
 import { SpinnerLoader } from 'components/Loader'
 import { StatBlock } from 'components/Stats'
@@ -14,7 +12,6 @@ import { useUserFarmInfo } from 'hooks/farms/useUserFarmInfo'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Modal, ModalProps, Row } from 'react-bootstrap'
 import { getContract } from 'utils/erc20'
-import { provider } from 'web3-core'
 import { Rewards, Stake, Unstake } from './Actions'
 import { FarmWithStakedValue } from './FarmList'
 
@@ -28,7 +25,6 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 	const operations = ['Stake', 'Unstake', 'Rewards']
 	const [operation, setOperation] = useState(operations[0])
 	const { pid } = farm
-	const [val, setVal] = useState<string>('')
 	const bao = useBao()
 
 	const lpTokenAddress = farm.lpTokenAddress
@@ -40,16 +36,8 @@ export const FarmModal: React.FC<FarmModalProps> = ({ farm, show, onHide }) => {
 	const tokenBalance = useTokenBalance(lpContract.options.address)
 	const stakedBalance = useStakedBalance(pid)
 
-	const handleChange = useCallback(
-		(e: React.FormEvent<HTMLInputElement>) => {
-			if (e.currentTarget.value.length < 20) setVal(e.currentTarget.value)
-		},
-		[setVal],
-	)
-
 	const hideModal = useCallback(() => {
 		onHide()
-		setVal('')
 	}, [onHide])
 
 	return (
@@ -132,7 +120,7 @@ export const FeeModal: React.FC<FeeModalProps> = ({ pid, show, onHide }) => {
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body style={{ paddingTop: '0' }}>
-				<p style={{ textAlign: 'center' }}>❗BE AWARE OF WITHDRAWAL FEES❗</p>
+				<p style={{ textAlign: 'center' }}><span role="img" aria-label="important">❗</span>BE AWARE OF WITHDRAWAL FEES<span role="img" aria-label="important">❗</span></p>
 				<StatBlock
 					label=""
 					stats={[
@@ -174,7 +162,7 @@ export const FeeModal: React.FC<FeeModalProps> = ({ pid, show, onHide }) => {
 					<p style={{ textAlign: 'center' }}>
 						Your first deposit activates and each withdraw resets the timer for
 						penalities and fees, this is pool based. Be sure to read the{' '}
-						<a href="https://docs.bao.finance/" target="_blank">
+						<a href="https://docs.bao.finance/" target="_blank" rel="noopener noreferrer">
 							docs
 						</a>{' '}
 						before using the farms so you are familiar with protocol risks and

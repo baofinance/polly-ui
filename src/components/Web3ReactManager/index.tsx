@@ -9,7 +9,6 @@ export const Web3ReactManager: FC = ({ children }) => {
 		active: networkActive,
 		error: networkError,
 		activate: activateNetwork,
-		chainId,
 	} = useWeb3React()
 
 	const triedEager = useEagerConnect()

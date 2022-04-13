@@ -1,4 +1,3 @@
-import Separator from 'components/Separator'
 import Spacer from 'components/Spacer'
 import React from 'react'
 import { NestHeader, NestList, NestSubHeader } from '../styles'

@@ -18,7 +18,6 @@ import { getDisplayBalance } from 'utils/numberFormat'
 
 export const NestList: React.FC = () => {
 	const [nests] = useNests()
-	const { account } = useWeb3React()
 
 	const indexes: { [key: string]: Nest[] } = {
 		[IndexType.NESTS]: [],

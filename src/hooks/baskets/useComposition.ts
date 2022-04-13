@@ -205,7 +205,7 @@ const useComposition = (nest: Nest) => {
           ),
         )
       })
-  }, [nest])
+  }, [bao, nest])
 
   return composition
 }

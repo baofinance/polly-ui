@@ -19,10 +19,9 @@ const useHomeAnalytics = () => {
   >()
 
   const bao = useBao()
-  const web3 = bao && bao.web3
   const multicall = bao && bao.multicall
 
-  const farmTVL = useAllFarmTVL(web3, multicall)
+  const farmTVL = useAllFarmTVL(bao, multicall)
 
   const fetchAnalytics = useCallback(async () => {
     if (!(farmTVL && bao)) return
@@ -34,7 +33,7 @@ const useHomeAnalytics = () => {
         (typeof nest.nestAddresses === 'string' && nest.nestAddresses) ||
         (nest.nestAddresses && nest.nestAddresses[Config.networkId]) ||
         nest.outputToken
-      const nestContract = new web3.eth.Contract(
+      const nestContract = new bao.web3.eth.Contract(
         experipieAbi as AbiItem[],
         nestAddress,
       )

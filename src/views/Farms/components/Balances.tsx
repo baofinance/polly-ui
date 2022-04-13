@@ -50,7 +50,14 @@ const PendingRewards: React.FC = () => {
 	}, [sumEarning])
 
 	return (
-		<span>
+		<span
+			style={{
+				transform: `scale(${scale})`,
+				transformOrigin: 'right bottom',
+				transition: 'transform 0.5s',
+				display: 'inline-block',
+			}}
+		>
 			<CountUp
 				start={start}
 				end={end}

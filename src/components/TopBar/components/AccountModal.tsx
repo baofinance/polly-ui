@@ -1,3 +1,4 @@
+import { parseAndCheckHttpResponse } from '@apollo/client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWeb3React } from '@web3-react/core'
 import wethIcon from 'assets/img/assets/WETH.png'
@@ -7,7 +8,6 @@ import { BigNumber } from 'bignumber.js'
 import { MaxLabel } from 'components/Label/Label'
 import { SpinnerLoader } from 'components/Loader'
 import { StatText, StatWrapper } from 'components/Stats'
-import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
 import useTransactionProvider from 'hooks/base/useTransactionProvider'
 import _ from 'lodash'
@@ -27,7 +27,6 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 	}, [onHide, deactivate])
 
 	const { transactions } = useTransactionProvider()
-	const bao = useBao()
 	const pollyBalance = useTokenBalance(Config.addressMap.POLLY)
 	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
@@ -50,7 +49,7 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 							<InnerWalletBalance>
 								<InnerInnerWalletBalance>
 									<WalletBalanceImage>
-										<img src={wethIcon} />
+										<img src={wethIcon} alt="wETH" />
 									</WalletBalanceImage>
 									<WalletBalanceSpace />
 									<WalletBalanceText>
@@ -67,14 +66,12 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 							<InnerWalletBalance>
 								<InnerInnerWalletBalance>
 									<WalletBalanceImage>
-										<img src={baoIcon} />
+										<img src={baoIcon} alt="BAO" />
 									</WalletBalanceImage>
 									<WalletBalanceSpace />
 									<WalletBalanceText>
 										<WalletBalanceValue>
-											{new BigNumber(getDisplayBalance(pollyBalance)).toFixed(
-												4,
-											)}
+											{getDisplayBalance(pollyBalance)}
 										</WalletBalanceValue>
 										<WalletBalanceTicker>POLLY Balance</WalletBalanceTicker>
 									</WalletBalanceText>
@@ -93,9 +90,7 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 							{Object.keys(transactions).length > 0 && (
 								<small>
 									<span>
-										<a
-											href="#"
-											style={{ float: 'right', verticalAlign: 'middle' }}
+										<ClearButton
 											onClick={() => {
 												localStorage.setItem('transactions', '{}')
 												window.location.reload()
@@ -106,19 +101,19 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 												style={{ verticalAlign: 'middle' }}
 											/>{' '}
 											Clear
-										</a>
+										</ClearButton>
 									</span>
 								</small>
 							)}
 						</span>
-						<Spacer size="sm" />
+						<Spacer size="md" />
 						{Object.keys(transactions).length > 0 ? (
 							<>
 								{_.reverse(Object.keys(transactions))
 									.slice(0, 5)
 									.map((txHash) => (
 										<StatText key={txHash}>
-											<p>
+											<MaxLabel>
 												{transactions[txHash].receipt ? (
 													<FontAwesomeIcon
 														icon="check"
@@ -129,10 +124,10 @@ const AccountModal = ({ onHide, show }: ModalProps) => {
 												) : (
 													<SpinnerLoader />
 												)}
-											</p>
-											<p style={{ textAlign: 'end' }}>
+											</MaxLabel>
+											<MaxLabel style={{ textAlign: 'end' }}>
 												{transactions[txHash].description}
-											</p>
+											</MaxLabel>
 										</StatText>
 									))}
 							</>
@@ -227,6 +222,15 @@ const WalletBalanceValue = styled.div`
 const WalletBalanceTicker = styled.div`
 	color: ${(props) => props.theme.color.text[200]};
 	font-size: 0.875rem;
+`
+
+const ClearButton = styled.button`
+	float: right;
+	vertical-align: middle;
+	background-color: ${(props) => props.theme.color.transparent[200]} !important;
+	border-radius: 8px;
+	border: none;
+	color: ${(props) => props.theme.color.text[100]};
 `
 
 export default AccountModal

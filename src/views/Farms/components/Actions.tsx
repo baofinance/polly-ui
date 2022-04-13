@@ -46,80 +46,6 @@ import { FarmWithStakedValue } from './FarmList'
 import { FeeModal } from './Modals'
 import { EarningsWrapper, FarmModalBody } from './styles'
 
-interface RewardsProps {
-	pid: number
-}
-
-export const Rewards: React.FC<RewardsProps> = ({ pid }) => {
-	const bao = useBao()
-	const earnings = useEarnings(pid)
-	const { account } = useWeb3React()
-	const { pendingTx, handleTx } = useTransactionHandler()
-	const masterChefContract = getMasterChefContract(bao)
-
-	return (
-		<>
-			<FarmModalBody>
-				<EarningsWrapper>
-					<BalanceContent>
-						<BalanceImage>
-							<img src={baoIcon} />
-						</BalanceImage>
-						<BalanceSpacer />
-						<BalanceText>
-							<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
-						</BalanceText>
-					</BalanceContent>
-				</EarningsWrapper>
-			</FarmModalBody>
-			<Modal.Footer>
-				<ButtonStack>
-					<>
-						{pendingTx ? (
-							<SubmitButton disabled={true}>
-								{typeof pendingTx === 'string' ? (
-									<a
-										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
-										target="_blank"
-									>
-										Pending Transaction{' '}
-										<FontAwesomeIcon icon="external-link-alt" />
-									</a>
-								) : (
-									'Pending Transaction'
-								)}
-							</SubmitButton>
-						) : (
-							<SubmitButton
-								disabled={!earnings.toNumber()}
-								onClick={async () => {
-									let harvestTx
-
-									harvestTx = masterChefContract.methods
-										.claimReward(pid)
-										.send({ from: account })
-
-									handleTx(
-										harvestTx,
-										`Harvest ${getDisplayBalance(earnings)} POLLY`,
-									)
-								}}
-							>
-								Harvest POLLY
-							</SubmitButton>
-						)}
-					</>
-				</ButtonStack>
-			</Modal.Footer>
-		</>
-	)
-}
-
-interface FarmListItemProps {
-	farm: FarmWithStakedValue
-	operation: string
-}
-
 interface StakeProps {
 	lpContract: Contract
 	lpTokenAddress: string
@@ -146,7 +72,7 @@ export const Stake: React.FC<StakeProps> = ({
 	const bao = useBao()
 	const { account } = useWeb3React()
 	const [val, setVal] = useState('')
-	const { pendingTx, handleTx, txSuccess } = useTransactionHandler()
+	const { pendingTx, handleTx } = useTransactionHandler()
 
 	const fullBalance = useMemo(() => {
 		return getFullDisplayBalance(max)
@@ -175,7 +101,6 @@ export const Stake: React.FC<StakeProps> = ({
 	const [requestedApproval, setRequestedApproval] = useState(false)
 
 	const allowance = useAllowance(lpContract)
-	const { onApprove } = useApprove(lpContract)
 
 	const masterChefContract = getMasterChefContract(bao)
 
@@ -200,7 +125,7 @@ export const Stake: React.FC<StakeProps> = ({
 								<MaxLabel>Balance:</MaxLabel>
 								<AssetLabel>
 									{fullBalance}{' '}
-									<a href={pairUrl}>
+									<a href={pairUrl} target="_blank" rel="noopener noreferrer">
 										{' '}
 										{tokenName}{' '}
 										<FontAwesomeIcon
@@ -418,7 +343,7 @@ export const Unstake: React.FC<UnstakeProps> = ({
 								<MaxLabel>Balance:</MaxLabel>
 								<AssetLabel>
 									{fullBalance}{' '}
-									<a href={pairUrl}>
+									<a href={pairUrl} rel="noopener noreferrer">
 										{' '}
 										{tokenName}{' '}
 										<FontAwesomeIcon
@@ -502,6 +427,75 @@ export const Unstake: React.FC<UnstakeProps> = ({
 				show={showFeeModal}
 				onHide={() => setShowFeeModal(false)}
 			/>
+		</>
+	)
+}
+
+interface RewardsProps {
+	pid: number
+}
+
+export const Rewards: React.FC<RewardsProps> = ({ pid }) => {
+	const bao = useBao()
+	const earnings = useEarnings(pid)
+	const { account } = useWeb3React()
+	const { pendingTx, handleTx } = useTransactionHandler()
+	const masterChefContract = getMasterChefContract(bao)
+
+	return (
+		<>
+			<FarmModalBody>
+				<EarningsWrapper>
+					<BalanceContent>
+						<BalanceImage>
+							<img src={baoIcon} />
+						</BalanceImage>
+						<BalanceSpacer />
+						<BalanceText>
+							<BalanceValue>{getDisplayBalance(earnings)}</BalanceValue>
+						</BalanceText>
+					</BalanceContent>
+				</EarningsWrapper>
+			</FarmModalBody>
+			<Modal.Footer>
+				<ButtonStack>
+					<>
+						{pendingTx ? (
+							<SubmitButton disabled={true}>
+								{typeof pendingTx === 'string' ? (
+									<a
+										href={`${Config.defaultRpc.blockExplorerUrls}/tx/${pendingTx}`}
+										target="_blank"
+									>
+										Pending Transaction{' '}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</a>
+								) : (
+									'Pending Transaction'
+								)}
+							</SubmitButton>
+						) : (
+							<SubmitButton
+								disabled={!earnings.toNumber()}
+								onClick={async () => {
+									let harvestTx
+
+									harvestTx = masterChefContract.methods
+										.claimReward(pid)
+										.send({ from: account })
+
+									handleTx(
+										harvestTx,
+										`Harvest ${getDisplayBalance(earnings)} POLLY`,
+									)
+								}}
+							>
+								Harvest POLLY
+							</SubmitButton>
+						)}
+					</>
+				</ButtonStack>
+			</Modal.Footer>
 		</>
 	)
 }
