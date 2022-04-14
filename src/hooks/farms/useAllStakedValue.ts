@@ -10,7 +10,7 @@ import {
 } from 'bao/utils'
 import { getContract } from 'utils/erc20'
 import useBao from 'hooks/base/useBao'
-import useBlock from 'hooks/base/useBlock'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
 
 export interface StakedValue {
   tokenAmount: BigNumber
@@ -27,7 +27,7 @@ const useAllStakedValue = (): StakedValue[] => {
   const farms = getFarms(bao)
   const masterChefContract = getMasterChefContract(bao)
   const wethContract = getWethContract(bao)
-  const block = useBlock()
+  const { transactions } = useTransactionProvider()
 
   const fetchAllStakedValue = useCallback(async () => {
     const balances: Array<StakedValue> = await Promise.all(
@@ -50,7 +50,7 @@ const useAllStakedValue = (): StakedValue[] => {
     if (account && masterChefContract && bao) {
       fetchAllStakedValue()
     }
-  }, [account, block, masterChefContract, setBalance, bao])
+  }, [account, transactions, masterChefContract, setBalance, bao])
 
   return balances
 }

@@ -3,14 +3,15 @@ import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { getMasterChefContract, getStaked } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
-import useBlock from 'hooks/base/useBlock'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
 
 const useStakedBalance = (pid: number) => {
   const [balance, setBalance] = useState(new BigNumber(0))
   const { account } = useWeb3React()
   const bao = useBao()
   const masterChefContract = getMasterChefContract(bao)
-  const block = useBlock()
+  const { transactions } = useTransactionProvider()
+
   let userBalance
 
   const fetchBalance = useCallback(async () => {
@@ -24,7 +25,7 @@ const useStakedBalance = (pid: number) => {
     if (account && bao) {
       fetchBalance()
     }
-  }, [account, pid, setBalance, block, bao])
+  }, [account, pid, setBalance, transactions, bao])
 
   return balance.decimalPlaces(18)
 }

@@ -5,13 +5,13 @@ import MultiCall from 'utils/multicall'
 import { decimate, exponentiate } from 'utils/numberFormat'
 import useBao from 'hooks/base/useBao'
 import Config from 'bao/lib/config'
-import useBlock from 'hooks/base/useBlock'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
 
 const useNestRate = (nestAddress: string) => {
   const bao = useBao()
   const recipeContract = getRecipeContract(bao)
   const wethAddress = Config.addressMap.WETH
-  const block = useBlock()
+  const { transactions } = useTransactionProvider()
 
   const [wethPerIndex, setWethPerIndex] = useState<BigNumber | undefined>()
   const [wethPrice, setWethPrice] = useState<BigNumber | undefined>()
@@ -55,7 +55,7 @@ const useNestRate = (nestAddress: string) => {
 
   useEffect(() => {
     nestRate()
-  }, [bao, block, wethAddress, nestAddress])
+  }, [bao, transactions, wethAddress, nestAddress])
 
   return {
     wethPerIndex,

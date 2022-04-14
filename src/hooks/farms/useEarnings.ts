@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { provider } from 'web3-core'
 import { getEarned, getMasterChefContract } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
 import useBlock from 'hooks/base/useBlock'
