@@ -6,6 +6,7 @@ import { SpinnerLoader } from 'components/Loader'
 import Tooltipped from 'components/Tooltipped'
 import { Nest } from 'contexts/Nests'
 import { IndexType } from 'contexts/Nests/types'
+import useBao from 'hooks/base/useBao'
 import useComposition from 'hooks/baskets/useComposition'
 import useGraphPriceHistory from 'hooks/baskets/useGraphPriceHistory'
 import useNestRate from 'hooks/baskets/useNestRate'
@@ -18,6 +19,7 @@ import { getDisplayBalance } from 'utils/numberFormat'
 
 export const NestList: React.FC = () => {
 	const [nests] = useNests()
+	const bao = useBao()
 
 	const indexes: { [key: string]: Nest[] } = {
 		[IndexType.NESTS]: [],

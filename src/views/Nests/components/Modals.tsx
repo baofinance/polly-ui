@@ -169,7 +169,8 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 
 	const hideModal = useCallback(() => {
 		onHide()
-		setVal('')
+		setNestAmount('')
+		setWethNeeded('')
 	}, [onHide])
 
 	return (
@@ -180,7 +181,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						Issue <img src={nestIcon} style={{ marginLeft: '10px' }} ref="Nest Icon" />{' '}
+						Issue <img src={nestIcon} style={{ marginLeft: '10px' }} />{' '}
 						<p style={{ fontSize: '0.875rem', verticalAlign: 'top' }}>
 							<Tooltipped
 								placement="right"

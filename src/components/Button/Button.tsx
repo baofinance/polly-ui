@@ -422,7 +422,7 @@ export const SubmitButton = styled.button`
 	border-bottom: 1px solid ${(props) => props.theme.color.primary[400]};
 	box-shadow: ${(props) => props.theme.boxShadow.default};
 	background-color: ${(props) => props.theme.color.primary[200]};
-	outline: transparent solid 2px;
+	outline: none;
 	color: ${(props) => props.theme.color.text[100]};
 	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 	transition: 200ms;
