@@ -6,12 +6,14 @@ import { Contract } from 'web3-eth-contract'
 import Config from 'bao/lib/config'
 import useBao from './useBao'
 import useTransactionProvider from './useTransactionProvider'
+import useBlock from './useBlock'
 
 const useAllowance = (lpContract: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
   const { account } = useWeb3React()
   const bao = useBao()
   const { transactions } = useTransactionProvider()
+  const block = useBlock()
 
   const fetchAllowance = useCallback(async () => {
     const allowance = await getAllowance(
@@ -28,7 +30,7 @@ const useAllowance = (lpContract: Contract) => {
     }
     const refreshInterval = setInterval(fetchAllowance, 10000)
     return () => clearInterval(refreshInterval)
-  }, [account, lpContract, bao, transactions])
+  }, [account, lpContract, bao, transactions, block])
 
   return allowance
 }

@@ -7,12 +7,14 @@ import { Contract } from 'web3-eth-contract'
 import Config from 'bao/lib/config'
 import useBao from 'hooks/base/useBao'
 import useTransactionProvider from 'hooks/base/useTransactionProvider'
+import useBlock from 'hooks/base/useBlock'
 
 const useOutputAllowance = (nestContract: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
   const { account } = useWeb3React()
   const bao = useBao()
   const { transactions } = useTransactionProvider()
+  const block = useBlock()
 
   const fetchAllowance = useCallback(async () => {
     const allowance = await getAllowance(
@@ -29,7 +31,7 @@ const useOutputAllowance = (nestContract: Contract) => {
     }
     const refreshInterval = setInterval(fetchAllowance, 10000)
     return () => clearInterval(refreshInterval)
-  }, [bao, account, nestContract, transactions])
+  }, [bao, account, nestContract, transactions, block])
 
   return allowance
 }

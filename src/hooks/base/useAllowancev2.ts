@@ -5,11 +5,13 @@ import useBao from './useBao'
 import { getAllowance } from 'utils/erc20'
 import { BigNumber } from 'bignumber.js'
 import useTransactionProvider from './useTransactionProvider'
+import useBlock from './useBlock'
 
 const useAllowancev2 = (tokenAddress: string, spenderAddress: string) => {
   const { account } = useWeb3React()
   const bao = useBao()
   const { transactions } = useTransactionProvider()
+  const block = useBlock()
   const [allowance, setAllowance] = useState<BigNumber | undefined>()
 
   const _getAllowance: any = useCallback(async () => {
@@ -28,7 +30,7 @@ const useAllowancev2 = (tokenAddress: string, spenderAddress: string) => {
 
   useEffect(() => {
     _getAllowance()
-  }, [account, tokenAddress, spenderAddress, transactions, bao])
+  }, [account, tokenAddress, spenderAddress, transactions, bao, block])
 
   return allowance
 }
