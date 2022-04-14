@@ -16,7 +16,7 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, bao: Bao) => {
     await multicall.call(
       Multicall.createCallContext(
         farms.map((farm) =>
-          farm.pid === 14 || farm.pid === 23 // single asset farms (TODO: make single asset a config field)
+          farm.pid === 14 || farm.pid === 23 || farm.pid === 27 || farm.pid === 28 // single asset farms (TODO: make single asset a config field)
             ? ({
                 ref: farm.lpAddresses[Config.networkId],
                 contract: new bao.web3.eth.Contract(
@@ -62,7 +62,9 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, bao: Bao) => {
 
     if (
       key.toLowerCase() === Config.addressMap.nDEFI.toLowerCase() ||
-      key.toLowerCase() === Config.addressMap.nSTBL.toLowerCase()
+      key.toLowerCase() === Config.addressMap.nSTBL.toLowerCase() ||
+      key.toLowerCase() === Config.addressMap.nPOLY.toLowerCase() ||
+      key.toLowerCase() === Config.addressMap.nINFR.toLowerCase()
     )
       return {
         singleAsset: true,
@@ -108,6 +110,8 @@ const useAllFarmTVL = (bao: Bao, multicall: MC) => {
       Config.addressMap.RAI,
       Config.addressMap.nDEFI,
       Config.addressMap.nSTBL,
+      Config.addressMap.nPOLY,
+      Config.addressMap.nINFR,
     ])
 
     const tvls: any[] = []

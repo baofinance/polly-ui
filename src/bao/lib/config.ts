@@ -134,7 +134,7 @@ export default {
       outputToken: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
       symbol: 'nINFR',
       name: 'nINFR',
-      icon: '/nINFRA.png',
+      icon: '/nINFR.png',
       pieColors: {
         WETH: '#d05555',
         LINK: '#2A5AD9',
@@ -221,6 +221,84 @@ export default {
         'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x4C392822D4bE8494B798cEA17B43d48B2308109C',
       pairUrl:
         'https://app.sushi.com/legacy/add/0x00e5646f60ac6fb446f621d146b6e1886f002905/0x4C392822D4bE8494B798cEA17B43d48B2308109C',
+    },
+    {
+      pid: 27,
+      lpAddresses: {
+        137: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      },
+      tokenAddresses: {
+        137: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      },
+      tokenDecimals: 18,
+      name: 'nPOLY',
+      symbol: 'nPOLY',
+      tokenSymbol: 'nPOLY',
+      poolType: 'active',
+      iconA: '/nPOLY.png',
+      iconB: null,
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      pairUrl: '/nests/4',
+    },
+    {
+      pid: 25,
+      lpAddresses: {
+        137: '0x55674956a8407ed694Ad3a68edf65B52e5A65ae5',
+      },
+      tokenAddresses: {
+        137: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      },
+      tokenDecimals: 18,
+      name: 'nPOLY-ETH',
+      symbol: 'SLP',
+      tokenSymbol: 'nPOLY',
+      poolType: 'active',
+      iconA: '/nPOLY.png',
+      iconB: '/WETH.png',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      pairUrl:
+        'https://app.sushi.com/legacy/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+    },
+    {
+      pid: 28,
+      lpAddresses: {
+        137: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      },
+      tokenAddresses: {
+        137: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      },
+      tokenDecimals: 18,
+      name: 'nINFR',
+      symbol: 'nINFR',
+      tokenSymbol: 'nINFR',
+      poolType: 'active',
+      iconA: '/nINFR.png',
+      iconB: null,
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      pairUrl: '/nests/3',
+    },
+    {
+      pid: 26,
+      lpAddresses: {
+        137: '0xEA502Bd4f454690E7baf347E2C2b1476e5FcD6C7',
+      },
+      tokenAddresses: {
+        137: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      },
+      tokenDecimals: 18,
+      name: 'nINFR-ETH',
+      symbol: 'SLP',
+      tokenSymbol: 'nINFR',
+      poolType: 'active',
+      iconA: '/nINFR.png',
+      iconB: '/WETH.png',
+      refUrl:
+        'https://app.sushi.com/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      pairUrl:
+        'https://app.sushi.com/legacy/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
     },
     {
       pid: 14,
