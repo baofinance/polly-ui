@@ -332,7 +332,7 @@ const NavButton = styled.button`
 	border: none;
 	border-bottom: none;
 	box-shadow: ${(props) => props.theme.boxShadow.default};
-	background: ${(props) => props.theme.color.transparent[100]};
+	background: ${(props) => props.theme.color.primary[200]};
 
 	&:focus {
 		outline: 0;
