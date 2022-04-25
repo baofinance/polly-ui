@@ -22,7 +22,8 @@ export class Bao {
   public readonly networkId: number
   public readonly contracts: Contracts
   public readonly web3: Web3
-  public readonly multicall: MC
+  public multicall: MC
+  public provider: provider
   operation: SetsNetworkId
 
   constructor(
@@ -79,5 +80,6 @@ export class Bao {
     this.web3.setProvider(provider)
     this.contracts.setProvider(provider, networkId)
     this.operation.setNetworkId(networkId)
+    this.provider = provider
   }
 }

@@ -68,7 +68,6 @@ const useReservesPrices = () => {
   }, [bao, farms])
 
   useEffect(() => {
-    console.log(farms, bao)
     if (farms && bao) fetchPrices()
   }, [bao, farms])
 
