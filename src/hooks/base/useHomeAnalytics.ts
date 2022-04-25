@@ -8,6 +8,8 @@ import MultiCall from 'utils/multicall'
 import { getBalanceNumber, truncateNumber } from 'utils/numberFormat'
 import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useBao from './useBao'
+import useGeckoPrices from '../baskets/useGeckoPrices'
+import useReservesPrices from "../baskets/useReservesPrices";
 
 const useHomeAnalytics = () => {
   const [analytics, setAnalytics] = useState<
@@ -19,14 +21,16 @@ const useHomeAnalytics = () => {
   >()
 
   const bao = useBao()
+  const geckoPrices = useGeckoPrices()
+  const reservesPrices = useReservesPrices()
   const multicall = bao && bao.multicall
 
   const farmTVL = useAllFarmTVL(bao, multicall)
 
   const fetchAnalytics = useCallback(async () => {
-    if (!(farmTVL && bao)) return
+    if (!(farmTVL && bao && geckoPrices && reservesPrices)) return
 
-    const ethPrice = await GraphUtil.getPrice(Config.addressMap.WETH)
+    const ethPrice = geckoPrices[Config.addressMap.WETH]
     const multicallContext = []
     for (const nest of Config.nests) {
       const nestAddress: any =
@@ -50,7 +54,7 @@ const useHomeAnalytics = () => {
     let totalNestUsd = new BigNumber(0)
     for (const nestAddress of Object.keys(results)) {
       const _price =
-        (await GraphUtil.getPriceFromPair(ethPrice, nestAddress)) ||
+        reservesPrices[nestAddress.toLowerCase()] ||
         new BigNumber(0)
       const _supply = getBalanceNumber(
         new BigNumber(results[nestAddress][1].values[0].hex),
@@ -81,11 +85,11 @@ const useHomeAnalytics = () => {
         ),
       },
     ])
-  }, [farmTVL, bao])
+  }, [farmTVL, bao, geckoPrices, reservesPrices])
 
   useEffect(() => {
     fetchAnalytics()
-  }, [farmTVL, bao])
+  }, [farmTVL, bao, geckoPrices, reservesPrices])
 
   return analytics
 }

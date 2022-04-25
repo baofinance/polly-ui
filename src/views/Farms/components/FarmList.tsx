@@ -25,7 +25,7 @@ export interface FarmWithStakedValue extends Farm {
 
 export const FarmList: React.FC = () => {
 	const bao = useBao()
-	const [farms] = useFarms()
+	const farms = useFarms()
 	const farmsTVL = useAllFarmTVL(bao, bao && bao.multicall)
 	const { account } = useWeb3React()
 
@@ -45,12 +45,10 @@ export const FarmList: React.FC = () => {
 	const [staked, showStaked] = useState(false)
 
 	useEffect(() => {
-		GraphUtil.getPrice(Config.addressMap.WETH).then(async (wethPrice) => {
-			const pollyPrice = await GraphUtil.getPriceFromPair(
-				wethPrice,
-				Config.contracts.polly[Config.networkId].address,
-			)
-			setPollyPrice(pollyPrice)
+		fetch(
+			'https://api.coingecko.com/api/v3/simple/price?ids=polly&vs_currencies=usd',
+		).then(async (res) => {
+			setPollyPrice(new BigNumber((await res.json())['polly'].usd))
 		})
 
 		const _pools: any = {

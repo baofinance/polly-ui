@@ -29,6 +29,9 @@ export interface SupportedNest {
   symbol: string
   name: string
   icon: string
+  cgIds: {
+    [address: string]: string
+  }
   pieColors: {
     [asset: string]: string
   }

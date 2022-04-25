@@ -9,52 +9,58 @@ import { getBalance, getContract, getCreamContract } from 'utils/erc20'
 import GraphClient from 'utils/graph'
 import MultiCall from 'utils/multicall'
 import { decimate, getBalanceNumber } from 'utils/numberFormat'
+import useGeckoPrices from './useGeckoPrices'
 
 const useComposition = (nest: Nest) => {
   const [composition, setComposition] = useState<
     Array<NestComponent> | undefined
   >()
+  const prices = useGeckoPrices()
   const bao = useBao()
 
   useEffect(() => {
-    if (!(nest && nest.nestContract && nest.pieColors)) return
+    if (!(nest && nest.nestContract && nest.pieColors && prices && Object.keys(prices).length > 0)) return
 
     nest.nestContract.methods
       .getTokens()
       .call()
       .then(async (tokenComposition: string[]) => {
-        const prices: any = await GraphClient.getPriceHistoryMultiple(
+        const graphPrices: any = await GraphClient.getPriceHistoryMultiple(
           tokenComposition.map((tokenAddress: string) =>
             _getTokenAddress(tokenAddress),
           ),
         )
-        const wethPrice = await getWethPriceLink(bao)
 
         const res = await Promise.all(
           tokenComposition.map(async (component: any) => {
             const specialCaseToken = _getTokenAddress(component).toLowerCase()
-            const graphData = _.find(
-              prices.tokens,
+            let graphData = _.find(
+              graphPrices.tokens,
               (token) => token.id === specialCaseToken,
             )
 
-            if (!graphData) return
+            if (!graphData) {
+              if (component === '0xFbdd194376de19a88118e84E279b977f165d01b8') {
+                graphData = {
+                  id: component.toLowerCase(),
+                  name: 'Beefy Finance',
+                  symbol: 'BIFI',
+                  decimals: 18
+                }
+              }
+            }
 
             const imageUrl = require(`assets/img/assets/${_getImageURL(
               graphData.symbol,
             )}.png`)
 
-            let price = graphData.dayData[0].priceUSD,
+            let price = prices[component.toLowerCase()],
               basePrice,
               baseBalance
-            if (price === '0')
-              price = await GraphClient.getPriceFromPair(
-                wethPrice,
-                graphData.id,
-              )
 
             let specialSymbol, specialDecimals, componentBalance
             if (component.toLowerCase() !== specialCaseToken) {
+              price = prices[SPECIAL_TOKEN_ADDRESSES[component.toLowerCase()]]
               const specialContract = getContract(bao, component.toLowerCase())
 
               const mcContracts = [
@@ -75,7 +81,7 @@ const useComposition = (nest: Nest) => {
                 Object.keys(SPECIAL_TOKEN_ADDRESSES).includes(
                   component.toLowerCase(),
                 )
-              )
+              ) {
                 mcContracts.push(
                   {
                     ref: 'creamContract',
@@ -103,6 +109,7 @@ const useComposition = (nest: Nest) => {
                     ],
                   },
                 )
+              }
               const _multicallContext = MultiCall.createCallContext(mcContracts)
               const {
                 specialContract: results,
@@ -205,7 +212,7 @@ const useComposition = (nest: Nest) => {
           ),
         )
       })
-  }, [bao, nest])
+  }, [bao, nest, prices])
 
   return composition
 }

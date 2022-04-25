@@ -35,6 +35,7 @@ export interface Nest {
   icon: string
   indexType?: IndexType
   pieColors: any
+  cgIds: any
 }
 
 export interface NestsContext {

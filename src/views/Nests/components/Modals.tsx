@@ -47,7 +47,7 @@ interface IssueModalProps extends ModalProps {
 	outputTokenContract: Contract
 	_inputToken?: string
 	_outputToken?: string
-	nav: { nav: BigNumber; mainnetNav: BigNumber }
+	nav: { nav: BigNumber }
 	show: boolean
 	onHide: () => void
 }
@@ -83,18 +83,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	const { onApprove: onApproveIssue } = useApprovev2(
 		wethContract,
 		recipeContract,
-	)
-
-	const navDifferenceTooHigh = useMemo(
-		() =>
-			nav &&
-			nav.nav
-				.minus(nav.mainnetNav)
-				.div(nav.nav)
-				.times(100)
-				.abs()
-				.gt((nestName === 'nSTBL' && '2') || '5'),
-		[nestName, nav],
 	)
 
 	const fetchRate = async () => {
@@ -192,19 +180,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{navDifferenceTooHigh && nestName !== 'nPOLY' && (
-					<Disclaimer>
-						<p style={{ fontSize: '0.875rem' }}>
-							The difference between NAV on mainnet ($
-							{getDisplayBalance(nav.mainnetNav, 0)}) and NAV on MATIC ($
-							{getDisplayBalance(nav.nav, 0)}) is greater than (
-							{(nestName === 'nSTBL' && '2%') || '5%'}). Minting from the UI is
-							disabled until underlying asset prices are arbitraged within the (
-							{(nestName === 'nSTBL' && '2%') || '5%'}) range in order to
-							prevent loss of funds.
-						</p>
-					</Disclaimer>
-				)}
 				{nestName === 'nSTBL' && (
 					<>
 						<Disclaimer>
@@ -391,7 +366,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 											parseFloat(wethNeeded) >
 												wethBalance.div(10 ** 18).toNumber() ||
 											!nav ||
-											navDifferenceTooHigh ||
 											(nestName === 'nSTBL' && parseFloat(nestAmount) > 10000)
 										}
 										onClick={async () => {
@@ -504,7 +478,12 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 			<Modal.Header>
 				<Modal.Title id="contained-modal-title-vcenter">
 					<HeaderWrapper>
-						Redeem <img src={nestIcon} style={{ marginLeft: '10px' }} alt="Nest Icon" />
+						Redeem{' '}
+						<img
+							src={nestIcon}
+							style={{ marginLeft: '10px' }}
+							alt="Nest Icon"
+						/>
 					</HeaderWrapper>
 				</Modal.Title>
 			</Modal.Header>
@@ -712,6 +691,7 @@ export const CloseButton = styled.a`
 	font-size: 1.5rem;
 	position: absolute;
 	color: ${(props) => props.theme.color.text[100]};
+
 	&:hover {
 		cursor: pointer;
 	}

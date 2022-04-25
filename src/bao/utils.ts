@@ -55,6 +55,7 @@ export const getNests = (bao: Bao) => {
           icon,
           nestAddress,
           nestContract,
+          cgIds,
           pieColors,
         }) => ({
           nid,
@@ -62,6 +63,7 @@ export const getNests = (bao: Bao) => {
           name,
           icon,
           nestContract,
+          cgIds,
           pieColors,
           nestTokenAddress: nestAddress,
           inputToken: 'wETH',

@@ -18,8 +18,7 @@ import 'react-tabs/style/react-tabs.css'
 import { getDisplayBalance } from 'utils/numberFormat'
 
 export const NestList: React.FC = () => {
-	const [nests] = useNests()
-	const bao = useBao()
+	const nests = useNests()
 
 	const indexes: { [key: string]: Nest[] } = {
 		[IndexType.NESTS]: [],

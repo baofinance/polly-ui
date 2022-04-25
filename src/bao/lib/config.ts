@@ -37,7 +37,7 @@ export default {
     nINFR: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
     nPOLY: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
     RAI: '0x00e5646f60ac6fb446f621d146b6e1886f002905',
-    KLIMA: '0x4e78011Ce80ee02d2c3e649Fb657E45898257815',
+    KLIMA: '0x4e78011ce80ee02d2c3e649fb657e45898257815',
     DEAD: '0x000000000000000000000000000000000000dead',
   },
   contracts: {
@@ -100,6 +100,13 @@ export default {
       symbol: 'nDEFI',
       name: 'nDEFI',
       icon: '/ndefi.svg',
+      cgIds: {
+        '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a': 'sushi',
+        '0x172370d5Cd63279eFa6d502DAB29171933a610AF': 'curve-dao-token',
+        '0xD6DF932A45C0f255f85145f286eA0b292B21C90B': 'aave',
+        '0xb33EaAd8d922B1083446DC23f610c2567fB5180f': 'uniswap',
+        '0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3': 'balancer',
+      },
       pieColors: {
         SUSHI: '#DB5FA9',
         CRV: '#F2E308',
@@ -118,6 +125,12 @@ export default {
       symbol: 'nSTBL',
       name: 'nSTBL',
       icon: '/nstbl.svg',
+      cgIds: {
+        '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063': 'dai',
+        '0xc2132D05D31c914a87C6611C10748AEb04B58e8F': 'tether',
+        '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174': 'usd-coin',
+        '0x00e5646f60AC6Fb446f621d146B6E1886f002905': 'rai',
+      },
       pieColors: {
         DAI: '#F5AC37',
         USDT: '#50AF95',
@@ -135,6 +148,12 @@ export default {
       symbol: 'nINFR',
       name: 'nINFR',
       icon: '/nINFR.png',
+      cgIds: {
+        '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619': 'weth',
+        '0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39': 'chainlink',
+        '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270': 'wmatic',
+        '0x5fe2B58c013d7601147DcdD68C143A77499f5531': 'the-graph',
+      },
       pieColors: {
         WETH: '#d05555',
         LINK: '#2A5AD9',
@@ -152,6 +171,12 @@ export default {
       symbol: 'nPOLY',
       name: 'nPOLY',
       icon: '/nPOLY.png',
+      cgIds: {
+        '0x4e78011ce80ee02d2c3e649fb657e45898257815': 'klima-dao',
+        '0xFbdd194376de19a88118e84E279b977f165d01b8': 'beefy-finance',
+        '0x831753DD7087CaC61aB5644b308642cc1c33Dc13': 'quick',
+        '0x580a84c73811e1839f75d86d75d88cca0c241ff4': 'qi-dao',
+      },
       pieColors: {
         KLIMA: '#0c3',
         BIFI: '#F9F3EB',

@@ -9,7 +9,6 @@ import SecuritySection from './components/SecuritySection'
 import { BubbleContainer, BubbleWrap } from './components/styles'
 import Spacer from 'components/Spacer'
 
-
 const Home: React.FC = () => {
 	const bubbleRef = useRef()
 

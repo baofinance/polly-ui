@@ -4,7 +4,12 @@ import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { getWethContract } from 'bao/utils'
 import BigNumber from 'bignumber.js'
-import { Button, CornerButtons, CornerButton, PrefButtons } from 'components/Button'
+import {
+	Button,
+	CornerButtons,
+	CornerButton,
+	PrefButtons,
+} from 'components/Button'
 import { PriceGraph, GraphContainer, PieGraphRow } from 'components/Graphs'
 import AreaGraph from 'components/Graphs/AreaGraph/AreaGraph'
 import DonutGraph from 'components/Graphs/PieGraph'
@@ -42,6 +47,7 @@ import {
 import { StyledTable } from 'components/Table'
 import { StatsRow, StatCard } from 'components/Stats/Stats'
 import { PriceBadge, StyledBadge } from 'components/Badge'
+import useReservesPrices from '../../hooks/baskets/useReservesPrices'
 
 const Nest: React.FC = () => {
 	const { nestId }: any = useParams()
@@ -67,7 +73,11 @@ const Nest: React.FC = () => {
 	const { wethPrice, usdPerIndex } = useNestRate(nestTokenAddress)
 	const priceHistory = useGraphPriceHistory(nest)
 	const nav = useNav(composition, supply)
-	const sushiPairPrice = usePairPrice(nest)
+	const reservePrices = useReservesPrices()
+	const sushiPairPrice = useMemo(
+		() => reservePrices && reservePrices[nestTokenAddress.toLowerCase()],
+		[reservePrices],
+	)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -205,7 +215,8 @@ const Nest: React.FC = () => {
 							>
 								<StyledBadge
 									style={{
-										marginRight: `${(props: { theme: { spacing: any[] } }) => props.theme.spacing[2]}px`,
+										marginRight: `${(props: { theme: { spacing: any[] } }) =>
+											props.theme.spacing[2]}px`,
 									}}
 								>
 									<img
@@ -218,17 +229,6 @@ const Nest: React.FC = () => {
 									)}
 								</StyledBadge>
 							</Tooltipped>
-							<span style={{ marginLeft: '5px' }} />
-							{nestTokenAddress !== Config.addressMap.nPOLY && (
-								<Tooltipped content={"Based on SushiSwap's Mainnet prices"}>
-									<StyledBadge>
-										<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
-										{(nav && `$${getDisplayBalance(nav.mainnetNav, 0)}`) || (
-											<SpinnerLoader />
-										)}
-									</StyledBadge>
-								</Tooltipped>
-							)}
 						</StatCard>
 					</Col>
 					<Col>

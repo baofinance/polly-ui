@@ -3,7 +3,7 @@ import { useContext } from 'react'
 
 const useNests = () => {
   const { nests } = useContext(NestsContext)
-  return [nests]
+  return nests
 }
 
 export default useNests

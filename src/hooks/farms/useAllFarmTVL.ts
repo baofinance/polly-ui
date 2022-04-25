@@ -1,22 +1,25 @@
 import BigNumber from 'bignumber.js/bignumber'
 import { Multicall as MC } from 'ethereum-multicall'
 import { useCallback, useEffect, useState } from 'react'
-import Web3 from 'web3'
 import { AbiItem } from 'web3-utils'
 import erc20Abi from 'bao/lib/abi/erc20.json'
 import lpAbi from 'bao/lib/abi/uni_v2_lp.json'
 import Config from 'bao/lib/config'
-import GraphUtil from 'utils/graph'
 import Multicall from 'utils/multicall'
 import { decimate } from 'utils/numberFormat'
 import { Bao } from 'bao'
+import useReservesPrices from '../baskets/useReservesPrices'
+import useGeckoPrices from '../baskets/useGeckoPrices'
 
 export const fetchLPInfo = async (farms: any[], multicall: MC, bao: Bao) => {
   const results = Multicall.parseCallResults(
     await multicall.call(
       Multicall.createCallContext(
         farms.map((farm) =>
-          farm.pid === 14 || farm.pid === 23 || farm.pid === 27 || farm.pid === 28 // single asset farms (TODO: make single asset a config field)
+          farm.pid === 14 ||
+          farm.pid === 23 ||
+          farm.pid === 27 ||
+          farm.pid === 28 // single asset farms (TODO: make single asset a config field)
             ? ({
                 ref: farm.lpAddresses[Config.networkId],
                 contract: new bao.web3.eth.Contract(
@@ -102,17 +105,12 @@ export const fetchLPInfo = async (farms: any[], multicall: MC, bao: Bao) => {
 
 const useAllFarmTVL = (bao: Bao, multicall: MC) => {
   const [tvl, setTvl] = useState<any | undefined>()
+  const geckoPrices = useGeckoPrices()
+  const tokenPrices = useReservesPrices()
 
   const fetchAllFarmTVL = useCallback(async () => {
     const lps: any = await fetchLPInfo(Config.farms, multicall, bao)
-    const wethPrice = await GraphUtil.getPrice(Config.addressMap.WETH)
-    const tokenPrices = await GraphUtil.getPriceFromPairMultiple(wethPrice, [
-      Config.addressMap.RAI,
-      Config.addressMap.nDEFI,
-      Config.addressMap.nSTBL,
-      Config.addressMap.nPOLY,
-      Config.addressMap.nINFR,
-    ])
+    const wethPrice = geckoPrices[Config.addressMap.WETH.toLowerCase()]
 
     const tvls: any[] = []
     let _tvl = new BigNumber(0)
@@ -120,11 +118,7 @@ const useAllFarmTVL = (bao: Bao, multicall: MC) => {
       let lpStakedUSD
       if (lpInfo.singleAsset) {
         lpStakedUSD = decimate(lpInfo.lpStaked).times(
-          Object.values(tokenPrices).find(
-            (priceInfo) =>
-              priceInfo.address.toLowerCase() ===
-              lpInfo.lpAddress.toLowerCase(),
-          ).price,
+          tokenPrices[lpInfo.lpAddress.toLowerCase()],
         )
         _tvl = _tvl.plus(lpStakedUSD)
       } else {
@@ -159,18 +153,9 @@ const useAllFarmTVL = (bao: Bao, multicall: MC) => {
           specialPair
         )
           // POLLY-nDEFI pair
-          tokenPrice = Object.values(tokenPrices).find(
-            (priceInfo) =>
-              priceInfo.address.toLowerCase() ===
-              Config.addressMap.nDEFI.toLowerCase(),
-          ).price
+          tokenPrice = tokenPrices[Config.addressMap.nDEFI.toLowerCase()]
         // *-RAI pair
-        else
-          tokenPrice = Object.values(tokenPrices).find(
-            (priceInfo) =>
-              priceInfo.address.toLowerCase() ===
-              Config.addressMap.RAI.toLowerCase(),
-          ).price
+        else tokenPrice = geckoPrices[Config.addressMap.RAI.toLowerCase()]
 
         lpStakedUSD = token.balance
           .times(tokenPrice)
@@ -189,14 +174,14 @@ const useAllFarmTVL = (bao: Bao, multicall: MC) => {
       tvl: _tvl,
       tvls,
     })
-  }, [bao, multicall])
+  }, [bao, multicall, tokenPrices, geckoPrices])
 
   useEffect(() => {
     // Only fetch TVL once per page load
-    if (!(bao && multicall) || tvl) return
+    if (!(bao && multicall && tokenPrices && geckoPrices) || tvl) return
 
     fetchAllFarmTVL()
-  }, [bao, multicall])
+  }, [bao, multicall, tokenPrices, geckoPrices])
 
   return tvl
 }

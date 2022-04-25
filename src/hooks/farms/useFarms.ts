@@ -3,7 +3,7 @@ import { useContext } from 'react'
 
 const useFarms = () => {
   const { farms } = useContext(FarmsContext)
-  return [farms]
+  return farms
 }
 
 export default useFarms

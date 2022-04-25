@@ -34,7 +34,7 @@ const PendingRewards: React.FC = () => {
 			.toNumber()
 	}
 
-	const [farms] = useFarms()
+	const farms = useFarms()
 	const allStakedValue = useAllStakedValue()
 
 	if (allStakedValue && allStakedValue.length) {
@@ -88,6 +88,7 @@ const Balances: React.FC = () => {
 			const supply = await getPollySupply(bao)
 			setTotalSupply(supply)
 		}
+
 		if (bao) {
 			fetchTotalSupply()
 		}
@@ -95,12 +96,10 @@ const Balances: React.FC = () => {
 
 	useEffect(() => {
 		if (!bao) return
-		GraphUtil.getPrice(Config.addressMap.WETH).then(async (wethPrice) => {
-			const pollyPrice = await GraphUtil.getPriceFromPair(
-				wethPrice,
-				Config.contracts.polly[Config.networkId].address,
-			)
-			setPollyPrice(pollyPrice)
+		fetch(
+			'https://api.coingecko.com/api/v3/simple/price?ids=polly&vs_currencies=usd',
+		).then(async (res) => {
+			setPollyPrice(new BigNumber((await res.json())['polly'].usd))
 		})
 	}, [bao, setPollyPrice])
 
