@@ -30,7 +30,6 @@ const useHomeAnalytics = () => {
   const fetchAnalytics = useCallback(async () => {
     if (!(farmTVL && bao && geckoPrices && reservesPrices)) return
 
-    const ethPrice = geckoPrices[Config.addressMap.WETH]
     const multicallContext = []
     for (const nest of Config.nests) {
       const nestAddress: any =

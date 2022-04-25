@@ -1,5 +1,4 @@
 import { useWeb3React } from '@web3-react/core'
-import Config from 'bao/lib/config'
 import { getPollySupply } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import { SpinnerLoader } from 'components/Loader'
@@ -18,7 +17,6 @@ import useLockedEarnings from 'hooks/farms/useLockedEarnings'
 import React, { Fragment, useEffect, useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import CountUp from 'react-countup'
-import GraphUtil from 'utils/graph'
 import { getDisplayBalance } from 'utils/numberFormat'
 
 const PendingRewards: React.FC = () => {
@@ -84,14 +82,12 @@ const Balances: React.FC = () => {
 	const locks = useLockedEarnings()
 
 	useEffect(() => {
-		async function fetchTotalSupply() {
+		const fetchTotalSupply = async () => {
 			const supply = await getPollySupply(bao)
 			setTotalSupply(supply)
 		}
 
-		if (bao) {
-			fetchTotalSupply()
-		}
+		if (bao) fetchTotalSupply()
 	}, [bao, setTotalSupply])
 
 	useEffect(() => {
