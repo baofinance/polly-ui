@@ -61,7 +61,7 @@ export default {
     },
     recipe: {
       137: {
-        address: '0x82DD96b78D225b22bc52e3a46d3C380aa4CB00c7',
+        address: '0x802458BA47b7949d018184cCEcAD8178d57c5919',
         abi: 'recipe.json',
       },
     },
