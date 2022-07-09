@@ -97,10 +97,10 @@ export const HeroText = styled.p`
 `
 
 export const BubbleWrap = styled.div`
-height: 600px;
-margin-left: calc(-50vw + 250px);
-margin-right: calc(-50vw + 250px);
-overflow: hidden;
+  height: 600px;
+  margin-left: calc(-50vw + 250px);
+  margin-right: calc(-50vw + 250px);
+  overflow: hidden;
 
   @media (max-width: ${(props) => props.theme.breakpoints.fhd}px) {
     display: none;

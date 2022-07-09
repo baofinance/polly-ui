@@ -27,7 +27,10 @@ const Nav: React.FC = () => {
 				</StyledLink>
 			</Tooltipped>
 			<Tooltipped content="Snapshot" placement="top">
-				<StyledLink target="_blank" href="https://snapshot.page/#/pollyfinance.eth">
+				<StyledLink
+					target="_blank"
+					href="https://snapshot.page/#/pollyfinance.eth"
+				>
 					<FontAwesomeIcon icon="bolt" />
 				</StyledLink>
 			</Tooltipped>
@@ -45,7 +48,10 @@ const Nav: React.FC = () => {
 				</StyledLink>
 			</Tooltipped>
 			<Tooltipped content="Bug Bounty Program" placement="top">
-				<StyledLink target="_blank" href="https://www.immunefi.com/bounty/baofinance">
+				<StyledLink
+					target="_blank"
+					href="https://www.immunefi.com/bounty/baofinance"
+				>
 					<FontAwesomeIcon icon="bug" />
 				</StyledLink>
 			</Tooltipped>

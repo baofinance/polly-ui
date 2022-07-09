@@ -73,7 +73,6 @@ const StyledInput = styled.input`
 	}
 `
 
-
 export default Input
 
 export interface BalanceInputProps extends InputProps {
@@ -121,11 +120,11 @@ const BalanceInputWrapper = styled.div`
 `
 
 export const InputStack = styled.div`
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 1rem;
-  margin-inline: 0px;
-  margin-bottom: 0px;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 1rem;
+	margin-inline: 0px;
+	margin-bottom: 0px;
 `

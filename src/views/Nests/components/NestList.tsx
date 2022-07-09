@@ -6,14 +6,13 @@ import { SpinnerLoader } from 'components/Loader'
 import Tooltipped from 'components/Tooltipped'
 import { Nest } from 'contexts/Nests'
 import { IndexType } from 'contexts/Nests/types'
-import useBao from 'hooks/base/useBao'
 import useComposition from 'hooks/baskets/useComposition'
 import useGraphPriceHistory from 'hooks/baskets/useGraphPriceHistory'
 import useNestRate from 'hooks/baskets/useNestRate'
 import useNests from 'hooks/baskets/useNests'
 import React, { useMemo } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import 'react-tabs/style/react-tabs.css'
 import { getDisplayBalance } from 'utils/numberFormat'
 
@@ -24,7 +23,7 @@ export const NestList: React.FC = () => {
 		[IndexType.NESTS]: [],
 	}
 
-	nests.forEach((nest, i) => {
+	nests.forEach((nest) => {
 		const nestWithIssuedTokens = {
 			...nest,
 			indexType: nest.indexType || IndexType.NESTS,
@@ -78,8 +77,8 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 
 	const composition = useComposition(nest)
 
-	const history = useHistory()
-	const handleClick = () => history.push(`/nests/${nest.nid}`)
+	const navigate = useNavigate()
+	const handleClick = () => navigate(`/nests/${nest.nid}`)
 
 	return (
 		<>

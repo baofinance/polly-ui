@@ -5,7 +5,7 @@ import { scaleLinear, scaleTime } from '@visx/scale'
 import { AreaClosed, Bar, Line, LinePath } from '@visx/shape'
 import { defaultStyles, TooltipWithBounds, withTooltip } from '@visx/tooltip'
 import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip'
-import { curveMonotoneX } from '@visx/visx'
+import { curveMonotoneX } from '@visx/curve'
 import BigNumber from 'bignumber.js'
 import { bisector, extent, max, min } from 'd3-array'
 import React, { useCallback, useMemo } from 'react'
@@ -32,7 +32,7 @@ const formatDate = (date: any) => {
 		month: 'short',
 		year: 'numeric',
 		day: '2-digit',
-	}
+	} as const
 
 	return new Date(date).toLocaleDateString('en-US', options)
 }

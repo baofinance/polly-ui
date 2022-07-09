@@ -5,12 +5,23 @@ export const getBalanceNumber = (balance: BigNumber, decimals = 18) => {
   return displayBalance.toNumber()
 }
 
-export const getDisplayBalance = (balance: BigNumber, decimals = 18) => {
-  const displayBalance = balance.dividedBy(new BigNumber(10).pow(decimals))
-  if (displayBalance.lt(1)) {
-    return displayBalance.toPrecision(4)
+export const getDisplayBalance = (
+  balance: BigNumber | number | string,
+  decimals = 18,
+  precision?: number,
+) => {
+  const displayBalance = new BigNumber(balance).dividedBy(
+    new BigNumber(10).pow(decimals),
+  )
+  if (displayBalance.lt(1e-6)) return 0
+  else if (displayBalance.lt(1)) {
+    return displayBalance.toPrecision(precision || 4)
   } else {
-    return displayBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    const dbNew =
+      precision === 0
+        ? displayBalance.decimalPlaces(0).toString()
+        : displayBalance.toFixed(precision || 2)
+    return dbNew.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 }
 

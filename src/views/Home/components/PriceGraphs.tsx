@@ -10,10 +10,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import GraphClient from 'utils/graph'
 import { getDisplayBalance } from 'utils/numberFormat'
-import {
-	NestBoxHeader,
-	PrefButtons,
-} from './styles'
+import { NestBoxHeader, PrefButtons } from './styles'
 
 const PriceGraphs: React.FC = () => {
 	const [priceData, setPriceData] = useState<any | undefined>()
@@ -69,8 +66,10 @@ const PriceGraphs: React.FC = () => {
 						active={activeNest === nest}
 						key={nest.symbol}
 						style={{
-							margin:
-								`${(props: { theme: { spacing: any[] } }) => props.theme.spacing[1]}px ${(props: { theme: { spacing: any[] } }) => props.theme.spacing[2]}px`,
+							margin: `${(props: { theme: { spacing: any[] } }) =>
+								props.theme.spacing[1]}px ${(props: {
+								theme: { spacing: any[] }
+							}) => props.theme.spacing[2]}px`,
 						}}
 					>
 						{nest.symbol}

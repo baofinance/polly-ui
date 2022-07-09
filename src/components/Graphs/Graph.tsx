@@ -25,10 +25,9 @@ export const StyledGraphContainer = styled(GraphContainer)`
 `
 
 export const PieGraphRow = styled(Row)`
-  height: 400px;
-  width: 100%;
-  margin: 0 auto;
+	height: 400px;
+	width: 100%;
+	margin: 0 auto;
 `
 
-export const PriceGraph = styled.div`
-`
+export const PriceGraph = styled.div``

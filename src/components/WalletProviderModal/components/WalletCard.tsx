@@ -50,7 +50,7 @@ const _getButtonText = async (ethereum: any, status: string): Promise<any> => {
 				method: 'wallet_switchEthereumChain',
 				params: [{ chainId: Config.defaultRpc.chainId }],
 			})
-		} catch (error) {
+		} catch (error: any) {
 			if (error.code === 4902) {
 				await ethereum.request({
 					method: 'wallet_addEthereumChain',

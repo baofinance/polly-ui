@@ -24,7 +24,9 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 	const { account } = useWeb3React()
 	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
-	const ensResolver = new ethers.providers.JsonRpcProvider('https://rpc.ankr.com/eth')
+	const ensResolver = new ethers.providers.JsonRpcProvider(
+		'https://rpc.ankr.com/eth',
+	)
 	useEffect(() => {
 		if (!account) return
 

@@ -11,28 +11,25 @@ interface TokenInputProps extends InputProps {
 }
 
 const TokenInput: React.FC<TokenInputProps> = ({
-	max,
-	symbol,
 	onChange,
 	onSelectMax,
 	onSelectHalf,
 	value,
 }) => {
 	return (
-			<Input
-				endAdornment={
-					<StyledTokenAdornmentWrapper>
-						<MaxButton onClick={onSelectHalf}>½</MaxButton>
-						<MaxButton onClick={onSelectMax}>MAX</MaxButton>
-					</StyledTokenAdornmentWrapper>
-				}
-				onChange={onChange}
-				placeholder="0"
-				value={value}
-			/>
+		<Input
+			endAdornment={
+				<StyledTokenAdornmentWrapper>
+					<MaxButton onClick={onSelectHalf}>½</MaxButton>
+					<MaxButton onClick={onSelectMax}>MAX</MaxButton>
+				</StyledTokenAdornmentWrapper>
+			}
+			onChange={onChange}
+			placeholder="0"
+			value={value}
+		/>
 	)
 }
-
 
 const StyledTokenAdornmentWrapper = styled.div`
 	align-items: center;

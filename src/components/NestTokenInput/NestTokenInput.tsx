@@ -8,17 +8,15 @@ interface NestTokenInputProps extends InputProps {
 	symbol: string
 	_inputToken?: string
 	value: string
-	setValue?: Function
+	setValue?: any
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 	wethBalance?: BigNumber
 }
 
 const NestTokenInput: React.FC<NestTokenInputProps> = ({
-	symbol,
 	onChange,
 	value,
 	setValue,
-	_inputToken,
 	wethBalance,
 }) => {
 	return (

@@ -62,10 +62,8 @@ const theme = () => ({
     7: 64,
   },
   boxShadow: {
-    default:
-      'inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 1px rgb(0 0 0 / 19%)',
-    hover:
-      'inset 0 0px 0 rgb(255 255 255 / 20%), 0 0px 0px rgb(0 0 0 / 19%)',
+    default: 'inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 1px rgb(0 0 0 / 19%)',
+    hover: 'inset 0 0px 0 rgb(255 255 255 / 20%), 0 0px 0px rgb(0 0 0 / 19%)',
   },
   buttonGradient: {
     a: 'linear-gradient(225deg, #1c1c27, #1f1c27) padding-box, linear-gradient(135deg, #373865, #53c7e4) border-box',

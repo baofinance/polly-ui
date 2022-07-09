@@ -5,11 +5,19 @@ import ERC20ABI from 'bao/lib/abi/erc20.json'
 import { Bao } from 'bao'
 
 export const getContract = (bao: Bao, address: string) => {
-  return bao && bao.web3 && new bao.web3.eth.Contract(ERC20ABI as unknown as AbiItem, address)
+  return (
+    bao &&
+    bao.web3 &&
+    new bao.web3.eth.Contract(ERC20ABI as unknown as AbiItem, address)
+  )
 }
 
 export const getCreamContract = (bao: Bao, address: string) => {
-  return bao && bao.web3 && new bao.web3.eth.Contract(CreamABI as unknown as AbiItem, address)
+  return (
+    bao &&
+    bao.web3 &&
+    new bao.web3.eth.Contract(CreamABI as unknown as AbiItem, address)
+  )
 }
 
 export const getAllowance = async (

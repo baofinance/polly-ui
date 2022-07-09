@@ -120,7 +120,15 @@ export const FeeModal: React.FC<FeeModalProps> = ({ pid, show, onHide }) => {
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body style={{ paddingTop: '0' }}>
-				<p style={{ textAlign: 'center' }}><span role="img" aria-label="important">❗</span>BE AWARE OF WITHDRAWAL FEES<span role="img" aria-label="important">❗</span></p>
+				<p style={{ textAlign: 'center' }}>
+					<span role="img" aria-label="important">
+						❗
+					</span>
+					BE AWARE OF WITHDRAWAL FEES
+					<span role="img" aria-label="important">
+						❗
+					</span>
+				</p>
 				<StatBlock
 					label=""
 					stats={[
@@ -162,7 +170,11 @@ export const FeeModal: React.FC<FeeModalProps> = ({ pid, show, onHide }) => {
 					<p style={{ textAlign: 'center' }}>
 						Your first deposit activates and each withdraw resets the timer for
 						penalities and fees, this is pool based. Be sure to read the{' '}
-						<a href="https://docs.bao.finance/" target="_blank" rel="noopener noreferrer">
+						<a
+							href="https://docs.bao.finance/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							docs
 						</a>{' '}
 						before using the farms so you are familiar with protocol risks and
