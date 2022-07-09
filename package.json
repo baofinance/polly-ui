@@ -34,7 +34,7 @@
     "@web3-react/walletlink-connector": "^6.2.13",
     "assert": "^2.0.0",
     "bignumber.js": "^9.0.1",
-    "bootstrap": "^5.2.0-beta1",
+    "bootstrap": "^5.0.2",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "d3-array": "^3.0.1",
