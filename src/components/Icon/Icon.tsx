@@ -27,75 +27,75 @@ export const Icon = styled.img`
 `
 
 export const IconFlex = styled.div`
-  display: flex;
-  width: 1.5rem;
+	display: flex;
+	width: 1.5rem;
 
-  img {
-    display: block;
-    vertical-align: middle;
-    width: 1.5rem;
-    height: 1.5rem;
-  }
+	img {
+		display: block;
+		vertical-align: middle;
+		width: 1.5rem;
+		height: 1.5rem;
+	}
 `
 
 export const IconImage = styled.img`
-  height: 50px;
-  margin-right: ${(props) => props.theme.spacing[3]}px;
-  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-    height: 40px;
-    margin-right: ${(props) => props.theme.spacing[3]}px;
-  }
-  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
-    height: 35px;
-    margin-right: ${(props) => props.theme.spacing[3]}px;
-  }
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-    height: 50px;
-    margin-right: ${(props) => props.theme.spacing[3]}px;
-  }
+	height: 50px;
+	margin-right: ${(props) => props.theme.spacing[3]}px;
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		height: 40px;
+		margin-right: ${(props) => props.theme.spacing[3]}px;
+	}
+	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+		height: 35px;
+		margin-right: ${(props) => props.theme.spacing[3]}px;
+	}
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+		height: 50px;
+		margin-right: ${(props) => props.theme.spacing[3]}px;
+	}
 `
 
 export const StyledIcon = styled(IconImage)`
-  height: 40px;
-  vertical-align: super;
-  transition: 200ms;
-  user-select: none;
-  -webkit-user-drag: none;
-  margin-left: -${(props) => props.theme.spacing[3]}px;
+	height: 40px;
+	vertical-align: super;
+	transition: 200ms;
+	user-select: none;
+	-webkit-user-drag: none;
+	margin-left: -${(props) => props.theme.spacing[3]}px;
 
-  &:first-child {
-    margin-left: 0;
-  }
+	&:first-child {
+		margin-left: 0;
+	}
 
-  @media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
-    height: 30px;
-  }
+	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
+		height: 30px;
+	}
 
-  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
-    height: 25px;
-  }
+	@media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+		height: 25px;
+	}
 `
 
 export const IconContainer = styled.div`
-  height: 100%;
-  align-items: center;
-  margin: 0 auto;
-  display: inline-block;
-  vertical-align: middle;
-  color: ${(props) => props.theme.color.text[100]};
+	height: 100%;
+	align-items: center;
+	margin: 0 auto;
+	display: inline-block;
+	vertical-align: middle;
+	color: ${(props) => props.theme.color.text[100]};
 
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-    display: none;
-  }
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+		display: none;
+	}
 `
 
 export const QuestionIcon = styled(FontAwesomeIcon)`
-  color: ${(props) => props.theme.color.text[200]};
+	color: ${(props) => props.theme.color.text[200]};
 
-  &:hover,
-  &:focus {
-    color: ${(props) => props.theme.color.text[100]};
-    animation: 200ms;
-    cursor: pointer;
-  }
+	&:hover,
+	&:focus {
+		color: ${(props) => props.theme.color.text[100]};
+		animation: 200ms;
+		cursor: pointer;
+	}
 `

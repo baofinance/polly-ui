@@ -10,9 +10,7 @@ interface TopBarProps {
 	onPresentMobileMenu: () => void
 }
 
-const TopBar: React.FC<TopBarProps> = ({
-	onPresentMobileMenu,
-}) => {
+const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 	return (
 		<StyledTopBar>
 			<StyledTopBarInner>
@@ -88,14 +86,6 @@ const StyledMenuButton = styled.button`
 		justify-content: center;
 		width: 44px;
 		margin-left: ${(props) => props.theme.spacing[2]}px;
-	}
-`
-
-const StyledThemeButton = styled.div`
-	> button {
-		height: 40px;
-		width: 40px;
-		margin-left: 1rem;
 	}
 `
 

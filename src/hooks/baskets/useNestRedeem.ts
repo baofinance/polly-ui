@@ -16,7 +16,7 @@ const useNestRedeem = (nid: number, redeemToWeth = true) => {
             .getContract('nestRedeem')
             .methods.redeemNestToWeth(
               nestContract.options.address,
-              exponentiate(amount).toString()
+              exponentiate(amount).toString(),
             )
             .send({ from: account })
         : nestRedeem(nestContract, amount, account)

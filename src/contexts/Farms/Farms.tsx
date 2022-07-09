@@ -1,14 +1,18 @@
 import { getFarms } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
-import React, { useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
+import React, { PropsWithChildren, ReactNode, useState } from 'react'
 import Context from './context'
 
-const Farms: React.FC = ({ children }) => {
+interface FarmsProviderProps {
+	children: ReactNode
+}
+
+const FarmsProvider: React.FC<PropsWithChildren<FarmsProviderProps>> = ({
+	children,
+}) => {
 	const [unharvested, setUnharvested] = useState(0)
 
 	const bao = useBao()
-	const { account } = useWeb3React()
 
 	const farms = getFarms(bao)
 
@@ -24,4 +28,4 @@ const Farms: React.FC = ({ children }) => {
 	)
 }
 
-export default Farms
+export default FarmsProvider

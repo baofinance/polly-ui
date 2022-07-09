@@ -546,59 +546,58 @@ export const ButtonStack = styled.div`
 `
 
 export const CornerButtons = styled.div`
-  float: right;
-  top: ${(props) => props.theme.spacing[3]}px;
-  right: ${(props) => props.theme.spacing[4]}px;
-  font-size: 1.5rem;
-  position: absolute;
-  color: ${(props) => props.theme.color.text[100]};
+	float: right;
+	top: ${(props) => props.theme.spacing[3]}px;
+	right: ${(props) => props.theme.spacing[4]}px;
+	font-size: 1.5rem;
+	position: absolute;
+	color: ${(props) => props.theme.color.text[100]};
 
-  &:hover {
-    cursor: pointer;
-  }
+	&:hover {
+		cursor: pointer;
+	}
 
-  @media (min-width: ${(props) => props.theme.breakpoints.sm}px) {
-    right: 10%;
-  }
+	@media (min-width: ${(props) => props.theme.breakpoints.sm}px) {
+		right: 10%;
+	}
 `
 
 export const CornerButton = styled.a`
-  float: right;
-  margin-top: ${(props) => props.theme.spacing[2]}px;
-  margin-right: ${(props) => props.theme.spacing[3]}px;
-  font-size: 1.5rem;
-  vertical-align: middle;
-  color: ${(props) => props.theme.color.text[100]};
+	float: right;
+	margin-top: ${(props) => props.theme.spacing[2]}px;
+	margin-right: ${(props) => props.theme.spacing[3]}px;
+	font-size: 1.5rem;
+	vertical-align: middle;
+	color: ${(props) => props.theme.color.text[100]};
 
-  &:hover {
-    cursor: pointer;
-  }
+	&:hover {
+		cursor: pointer;
+	}
 `
 
 export const PrefButtons = styled.div`
-  margin: auto;
+	margin: auto;
 
-  > button {
-    float: left;
-    margin-left: ${(props) => props.theme.spacing[2]}px;
-    margin-top: ${(props) => props.theme.spacing[4]}px;
-    color: ${(props) => props.theme.color.text[100]};
-    border-radius: ${(props) => props.theme.borderRadius}px;
-    width: 48px;
-    background: ${(props) => props.theme.color.transparent[100]};
+	> button {
+		float: left;
+		margin-left: ${(props) => props.theme.spacing[2]}px;
+		margin-top: ${(props) => props.theme.spacing[4]}px;
+		color: ${(props) => props.theme.color.text[100]};
+		border-radius: ${(props) => props.theme.borderRadius}px;
+		width: 48px;
+		background: ${(props) => props.theme.color.transparent[100]};
 
-    &:hover,
-    &.active,
-    &:active,
-    &:focus {
-      color: ${(props) => props.theme.color.text[100]};
-      background: ${(props) => props.theme.color.transparent[200]};
-      box-shadow: none !important;
-    }
-  }
+		&:hover,
+		&.active,
+		&:active,
+		&:focus {
+			color: ${(props) => props.theme.color.text[100]};
+			background: ${(props) => props.theme.color.transparent[200]};
+			box-shadow: none !important;
+		}
+	}
 
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-    display: none;
-  }
+	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
+		display: none;
+	}
 `
-

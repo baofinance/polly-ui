@@ -1,5 +1,1 @@
-export {
-    AnalyticsContainer,
-    Analytics,
-  } from './Analytics'
-  
+export { AnalyticsContainer, Analytics } from './Analytics'

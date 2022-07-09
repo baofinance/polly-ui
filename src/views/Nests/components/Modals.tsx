@@ -59,7 +59,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	inputTokenName,
 	_inputToken,
 	_outputToken,
-	inputTokenContract,
 	nav,
 	show,
 	onHide,
@@ -74,7 +73,6 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	const [wethNeeded, setWethNeeded] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
 	const [requestedApproval, setRequestedApproval] = useState(false)
-	const [val, setVal] = useState<string>('')
 
 	const issueAllowance = useAllowancev2(
 		Config.addressMap.WETH,
@@ -90,7 +88,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	}
 
 	const handleOutputChange = useCallback(
-		(e) => {
+		(e: any) => {
 			const updateInput = (inputAmount: string) => {
 				fetchRate().then((val) =>
 					setWethNeeded(val.times(inputAmount).times(1.05).toFixed(18)),
@@ -123,7 +121,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
 	)
 
 	const handleInputChange = useCallback(
-		(e) => {
+		(e: any) => {
 			const updateInput = (inputAmount: string) => {
 				fetchRate().then((val: BigNumber) =>
 					setNestAmount(new BigNumber(inputAmount).div(val).toFixed(18)),
@@ -415,7 +413,6 @@ export const RedeemModal: React.FC<RedeemModalProps> = ({
 	const [val, setVal] = useState('')
 	const { pendingTx, handleTx } = useTransactionHandler()
 	const [redeemToWeth, setRedeemToWeth] = useState(true)
-	const [confNo, setConfNo] = useState<number | undefined>()
 
 	const bao = useBao()
 
@@ -765,12 +762,6 @@ export const AssetLabel = styled.span`
 	@media (max-width: ${(props) => props.theme.breakpoints.lg}px) {
 		font-size: 0.75rem;
 	}
-`
-
-const ButtonStack = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
 `
 
 const BalanceWrapper = styled(Row)`

@@ -6,7 +6,7 @@ import useBao from './useBao'
 
 const useBlockDiff = (userInfo: any) => {
   const { account } = useWeb3React()
-  const bao = useBao() 
+  const bao = useBao()
   const block = useBlock()
   const [blockDiff, setBlockDiff] = useState<number | undefined>()
 

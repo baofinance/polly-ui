@@ -1,5 +1,11 @@
 import useBao from 'hooks/base/useBao'
-import React, { useCallback, useEffect, useReducer } from 'react'
+import React, {
+	PropsWithChildren,
+	ReactNode,
+	useCallback,
+	useEffect,
+	useReducer,
+} from 'react'
 import { TransactionReceipt } from 'web3-core'
 import Context from './context'
 import reducer, {
@@ -10,7 +16,12 @@ import reducer, {
 } from './reducer'
 import { Transaction, TransactionsMap } from './types'
 
-const TransactionsProvider: React.FC = ({ children }) => {
+interface TransactionsProviderProps {
+	children: ReactNode
+}
+const TransactionsProvider: React.FC<
+	PropsWithChildren<TransactionsProviderProps>
+> = ({ children }) => {
 	const bao = useBao()
 	const [{ initialized, transactions }, dispatch] = useReducer(
 		reducer,

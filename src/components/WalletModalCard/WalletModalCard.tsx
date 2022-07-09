@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { PropsWithChildren, ReactNode } from 'react'
 import styled from 'styled-components'
 
-const WalletModalCard: React.FC = ({ children }) => (
-	<StyledCard>{children}</StyledCard>
-)
+interface WalletModalCardProps {
+	children: ReactNode
+}
+
+const WalletModalCard: React.FC<PropsWithChildren<WalletModalCardProps>> = ({
+	children,
+}) => {
+	return <StyledCard>{children}</StyledCard>
+}
 
 const StyledCard = styled.div`
 	background: ${(props) => props.theme.color.transparent[100]};

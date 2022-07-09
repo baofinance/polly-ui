@@ -16,14 +16,8 @@ const connectorsByName: { [name: string]: AbstractConnector } = {
 }
 
 const WalletProviderModal = ({ onHide, show }: ModalProps) => {
-	const {
-		connector,
-		chainId,
-		account,
-		activate,
-		active,
-		error,
-	} = useWeb3React()
+	const { connector, chainId, account, activate, active, error } =
+		useWeb3React()
 
 	useEffect(() => {
 		if (account && chainId === Config.networkId) {
@@ -62,7 +56,7 @@ const WalletProviderModal = ({ onHide, show }: ModalProps) => {
 				method: 'wallet_switchEthereumChain',
 				params: [{ chainId: Config.defaultRpc.chainId }],
 			})
-		} catch (error) {
+		} catch (error: any) {
 			if (error.code === 4902) {
 				window.ethereum.request({
 					method: 'wallet_addEthereumChain',

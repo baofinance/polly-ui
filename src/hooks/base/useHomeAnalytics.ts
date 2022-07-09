@@ -9,7 +9,7 @@ import { getBalanceNumber, truncateNumber } from 'utils/numberFormat'
 import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useBao from './useBao'
 import useGeckoPrices from '../baskets/useGeckoPrices'
-import useReservesPrices from "../baskets/useReservesPrices";
+import useReservesPrices from '../baskets/useReservesPrices'
 
 const useHomeAnalytics = () => {
   const [analytics, setAnalytics] = useState<
@@ -53,8 +53,7 @@ const useHomeAnalytics = () => {
     let totalNestUsd = new BigNumber(0)
     for (const nestAddress of Object.keys(results)) {
       const _price =
-        reservesPrices[nestAddress.toLowerCase()] ||
-        new BigNumber(0)
+        reservesPrices[nestAddress.toLowerCase()] || new BigNumber(0)
       const _supply = getBalanceNumber(
         new BigNumber(results[nestAddress][1].values[0].hex),
         results[nestAddress][0].values[0],

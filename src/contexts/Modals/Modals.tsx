@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useState } from 'react'
+import React, {
+	createContext,
+	PropsWithChildren,
+	ReactNode,
+	useCallback,
+	useState,
+} from 'react'
 import styled from 'styled-components'
 
 interface ModalsContext {
@@ -13,7 +19,13 @@ export const Context = createContext<ModalsContext>({
 	onDismiss: () => {},
 })
 
-const Modals: React.FC = ({ children }) => {
+interface ModalsProviderProps {
+	children: ReactNode
+}
+
+const ModalsProvider: React.FC<PropsWithChildren<ModalsProviderProps>> = ({
+	children,
+}) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [content, setContent] = useState<React.ReactNode>()
 	const [modalKey, setModalKey] = useState<string>()
@@ -55,6 +67,8 @@ const Modals: React.FC = ({ children }) => {
 	)
 }
 
+export default ModalsProvider
+
 const StyledModalWrapper = styled.div`
 	align-items: center;
 	display: flex;
@@ -75,5 +89,3 @@ const StyledModalBackdrop = styled.div`
 	bottom: 0;
 	left: 0;
 `
-
-export default Modals

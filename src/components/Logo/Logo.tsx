@@ -7,7 +7,12 @@ import Tooltipped from '../Tooltipped'
 const Logo: React.FC = () => {
 	return (
 		<StyledLogo to="/">
-			<img src={pollyLogo} height="36" style={{ verticalAlign: 'middle' }} alt="Polly"/>
+			<img
+				src={pollyLogo}
+				height="36"
+				style={{ verticalAlign: 'middle' }}
+				alt="Polly"
+			/>
 			<StyledText>
 				<TitleText>
 					<Tooltipped content="by Bao.Finance">

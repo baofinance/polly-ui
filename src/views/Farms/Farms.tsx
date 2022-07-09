@@ -6,7 +6,6 @@ import Balances from './components/Balances'
 import { FarmList } from './components/FarmList'
 
 const Farms: React.FC = () => {
-
 	return (
 		<Page>
 			<PageHeader

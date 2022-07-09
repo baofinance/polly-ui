@@ -1,5 +1,4 @@
 import Config from 'bao/lib/config'
-import { getWethPriceLink } from 'bao/utils'
 import BigNumber from 'bignumber.js'
 import { Nest, NestComponent } from 'contexts/Nests/types'
 import useBao from 'hooks/base/useBao'
@@ -19,7 +18,16 @@ const useComposition = (nest: Nest) => {
   const bao = useBao()
 
   useEffect(() => {
-    if (!(nest && nest.nestContract && nest.pieColors && prices && Object.keys(prices).length > 0)) return
+    if (
+      !(
+        nest &&
+        nest.nestContract &&
+        nest.pieColors &&
+        prices &&
+        Object.keys(prices).length > 0
+      )
+    )
+      return
 
     nest.nestContract.methods
       .getTokens()
@@ -45,7 +53,7 @@ const useComposition = (nest: Nest) => {
                   id: component.toLowerCase(),
                   name: 'Beefy Finance',
                   symbol: 'BIFI',
-                  decimals: 18
+                  decimals: 18,
                 }
               }
             }

@@ -1,9 +1,14 @@
 import { getNests } from 'bao/utils'
 import useBao from 'hooks/base/useBao'
-import React, { useEffect, useState } from 'react'
+import React, { PropsWithChildren, ReactNode, useEffect, useState } from 'react'
 import Context from './context'
 
-const Nests: React.FC = ({ children }) => {
+interface NestsProviderProps {
+	children: ReactNode
+}
+const NestsProvider: React.FC<PropsWithChildren<NestsProviderProps>> = ({
+	children,
+}) => {
 	const bao = useBao()
 
 	const [nests, setNests] = useState(getNests(bao))
@@ -20,4 +25,4 @@ const Nests: React.FC = ({ children }) => {
 	)
 }
 
-export default Nests
+export default NestsProvider

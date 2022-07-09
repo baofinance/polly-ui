@@ -2,24 +2,21 @@ import React, { FC, HTMLProps } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-export interface ExternalLinkProps extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> {
-  href: string
+export interface ExternalLinkProps
+	extends Omit<HTMLProps<HTMLAnchorElement>, 'as' | 'ref' | 'onClick'> {
+	href: string
 }
 
 export const ExternalLink: FC<ExternalLinkProps> = ({
-  target = '_blank',
-  href,
-  children,
+	target = '_blank',
+	href,
+	children,
 }) => {
-
-    return (
-    <StyledExternalLink
-      target={target}
-      href={href}
-    >
-      {children}
-    </StyledExternalLink>
-    )
+	return (
+		<StyledExternalLink target={target} href={href}>
+			{children}
+		</StyledExternalLink>
+	)
 }
 
 export const StyledLink = styled(NavLink)`

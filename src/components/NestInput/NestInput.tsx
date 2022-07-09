@@ -7,7 +7,7 @@ export interface InputProps {
 	placeholder?: string
 	startAdornment?: React.ReactNode
 	value: any
-	setValue?: Function
+	setValue?: any
 	onChange: (e: React.FormEvent<HTMLInputElement>) => void
 	wethBalance?: BigNumber
 }

@@ -8,7 +8,7 @@ import useTransactionProvider from './useTransactionProvider'
 
 const useTokenBalance = (tokenAddress: string) => {
   const [balance, setBalance] = useState(new BigNumber(0))
-  const { account } =  useWeb3React()
+  const { account } = useWeb3React()
   const bao = useBao()
   const { transactions } = useTransactionProvider()
   const block = useBlock()
