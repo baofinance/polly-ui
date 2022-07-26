@@ -5,7 +5,7 @@ export default {
   defaultRpc: {
     chainId: '0x89',
     rpcUrls: ['https://polygon-rpc.com'],
-    blockExplorerUrls: ['https://explorer-mainnet.maticvigil.com'],
+    blockExplorerUrls: ['https://polygonscan.com'],
     chainName: 'Matic Mainnet',
     nativeCurrency: {
       name: 'MATIC',

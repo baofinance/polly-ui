@@ -26,7 +26,7 @@ const NestList: React.FC<NestListProps> = ({ nests }) => {
 
 const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 	const composition = useComposition(nest)
-	const rates = useNestRates(nest && nest.address)
+	const rates = useNestRates(nest)
 
 	const navigate = useNavigate()
 	const handleClick = () => navigate(`/nests/${nest.nid}`)

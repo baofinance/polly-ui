@@ -203,6 +203,12 @@ const _getImageURL = (symbol: string) =>
     ? 'MATIC'
     : symbol.toLowerCase() === 'sklima'
     ? 'KLIMA'
+    : symbol.toLowerCase() === 'amdai'
+    ? 'DAI'
+    : symbol.toLowerCase() === 'amusdc'
+    ? 'USDC'
+    : symbol.toLowerCase() === 'amusdt'
+    ? 'USDT'
     : symbol
 
 export default useComposition

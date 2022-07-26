@@ -51,10 +51,10 @@ const NestModal: React.FC<ModalProps> = ({
 	const bao = useBao()
 	const { handleTx, pendingTx } = useTransactionHandler()
 	const { account } = useWeb3React()
-	const rates = useNestRates(nest && nest.address)
+	const rates = useNestRates(nest)
 
 	// Get Nest balances
-	const nestBalance = useTokenBalance(nest && nest.address)
+	const nestBalance = useTokenBalance(nest && nest.nestAddresses[137])
 	const ethBalance = useTokenBalance(Config.addressMap.WETH)
 
 	const swapLink = nest && nest.swap

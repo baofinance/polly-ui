@@ -30,7 +30,7 @@ const Nest: React.FC = () => {
 		[nests],
 	)
 	const composition = useComposition(nest)
-	const rates = useNestRates(nest && nest.address)
+	const rates = useNestRates(nest)
 	const info = useNestInfo(nest)
 	const pairPrice = usePairPrice(nest)
 
@@ -41,7 +41,7 @@ const Nest: React.FC = () => {
 					<Tooltipped content="View Contract">
 						<CornerButton
 							href={`${Config.defaultRpc.blockExplorerUrls[0]}/address/${
-								nest && nest.nestAddresses[1]
+								nest && nest.nestAddresses[137]
 							}`}
 							target="_blank"
 						>
@@ -50,7 +50,7 @@ const Nest: React.FC = () => {
 					</Tooltipped>
 				</CornerButtons>
 				<StyledPageHeader>
-					<PageHeader icon={nest && nest.icon} title={nest && nest.symbol} />
+					<PageHeader icon={nest && nest.icon} />
 					<br />
 					<StyledBadge>
 						1 {nest && nest.symbol} ={' '}
@@ -77,7 +77,7 @@ const Nest: React.FC = () => {
 				/>
 				<BasketButtons nest={nest} swapLink={nest && nest.swap} />
 				<Composition composition={composition} />
-				<Description nestAddress={nest && nest.nestAddresses[1]} />
+				<Description nestAddress={nest && nest.nestAddresses[137]} />
 			</Container>
 		</Page>
 	)
