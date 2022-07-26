@@ -1,40 +1,23 @@
+import { Icon } from 'components/Icon'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import styled from 'styled-components'
 
 interface PageHeaderProps {
-	icon: any
-	subtitle?: string
+	icon?: any
+	subtitle?: any
 	title?: string
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
-	const titletext = title.toString()
-	if (titletext.toString() === 'PollyChef is Ready') {
-		return (
-			<Container>
-				<StyledPageHeader>
-					<StyledTitle>{title}</StyledTitle>
-				</StyledPageHeader>
-			</Container>
-		)
-	} else if (titletext.toString() === 'Select Your Fav Dim Sum Entrees!') {
-		return (
-			<Container>
-				<StyledPageHeader>
-					<StyledTitle>{title}</StyledTitle>
-				</StyledPageHeader>
-			</Container>
-		)
-	} else {
-		return (
-			<Container>
-				<StyledPageHeader>
-					<StyledTitle>{title}</StyledTitle>
-				</StyledPageHeader>
-			</Container>
-		)
-	}
+const PageHeader: React.FC<PageHeaderProps> = ({ title, icon }) => {
+	return (
+		<Container>
+			<StyledPageHeader>
+				<Icon src={icon} />
+				<StyledTitle>{title}</StyledTitle>
+			</StyledPageHeader>
+		</Container>
+	)
 }
 
 const StyledPageHeader = styled.div`

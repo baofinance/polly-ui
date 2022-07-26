@@ -34,3 +34,10 @@ export const StyledTable = styled(Table)`
 		}
 	}
 `
+
+export const TableContainer = styled.div`
+	display: flex;
+	width: 100%;
+	background-color: ${(props) => props.theme.color.primary[100]};
+	border-radius: 8px;
+`

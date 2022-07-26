@@ -21,20 +21,19 @@ export interface SupportedPool {
 
 export interface SupportedNest {
   nid: number
-  nestAddresses: {
+  nestAddresses?: {
     [network: number]: string
   }
-  inputToken: string
-  outputToken: string
+  lpAddress: string
   symbol: string
   name: string
   icon: string
-  cgIds: {
-    [address: string]: string
-  }
-  pieColors: {
-    [asset: string]: string
-  }
+  cgIds: { [address: string]: string }
+  pieColors: { [asset: string]: string }
+  desc: string
+  swap?: string
+  address?: string
+  nestContract?: Contract
 }
 
 export interface FarmableSupportedPool extends SupportedPool {

@@ -35,7 +35,7 @@ const useHomeAnalytics = () => {
       const nestAddress: any =
         (typeof nest.nestAddresses === 'string' && nest.nestAddresses) ||
         (nest.nestAddresses && nest.nestAddresses[Config.networkId]) ||
-        nest.outputToken
+        nest.address
       const nestContract = new bao.web3.eth.Contract(
         experipieAbi as AbiItem[],
         nestAddress,

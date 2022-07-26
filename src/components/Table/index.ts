@@ -1,1 +1,1 @@
-export { StyledTable } from './Table'
+export { StyledTable, TableContainer } from './Table'

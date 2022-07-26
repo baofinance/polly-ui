@@ -15,7 +15,6 @@ import TopBar from './components/TopBar'
 import BaoProvider from './contexts/BaoProvider'
 import FarmsProvider from './contexts/Farms'
 import ModalsProvider from './contexts/Modals'
-import NestsProvider from './contexts/Nests'
 import TransactionProvider from './contexts/Transactions'
 import theme from './theme'
 import Farms from './views/Farms'
@@ -70,13 +69,11 @@ const Providers: React.FC<ProvidersProps> = ({ children }: ProvidersProps) => {
 				<Web3ReactNetworkProvider getLibrary={getLibrary}>
 					<Web3ReactManager>
 						<BaoProvider>
-							<NestsProvider>
-								<TransactionProvider>
-									<FarmsProvider>
-										<ModalsProvider>{children}</ModalsProvider>
-									</FarmsProvider>
-								</TransactionProvider>
-							</NestsProvider>
+							<TransactionProvider>
+								<FarmsProvider>
+									<ModalsProvider>{children}</ModalsProvider>
+								</FarmsProvider>
+							</TransactionProvider>
 						</BaoProvider>
 					</Web3ReactManager>
 				</Web3ReactNetworkProvider>

@@ -77,6 +77,12 @@ export default {
         abi: 'nestRedeem.json',
       },
     },
+    lendingRegistry: {
+      137: {
+        address: '0xc94BC5C62C53E88d67C3874f5E8f91c6a99656ca',
+        abi: 'lendingRegistry.json',
+      },
+    },
   },
   subgraphs: {
     137: {
@@ -95,8 +101,7 @@ export default {
       nestAddresses: {
         137: '0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
       },
-      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-      outputToken: '0xd3f07EA86DDf7BAebEfd49731D7Bbd207FedC53B',
+      lpAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
       symbol: 'nDEFI',
       name: 'nDEFI',
       icon: '/ndefi.svg',
@@ -114,14 +119,15 @@ export default {
         UNI: '#FF017A',
         BAL: '#b9b9b9',
       },
+      desc: 'Ethereum Defi Nest',
+      swap: 'https://curve.fi/factory-crypto/61',
     },
     {
       nid: 2,
       nestAddresses: {
         137: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
       },
-      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-      outputToken: '0x9Bf320bd1796a7495BB6187f9EB4Db2679b74eD3',
+      lpAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
       symbol: 'nSTBL',
       name: 'nSTBL',
       icon: '/nstbl.svg',
@@ -137,14 +143,15 @@ export default {
         RAI: '#68FEE2',
         USDC: '#2775CA',
       },
+      desc: 'Low Risk Stable Nest',
+      swap: 'https://curve.fi/factory-crypto/61',
     },
     {
       nid: 3,
       nestAddresses: {
         137: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
       },
-      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-      outputToken: '0x6B1E22bC4d28DAc283197CF44347639c8360ECE6',
+      lpAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
       symbol: 'nINFR',
       name: 'nINFR',
       icon: '/nINFR.png',
@@ -160,14 +167,15 @@ export default {
         WMATIC: '#8247E5',
         GRT: '#353993',
       },
+      desc: 'Ethereum Infra Nest',
+      swap: 'https://curve.fi/factory-crypto/61',
     },
     {
       nid: 4,
       nestAddresses: {
         137: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
       },
-      inputToken: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
-      outputToken: '0x14bbe7D3826B5f257B7dde0852036BC94C323ccA',
+      lpAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
       symbol: 'nPOLY',
       name: 'nPOLY',
       icon: '/nPOLY.png',
@@ -183,6 +191,8 @@ export default {
         QUICK: '#2172e5',
         QI: '#f16e69',
       },
+      desc: 'Polygon Defi Nest',
+      swap: 'https://curve.fi/factory-crypto/61',
     },
   ],
   farms: [

@@ -1,1 +1,3 @@
-export { default } from './Nests'
+import Nests from './Nests'
+
+export default Nests

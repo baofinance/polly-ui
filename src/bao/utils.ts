@@ -7,6 +7,7 @@ import Multicall from 'utils/multicall'
 import { decimate, exponentiate } from 'utils/numberFormat'
 import { Bao } from './Bao'
 import Config from './lib/config'
+import { ActiveSupportedNest } from './lib/types'
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -45,33 +46,8 @@ export const getRedeemContract = (bao: Bao) => {
   return bao && bao.contracts && bao.getContract('nestRedeem')
 }
 
-export const getNests = (bao: Bao) => {
-  return bao
-    ? bao.contracts.nests.map(
-        ({
-          nid,
-          name,
-          symbol,
-          icon,
-          nestAddress,
-          nestContract,
-          cgIds,
-          pieColors,
-        }) => ({
-          nid,
-          id: symbol,
-          name,
-          icon,
-          nestContract,
-          cgIds,
-          pieColors,
-          nestTokenAddress: nestAddress,
-          inputToken: 'wETH',
-          nestToken: symbol,
-          inputTokenAddress: Config.addressMap.WETH,
-        }),
-      )
-    : []
+export const getNests = (bao: Bao): ActiveSupportedNest[] => {
+  return bao && bao.contracts.nests
 }
 
 export const getFarms = (bao: Bao) => {

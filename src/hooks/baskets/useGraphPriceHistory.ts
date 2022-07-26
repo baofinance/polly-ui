@@ -1,17 +1,17 @@
+import { ActiveSupportedNest } from 'bao/lib/types'
 import { TimeseriesData } from 'components/Graphs/AreaGraph/AreaGraph'
-import { Nest } from 'contexts/Nests'
 import _ from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import GraphClient from 'utils/graph'
 
-const useGraphPriceHistory = (nest: Nest) => {
+const useGraphPriceHistory = (nest: ActiveSupportedNest) => {
   const [res, setRes] = useState<TimeseriesData[] | undefined>()
 
   const querySubgraph = useCallback(async () => {
-    if (!(nest && nest.nestTokenAddress)) return
+    if (!(nest && nest.nestAddress)) return
 
     const data: any = await GraphClient.getPriceHistory(
-      nest.nestTokenAddress.toLowerCase(),
+      nest.nestAddress.toLowerCase(),
     )
 
     // Workaround while nSTABLE has no price data, remove soon

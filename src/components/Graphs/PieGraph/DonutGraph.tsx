@@ -1,6 +1,5 @@
 import { Group } from '@visx/group'
 import Pie, { PieArcDatum, ProvidedProps } from '@visx/shape/lib/shapes/Pie'
-import { NestComponent } from 'contexts/Nests/types'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { animated, interpolate, useTransition } from 'react-spring'
@@ -17,7 +16,7 @@ const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 }
 export type DonutProps = {
 	width: number
 	height: number
-	composition: Array<NestComponent>
+	composition: Array<any>
 	margin?: typeof defaultMargin
 	animate?: boolean
 }
@@ -36,15 +35,13 @@ export default function DonutGraph({
 	const assetsBalance: AssetAllocationAmount[] = composition.map(
 		(component) => ({
 			label: `
-			${component.percentage}%
-			${getDisplayBalance(component.balance, component.balanceDecimals)} ${
-				component.symbol
-			}
+			${component.percentage.toFixed(4)}%
+			${getDisplayBalance(component.balance, component.decimals)} ${component.symbol}
 			${
 				component.price
 					? `$${getDisplayBalance(
 							component.price.times(
-								getBalanceNumber(component.balance, component.balanceDecimals),
+								getBalanceNumber(component.balance, component.decimals),
 							),
 							0,
 					  )}`
@@ -80,7 +77,7 @@ export default function DonutGraph({
 					pieValue={frequency}
 					pieSortValues={() => -1}
 					outerRadius={radius}
-					innerRadius={radius - 100}
+					innerRadius={radius - 125}
 				>
 					{(pie) => (
 						<AnimatedPie<AssetAllocationAmount>
