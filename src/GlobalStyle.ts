@@ -225,6 +225,11 @@ body {
       outline: none !important;
     }
   }
+
+  .table {
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(256, 256, 256, 0.1);
+  }
   `
 
 export default GlobalStyle

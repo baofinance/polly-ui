@@ -33,13 +33,14 @@ const Composition: React.FC<CompositionProps> = ({ composition }) => {
 
 	return (
 		<div style={{ padding: '0 0.75rem' }}>
-			<Row md="auto" className="md-start" style={{ marginBottom: '8px' }}>
+			<Row style={{ marginBottom: '0.5rem' }}>
 				<Col>
 					<BasketHeader style={{ float: 'left', marginRight: '8px' }}>
 						Allocation Breakdown
-					</BasketHeader>
+					</BasketHeader>{' '}
 					<PrefButtons>
 						<BootButton
+							active={displayType === 'TABLE'}
 							variant="outline-primary"
 							onClick={() => setDisplayType('TABLE')}
 							style={{
@@ -53,6 +54,7 @@ const Composition: React.FC<CompositionProps> = ({ composition }) => {
 							<FontAwesomeIcon icon="table" size="xs" />
 						</BootButton>
 						<BootButton
+							active={displayType === 'PIE'}
 							variant="outline-primary"
 							onClick={() => setDisplayType('PIE')}
 							style={{
@@ -69,90 +71,86 @@ const Composition: React.FC<CompositionProps> = ({ composition }) => {
 				</Col>
 			</Row>
 			{displayType === 'TABLE' ? (
-				<TableContainer>
-					<StyledTable bordered hover>
-						<thead>
-							<tr>
-								<th>Token</th>
-								<th>Allocation</th>
-								<th className="price">Price</th>
-								<th className="apy">APY</th>
-								<th className="strategy">Strategy</th>
-							</tr>
-						</thead>
-						<tbody>
-							{(composition &&
-								composition
-									.sort((a, b) => (a.percentage < b.percentage ? 1 : -1))
-									.map((component: any) => (
-										<tr key={component.symbol}>
-											<td width="15%">
-												<Tooltipped content={component.symbol}>
-													<img
-														src={component.image}
-														style={{ height: '32px' }}
-														alt="component"
-													/>
-												</Tooltipped>
-											</td>
-											<td width="40%">
-												<Progress
-													width={(component.percentage / maxPercentage) * 100}
-													label={`${getDisplayBalance(
-														new BigNumber(component.percentage),
-														0,
-													)}%`}
-													assetColor={component.color}
+				<StyledTable bordered hover>
+					<thead>
+						<tr>
+							<th>Token</th>
+							<th>Allocation</th>
+							<th className="price">Price</th>
+							<th className="apy">APY</th>
+							<th className="strategy">Strategy</th>
+						</tr>
+					</thead>
+					<tbody>
+						{(composition &&
+							composition
+								.sort((a, b) => (a.percentage < b.percentage ? 1 : -1))
+								.map((component: any) => (
+									<tr key={component.symbol}>
+										<td width="15%">
+											<Tooltipped content={component.symbol}>
+												<img
+													src={component.image}
+													style={{ height: '32px' }}
+													alt="component"
 												/>
-											</td>
-											<td className="price" width="20%">
-												$
-												{getDisplayBalance(
-													component.basePrice || component.price,
+											</Tooltipped>
+										</td>
+										<td width="40%">
+											<Progress
+												width={(component.percentage / maxPercentage) * 100}
+												label={`${getDisplayBalance(
+													new BigNumber(component.percentage),
 													0,
-												)}
-											</td>
-											<td className="apy" width="10%">
-												<Tooltipped
-													content={
-														component.apy
-															? `${component.apy
-																	.div(1e18)
-																	.times(100)
-																	.toFixed(18)}%`
-															: '~'
-													}
-												>
-													<CompositionBadge>
-														{component.apy
-															? `${component.apy
-																	.div(1e18)
-																	.times(100)
-																	.toFixed(2)}%`
-															: '~'}
-													</CompositionBadge>
-												</Tooltipped>
-											</td>
-											<td className="strategy" width="15%">
+												)}%`}
+												assetColor={component.color}
+											/>
+										</td>
+										<td className="price" width="20%">
+											$
+											{getDisplayBalance(
+												component.basePrice || component.price,
+												0,
+											)}
+										</td>
+										<td className="apy" width="10%">
+											<Tooltipped
+												content={
+													component.apy
+														? `${component.apy
+																.div(1e18)
+																.times(100)
+																.toFixed(18)}%`
+														: '~'
+												}
+											>
 												<CompositionBadge>
-													{component.strategy || 'None'}
+													{component.apy
+														? `${component.apy
+																.div(1e18)
+																.times(100)
+																.toFixed(2)}%`
+														: '~'}
 												</CompositionBadge>
-											</td>
-										</tr>
-									))) || (
-								<tr>
-									{['name', 'perc', 'price', 'apy', 'strategy'].map(
-										(tdClass) => (
-											<td key={Math.random()} className={tdClass}>
-												<SpinnerLoader />
-											</td>
-										),
-									)}
-								</tr>
-							)}
-						</tbody>
-					</StyledTable>
-				</TableContainer>
+											</Tooltipped>
+										</td>
+										<td className="strategy" width="15%">
+											<CompositionBadge>
+												{component.strategy || 'None'}
+											</CompositionBadge>
+										</td>
+									</tr>
+								))) || (
+							<tr>
+								{['name', 'perc', 'price', 'apy', 'strategy'].map((tdClass) => (
+									<td key={Math.random()} className={tdClass}>
+										<SpinnerLoader />
+									</td>
+								))}
+							</tr>
+						)}
+					</tbody>
+				</StyledTable>
 			) : (
 				<GraphContainer>
 					<Row style={{ height: '100%' }}>
@@ -191,8 +189,7 @@ const Composition: React.FC<CompositionProps> = ({ composition }) => {
 const GraphContainer = styled.div`
 	height: 500px;
 	border-radius: 8px;
-	background-color: ${(props) => props.theme.color.primary[100]};
-	border: ${(props) => props.theme.border.default};
+	background-color: ${(props) => props.theme.color.transparent[100]};
 `
 
 export const BasketHeader = styled.div`

@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BigNumber } from 'bignumber.js'
 import { StatBadge } from 'components/Badge/Badge'
-import React from 'react'
+import useBao from 'hooks/base/useBao'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Col } from 'react-bootstrap'
 import { ActiveSupportedNest } from '../../../bao/lib/types'
 import { SpinnerLoader } from '../../../components/Loader'
@@ -9,12 +10,12 @@ import Spacer from '../../../components/Spacer'
 import { StatCard, StatsRow } from '../../../components/Stats'
 import Tooltipped from '../../../components/Tooltipped'
 import useNav from '../../../hooks/baskets/useNav'
-import { getDisplayBalance } from '../../../utils/numberFormat'
+import { decimate, getDisplayBalance } from '../../../utils/numberFormat'
 
 type NestStatsProps = {
 	nest: ActiveSupportedNest
 	composition: any
-	rates: any
+	rate: BigNumber
 	info: any
 	pairPrice: BigNumber | undefined
 }
@@ -22,11 +23,27 @@ type NestStatsProps = {
 const NestStats: React.FC<NestStatsProps> = ({
 	nest,
 	composition,
-	rates,
+	rate,
 	info,
 	pairPrice,
 }) => {
-	const nav = useNav(composition, info && info.totalSupply)
+	const bao = useBao()
+	const [supply, setSupply] = useState<BigNumber | undefined>()
+	const marketCap = useMemo(() => {
+		return (
+			supply && rate && `$${getDisplayBalance(decimate(supply).times(rate), 0)}`
+		)
+	}, [supply, rate])
+
+	useEffect(() => {
+		if (nest && bao)
+			nest.nestContract.methods
+				.totalSupply()
+				.call()
+				.then((_supply: any) => setSupply(new BigNumber(_supply)))
+	}, [bao, nest])
+
+	const nav = useNav(composition, supply)
 
 	return (
 		<StatsRow lg={4} sm={2}>
@@ -38,13 +55,7 @@ const NestStats: React.FC<NestStatsProps> = ({
 						Market Cap
 					</span>
 					<Spacer size={'sm'} />
-					<StatBadge bg="secondary">
-						{rates && info ? (
-							`$${getDisplayBalance(rates.usdPerIndex)}`
-						) : (
-							<SpinnerLoader />
-						)}
-					</StatBadge>
+					<StatBadge bg="secondary">{marketCap || <SpinnerLoader />}</StatBadge>
 				</StatCard>
 			</Col>
 			<Col>
@@ -77,7 +88,7 @@ const NestStats: React.FC<NestStatsProps> = ({
 					</span>
 					<Spacer size={'sm'} />
 					<StatBadge bg="secondary">
-						{nav ? `$${getDisplayBalance(nav, 0)}` : <SpinnerLoader />}
+						{nav ? `$${getDisplayBalance(nav.nav, 0)}` : <SpinnerLoader />}
 					</StatBadge>
 				</StatCard>
 			</Col>
@@ -95,19 +106,12 @@ const NestStats: React.FC<NestStatsProps> = ({
 					</span>
 					<Spacer size={'sm'} />
 					<StatBadge bg="secondary">
-						{pairPrice && rates ? (
-							// `${getDisplayBalance(
-							// 	pairPrice
-							// 		.minus(decimate(rates.usd))
-							// 		.abs()
-							// 		.div(decimate(rates.usd))
-							// 		.times(100),
-							// 	0,
-							// )}%`
-							'-'
-						) : (
-							<SpinnerLoader />
-						)}
+						{(nav &&
+							rate &&
+							`${getDisplayBalance(
+								rate.minus(nav.nav).div(rate).times(100),
+								0,
+							)}%`) || <SpinnerLoader />}
 					</StatBadge>
 				</StatCard>
 			</Col>

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const GraphContainer = styled(Col)`
 	width: 100%;
 	height: 350px;
-	margin: 0 auto ${(props) => props.theme.spacing[6]}px;
+	margin: 0 auto ${(props) => props.theme.spacing[4]}px;
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	overflow: hidden;
 	background: ${(props) => props.theme.color.transparent[100]};

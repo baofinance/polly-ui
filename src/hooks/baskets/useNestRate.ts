@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from 'react'
 import MultiCall from 'utils/multicall'
 import { decimate, exponentiate } from 'utils/numberFormat'
 
-const useNestRate = (nest: ActiveSupportedNest) => {
+const useNestRate = (nestAddress: string) => {
   const bao = useBao()
   const recipeContract = getRecipeContract(bao)
   const wethAddress = Config.addressMap.WETH
@@ -21,7 +21,7 @@ const useNestRate = (nest: ActiveSupportedNest) => {
   const [usdPerIndex, setUsdPerIndex] = useState<BigNumber | undefined>()
 
   const nestRate = useCallback(async () => {
-    if (!(bao && nest)) return
+    if (!(bao && nestAddress)) return
 
     const wethOracle = getWethPriceContract(bao)
     const multicallContext = MultiCall.createCallContext([
@@ -31,11 +31,7 @@ const useNestRate = (nest: ActiveSupportedNest) => {
         calls: [
           {
             method: 'getPrice',
-            params: [
-              wethAddress,
-              nest.nestAddresses[137],
-              exponentiate(1).toString(),
-            ],
+            params: [wethAddress, nestAddress, exponentiate(1).toString()],
           },
         ],
       },
@@ -58,11 +54,11 @@ const useNestRate = (nest: ActiveSupportedNest) => {
     setWethPerIndex(wethPerNest)
     setWethPrice(_wethPrice)
     setUsdPerIndex(_wethPrice.times(wethPerNest))
-  }, [bao, wethAddress, nest])
+  }, [bao, wethAddress, nestAddress])
 
   useEffect(() => {
     nestRate()
-  }, [bao, transactions, block, wethAddress, nest])
+  }, [bao, transactions, block, wethAddress, nestAddress])
 
   return {
     wethPerIndex,

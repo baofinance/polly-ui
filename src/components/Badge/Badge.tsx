@@ -5,7 +5,8 @@ export const StyledBadge = styled(Badge)`
 	font-size: 1em;
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
-	background-color: ${(props) => props.theme.color.primary[100]} !important;
+	background-color: ${(props) => props.theme.color.transparent[100]} !important;
+	padding: 0.5rem;
 `
 
 export const PriceBadge = styled(Badge)`
@@ -25,14 +26,14 @@ export const CompositionBadge = styled(Badge)`
 	font-size: 1em;
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
-	background-color: ${(props) => props.theme.color.primary[300]} !important;
+	background-color: ${(props) => props.theme.color.transparent[200]} !important;
 `
 
 export const StatBadge = styled(Badge)`
 	font-size: 1em;
 	color: ${(props) => props.theme.color.text[100]};
 	font-weight: ${(props) => props.theme.fontWeight.medium};
-	background-color: ${(props) => props.theme.color.primary[200]} !important;
+	background-color: ${(props) => props.theme.color.transparent[200]} !important;
 `
 
 export const AssetBadge = styled(Badge)`

@@ -9,7 +9,7 @@ import { ListHeader, ListItem, ListItemHeader } from '../../../components/List'
 import { SpinnerLoader } from '../../../components/Loader'
 import Tooltipped from '../../../components/Tooltipped'
 import useComposition from '../../../hooks/baskets/useComposition'
-import useNestRates from '../../../hooks/baskets/useNestRate'
+import useNestRate from '../../../hooks/baskets/useNestRate'
 import { getDisplayBalance } from '../../../utils/numberFormat'
 
 const NestList: React.FC<NestListProps> = ({ nests }) => {
@@ -26,10 +26,12 @@ const NestList: React.FC<NestListProps> = ({ nests }) => {
 
 const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 	const composition = useComposition(nest)
-	const rates = useNestRates(nest)
 
 	const navigate = useNavigate()
 	const handleClick = () => navigate(`/nests/${nest.nid}`)
+
+	const { nestAddress } = nest
+	const { usdPerIndex } = useNestRate(nestAddress)
 
 	return (
 		<ListItem onClick={handleClick}>
@@ -65,8 +67,8 @@ const NestListItem: React.FC<NestListItemProps> = ({ nest }) => {
 						<span style={{ display: 'inline-block', verticalAlign: 'middle' }}>
 							<p style={{ margin: '0', lineHeight: '1.2rem' }}>
 								$
-								{rates ? (
-									getDisplayBalance(rates.usdPerIndex)
+								{usdPerIndex ? (
+									getDisplayBalance(usdPerIndex, 0)
 								) : (
 									<SpinnerLoader />
 								)}

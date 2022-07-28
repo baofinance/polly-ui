@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Config from 'bao/lib/config'
-import { StyledBadge } from 'components/Badge'
+import { PriceBadge, StyledBadge } from 'components/Badge'
 import { CornerButton, CornerButtons } from 'components/Button/Button'
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Tooltipped from 'components/Tooltipped'
+import useReservesPrices from 'hooks/baskets/useReservesPrices'
 import React, { useMemo } from 'react'
 import { Container } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
@@ -12,10 +13,11 @@ import styled from 'styled-components'
 import { SpinnerLoader } from '../../components/Loader'
 import useComposition from '../../hooks/baskets/useComposition'
 import useNestInfo from '../../hooks/baskets/useNestInfo'
-import useNestRates from '../../hooks/baskets/useNestRate'
+import useNestRate from '../../hooks/baskets/useNestRate'
 import useNests from '../../hooks/baskets/useNests'
 import usePairPrice from '../../hooks/baskets/usePairPrice'
 import { getDisplayBalance } from '../../utils/numberFormat'
+import Analytics from './components/Analytics'
 import Composition from './components/Composition'
 import Description from './components/Description'
 import BasketButtons from './components/NestButtons'
@@ -30,9 +32,14 @@ const Nest: React.FC = () => {
 		[nests],
 	)
 	const composition = useComposition(nest)
-	const rates = useNestRates(nest)
 	const info = useNestInfo(nest)
 	const pairPrice = usePairPrice(nest)
+	const { wethPrice, usdPerIndex } = useNestRate(nest && nest.nestAddress)
+	const reservePrices = useReservesPrices()
+	const sushiPairPrice = useMemo(
+		() => reservePrices && reservePrices[nest.nestAddress.toLowerCase()],
+		[reservePrices],
+	)
 
 	return (
 		<Page>
@@ -41,7 +48,7 @@ const Nest: React.FC = () => {
 					<Tooltipped content="View Contract">
 						<CornerButton
 							href={`${Config.defaultRpc.blockExplorerUrls[0]}/address/${
-								nest && nest.nestAddresses[137]
+								nest && nest.nestAddress
 							}`}
 							target="_blank"
 						>
@@ -53,31 +60,31 @@ const Nest: React.FC = () => {
 					<PageHeader icon={nest && nest.icon} />
 					<br />
 					<StyledBadge>
-						1 {nest && nest.symbol} ={' '}
-						{rates ? (
-							<>
-								<FontAwesomeIcon icon={['fab', 'ethereum']} />{' '}
-								{getDisplayBalance(rates.wethPerIndex)}{' '}
-								<FontAwesomeIcon icon="angle-double-right" />{' '}
-								{`$${getDisplayBalance(rates.usdPerIndex)}`}
-							</>
-						) : (
+						1 {nest && nest.name} ={' '}
+						{(wethPrice &&
+							sushiPairPrice &&
+							getDisplayBalance(sushiPairPrice.div(wethPrice), 0)) || (
+							<SpinnerLoader />
+						)}{' '}
+						<FontAwesomeIcon icon={['fab', 'ethereum']} /> = $
+						{(sushiPairPrice && getDisplayBalance(sushiPairPrice, 0)) || (
 							<SpinnerLoader />
 						)}
-					</StyledBadge>
+					</StyledBadge>{' '}
 				</StyledPageHeader>
 			</Container>
 			<Container>
 				<BasketStats
 					nest={nest}
 					composition={composition}
-					rates={rates}
+					rate={usdPerIndex}
 					info={info}
 					pairPrice={pairPrice}
 				/>
 				<BasketButtons nest={nest} swapLink={nest && nest.swap} />
+				<Analytics nest={nest} />
 				<Composition composition={composition} />
-				<Description nestAddress={nest && nest.nestAddresses[137]} />
+				<Description nestAddress={nest && nest.nestAddress} />
 			</Container>
 		</Page>
 	)

@@ -1,23 +1,25 @@
+import BigNumber from 'bignumber.js'
 import { useEffect, useState } from 'react'
-import { BigNumber } from 'bignumber.js'
 import { BasketComponent } from './useComposition'
-import { decimate } from '../../utils/numberFormat'
 
-const useNav = (composition: BasketComponent[], supply: BigNumber) => {
-  const [nav, setNav] = useState<BigNumber | undefined>()
+const useNav = (composition: Array<BasketComponent>, supply: BigNumber) => {
+  const [nav, setNav] = useState<{ nav: BigNumber } | undefined>()
 
   useEffect(() => {
     if (!(composition && supply)) return
 
-    setNav(
-      composition
-        .reduce(
-          (prev, comp) =>
-            prev.plus(comp.price.times(comp.balance.div(10 ** comp.decimals))),
-          new BigNumber(0),
+    let totalUSD = new BigNumber(0)
+    composition
+      .map((component) => {
+        return component.price.times(
+          component.balance.div(10 ** component.decimals),
         )
-        .div(decimate(supply)),
-    )
+      })
+      .forEach((usdVal) => (totalUSD = totalUSD.plus(usdVal)))
+
+    setNav({
+      nav: totalUSD.div(supply.div(10 ** 18)),
+    })
   }, [composition, supply])
 
   return nav

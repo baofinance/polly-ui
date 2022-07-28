@@ -478,7 +478,7 @@ export const NestList = styled.ul`
 `
 
 export const NestExplanation = styled.div`
-	background: ${(props) => props.theme.color.primary[100]};
+	background: ${(props) => props.theme.color.transparent[100]};
 	color: ${(props) => props.theme.color.text[100]};
 	text-align: left;
 	width: 100%;
