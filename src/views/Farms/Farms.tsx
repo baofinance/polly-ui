@@ -4,7 +4,6 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import Balances from './components/Balances'
 import { FarmList } from './components/FarmList'
-import Unlock from './components/Unlock'
 
 const Farms: React.FC = () => {
 	return (
@@ -15,7 +14,6 @@ const Farms: React.FC = () => {
 				subtitle="Earn POLLY by staking Sushiswap LP Tokens!"
 			/>
 			<Container>
-				<Unlock />
 				<Balances />
 				<FarmList />
 			</Container>
