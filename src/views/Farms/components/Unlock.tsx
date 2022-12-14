@@ -28,9 +28,9 @@ const Unlock: React.FC = () => {
 
 	const disabled = !account || !pollyContract || pendingUnlock.eq(0)
 
-	if (!bao || !pollyContract || !account) {
-		return null
-	}
+	//if (!bao || !pollyContract || !account) {
+	//	return null
+	//}
 
 	return !bao ? (
 		<SpinnerLoader />
