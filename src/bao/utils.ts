@@ -142,6 +142,20 @@ export const getLockedEarned = async (
   return pollyContract.methods.lockOf(account).call()
 }
 
+export const unlockPolly = async (
+  pollyContract: Contract,
+  account: string,
+): Promise<BigNumber> => {
+  return pollyContract.methods.unlock().send({ from: account }).call()
+}
+
+export const getUnlockAmount = async (
+  pollyContract: Contract,
+  account: string,
+): Promise<BigNumber> => {
+  return pollyContract.methods.canUnlockAmount(account).call()
+}
+
 export const getTotalLPWethValue = async (
   masterChefContract: Contract,
   wethContract: Contract,
