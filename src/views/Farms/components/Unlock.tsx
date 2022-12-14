@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { Fragment, useEffect, useState } from 'react'
-import { Container, Row, Col, Badge } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import useBao from 'hooks/base/useBao'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
 import { useWeb3React } from '@web3-react/core'
-import { unlockPolly, getUnlockAmount, getPollyContract } from 'bao/utils'
+import { getUnlockAmount, getPollyContract } from 'bao/utils'
 import { SpinnerLoader } from 'components/Loader'
 import { Button } from 'components/Button'
 import { getDisplayBalance } from 'utils/numberFormat'
@@ -17,6 +19,8 @@ const Unlock: React.FC = () => {
 	const { account } = useWeb3React()
 	const pollyContract = getPollyContract(bao)
 	const [pendingUnlock, setPendingUnlock] = useState(new BigNumber(0))
+  const { transactions } = useTransactionProvider()
+  const { handleTx } = useTransactionHandler()
 
 	useEffect(() => {
 		if (!pollyContract || !account) return
@@ -24,7 +28,7 @@ const Unlock: React.FC = () => {
 			.then((amount: BigNumber) => {
 				setPendingUnlock(new BigNumber(amount))
 			})
-	}, [pollyContract, account])
+	}, [pollyContract, account, transactions])
 
 	const disabled = !account || !pollyContract || pendingUnlock.eq(0)
 
@@ -54,7 +58,8 @@ const Unlock: React.FC = () => {
 							disabled={disabled}
 							onClick={async (e: React.SyntheticEvent) => {
 								e.preventDefault()
-								await unlockPolly(pollyContract, account)
+								const tx = pollyContract.methods.unlock().send({ from: account })
+								handleTx(tx, `Unlock ${getDisplayBalance(pendingUnlock)} Polly`)
 							}}
 						>
 							Unlock pending POLLY
