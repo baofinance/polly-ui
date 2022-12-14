@@ -20,7 +20,7 @@ const Unlock: React.FC = () => {
 	const pollyContract = getPollyContract(bao)
 	const [pendingUnlock, setPendingUnlock] = useState(new BigNumber(0))
 	const { transactions } = useTransactionProvider()
-	const { handleTx, pendingTx } = useTransactionHandler()
+	const { handleTx } = useTransactionHandler()
 
 	useEffect(() => {
 		if (!pollyContract || !account) return
@@ -28,7 +28,7 @@ const Unlock: React.FC = () => {
 			.then((amount) => {
 				setPendingUnlock(new BigNumber(amount))
 			})
-	}, [pollyContract, account])
+	}, [pollyContract, account, transactions])
 
 	const disabled = !account || !pollyContract || pendingUnlock.eq(0)
 
