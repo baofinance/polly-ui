@@ -19,16 +19,16 @@ const Unlock: React.FC = () => {
 	const { account } = useWeb3React()
 	const pollyContract = getPollyContract(bao)
 	const [pendingUnlock, setPendingUnlock] = useState(new BigNumber(0))
-  const { transactions } = useTransactionProvider()
-  const { handleTx } = useTransactionHandler()
+	const { transactions } = useTransactionProvider()
+	const { handleTx, pendingTx } = useTransactionHandler()
 
 	useEffect(() => {
 		if (!pollyContract || !account) return
 		getUnlockAmount(pollyContract, account)
-			.then((amount: BigNumber) => {
+			.then((amount) => {
 				setPendingUnlock(new BigNumber(amount))
 			})
-	}, [pollyContract, account, transactions])
+	}, [pollyContract, account])
 
 	const disabled = !account || !pollyContract || pendingUnlock.eq(0)
 
@@ -60,6 +60,9 @@ const Unlock: React.FC = () => {
 								e.preventDefault()
 								const tx = pollyContract.methods.unlock().send({ from: account })
 								handleTx(tx, `Unlock ${getDisplayBalance(pendingUnlock)} Polly`)
+								tx.on('receipt', (receipt: any) => {
+									setPendingUnlock(new BigNumber(0))
+								})
 							}}
 						>
 							Unlock pending POLLY
