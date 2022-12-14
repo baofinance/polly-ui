@@ -7,7 +7,7 @@ interface ButtonProps {
 	children?: React.ReactNode
 	disabled?: boolean
 	href?: string
-	onClick?: () => void
+	onClick?: (() => void) | ((e: React.SyntheticEvent) => void)
 	size?: 'sm' | 'md' | 'lg'
 	text?: any
 	to?: string
@@ -137,7 +137,6 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	outline: none;
 	padding-left: ${(props) => props.padding}px;
 	padding-right: ${(props) => props.padding}px;
-	pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
 	width: ${(props) => (props.width ? props.width : '100%')};
 	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 	position: relative;
@@ -189,7 +188,6 @@ const StyledButton = styled.button.attrs((attrs: StyledButtonProps) => ({
 	  }
 	  &:hover{
 		background: ${(props) => props.theme.color.primary[100]};
-		cursor: pointer;
 		&:before{
 		  transform: translateX(500px)  skewX(-15deg);  
 		  opacity: 0.6;
