@@ -1,17 +1,26 @@
 import { useWeb3React } from '@web3-react/core'
-import { getMasterChefContract } from 'bao/utils'
+import baoIcon from 'assets/img/logo.svg'
+import {
+	getMasterChefContract,
+	getPollyContract,
+	getUnlockAmount,
+} from 'bao/utils'
 import BigNumber from 'bignumber.js'
+import { Button } from 'components/Button'
 import { IconContainer, StyledIcon } from 'components/Icon'
-import { ListHeader, ListItemHeader, ListItem } from 'components/List'
+import { ListHeader, ListItem, ListItemHeader } from 'components/List'
 import { SpinnerLoader } from 'components/Loader'
 import Spacer from 'components/Spacer'
 import { Farm } from 'contexts/Farms'
 import { PoolType } from 'contexts/Farms/types'
 import useBao from 'hooks/base/useBao'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
 import useAllFarmTVL from 'hooks/farms/useAllFarmTVL'
 import useFarms from 'hooks/farms/useFarms'
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Form, Row } from 'react-bootstrap'
+import { Badge, Col, Container, Form, Row } from 'react-bootstrap'
+import styled from 'styled-components'
 import Multicall from 'utils/multicall'
 import { decimate, getDisplayBalance } from 'utils/numberFormat'
 import { FarmModal } from './Modals'
@@ -41,6 +50,19 @@ export const FarmList: React.FC = () => {
 
 	const [archived, showArchived] = useState(false)
 	const [staked, showStaked] = useState(false)
+
+	const pollyContract = getPollyContract(bao)
+	const [pendingUnlock, setPendingUnlock] = useState(new BigNumber(0))
+	const { transactions } = useTransactionProvider()
+	const disabled = !account || !pollyContract || pendingUnlock.eq(0)
+	const { handleTx } = useTransactionHandler()
+
+	useEffect(() => {
+		if (!pollyContract || !account) return
+		getUnlockAmount(pollyContract, account).then((amount) => {
+			setPendingUnlock(new BigNumber(amount))
+		})
+	}, [pollyContract, account, transactions])
 
 	useEffect(() => {
 		fetch(
@@ -122,25 +144,90 @@ export const FarmList: React.FC = () => {
 	return (
 		<>
 			<Spacer size="md" />
-			<Container style={{ textAlign: 'right', fontSize: '0.875rem' }}>
-				{/* <Form.Check
-					inline
-					type="switch"
-					id="show-archived"
-					label="Show Staked Only"
-					checked={staked}
-					onChange={(e) => showStaked(e.currentTarget.checked)}
-				/> */}
-				<Form.Check
-					inline
-					type="switch"
-					id="show-archived"
-					label="Show Archived Farms"
-					checked={archived}
-					onChange={(e) => showArchived(e.currentTarget.checked)}
-				/>
+			<Container
+				style={{
+					display: 'flex',
+					whiteSpace: 'nowrap',
+					overflow: 'hidden',
+					gridAutoColumns: '1fr',
+					grid: 'repeat',
+				}}
+			>
+				<div
+					style={{
+						fontSize: '1rem',
+						display: 'flex',
+						justifyContent: 'flex-start',
+						flex: '50%',
+						height: '40px',
+						verticalAlign: 'middle',
+					}}
+				>
+					<UnlockBadge>
+						<p
+							style={{
+								margin: 'auto 0 auto 0',
+								color: '#c4c3d0',
+							}}
+						>
+							Your Unlockable POLLY
+						</p>
+						<p
+							style={{
+								margin: 'auto 12px auto 12px',
+								fontWeight: 'bold',
+							}}
+						>
+							<img src={baoIcon} alt="BAO" style={{ height: '1em' }} />{' '}
+							{pendingUnlock.eq(0) ? '-' : getDisplayBalance(pendingUnlock)}
+						</p>
+					</UnlockBadge>
+					<div
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+						}}
+					>
+						<Button
+							size="sm"
+							width="75px"
+							disabled={disabled}
+							onClick={async (e: React.SyntheticEvent) => {
+								e.preventDefault()
+								const tx = pollyContract.methods
+									.unlock()
+									.send({ from: account })
+								handleTx(tx, `Unlock ${getDisplayBalance(pendingUnlock)} Polly`)
+								tx.on('receipt', (receipt: any) => {
+									setPendingUnlock(new BigNumber(0))
+								})
+							}}
+						>
+							Claim
+						</Button>
+					</div>
+				</div>
+				<div
+					style={{
+						textAlign: 'right',
+						fontSize: '0.875rem',
+						display: 'flex',
+						justifyContent: 'flex-end',
+						flex: '50%',
+						margin: 'auto',
+					}}
+				>
+					<Form.Check
+						inline
+						type="switch"
+						id="show-archived"
+						label="Show Archived Farms"
+						checked={archived}
+						onChange={(e) => showArchived(e.currentTarget.checked)}
+					/>
+				</div>
 			</Container>
-			<Row>
+			<Row style={{ marginTop: '1rem' }}>
 				<Col>
 					{!account ? (
 						<ListHeader headers={['Pool', 'APR', 'TVL']} />
@@ -231,3 +318,16 @@ const FarmListItem: React.FC<FarmListItemProps> = ({ farm }) => {
 		</>
 	)
 }
+
+export const UnlockBadge = styled(Badge)`
+	font-size: 1em;
+	background: ${(props) => props.theme.color.transparent[100]} !important;
+	color: ${(props) => props.theme.color.text[100]};
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	margin-right: 12px;
+`

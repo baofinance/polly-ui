@@ -1,15 +1,18 @@
 import { useWeb3React } from '@web3-react/core'
-import { getPollySupply } from 'bao/utils'
+import { getPollyContract, getPollySupply, getUnlockAmount } from 'bao/utils'
 import BigNumber from 'bignumber.js'
+import { Button } from 'components/Button'
 import { SpinnerLoader } from 'components/Loader'
 import {
-	UserStatsContainer,
-	UserStatsWrapper,
 	StatWrapper,
 	UserStat,
+	UserStatsContainer,
+	UserStatsWrapper,
 } from 'components/Stats'
 import useBao from 'hooks/base/useBao'
 import useTokenBalance from 'hooks/base/useTokenBalance'
+import useTransactionHandler from 'hooks/base/useTransactionHandler'
+import useTransactionProvider from 'hooks/base/useTransactionProvider'
 import useAllEarnings from 'hooks/farms/useAllEarnings'
 import useAllStakedValue from 'hooks/farms/useAllStakedValue'
 import useFarms from 'hooks/farms/useFarms'
