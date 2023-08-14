@@ -1,0 +1,26 @@
+.rnc__notification-item {
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  margin-bottom: 2rem;
+  position: relative;
+  justify-content: space-between;
+	background: #1e202280;
+	backdrop-filter: blur(25px);
+	-webkit-backdrop-filter: blur(25px);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+	border: 1px solid #faf2e318;
+}
+
+.rnc__notification-title {
+  font-size: 1.25rem;
+  font-weight: 200;
+  margin-bottom: 5px;
+  font-family: 'BakBak One'
+}
+
+.rnc__notification-message {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 5px;
+}

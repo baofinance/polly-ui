@@ -1,29 +1,36 @@
-import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
+import { BigNumber } from 'ethers'
 import { useWeb3React } from '@web3-react/core'
-import { getEarned, getMasterChefContract } from 'bao/utils'
-import useBao from 'hooks/base/useBao'
-import useBlock from 'hooks/base/useBlock'
+import useContract from '@/hooks/base/useContract'
+import type { Masterchef } from '@/typechain/index'
+import { providerKey } from '@/utils/index'
+import { useQuery } from '@tanstack/react-query'
+import { useTxReceiptUpdater } from '@/hooks/base/useTransactionProvider'
+import { useBlockUpdater } from '@/hooks/base/useBlock'
 
 const useEarnings = (pid: number) => {
-  const [balance, setBalance] = useState(new BigNumber(0))
-  const { account } = useWeb3React()
-  const bao = useBao()
-  const masterChefContract = getMasterChefContract(bao)
-  const block = useBlock()
+	const { library, account, chainId } = useWeb3React()
+	const Masterchef = useContract<Masterchef>('masterChef')
 
-  const fetchBalance = useCallback(async () => {
-    const balance = await getEarned(masterChefContract, pid, account)
-    setBalance(new BigNumber(balance))
-  }, [account, masterChefContract, bao])
+	const enabled = !!account && !!Masterchef
+	const { data: balance, refetch } = useQuery(
+		['@/hooks/farms/useEarnings', providerKey(library, account, chainId), { enabled, pid }],
+		async () => {
+			const _balance = await Masterchef.pendingReward(pid, account)
+			return _balance
+		},
+		{
+			enabled,
+			placeholderData: BigNumber.from('0'),
+		},
+	)
 
-  useEffect(() => {
-    if (account && masterChefContract && bao) {
-      fetchBalance()
-    }
-  }, [account, block, masterChefContract, setBalance, bao])
+	const _refetch = () => {
+		if (enabled) refetch()
+	}
+	useTxReceiptUpdater(_refetch)
+	useBlockUpdater(_refetch, 10)
 
-  return balance
+	return balance
 }
 
 export default useEarnings

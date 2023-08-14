@@ -1,36 +1,38 @@
-import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { getEarned, getFarms, getMasterChefContract } from 'bao/utils'
-import useBao from 'hooks/base/useBao'
-import useTransactionProvider from 'hooks/base/useTransactionProvider'
-import useBlock from 'hooks/base/useBlock'
+import useContract from '@/hooks/base/useContract'
+import type { Masterchef } from '@/typechain/index'
+import useFarms from './useFarms'
+import { providerKey } from '@/utils/index'
+import { useQuery } from '@tanstack/react-query'
+import { useTxReceiptUpdater } from '@/hooks/base/useTransactionProvider'
+import { useBlockUpdater } from '@/hooks/base/useBlock'
 
 const useAllEarnings = () => {
-  const [balances, setBalance] = useState([] as Array<BigNumber>)
-  const { account } = useWeb3React()
-  const bao = useBao()
-  const farms = getFarms(bao)
-  const masterChefContract = getMasterChefContract(bao)
-  const { transactions } = useTransactionProvider()
-  const block = useBlock()
+	const { library, account, chainId } = useWeb3React()
+	const farms = useFarms()
+	const Masterchef = useContract<Masterchef>('masterChef')
 
-  const fetchAllBalances = useCallback(async () => {
-    const balances: Array<BigNumber> = await Promise.all(
-      farms.map(({ pid }: { pid: number }) =>
-        getEarned(masterChefContract, pid, account),
-      ),
-    )
-    setBalance(balances)
-  }, [account, masterChefContract, bao])
+	const enabled = !!account && !!farms && !!Masterchef
+	const pids = farms.map(farm => farm.pid)
+	const { data: balances, refetch } = useQuery(
+		['@/hooks/farms/useAllEarnings', providerKey(library, account, chainId), { enabled, pids }],
+		async () => {
+			const _balances = farms.map(({ pid }) => Masterchef.pendingReward(pid, account))
+			return await Promise.all(_balances)
+		},
+		{
+			enabled,
+			placeholderData: [],
+		},
+	)
 
-  useEffect(() => {
-    if (account && masterChefContract && bao) {
-      fetchAllBalances()
-    }
-  }, [account, transactions, masterChefContract, setBalance, bao, block])
+	const _refetch = () => {
+		if (enabled) refetch()
+	}
+	useTxReceiptUpdater(_refetch)
+	useBlockUpdater(_refetch, 10)
 
-  return balances
+	return balances
 }
 
 export default useAllEarnings

@@ -5,5 +5,8 @@ workers-site/
 package.json
 yarn.lock
 package-lock.json
+pnpm-lock.yaml
+*.log
 .*
 tsconfig.json
+.eslintrc.json

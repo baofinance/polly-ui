@@ -1,0 +1,467 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+}
+
+body {
+	background: rgb(32, 34, 49);
+	background: radial-gradient(circle at center top, #202231, #161522) 0 0 / cover fixed;
+	/* background-image: url('/images/overlay.png'); */
+	margin: 0;
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #f8f8ff;
+	overflow-x: hidden;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+	-moz-appearance: textfield; /* Firefox */
+}
+
+.bg-rainbow {
+	background: linear-gradient(
+		45deg,
+		rgba(255, 0, 0, 1) 0%,
+		rgba(255, 154, 0, 1) 10%,
+		rgba(208, 222, 33, 1) 20%,
+		rgba(79, 220, 74, 1) 30%,
+		rgba(63, 218, 216, 1) 40%,
+		rgba(47, 201, 226, 1) 50%,
+		rgba(28, 127, 238, 1) 60%,
+		rgba(95, 21, 242, 1) 70%,
+		rgba(186, 12, 248, 1) 80%,
+		rgba(251, 7, 217, 1) 90%,
+		rgba(255, 0, 0, 1) 100%
+	) !important;
+	background-size: 300% 300% !important;
+	border-radius: 8px !important;
+	filter: blur(6px) !important;
+	position: absolute !important;
+	top: -4px !important;
+	right: -4px !important;
+	bottom: -4px !important;
+	left: -4px !important;
+	z-index: -1 !important;
+}
+
+.pollyTicker {
+	background-color: #171522 !important;
+	padding: 1rem;
+	border-radius: 0.75rem;
+	border: 1px solid #0c0b12;
+}
+
+/* Scrollbar Styling */
+/* Width */
+::-webkit-scrollbar {
+	width: 14px;
+	border-radius: 100%;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: #e21a53;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #1e2022;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #1e2022;
+}
+
+#__next {
+	height: calc(100vh - 72px);
+}
+
+::selection {
+	background: rgba(256, 256, 256, 0.1);
+}
+
+.react-datepicker__input-container input {
+	@apply block w-full rounded border bg-transparent-100 text-base shadow-sm md:text-sm;
+}
+
+.react-datepicker-popper {
+	@apply z-40 w-72 rounded border-2 bg-transparent-100 px-3 py-2 text-sm shadow;
+}
+
+.react-datepicker-left {
+	@apply absolute left-0 right-auto top-11 transform-none !important;
+}
+
+.react-datepicker-right {
+	@apply absolute left-auto right-0 top-11 transform-none !important;
+}
+
+.react-datepicker__portal {
+	@apply absolute right-0 top-12 z-10 w-72 transform-none rounded border-2 border-transparent-200 bg-pollyWhite px-3 py-2 text-sm shadow;
+}
+
+.react-datepicker__month-container {
+	@apply flex flex-col;
+}
+
+.react-datepicker__month {
+	@apply flex flex-col;
+}
+
+.react-datepicker__current-month {
+	@apply ml-2.5 text-lg font-bakbak text-pollyGreen;
+}
+
+.react-datepicker__week {
+	@apply flex justify-around;
+}
+
+.react-datepicker__day-names {
+	@apply flex justify-around text-center text-xs font-bakbak text-pollyGreen;
+}
+
+.react-datepicker__day-name {
+	@apply flex h-8 w-8 items-center justify-center rounded-full py-1 text-pollyGreen;
+}
+
+.react-datepicker__navigation {
+	@apply absolute top-2;
+}
+
+.react-datepicker__navigation--previous {
+	@apply right-12 flex h-8 w-8 items-center justify-center rounded transition hover:bg-gray-200;
+}
+
+.react-datepicker__navigation--next {
+	@apply right-4 flex h-8 w-8 items-center justify-center rounded transition hover:bg-gray-200;
+}
+
+.react-datepicker__day {
+	@apply mb-1 flex h-8 w-8 cursor-pointer items-center justify-center py-1 text-sm leading-loose text-pollyWhite transition;
+}
+
+.react-datepicker__day--disabled {
+	@apply cursor-not-allowed opacity-40;
+}
+
+.react-datepicker__day--outside-month {
+	@apply text-gray-300;
+}
+
+.react-datepicker__day--in-range {
+	@apply bg-gray-200;
+}
+
+.react-datepicker__day--in-selecting-range {
+}
+
+.react-datepicker__day--selecting-range-start {
+	@apply bg-white;
+}
+
+.react-datepicker__day--selecting-range-end {
+	@apply bg-white;
+}
+
+.react-datepicker__day--selected {
+	@apply rounded border bg-transparent-100 text-white;
+}
+
+.react-datepicker__day--range-start {
+	@apply text-white hover:bg-white hover:text-gray-700;
+}
+
+.react-datepicker__day--range-end {
+	@apply text-white hover:bg-white hover:text-gray-700;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	input[type='range']::-webkit-slider-thumb {
+		width: 15px;
+		-webkit-appearance: none;
+		appearance: none;
+		height: 15px;
+		cursor: ew-resize;
+		background: #e21a53;
+		border-radius: 50%;
+	}
+}
+
+.glassmorphic-card {
+	background: #1e202280;
+	backdrop-filter: blur(25px);
+	-webkit-backdrop-filter: blur(25px);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 3rem;
+	border: 1px solid #faf2e318;
+}
+
+.stroke {
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke-color: #53c7e4;
+	-webkit-text-stroke-width: 1.5px;
+}
+
+.stroke-white {
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke-color: #f8f8ff;
+	-webkit-text-stroke-width: 1.5px;
+}
+
+.iconAnim {
+	fill: #ff0000;
+}
+
+.iconAnim:hover {
+	filter: hue-rotate(0deg);
+	animation: iconColor 5s infinite linear;
+}
+
+@keyframes iconColor {
+	12.5% {
+		fill: hue-rotate(20deg);
+	}
+	25% {
+		fill: hue-rotate(40deg);
+	}
+	37.5% {
+		fill: hue-rotate(60deg);
+	}
+	50% {
+		fill: hue-rotate(80deg);
+	}
+	62.5% {
+		fill: hue-rotate(100deg);
+	}
+	75% {
+		fill: hue-rotate(120deg);
+	}
+	87.5% {
+		fill: hue-rotate(140deg);
+	}
+	100% {
+		fill: hue-rotate(160deg);
+	}
+}
+
+/*
+ * react-circular-progressbar styles
+ * All of the styles in this file are configurable!
+ */
+
+.CircularProgressbar {
+	/*
+	 * This fixes an issue where the CircularProgressbar svg has
+	 * 0 width inside a "display: flex" container, and thus not visible.
+	 */
+	width: 100%;
+	/*
+	 * This fixes a centering issue with CircularProgressbarWithChildren:
+	 * https://github.com/kevinsqi/react-circular-progressbar/issues/94
+	 */
+	vertical-align: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+	stroke: #3e98c7;
+	stroke-linecap: round;
+	-webkit-transition: stroke-dashoffset 0.5s ease 0s;
+	transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+	stroke: #faf2e320;
+	/* Used when trail is not full diameter, i.e. when props.circleRatio is set */
+	stroke-linecap: round;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+	fill: #3e98c7;
+	font-size: 20px;
+	dominant-baseline: middle;
+	text-anchor: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-background {
+	fill: #d6d6d6;
+}
+
+/*
+   * Sample background styles. Use these with e.g.:
+   *
+   *   <CircularProgressbar
+   *     className="CircularProgressbar-inverted"
+   *     background
+   *     percentage={50}
+   *   />
+   */
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
+	fill: #3e98c7;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-text {
+	fill: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-path {
+	stroke: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-trail {
+	stroke: transparent;
+}
+
+.modal-open {
+	overflow: auto;
+	padding-right: 0px !important;
+}
+
+.hero-gradient {
+	display: inline-block;
+	background: linear-gradient(to left, #6b9aef 0%, #65c48c 33%, #1fa6e0 66%, #6b9aef 100%);
+	background-size: 200% auto;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: bounce 10s ease-in-out infinite alternate;
+
+	@keyframes bounce {
+		to {
+			background-position: 200%;
+		}
+	}
+}
+
+.bubble-wrap {
+	height: 600px;
+	margin-left: calc(-50vw + 250px);
+	margin-right: calc(-50vw + 250px);
+	overflow: hidden;
+}
+
+.bubble-container {
+	position: relative;
+  
+	.bubble {
+	  opacity: 0.75;
+	  position: absolute;
+	  width: 100px;
+	  height: 100px;
+	  background-repeat: no-repeat;
+	  background-size: 100px 100px;
+	  background-position: center center;
+	  z-index: -999;
+	}
+  
+	.logo1 {
+	  background-image: url('/images/AAVE.png');
+	}
+	.logo2 {
+		background-image: url('/images/LINK.png');
+	}
+	.logo3 {
+		background-image: url('/images/ALPHA.png');
+	}
+	.logo4 {
+		background-image: url('/images/BAL.png');
+	}
+	.logo5 {
+		background-image: url('/images/BAO.png');
+	}
+	.logo6 {
+		background-image: url('/images/DAI.png');
+	}
+	.logo7 {
+		background-image: url('/images/CREAM.png');
+	}
+	.logo8 {
+		background-image: url('/images/CRV.png');
+	}
+	.logo9 {
+		background-image: url('/images/CVX.png');
+	}
+	.logo10 {
+		background-image: url('/images/DAI.png');
+	}
+	.logo11 {
+		background-image: url('/images/FRAX.png');
+	}
+	.logo12 {
+		background-image: url('/images/GRT.png');
+	}
+	.logo13 {
+		background-image: url('/images/SUSHI.png');
+	}
+	.logo14 {
+		background-image: url('/images/LINK.png');
+	}
+	.logo15 {
+		background-image: url('/images/MATIC.png');
+	}
+	.logo16 {
+		background-image: url('/images/MKR.png');
+	}
+	.logo17 {
+		background-image: url('/images/SNX.png');
+	}
+	.logo18 {
+		background-image: url('/images/SUSHI.png');
+	}
+	.logo19 {
+		background-image: url('/images/WETH.png');
+	}
+	.logo20 {
+		background-image: url('/images/UNI.png');
+	}
+	.logo21 {
+		background-image: url('/images/USDC.png');
+	}
+	.logo22 {
+		background-image: url('/images/USDT.png');
+	}
+	.logo23 {
+		background-image: url('/images/WETH.png');
+	}
+	.logo24 {
+		background-image: url('/images/YFI.png');
+	}
+	.logo25 {
+		background-image: url('/images/USDC.png');
+	}
+	.logo26 {
+		background-image: url('/images/MATIC.png');
+	}
+	.logo27 {
+		background-image: url('/images/GRT.png');
+	}
+	.logo28 {
+		background-image: url('/images/UMA.png');
+	}
+	.logo29 {
+		background-image: url('/images/COMP.png');
+	}
+	.logo30 {
+		background-image: url('/images/SUSHI.png');
+	}
+	.logo31 {
+		background-image: url('/images/SNX.png');
+	}
+	.logo32 {
+		background-image: url('/images/ALCX.png');
+	}
+	.logo33 {
+		background-image: url('/images/AAVE.png');
+	}
+}

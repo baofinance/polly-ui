@@ -1,5 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
+
+import Typography from '../Typography'
 
 export interface ProgressBarProps {
 	assetColor: string
@@ -7,37 +8,20 @@ export interface ProgressBarProps {
 	label?: string
 }
 
-export const Progress: React.FC<ProgressBarProps> = ({
-	assetColor,
-	width,
-	label,
-}) => {
+export const Progress: React.FC<ProgressBarProps> = ({ assetColor, width, label }) => {
 	return (
 		<>
-			<ProgressBar assetColor={assetColor} width={width}>
-				{
-					width > 20 ? (
-						label
-					) : (
-						<span style={{ opacity: '0' }}>x</span>
-					) /* janky, but have to do it to make the bar show */
-				}
-			</ProgressBar>
-			{width <= 20 && <OutsideLabel>{label}</OutsideLabel>}
+			<div
+				className='float-left inline-block h-full rounded px-4 py-1 font-bakbak'
+				style={{ backgroundColor: `${assetColor}`, width: `${width}%` }}
+			>
+				{width > 20 ? label : <span className='opacity-0'>x</span> /* janky, but have to do it to make the bar show */}
+			</div>
+			{width <= 20 && (
+				<Typography variant='sm' className='font-bakbak'>
+					{label}
+				</Typography>
+			)}
 		</>
 	)
 }
-
-export const OutsideLabel = styled.span`
-	float: left;
-	margin-left: ${(props) => props.theme.spacing[2]}px;
-`
-
-export const ProgressBar = styled.div.attrs((props: ProgressBarProps) => ({}))`
-	background-color: ${(props: ProgressBarProps) => props.assetColor};
-	border-radius: 5px;
-	width: ${(props: ProgressBarProps) => props.width}%;
-	height: 100%;
-	display: inline-block;
-	float: left;
-`

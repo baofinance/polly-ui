@@ -1,38 +1,34 @@
-import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { getAllowance } from 'utils/erc20'
-import { Contract } from 'web3-eth-contract'
-import Config from 'bao/lib/config'
-import useBao from './useBao'
-import useTransactionProvider from './useTransactionProvider'
-import useBlock from './useBlock'
+import useContract from '@/hooks/base/useContract'
+import type { Erc20 } from '@/typechain/index'
+import { providerKey } from '@/utils/index'
+import { useQuery } from '@tanstack/react-query'
+import { useTxReceiptUpdater } from '@/hooks/base/useTransactionProvider'
+import { useBlockUpdater } from '@/hooks/base/useBlock'
 
-const useAllowance = (lpContract: Contract) => {
-  const [allowance, setAllowance] = useState(new BigNumber(0))
-  const { account } = useWeb3React()
-  const bao = useBao()
-  const { transactions } = useTransactionProvider()
-  const block = useBlock()
+const useAllowance = (tokenAddress: string, spenderAddress: string) => {
+	const { library, chainId, account } = useWeb3React()
+	const contract = useContract<Erc20>('Erc20', tokenAddress)
 
-  const fetchAllowance = useCallback(async () => {
-    const allowance = await getAllowance(
-      lpContract,
-      account,
-      Config.contracts.masterChef[Config.networkId].address,
-    )
-    setAllowance(new BigNumber(allowance))
-  }, [account, lpContract])
+	const enabled = !!account && !!contract
+	const { data: allowance, refetch } = useQuery(
+		['@/hooks/base/useAllowance', providerKey(library, account, chainId), contract?.address, spenderAddress],
+		async () => {
+			const _allowance = await contract.allowance(account, spenderAddress)
+			return _allowance
+		},
+		{
+			enabled,
+		},
+	)
 
-  useEffect(() => {
-    if (account && lpContract) {
-      fetchAllowance()
-    }
-    const refreshInterval = setInterval(fetchAllowance, 10000)
-    return () => clearInterval(refreshInterval)
-  }, [account, lpContract, bao, transactions, block])
+	const _refetch = () => {
+		if (enabled) refetch()
+	}
+	useTxReceiptUpdater(_refetch)
+	useBlockUpdater(_refetch, 10)
 
-  return allowance
+	return allowance
 }
 
 export default useAllowance

@@ -1,54 +1,39 @@
-import { Contract } from 'web3-eth-contract'
-import { AbiItem } from 'web3-utils'
-import CreamABI from 'bao/lib/abi/creamLending.json'
-import ERC20ABI from 'bao/lib/abi/erc20.json'
-import { Bao } from 'bao'
+import { Contract } from '@ethersproject/contracts'
+import { Provider } from '@ethersproject/providers'
+import { Signer } from '@ethersproject/abstract-signer'
 
-export const getContract = (bao: Bao, address: string) => {
-  return (
-    bao &&
-    bao.web3 &&
-    new bao.web3.eth.Contract(ERC20ABI as unknown as AbiItem, address)
-  )
+import CreamABI from '@/bao/lib/abi/creamLending.json'
+import ERC20ABI from '@/bao/lib/abi/erc20.json'
+
+export const getContract = (signerOrProvider: Signer | Provider, address: string) => {
+	return signerOrProvider && new Contract(address, ERC20ABI, signerOrProvider)
 }
 
-export const getCreamContract = (bao: Bao, address: string) => {
-  return (
-    bao &&
-    bao.web3 &&
-    new bao.web3.eth.Contract(CreamABI as unknown as AbiItem, address)
-  )
+export const getCreamContract = (signerOrProvider: Signer | Provider, address: string) => {
+	return signerOrProvider && new Contract(address, CreamABI, signerOrProvider)
 }
 
-export const getAllowance = async (
-  contract: Contract,
-  owner: string,
-  spender: string,
-): Promise<string> => {
-  try {
-    return await contract.methods.allowance(owner, spender).call()
-  } catch (e) {
-    return '0'
-  }
+// NOTE: signer should be set on the Contract here already
+export const getAllowance = async (contract: Contract, owner: string, spender: string): Promise<string> => {
+	try {
+		const allow = await contract.allowance(owner, spender)
+		return allow.toString()
+	} catch (e) {
+		return '0'
+	}
 }
 
-export const getBalance = async (
-  bao: Bao,
-  tokenAddress: string,
-  userAddress: string,
-): Promise<string> => {
-  const tokenContract = getContract(bao, tokenAddress)
-  try {
-    return await tokenContract.methods.balanceOf(userAddress).call()
-  } catch (e) {
-    return '0'
-  }
+export const getBalance = async (signerOrProvider: Signer | Provider, tokenAddress: string, userAddress: string): Promise<string> => {
+	const tokenContract = getContract(signerOrProvider, tokenAddress)
+	try {
+		const bal = await tokenContract.balanceOf(userAddress)
+		return bal.toString()
+	} catch (e) {
+		return '0'
+	}
 }
 
-export const getDecimals = async (
-  bao: Bao,
-  tokenAddress: string,
-): Promise<string> => {
-  const tokenContract = getContract(bao, tokenAddress)
-  return await tokenContract.methods.decimals().call()
+export const getDecimals = async (signerOrProvider: Signer | Provider, tokenAddress: string): Promise<string> => {
+	const tokenContract = getContract(signerOrProvider, tokenAddress)
+	return tokenContract.decimals()
 }

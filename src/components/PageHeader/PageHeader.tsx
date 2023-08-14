@@ -1,79 +1,25 @@
+import Image from 'next/future/image'
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import styled from 'styled-components'
+import { isDesktop } from 'react-device-detect'
+
+import Typography from '../Typography'
 
 interface PageHeaderProps {
-	icon: any
-	subtitle?: string
+	icon?: any
+	description?: any
 	title?: string
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
-	const titletext = title.toString()
-	if (titletext.toString() === 'PollyChef is Ready') {
-		return (
-			<Container>
-				<StyledPageHeader>
-					<StyledTitle>{title}</StyledTitle>
-				</StyledPageHeader>
-			</Container>
-		)
-	} else if (titletext.toString() === 'Select Your Fav Dim Sum Entrees!') {
-		return (
-			<Container>
-				<StyledPageHeader>
-					<StyledTitle>{title}</StyledTitle>
-				</StyledPageHeader>
-			</Container>
-		)
-	} else {
-		return (
-			<Container>
-				<StyledPageHeader>
-					<StyledTitle>{title}</StyledTitle>
-				</StyledPageHeader>
-			</Container>
-		)
-	}
+const PageHeader: React.FC<PageHeaderProps> = ({ title, icon, description }) => {
+	return (
+		<div className='mx-auto mb-4 mt-6 box-border flex flex-col items-center'>
+			{icon && <Image src={icon} alt={title} height={`${isDesktop ? 128 : 64}`} width={`${isDesktop ? 128 : 64}`} />}
+			<Typography variant='h1' className='font-bakbak antialiased'>
+				{title}
+			</Typography>
+			{description && <Typography className='flex flex-1 items-center justify-center'>{description}</Typography>}
+		</div>
+	)
 }
-
-const StyledPageHeader = styled.div`
-	align-items: center;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	padding-bottom: ${(props) => props.theme.spacing[6]}px;
-	margin: ${(props) => props.theme.spacing[6]}px auto 0;
-`
-
-export const StyledTitle = styled.h1`
-	font-family: 'Rubik', sans-serif;
-	font-size: 4rem !important;
-	letter-spacing: -0.1rem;
-	text-align: center;
-	font-weight: ${(props) => props.theme.fontWeight.strong} !important;
-	color: ${(props) => props.theme.color.text[100]};
-	background: linear-gradient(
-		to left,
-		${(props) => props.theme.color.accent[300]} 0%,
-		${(props) => props.theme.color.accent[100]} 33%,
-		${(props) => props.theme.color.accent[200]} 66%,
-		${(props) => props.theme.color.accent[300]} 100%
-	);
-	background-size: 200% auto;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: bounce 25s ease-in-out infinite alternate;
-
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		font-size: 2.5rem !important;
-	}
-
-	@keyframes bounce {
-		to {
-			background-position: 300%;
-		}
-	}
-`
 
 export default PageHeader

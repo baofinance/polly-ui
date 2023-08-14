@@ -1,1 +1,1 @@
-export { default, Context } from './BaoProvider'
+export { BaoContext, default } from './BaoProvider'

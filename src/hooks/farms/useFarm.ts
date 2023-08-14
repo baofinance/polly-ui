@@ -1,10 +1,10 @@
-import { Context as FarmsContext, Farm } from 'contexts/Farms'
+import { FarmableSupportedPool } from '@/bao/lib/types'
+import { Context as FarmsContext } from '@/contexts/Farms'
 import { useContext } from 'react'
 
-const useFarm = (id: string): Farm => {
-  const { farms } = useContext(FarmsContext)
-  const farm = farms.find((farm) => farm.id === id)
-  return farm
+const useFarm = (id: number): FarmableSupportedPool => {
+	const { farms } = useContext(FarmsContext)
+	return farms.find(farm => farm.pid === id)
 }
 
 export default useFarm

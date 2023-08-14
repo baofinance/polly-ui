@@ -1,36 +1,33 @@
-import BigNumber from 'bignumber.js'
-import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import { providerKey } from '@/utils/index'
+import { useQuery } from '@tanstack/react-query'
 import useBlock from './useBlock'
-import useBao from './useBao'
+import { BigNumber } from 'ethers'
 
-const useBlockDiff = (userInfo: any) => {
-  const { account } = useWeb3React()
-  const bao = useBao()
-  const block = useBlock()
-  const [blockDiff, setBlockDiff] = useState<number | undefined>()
+interface BlockDiffOptions {
+	firstDepositBlock: BigNumber
+	lastWithdrawBlock: BigNumber
+}
 
-  const fetchBlockDiff = useCallback(async () => {
-    if (!(account && bao && userInfo)) return
+const useBlockDiff = (options?: BlockDiffOptions) => {
+	const { library, chainId, account } = useWeb3React()
+	const block = useBlock()
 
-    const firstDepositBlock = new BigNumber(userInfo.firstDepositBlock)
-    const lastWithdrawBlock = new BigNumber(userInfo.lastWithdrawBlock)
+	const enabled = !!library && !!block && !!options
+	const { data: blockDiff } = useQuery(
+		['@/hooks/base/useBlockDiff', providerKey(library, account, chainId), options, { block }],
+		async () => {
+			const { firstDepositBlock, lastWithdrawBlock } = options
+			const firstOrLast = firstDepositBlock.gt(lastWithdrawBlock) ? firstDepositBlock.toNumber() : lastWithdrawBlock.toNumber()
+			const _blockDiff = block - firstOrLast
+			return _blockDiff
+		},
+		{
+			enabled,
+		},
+	)
 
-    const blockDiff =
-      block -
-      new BigNumber(
-        firstDepositBlock.gt(lastWithdrawBlock)
-          ? firstDepositBlock
-          : lastWithdrawBlock,
-      ).toNumber()
-    setBlockDiff(blockDiff)
-  }, [bao, account, block, userInfo])
-
-  useEffect(() => {
-    fetchBlockDiff()
-  }, [bao, block, userInfo])
-
-  return blockDiff > 0 && blockDiff
+	return blockDiff > 0 && blockDiff
 }
 
 export default useBlockDiff

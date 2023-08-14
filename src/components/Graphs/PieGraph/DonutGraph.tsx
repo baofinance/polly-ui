@@ -1,14 +1,23 @@
+import Loader from '@/components/Loader'
+import { NestComponent } from '@/hooks/nests/useComposition'
+import { NestInfo } from '@/hooks/nests/useNestInfo'
+import { NestRates } from '@/hooks/nests/useNestRate'
+import { getDisplayBalance } from '@/utils/numberFormat'
 import { Group } from '@visx/group'
 import Pie, { PieArcDatum, ProvidedProps } from '@visx/shape/lib/shapes/Pie'
-import { NestComponent } from 'contexts/Nests/types'
+import { Text } from '@visx/text'
+import { BigNumber } from 'ethers'
+import { formatUnits } from 'ethers/lib/utils'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { animated, interpolate, useTransition } from 'react-spring'
-import { getBalanceNumber, getDisplayBalance } from 'utils/numberFormat'
 
 interface AssetAllocationAmount {
-	label: string
-	frequency: number
+	symbol: string
+	balance: BigNumber
+	decimals: number
+	tvl: BigNumber
+	frequency: BigNumber
 	color: string
 }
 
@@ -17,46 +26,31 @@ const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 }
 export type DonutProps = {
 	width: number
 	height: number
-	composition: Array<NestComponent>
+	composition: NestComponent[]
+	rates: NestRates
+	info: NestInfo
+	nest: string
 	margin?: typeof defaultMargin
 	animate?: boolean
 }
 
-export default function DonutGraph({
-	width,
-	height,
-	composition,
-	margin = defaultMargin,
-	animate = true,
-}: DonutProps) {
-	const [selectedAssetAmount, setSelectedAssetAmount] = useState<string | null>(
-		null,
-	)
+export default function DonutGraph({ width, height, composition, rates, info, margin = defaultMargin }: DonutProps) {
+	const [active, setActive] = useState(null)
 
-	const assetsBalance: AssetAllocationAmount[] = composition.map(
-		(component) => ({
-			label: `
-			${component.percentage}%
-			${getDisplayBalance(component.balance, component.balanceDecimals)} ${
-				component.symbol
+	const assetsBalance: AssetAllocationAmount[] =
+		composition &&
+		composition.map(component => {
+			return {
+				tvl: component.price.mul(component.balance.toString()).div(BigNumber.from(10).pow(component.decimals)),
+				symbol: component.symbol,
+				balance: component.balance,
+				decimals: component.decimals,
+				frequency: component.percentage,
+				color: component.color,
 			}
-			${
-				component.price
-					? `$${getDisplayBalance(
-							component.price.times(
-								getBalanceNumber(component.balance, component.balanceDecimals),
-							),
-							0,
-					  )}`
-					: ''
-			}
-		`,
-			frequency: component.percentage,
-			color: component.color,
-		}),
-	)
+		})
 
-	const frequency = (d: AssetAllocationAmount) => d.frequency
+	const frequency = (d: AssetAllocationAmount) => parseFloat(formatUnits(d.frequency))
 
 	if (width < 10) return null
 
@@ -70,35 +64,63 @@ export default function DonutGraph({
 		<svg width={width} height={height}>
 			<Group top={centerY + margin.top} left={centerX + margin.left}>
 				<Pie
-					data={
-						selectedAssetAmount
-							? assetsBalance.filter(
-									({ label }) => label === selectedAssetAmount,
-							  )
-							: assetsBalance
-					}
+					data={assetsBalance}
 					pieValue={frequency}
 					pieSortValues={() => -1}
 					outerRadius={radius}
-					innerRadius={radius - 100}
+					innerRadius={({ data }) => {
+						const size = active && active.symbol == data.symbol ? 6 : 6
+						return radius - size
+					}}
+					padAngle={0.01}
 				>
-					{(pie) => (
-						<AnimatedPie<AssetAllocationAmount>
-							{...pie}
-							animate={animate}
-							getKey={({ data: { label } }) => label}
-							onClickDatum={({ data: { label } }) =>
-								animate &&
-								setSelectedAssetAmount(
-									selectedAssetAmount && selectedAssetAmount === label
-										? null
-										: label,
-								)
-							}
-							getColor={({ data: { color } }) => color}
-						/>
-					)}
+					{pie => {
+						return pie.arcs.map(arc => {
+							return (
+								<g
+									key={arc.data.symbol}
+									className='duration-200'
+									onMouseEnter={() => setActive(arc.data)}
+									onMouseLeave={() => setActive(null)}
+								>
+									<defs>
+										<filter id='glow'>
+											<feGaussianBlur className='blur' result='coloredBlur' stdDeviation='2'></feGaussianBlur>
+											<feMerge>
+												<feMergeNode in='coloredBlur'></feMergeNode>
+												<feMergeNode in='SourceGraphic'></feMergeNode>
+											</feMerge>
+										</filter>
+									</defs>
+									<path
+										d={pie.path(arc)}
+										fill={arc.data.color}
+										filter={active && active.symbol == arc.data.symbol ? 'url(#glow)' : ''}
+									></path>
+								</g>
+							)
+						})
+					}}
 				</Pie>
+				{!active ? (
+					<>
+						<Text textAnchor='middle' fill='#faf2e3' className='font-bakbak text-lg' dy={-2}>
+							{`${rates && info ? `$${getDisplayBalance(rates.usd.mul(info.totalSupply), 36)}` : <Loader />}`}
+						</Text>
+						<Text textAnchor='middle' fill='#faf2e3' className='font-bakbak text-sm' dy={14}>
+							{`Total Value Locked`}
+						</Text>
+					</>
+				) : (
+					<>
+						<Text textAnchor='middle' fill='#faf2e3' className='font-bakbak text-lg' dy={-2}>
+							{`$${active && getDisplayBalance(active.tvl)}`}
+						</Text>
+						<Text textAnchor='middle' fill={active.color} className='font-bakbak text-xs' dy={14}>
+							{`${getDisplayBalance(active.balance, active.decimals, 4)} ${active.symbol}`}
+						</Text>
+					</>
+				)}
 			</Group>
 		</svg>
 	)
@@ -127,14 +149,7 @@ type AnimatedPieProps<Datum> = ProvidedProps<Datum> & {
 	delay?: number
 }
 
-function AnimatedPie<Datum>({
-	animate,
-	arcs,
-	path,
-	getKey,
-	getColor,
-	onClickDatum,
-}: AnimatedPieProps<Datum>) {
+function AnimatedPie<Datum>({ animate, arcs, path, getKey, getColor, onClickDatum }: AnimatedPieProps<Datum>) {
 	const transitions = useTransition<PieArcDatum<Datum>, AnimatedStyles>(arcs, {
 		from: animate ? fromLeaveTransition : enterUpdateTransition,
 		enter: enterUpdateTransition,
@@ -151,35 +166,31 @@ function AnimatedPie<Datum>({
 			<g key={key}>
 				<animated.path
 					// compute interpolated path d attribute from intermediate angle values
-					d={interpolate(
-						[props.startAngle, props.endAngle],
-						(startAngle, endAngle) =>
-							path({
-								...arc,
-								startAngle,
-								endAngle,
-							}),
+					d={interpolate([props.startAngle, props.endAngle], (startAngle, endAngle) =>
+						path({
+							...arc,
+							startAngle,
+							endAngle,
+						}),
 					)}
 					fill={getColor(arc)}
-					onClick={() => onClickDatum(arc)}
-					onTouchStart={() => onClickDatum(arc)}
 				/>
 				{hasSpaceForLabel && (
 					<animated.g style={{ opacity: props.opacity }}>
 						{_.map(
-							_.filter(getKey(arc).split('\n'), (line) => line.length > 0),
-							(line) => {
+							_.filter(getKey(arc).split('\n'), line => line.length > 0),
+							line => {
 								return (
 									<>
 										<text
-											fill="white"
+											fill='white'
 											x={centroidX}
 											y={centroidY + index++ * 12}
-											dy=".33em"
+											dy='.33em'
 											fontSize={12}
-											fontWeight="bold"
-											textAnchor="middle"
-											pointerEvents="none"
+											fontWeight='bold'
+											textAnchor='middle'
+											pointerEvents='none'
 										>
 											{line}
 										</text>

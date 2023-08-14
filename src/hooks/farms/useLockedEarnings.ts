@@ -1,29 +1,36 @@
 import { useWeb3React } from '@web3-react/core'
-import { getLockedEarned, getPollyContract } from 'bao/utils'
-import BigNumber from 'bignumber.js'
-import useBao from 'hooks/base/useBao'
-import useBlock from 'hooks/base/useBlock'
-import { useCallback, useEffect, useState } from 'react'
+import { BigNumber } from 'ethers'
+import useContract from '@/hooks/base/useContract'
+import type { Polly } from '@/typechain/index'
+import { providerKey } from '@/utils/index'
+import { useQuery } from '@tanstack/react-query'
+import { useTxReceiptUpdater } from '@/hooks/base/useTransactionProvider'
+import { useBlockUpdater } from '@/hooks/base/useBlock'
 
 const useLockedEarnings = () => {
-  const [balance, setBalance] = useState(new BigNumber(0))
-  const { account } = useWeb3React()
-  const bao = useBao()
-  const baoContract = getPollyContract(bao)
-  const block = useBlock()
+	const { library, account, chainId } = useWeb3React()
+	const baoContract = useContract<Polly>('Polly')
 
-  const fetchBalance = useCallback(async () => {
-    const balance = await getLockedEarned(baoContract, account)
-    setBalance(new BigNumber(balance))
-  }, [account, baoContract])
+	const enabled = !!account && !!baoContract
+	const { data: balance, refetch } = useQuery(
+		['@/hooks/farms/useLockedEarnings', providerKey(library, account, chainId), { enabled }],
+		async () => {
+			const _balance = await baoContract.lockOf(account)
+			return _balance
+		},
+		{
+			enabled,
+			placeholderData: BigNumber.from('0'),
+		},
+	)
 
-  useEffect(() => {
-    if (account && baoContract && bao) {
-      fetchBalance()
-    }
-  }, [account, block, baoContract, setBalance, bao])
+	const _refetch = () => {
+		if (enabled) refetch()
+	}
+	useTxReceiptUpdater(_refetch)
+	useBlockUpdater(_refetch, 10)
 
-  return balance
+	return balance
 }
 
 export default useLockedEarnings

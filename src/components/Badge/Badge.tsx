@@ -1,15 +1,23 @@
-import { Badge } from 'react-bootstrap'
-import styled from 'styled-components'
+import { Chip } from '@material-tailwind/react/components/Chip'
+import classNames from 'classnames'
 
-export const StyledBadge = styled(Badge)`
-	font-size: 1em;
-	color: ${(props) => props.theme.color.text[100]};
-	font-weight: ${(props) => props.theme.fontWeight.medium};
-	background-color: ${(props) => props.theme.color.transparent[200]} !important;
-`
+interface BadgeProps {
+	children: any
+	color?: string
+	className?: string
+}
 
-export const PriceBadge = styled(Badge)`
-	font-size: 1em;
-	background: ${(props) => props.theme.color.transparent[100]} !important;
-	color: ${(props) => props.theme.color.text[100]};
-`
+const Badge: React.FC<BadgeProps> = ({ children, className = '', color }) => {
+	return (
+		<Chip
+			className={classNames(
+				'rounded-full bg-pollyGreen px-2 py-1 align-middle font-bakbak text-sm font-normal !normal-case text-pollyWhite',
+				className,
+			)}
+			style={{ backgroundColor: `${color}` }}
+			value={children}
+		/>
+	)
+}
+
+export default Badge

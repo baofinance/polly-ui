@@ -1,45 +1,15 @@
-import React from 'react'
-import { PropsWithChildren } from 'react'
-import styled from 'styled-components'
-import Footer from '../Footer'
+import React, { PropsWithChildren } from 'react'
 
 interface PageProps {
 	children: any
 }
 
 const Page: React.FC<PropsWithChildren<PageProps>> = ({ children }) => (
-	<StyledPageContainer>
-		<StyledPageWrapper>
-			<StyledMain>{children}</StyledMain>
-			<Footer />
-		</StyledPageWrapper>
-	</StyledPageContainer>
+	<>
+		<div className='relative top-0 z-10 m-auto mt-16 flex w-[100vw] justify-between lg:max-w-7xl'>
+			<div className='top-0 w-full'>{children}</div>
+		</div>
+	</>
 )
-
-const StyledPageContainer = styled.div`
-	display: table;
-	position: absolute;
-	top: ${(props) => props.theme.topBarSize}px;
-	left: 0;
-	height: calc(100vh - ${(props) => props.theme.topBarSize}px);
-	width: 100%; ;
-`
-
-const StyledPageWrapper = styled.div`
-	display: table-cell;
-	vertical-align: middle;
-	min-height: calc(100vh - ${(props) => props.theme.topBarSize}px);
-	background-size: cover;
-	background-repeat: no-repeat;
-	top: 0;
-	left: 0;
-`
-
-const StyledMain = styled.div`
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	min-height: calc(100vh - 240px);
-`
 
 export default Page

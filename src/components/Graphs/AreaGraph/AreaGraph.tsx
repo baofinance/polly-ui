@@ -1,3 +1,4 @@
+import { curveMonotoneX } from '@visx/curve'
 import { localPoint } from '@visx/event'
 import { LinearGradient } from '@visx/gradient'
 import appleStock from '@visx/mock-data/lib/mocks/appleStock'
@@ -5,11 +6,11 @@ import { scaleLinear, scaleTime } from '@visx/scale'
 import { AreaClosed, Bar, Line, LinePath } from '@visx/shape'
 import { defaultStyles, TooltipWithBounds, withTooltip } from '@visx/tooltip'
 import { WithTooltipProvidedProps } from '@visx/tooltip/lib/enhancers/withTooltip'
-import { curveMonotoneX } from '@visx/curve'
-import BigNumber from 'bignumber.js'
+import { BigNumber } from 'ethers'
+import { useCallback, useMemo } from 'react'
 import { bisector, extent, max, min } from 'd3-array'
-import React, { useCallback, useMemo } from 'react'
-import { getDisplayBalance } from 'utils/numberFormat'
+
+import { getDisplayBalance } from '@/utils/numberFormat'
 
 export type TimeseriesData = {
 	close: number
@@ -40,9 +41,7 @@ const formatDate = (date: any) => {
 // accessors
 const getDate = (d: TimeseriesData) => new Date(d.date)
 const getValue = (d: TimeseriesData) => d.close
-const bisectDate = bisector<TimeseriesData, Date>(
-	(d: any) => new Date(d.date),
-).left
+const bisectDate = bisector<TimeseriesData, Date>((d: any) => new Date(d.date)).left
 
 export type AreaProps = {
 	width: number
@@ -72,9 +71,7 @@ export default withTooltip<AreaProps, TooltipData>(
 		const innerHeight = height - margin.top - margin.bottom
 
 		const timeSeries = useMemo(() => {
-			return timeseries.slice(
-				timeframe === 'W' ? -7 : timeframe === 'M' ? -31 : -365,
-			)
+			return timeseries.slice(timeframe === 'W' ? -7 : timeframe === 'M' ? -31 : -365)
 		}, [timeseries, timeframe])
 
 		// scales
@@ -90,10 +87,7 @@ export default withTooltip<AreaProps, TooltipData>(
 			() =>
 				scaleLinear({
 					range: [innerHeight + margin.top, 0],
-					domain: [
-						min(timeSeries, getValue) || 0,
-						max(timeSeries, getValue) || 0,
-					],
+					domain: [min(timeSeries, getValue) || 0, max(timeSeries, getValue) || 0],
 					nice: true,
 				}),
 			[margin.top, innerHeight, timeSeries],
@@ -101,11 +95,7 @@ export default withTooltip<AreaProps, TooltipData>(
 
 		// tooltip handler
 		const handleTooltip = useCallback(
-			(
-				event:
-					| React.TouchEvent<SVGRectElement>
-					| React.MouseEvent<SVGRectElement>,
-			) => {
+			(event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>) => {
 				const { x } = localPoint(event) || { x: 0 }
 				const x0 = dateScale.invert(x)
 				const index = bisectDate(timeSeries, x0, 1)
@@ -113,11 +103,7 @@ export default withTooltip<AreaProps, TooltipData>(
 				const d1 = timeSeries[index]
 				let d = d0
 				if (d1 && getDate(d1)) {
-					d =
-						x0.valueOf() - getDate(d0).valueOf() >
-						getDate(d1).valueOf() - x0.valueOf()
-							? d1
-							: d0
+					d = x0.valueOf() - getDate(d0).valueOf() > getDate(d1).valueOf() - x0.valueOf() ? d1 : d0
 				}
 				showTooltip({
 					tooltipData: d,
@@ -125,48 +111,30 @@ export default withTooltip<AreaProps, TooltipData>(
 					tooltipTop: valueScale(getValue(d)),
 				})
 			},
-			[showTooltip, valueScale, dateScale, timeSeries],
+			[dateScale, timeSeries, showTooltip, valueScale],
 		)
 
 		return (
 			<div>
 				<svg width={width} height={height}>
-					<rect
-						x={0}
-						y={0}
-						width={width}
-						height={height}
-						fill={'transparent'}
-						rx={14}
-					/>
-					<LinearGradient
-						id="line-gradient"
-						from={'#3c32f5'}
-						to={'#6332f5'}
-						toOpacity={0.8}
-					/>
-					<LinearGradient
-						id="area-under-curve-gradient"
-						from="#3c32f5"
-						to="#6332f5"
-						fromOpacity={0.1}
-						toOpacity={0.25}
-					/>
+					<rect x={0} y={0} width={width} height={height} fill={'transparent'} rx={14} />
+					<LinearGradient id='line-gradient' from={'#f48d33'} to={'#ce6509'} toOpacity={0.8} />
+					<LinearGradient id='area-under-curve-gradient' from='#f48d33' to='#ce6509' fromOpacity={0.1} toOpacity={0.25} />
 					<LinePath
-						stroke="url(#line-gradient)"
+						stroke='url(#line-gradient)'
 						strokeWidth={2}
 						data={timeSeries}
-						x={(d) => dateScale(getDate(d)) ?? 0}
-						y={(d) => valueScale(getValue(d)) ?? 0}
+						x={d => dateScale(getDate(d)) ?? 0}
+						y={d => valueScale(getValue(d)) ?? 0}
 						curve={curveMonotoneX}
 					/>
 					<AreaClosed<TimeseriesData>
 						data={timeSeries}
-						x={(d) => dateScale(getDate(d)) ?? 0}
-						y={(d) => valueScale(getValue(d)) ?? 0}
+						x={d => dateScale(getDate(d)) ?? 0}
+						y={d => valueScale(getValue(d)) ?? 0}
 						yScale={valueScale}
 						strokeWidth={1}
-						fill="url(#area-under-curve-gradient)"
+						fill='url(#area-under-curve-gradient)'
 						curve={curveMonotoneX}
 					/>
 					<Bar
@@ -174,7 +142,7 @@ export default withTooltip<AreaProps, TooltipData>(
 						y={margin.top}
 						width={innerWidth}
 						height={innerHeight}
-						fill="transparent"
+						fill='transparent'
 						rx={14}
 						onTouchStart={handleTooltip}
 						onTouchMove={handleTooltip}
@@ -188,44 +156,28 @@ export default withTooltip<AreaProps, TooltipData>(
 								to={{ x: tooltipLeft, y: innerHeight + margin.top }}
 								stroke={'transparent'}
 								strokeWidth={2}
-								pointerEvents="none"
-								strokeDasharray="5,2"
+								pointerEvents='none'
+								strokeDasharray='5,2'
 							/>
 							<circle
 								cx={tooltipLeft}
 								cy={tooltipTop + 1}
 								r={4}
-								fill="black"
+								fill='black'
 								fillOpacity={0.1}
-								stroke="black"
+								stroke='black'
 								strokeOpacity={0.1}
 								strokeWidth={2}
-								pointerEvents="none"
+								pointerEvents='none'
 							/>
-							<circle
-								cx={tooltipLeft}
-								cy={tooltipTop}
-								r={4}
-								fill={accentColor}
-								stroke="white"
-								strokeWidth={2}
-								pointerEvents="none"
-							/>
+							<circle cx={tooltipLeft} cy={tooltipTop} r={4} fill={accentColor} stroke='white' strokeWidth={2} pointerEvents='none' />
 						</g>
 					)}
 				</svg>
 				{tooltipData && (
 					<div>
-						<TooltipWithBounds
-							key={Math.random()}
-							top={tooltipTop - 12}
-							left={tooltipLeft + 12}
-							style={tooltipStyles}
-						>
-							{`$${getDisplayBalance(
-								new BigNumber(getValue(tooltipData)),
-								0,
-							)} ${formatDate(getDate(tooltipData))}`}
+						<TooltipWithBounds key={Math.random()} top={tooltipTop - 12} left={tooltipLeft + 12} style={tooltipStyles}>
+							{`$${getDisplayBalance(BigNumber.from(getValue(tooltipData)), 0)} ${formatDate(getDate(tooltipData))}`}
 						</TooltipWithBounds>
 					</div>
 				)}

@@ -1,84 +1,102 @@
+import { faDiscord, faGithub, faMedium, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faBolt, faBook, faBug, faComments } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import styled from 'styled-components'
 import Tooltipped from '../../Tooltipped'
 
 const Nav: React.FC = () => {
 	return (
-		<StyledNav>
-			<Tooltipped content="Discord" placement="top">
-				<StyledLink target="_blank" href="https://discord.gg/BW3P62vJXT">
-					<FontAwesomeIcon icon={['fab', 'discord']} />
-				</StyledLink>
-			</Tooltipped>
-			<Tooltipped content="Twitter" placement="top">
-				<StyledLink target="_blank" href="https://twitter.com/BaoCommunity">
-					<FontAwesomeIcon icon={['fab', 'twitter']} />
-				</StyledLink>
-			</Tooltipped>
-			<Tooltipped content="Medium" placement="top">
-				<StyledLink target="_blank" href="https://medium.com/baomunity">
-					<FontAwesomeIcon icon={['fab', 'medium']} />
-				</StyledLink>
-			</Tooltipped>
-			<Tooltipped content="Governance Forum" placement="top">
-				<StyledLink target="_blank" href="https://gov.bao.finance/">
-					<FontAwesomeIcon icon="comments" />
-				</StyledLink>
-			</Tooltipped>
-			<Tooltipped content="Snapshot" placement="top">
-				<StyledLink
-					target="_blank"
-					href="https://snapshot.page/#/pollyfinance.eth"
+		<div className='flex items-center text-sm lg:text-lg'>
+			<Tooltipped content='Discord' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://discord.gg/BW3P62vJXT'
+					aria-label='Discord'
+					rel='noreferrer'
 				>
-					<FontAwesomeIcon icon="bolt" />
-				</StyledLink>
+					<FontAwesomeIcon icon={faDiscord} />
+				</a>
 			</Tooltipped>
-			<Tooltipped content="Documentation" placement="top">
-				<StyledLink
-					target="_blank"
-					href="https://docs.bao.finance/franchises/polly-finance"
+			<Tooltipped content='Twitter' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://twitter.com/BaoCommunity'
+					aria-label='Twitter'
+					rel='noreferrer'
 				>
-					<FontAwesomeIcon icon="book" />
-				</StyledLink>
+					<FontAwesomeIcon icon={faTwitter} />
+				</a>
 			</Tooltipped>
-			<Tooltipped content="GitHub" placement="top">
-				<StyledLink target="_blank" href="https://github.com/baofinance">
-					<FontAwesomeIcon icon={['fab', 'github']} />
-				</StyledLink>
-			</Tooltipped>
-			<Tooltipped content="Bug Bounty Program" placement="top">
-				<StyledLink
-					target="_blank"
-					href="https://www.immunefi.com/bounty/baofinance"
+			<Tooltipped content='Medium' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://medium.com/baomunity'
+					aria-label='Medium'
+					rel='noreferrer'
 				>
-					<FontAwesomeIcon icon="bug" />
-				</StyledLink>
+					<FontAwesomeIcon icon={faMedium} />
+				</a>
 			</Tooltipped>
-		</StyledNav>
+			<Tooltipped content='Governance Forum' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://gov.bao.finance/'
+					aria-label='Governance Forum'
+					rel='noreferrer'
+				>
+					<FontAwesomeIcon icon={faComments} />
+				</a>
+			</Tooltipped>
+			<Tooltipped content='Snapshot' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://snapshot.page/#/pollyfinance.eth'
+					aria-label='Snapshot'
+					rel='noreferrer'
+				>
+					<FontAwesomeIcon icon={faBolt} />
+				</a>
+			</Tooltipped>
+			<Tooltipped content='Documentation' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://info.bao.finance/docs/franchises/polly'
+					aria-label='Documentation'
+					rel='noreferrer'
+				>
+					<FontAwesomeIcon icon={faBook} />
+				</a>
+			</Tooltipped>
+			<Tooltipped content='GitHub' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://github.com/baofinance'
+					aria-label='GitHub'
+					rel='noreferrer'
+				>
+					<FontAwesomeIcon icon={faGithub} />
+				</a>
+			</Tooltipped>
+			<Tooltipped content='Bug Bounty Program' placement='top'>
+				<a
+					className='xs:pl-2 xs:pr-2 pl-3 pr-3 no-underline hover:text-pollyGreen'
+					target='_blank'
+					href='https://www.immunefi.com/bounty/baofinance'
+					aria-label='Bug Bounty Program'
+					rel='noreferrer'
+				>
+					<FontAwesomeIcon icon={faBug} />
+				</a>
+			</Tooltipped>
+		</div>
 	)
 }
-
-const StyledNav = styled.nav`
-	align-items: center;
-	display: flex;
-	font-size: 1.5rem;
-`
-
-const StyledLink = styled.a`
-	color: ${(props) => props.theme.color.text[100]};
-	padding-left: ${(props) => props.theme.spacing[3]}px;
-	padding-right: ${(props) => props.theme.spacing[3]}px;
-	text-decoration: none;
-
-	&:hover {
-		color: ${(props) => props.theme.color.text[300]};
-	}
-
-	@media (max-width: ${(props) => props.theme.breakpoints.sm}px) {
-		padding-left: ${(props) => props.theme.spacing[2]}px;
-		padding-right: ${(props) => props.theme.spacing[2]}px;
-	}
-`
 
 export default Nav

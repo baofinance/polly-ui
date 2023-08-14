@@ -1,72 +1,32 @@
 import React from 'react'
-import { Spinner } from 'react-bootstrap'
-import styled, { keyframes } from 'styled-components'
+import { isDesktop } from 'react-device-detect'
+import { PropagateLoader, PulseLoader, MoonLoader } from 'react-spinners'
 
 interface LoaderProps {
 	text?: string
+	block?: boolean
 }
 
 const Loader: React.FC<LoaderProps> = ({ text }) => {
 	return (
-		<StyledLoader>
-			<SpinnerLoader />
-			{!!text && <StyledText>{text}</StyledText>}
-		</StyledLoader>
+		<div className='inline items-center justify-center'>
+			<PulseLoader size={6} speedMultiplier={0.8} color={'#1fa6e0'} />
+			{text && <div className='text-pollyWhite'>{text}</div>}
+		</div>
 	)
 }
-
-const StyledLoader = styled.div`
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-`
-
-const StyledText = styled.div`
-	color: ${(props) => props.theme.color.text[200]};
-`
-
-interface SpinnerProps {
-	block?: boolean
-}
-
-export const SpinnerLoader: React.FC<SpinnerProps> = ({ block }) => {
-	let style: any = {
-		color: `${(props: any) => props.theme.color.text[100]}`,
-	}
-	if (block)
-		style = {
-			...style,
-			display: 'block',
-			margin: 'auto',
-		}
-
-	return <Spinner animation="grow" size="sm" style={style} />
-}
-
-export const PageLoader: React.FC<SpinnerProps> = ({ block }) => {
-	let style: any = {
-		color: `${(props: any) => props.theme.color.text[100]}`,
-	}
-	if (block)
-		style = {
-			...style,
-			display: 'block',
-			margin: 'auto',
-		}
-
-	return (
-		<StyledLoadingWrapper>
-			<Spinner animation="grow" size="sm" style={style} />
-		</StyledLoadingWrapper>
-	)
-}
-
-export const StyledLoadingWrapper = styled.div`
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	color: ${(props) => props.theme.color.text[200]};
-`
 
 export default Loader
+
+export const PageLoader: React.FC<LoaderProps> = ({ block, text }) => {
+	return (
+		<div className='mt-16 items-center justify-center text-center'>
+			<PropagateLoader size={12} speedMultiplier={0.8} color={'#1fa6e0'} className={`${block && 'm-auto block'}`} />
+			{text && <div className='text-pollyWhite'>{text}</div>}
+		</div>
+	)
+}
+
+export const PendingTransaction: React.FC<LoaderProps> = ({ text }) => {
+	return <MoonLoader size={16} speedMultiplier={0.8} color={'#1fa6e0'} className='mr-2 mt-1 align-middle' />
+}
