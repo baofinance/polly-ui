@@ -66,9 +66,9 @@ export const FarmList: React.FC = () => {
 
 	useEffect(() => {
 		fetch(
-			'https://api.coingecko.com/api/v3/simple/price?ids=polly&vs_currencies=usd',
+			'https://bao-price-api.herokuapp.com/api/price?ids=polly&vs_currencies=usd',
 		).then(async (res) => {
-			setPollyPrice(new BigNumber((await res.json())['polly'].usd))
+			setPollyPrice(new BigNumber((await res.json())['price'].usd))
 		})
 
 		const _pools: any = {

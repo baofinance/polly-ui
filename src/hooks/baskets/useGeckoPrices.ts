@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import useNests from './useNests'
 import BigNumber from 'bignumber.js'
+import { parseUnits } from 'ethers/lib/utils'
 
 type Prices = {
   [address: string]: BigNumber
@@ -22,15 +23,17 @@ const useGeckoPrices = () => {
     const idsToQuery = Object.keys(allCgIds).join(',')
     const res = await (
       await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${idsToQuery}&vs_currencies=usd`,
+        `https://bao-price-api.herokuapp.com/api/price?id=${idsToQuery}`,
       )
     ).json()
 
     setPrices(
-      Object.keys(res).reduce(
+      Object.keys(res.price).reduce(
         (prev, cur) => ({
           ...prev,
-          [allCgIds[cur].toLowerCase()]: new BigNumber(res[cur].usd),
+          [allCgIds[cur].toLowerCase()]: parseUnits(
+            res.price[cur].usd.toString(),
+          ),
         }),
         {},
       ),

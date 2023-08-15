@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js/bignumber'
+import BigNumber from 'bignumber.js'
 import { Multicall as MC } from 'ethereum-multicall'
 import { useCallback, useEffect, useState } from 'react'
 import { AbiItem } from 'web3-utils'

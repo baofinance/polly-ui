@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWeb3React } from '@web3-react/core'
 import Config from 'bao/lib/config'
 import { BigNumber } from 'bignumber.js'
+import { ethers } from 'ethers'
 import useTokenBalance from 'hooks/base/useTokenBalance'
 import useTransactionProvider from 'hooks/base/useTransactionProvider'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -11,7 +12,6 @@ import { Button } from '../../Button'
 import { SpinnerLoader } from '../../Loader'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
-import { ethers } from 'ethers'
 
 interface AccountButtonProps {}
 
@@ -25,7 +25,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 	const wethBalance = useTokenBalance(Config.addressMap.WETH)
 
 	const ensResolver = new ethers.providers.JsonRpcProvider(
-		'https://rpc.ankr.com/eth',
+		'https://eth.public-rpc.com',
 	)
 	useEffect(() => {
 		if (!account) return

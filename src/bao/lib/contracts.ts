@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js/bignumber'
+import BigNumber from 'bignumber.js'
 import Web3 from 'web3'
 import { provider } from 'web3-core/types'
 import { Contract } from 'web3-eth-contract'
