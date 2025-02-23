@@ -22,6 +22,7 @@ import Farms from './views/Farms'
 import Home from './views/Home'
 import Nests from './views/Nests'
 import Nest from './views/Nests/Nest'
+import Banner from 'components/Banner'
 
 library.add(fas, fab)
 
@@ -45,6 +46,7 @@ const App: React.FC = () => {
 	return (
 		<Providers>
 			<Router>
+				<Banner />
 				<TopBar onPresentMobileMenu={handlePresentMobileMenu} />
 				<MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
 				<Routes>
