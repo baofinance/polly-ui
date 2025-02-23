@@ -26,6 +26,7 @@
     "@web3-react/network-connector": "^6.2.9",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.2.13",
+    "alchemy-sdk": "^3.5.3",
     "assert": "^2.0.0",
     "bignumber.js": "^9.0.1",
     "bootstrap": "^5.0.2",
