@@ -4,7 +4,9 @@ export default {
   networkId: 137,
   defaultRpc: {
     chainId: '0x89',
-    rpcUrls: ['https://polygon-rpc.com'],
+    rpcUrls: [
+      `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`,
+    ],
     blockExplorerUrls: ['https://polygonscan.com'],
     chainName: 'Matic Mainnet',
     nativeCurrency: {
