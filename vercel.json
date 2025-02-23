@@ -1,90 +1,86 @@
 {
-	"git": {
-		"deploymentEnabled": {
-			"master": false
-		}
-	},
-	"headers": [
-		{
-			"source": "/(.*)",
-			"headers": [
-				{
-					"key": "Strict-Transport-Security",
-					"value": "max-age=31536000; includeSubDomains; preload"
-				},
-				{
-					"key": "Content-Security-Policy",
-					"value": "default-src 'self' https://www.youtube.com https://*.walletconnect.com; script-src 'self' 'unsafe-inline' https://www.youtube.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://raw.githubusercontent.com https://*.walletconnect.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; connect-src 'self' https://lockers.stakedao.org/api/ https://data.aura.finance wss://*.walletlink.org https://*.walletlink.org https://*.walletconnect.com wss://*.walletconnect.com https://yields.llama.fi https://bao-dist-api.herokuapp.com https://bao-price-api.herokuapp.com https://cloudflare-eth.com https://api.etherscan.io https://*.infura.io https://eth-mainnet.g.alchemy.com https://*.alchemyapi.io https://hooks.zapier.com;"
-				},
-				{
-					"key": "X-Content-Type-Options",
-					"value": "nosniff"
-				},
-				{
-					"key": "X-Frame-Options",
-					"value": "SAMEORIGIN"
-				},
-				{
-					"key": "X-XSS-Protection",
-					"value": "1; mode=block"
-				},
-				{
-					"key": "Access-Control-Allow-Origin",
-					"value": "*"
-				},
-				{
-					"key": "Access-Control-Allow-Methods",
-					"value": "GET,POST,OPTIONS"
-				},
-				{
-					"key": "Access-Control-Allow-Headers",
-					"value": "*"
-				},
-				{
-					"key": "Vary",
-					"value": "Accept-Encoding"
-				},
-				{
-					"key": "Referrer-Policy",
-					"value": "origin-when-cross-origin"
-				}
-			]
-		},
-		{
-			"source": "/_next/static/(.*)",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=31536000, immutable"
-				}
-			]
-		},
-		{
-			"source": "/(.*).ico",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=31536000, immutable"
-				}
-			]
-		},
-		{
-			"source": "/(.*).(png|jpg|webp|svg|gif)",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=31536000, immutable"
-				}
-			]
-		},
-		{
-			"source": "/(.*).(eot|otf|ttf|ttc|woff|woff2|font|css)",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "public, max-age=31536000, immutable"
-				}
-			]
-		}
-	]
+  "git": {
+    "deploymentEnabled": {
+      "master": false
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "*"
+        },
+        {
+          "key": "Vary",
+          "value": "Accept-Encoding"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).(png|jpg|webp|svg|gif)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).(eot|otf|ttf|ttc|woff|woff2|font|css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
 }
