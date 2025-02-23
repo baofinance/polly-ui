@@ -68,11 +68,10 @@ export const FarmList: React.FC = () => {
 		fetch(
 			'https://bao-price-api.herokuapp.com/api/price?ids=polly&vs_currencies=usd',
 			{
-				mode: 'no-cors', // Add no-cors mode
+				mode: 'no-cors',
 			},
 		)
 			.then(async (res) => {
-				// Note: This might not work as expected due to opaque response
 				setPollyPrice(new BigNumber((await res.json())['price'].usd))
 			})
 			.catch((error) => {

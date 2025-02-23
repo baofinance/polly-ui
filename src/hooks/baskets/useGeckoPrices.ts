@@ -24,6 +24,9 @@ const useGeckoPrices = () => {
     const res = await (
       await fetch(
         `https://bao-price-api.herokuapp.com/api/price?id=${idsToQuery}`,
+        {
+          mode: 'no-cors',
+        },
       )
     ).json()
 
