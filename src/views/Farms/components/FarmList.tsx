@@ -67,9 +67,6 @@ export const FarmList: React.FC = () => {
 	useEffect(() => {
 		fetch(
 			'https://bao-price-api.herokuapp.com/api/price?ids=polly&vs_currencies=usd',
-			{
-				mode: 'no-cors',
-			},
 		)
 			.then(async (res) => {
 				try {
