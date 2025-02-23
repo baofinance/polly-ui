@@ -67,9 +67,17 @@ export const FarmList: React.FC = () => {
 	useEffect(() => {
 		fetch(
 			'https://bao-price-api.herokuapp.com/api/price?ids=polly&vs_currencies=usd',
-		).then(async (res) => {
-			setPollyPrice(new BigNumber((await res.json())['price'].usd))
-		})
+			{
+				mode: 'no-cors', // Add no-cors mode
+			},
+		)
+			.then(async (res) => {
+				// Note: This might not work as expected due to opaque response
+				setPollyPrice(new BigNumber((await res.json())['price'].usd))
+			})
+			.catch((error) => {
+				console.error('Error fetching price:', error)
+			})
 
 		const _pools: any = {
 			[PoolType.ACTIVE]: [],
