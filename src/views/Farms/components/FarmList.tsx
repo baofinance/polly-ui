@@ -72,10 +72,22 @@ export const FarmList: React.FC = () => {
 			},
 		)
 			.then(async (res) => {
-				setPollyPrice(new BigNumber((await res.json())['price'].usd))
+				try {
+					const data = await res.json()
+					if (data && data['price'] && data['price'].usd) {
+						setPollyPrice(new BigNumber(data['price'].usd))
+					} else {
+						console.warn('Invalid price data format')
+						setPollyPrice(new BigNumber(0))
+					}
+				} catch (error) {
+					console.warn('Error parsing price data:', error)
+					setPollyPrice(new BigNumber(0))
+				}
 			})
 			.catch((error) => {
-				console.error('Error fetching price:', error)
+				console.warn('Error fetching price:', error)
+				setPollyPrice(new BigNumber(0))
 			})
 
 		const _pools: any = {
@@ -129,8 +141,8 @@ export const FarmList: React.FC = () => {
 						)
 							.div(decimate(tvlInfo.lpStaked))
 							.times(tvlInfo.tvl),
-						apy:
-							pollyPrice && farmsTVL
+						apy: farmsTVL
+							? pollyPrice && !pollyPrice.eq(0)
 								? pollyPrice
 										.times(BLOCKS_PER_YEAR)
 										.times(
@@ -139,7 +151,8 @@ export const FarmList: React.FC = () => {
 											),
 										)
 										.div(tvlInfo.tvl)
-								: null,
+								: new BigNumber(0)
+							: null,
 					}
 
 					_pools[farmWithStakedValue.poolType].push(farmWithStakedValue)
