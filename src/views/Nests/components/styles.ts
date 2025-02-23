@@ -7,6 +7,7 @@ export const NestWrapper = styled.div`
   flex-direction: column;
   text-align: center;
   width: 100%;
+  margin-top: 100px;
 `
 
 export const NestAnalytics = styled(Collapse)`
